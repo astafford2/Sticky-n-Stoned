@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/doc.png-2b65a509d5f5b48a17ad3d01633b39d4.stex"
+path="res://.import/lizard_f_run_anim_f2.png-8c5b8a0fe165326a1fb42aac6b02a1b4.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/doc.png"
-dest_files=[ "res://.import/doc.png-2b65a509d5f5b48a17ad3d01633b39d4.stex" ]
+source_file="res://assets/characters/lizard_f/lizard_f_run_anim_f2.png"
+dest_files=[ "res://.import/lizard_f_run_anim_f2.png-8c5b8a0fe165326a1fb42aac6b02a1b4.stex" ]
 
 [params]
 
