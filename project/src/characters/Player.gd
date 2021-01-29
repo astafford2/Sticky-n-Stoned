@@ -23,3 +23,5 @@ func _physics_process(delta):
 	elif Input.is_action_pressed("move_left"):
 		player_sprite.flip_h = true
 		velocity.x = -run_speed
+	
+	velocity = move_and_slide(velocity, Vector2.ZERO)
