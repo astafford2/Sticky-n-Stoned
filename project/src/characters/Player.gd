@@ -28,6 +28,7 @@ func _physics_process(delta):
 	else:
 		velocity.x = 0
 	
-	player_sprite.play("run") if velocity != Vector2.ZERO else player_sprite.stop()
+	player_sprite.animation = "run" if velocity != Vector2.ZERO else "idle"
 	
+	player_sprite.play()
 	velocity = move_and_slide(velocity, Vector2.ZERO)
