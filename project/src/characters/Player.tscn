@@ -30,18 +30,18 @@ animations = [ {
 } ]
 
 [sub_resource type="CapsuleShape2D" id=1]
-radius = 8.23483
-height = 1.8049
+radius = 18.405
+height = 8.68834
 
 [node name="Player" type="KinematicBody2D"]
 scale = Vector2( 0.75, 0.75 )
 script = ExtResource( 2 )
 
 [node name="PlayerSprite" type="AnimatedSprite" parent="."]
+scale = Vector2( 1.25, 1.25 )
 frames = SubResource( 11 )
 animation = "hit"
 
 [node name="PlayerShape" type="CollisionShape2D" parent="."]
-visible = false
 position = Vector2( 0.280609, 3.92863 )
 shape = SubResource( 1 )
