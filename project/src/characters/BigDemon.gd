@@ -12,6 +12,7 @@ func _ready():
 
 
 func _physics_process(delta):
+	velocity = Vector2.ZERO
 	if player:
 		velocity = position.direction_to(player.position) * RUN_SPEED
 	velocity = move_and_slide(velocity, Vector2.ZERO)
@@ -23,4 +24,3 @@ func _on_DetectRadius_body_entered(body):
 
 func _on_DetectRadius_body_exited(_body):
 	player = null
-	velocity = Vector2.ZERO
