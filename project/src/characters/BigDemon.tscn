@@ -24,7 +24,8 @@ animations = [ {
 } ]
 
 [sub_resource type="CapsuleShape2D" id=2]
-height = 10.4579
+radius = 21.104
+height = 18.8704
 
 [node name="BigDemon" type="KinematicBody2D"]
 script = ExtResource( 9 )
@@ -34,5 +35,5 @@ frames = SubResource( 1 )
 animation = "idle"
 
 [node name="BDShape" type="CollisionShape2D" parent="."]
-position = Vector2( 0.176773, 3.53553 )
+position = Vector2( -0.572372, 6.53214 )
 shape = SubResource( 2 )
