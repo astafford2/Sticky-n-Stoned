@@ -6,12 +6,21 @@ const RUN_SPEED := 50
 var velocity := Vector2()
 var player = null
 
+onready var bd_sprite = $BDSprite
+
 
 func _ready():
 	pass
 
 
-func _physics_process(delta):
+func _process(_delta):
+	bd_sprite.animation = "run" if velocity != Vector2.ZERO else "idle"
+	bd_sprite.play()
+	
+	bd_sprite.flip_h = true if sign(velocity.x) == -1 else false
+
+
+func _physics_process(_delta):
 	velocity = Vector2.ZERO
 	if player:
 		velocity = position.direction_to(player.position) * RUN_SPEED
