@@ -34,7 +34,7 @@ func glue(amount, time):
 		var FX = $"SoundFX/Glue Landing"
 		FX.play()
 		var spatter = GlueSpatter.instance()
-		owner.add_child(spatter)
+		owner.call_deferred("add_child", spatter)
 		spatter.transform = $BDShape.global_transform
 		RUN_SPEED = RUN_SPEED-amount
 		yield(get_tree().create_timer(time), "timeout")
