@@ -40,3 +40,8 @@ func shoot():
 	var b = GlueBullet.instance()
 	owner.add_child(b)
 	b.transform = $Muzzel.global_transform
+
+	if Input.is_action_just_pressed("shoot_glue"):
+		var FX = $"SoundFX/Glue Launch"
+		FX.play()
+		
