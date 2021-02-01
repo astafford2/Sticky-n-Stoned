@@ -1,7 +1,9 @@
 extends KinematicBody2D
 
+export (PackedScene) var GlueSpatter
 
-const RUN_SPEED := 50
+var RUN_SPEED := 50
+var glued = false
 
 var velocity := Vector2()
 var player = null
@@ -26,6 +28,17 @@ func _physics_process(_delta):
 		velocity = position.direction_to(player.position) * RUN_SPEED
 	velocity = move_and_slide(velocity, Vector2.ZERO)
 
+func glue(amount, time):
+	if !glued:
+		glued = true
+		var spatter = GlueSpatter.instance()
+		owner.add_child(spatter)
+		spatter.transform = $BDShape.global_transform
+		RUN_SPEED = RUN_SPEED-amount
+		yield(get_tree().create_timer(time), "timeout")
+		spatter.queue_free()
+		RUN_SPEED = RUN_SPEED+amount
+		glued=false
 
 func _on_DetectRadius_body_entered(body):
 	player = body
