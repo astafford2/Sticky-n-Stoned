@@ -342,7 +342,9 @@ position = Vector2( 303.987, 360.34 )
 [node name="Glue Launch" type="AudioStreamPlayer" parent="Player/SoundFX"]
 stream = ExtResource( 4 )
 
-[node name="BigDemon" parent="." instance=ExtResource( 3 )]
+[node name="BigDemon" parent="." groups=[
+"enemies",
+] instance=ExtResource( 3 )]
 position = Vector2( 678.614, 233.348 )
 
 [node name="SoundFX" type="Node" parent="BigDemon"]

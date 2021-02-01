@@ -5,12 +5,18 @@ export (PackedScene) var GlueBullet
 const run_speed := 100
 
 var velocity := Vector2()
+var health := 6
 
 onready var player_sprite := $PlayerSprite
 
 
 func _ready():
 	pass
+
+
+func _process(_delta):
+	if health <= 0:
+		print("Player dead")
 
 
 func _physics_process(_delta):
@@ -36,6 +42,11 @@ func _physics_process(_delta):
 	player_sprite.play()
 	velocity = move_and_slide(velocity, Vector2.ZERO)
 
+
+func player_hit():
+	player_sprite.play("hit")
+	health -= 1
+
 func shoot():
 	var b = GlueBullet.instance()
 	owner.add_child(b)
@@ -45,3 +56,8 @@ func shoot():
 		var FX = $"SoundFX/Glue Launch"
 		FX.play()
 		
+
+
+func _on_PlayerArea_body_entered(body):
+	if body.is_in_group("enemies"):
+		print("hit by enemy")
