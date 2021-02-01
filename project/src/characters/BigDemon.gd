@@ -31,6 +31,8 @@ func _physics_process(_delta):
 func glue(amount, time):
 	if !glued:
 		glued = true
+		var FX = $"SoundFX/Glue Landing"
+		FX.play()
 		var spatter = GlueSpatter.instance()
 		owner.add_child(spatter)
 		spatter.transform = $BDShape.global_transform

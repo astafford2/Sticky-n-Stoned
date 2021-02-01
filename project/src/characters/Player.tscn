@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://assets/characters/lizard_f/lizard_f_idle_anim_f2.png" type="Texture" id=1]
 [ext_resource path="res://src/characters/Player.gd" type="Script" id=2]
@@ -11,6 +11,7 @@
 [ext_resource path="res://assets/characters/lizard_f/lizard_f_idle_anim_f0.png" type="Texture" id=9]
 [ext_resource path="res://assets/characters/lizard_f/lizard_f_idle_anim_f1.png" type="Texture" id=10]
 [ext_resource path="res://src/projectiles/GlueBullet.tscn" type="PackedScene" id=11]
+[ext_resource path="res://assets/Audio/Glue Launch.wav" type="AudioStream" id=12]
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
@@ -50,3 +51,7 @@ shape = SubResource( 2 )
 
 [node name="Muzzel" type="Position2D" parent="."]
 position = Vector2( -0.396434, 9.2655 )
+
+[node name="GlueLanch" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 12 )
+volume_db = 0.07
