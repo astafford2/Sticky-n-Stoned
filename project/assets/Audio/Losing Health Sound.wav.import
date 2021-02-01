@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/Losing Health Sound.wav-dd1f60da5e996e339a1da9a3c239186b.sample"
+
+[deps]
+
+source_file="res://assets/Audio/Losing Health Sound.wav"
+dest_files=[ "res://.import/Losing Health Sound.wav-dd1f60da5e996e339a1da9a3c239186b.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0
