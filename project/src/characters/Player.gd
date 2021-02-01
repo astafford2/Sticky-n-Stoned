@@ -60,4 +60,4 @@ func shoot():
 
 func _on_PlayerArea_body_entered(body):
 	if body.is_in_group("enemies"):
-		print("hit by enemy")
+		player_hit()
