@@ -1,13 +1,14 @@
 extends KinematicBody2D
 
 export (PackedScene) var GlueBullet
+export var health := 6
 
 const run_speed := 100
 
 var velocity := Vector2()
-var health := 6
 
 onready var player_sprite := $PlayerSprite
+onready var healthGUI := $HealthLayer/HealthGUI
 
 
 func _ready():
@@ -15,6 +16,7 @@ func _ready():
 
 
 func _process(_delta):
+	healthGUI.update_health(health)
 	if health <= 0:
 		print("Player dead")
 
