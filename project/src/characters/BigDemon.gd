@@ -1,6 +1,7 @@
 extends KinematicBody2D
 
 export (PackedScene) var GlueSpatter
+export var health : int
 
 var RUN_SPEED := 50
 var glued = false
@@ -41,6 +42,10 @@ func glue(amount, time):
 		spatter.queue_free()
 		RUN_SPEED = RUN_SPEED+amount
 		glued=false
+
+
+func enemy_hit(damage):
+	health -= damage
 
 func _on_DetectRadius_body_entered(body):
 	player = body
