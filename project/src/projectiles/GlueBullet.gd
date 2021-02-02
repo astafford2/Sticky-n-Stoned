@@ -4,7 +4,7 @@ export var speed = 200
 
 # Called when the node enters the scene tree for the first time.
 func _physics_process(delta):
-	position += transform.x *speed * delta
+	position += transform.x * speed * delta
 
 func _on_GlueBullet_body_entered(body):
 	if !body.has_method("shoot"):
