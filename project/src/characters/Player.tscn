@@ -63,7 +63,7 @@ shape = SubResource( 3 )
 [node name="Muzzel" type="Position2D" parent="."]
 position = Vector2( -0.396434, 9.2655 )
 
-[node name="GlueLanch" type="AudioStreamPlayer" parent="."]
+[node name="GlueLaunch" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 12 )
 volume_db = 0.07
 

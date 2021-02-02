@@ -1,9 +1,8 @@
-[gd_scene load_steps=31 format=2]
+[gd_scene load_steps=30 format=2]
 
 [ext_resource path="res://assets/0x72_DungeonTilesetII_v1.3.png" type="Texture" id=1]
 [ext_resource path="res://src/characters/Player.tscn" type="PackedScene" id=2]
 [ext_resource path="res://src/characters/BigDemon.tscn" type="PackedScene" id=3]
-[ext_resource path="res://assets/Audio/Glue Launch.wav" type="AudioStream" id=4]
 [ext_resource path="res://assets/Audio/Glue Landing.wav" type="AudioStream" id=5]
 
 [sub_resource type="TileSet" id=1]
@@ -336,11 +335,6 @@ tile_data = PoolIntArray( 327686, 0, 0, 327687, 0, 0, 327688, 0, 0, 327689, 0, 0
 
 [node name="Player" parent="." instance=ExtResource( 2 )]
 position = Vector2( 303.987, 360.34 )
-
-[node name="SoundFX" type="Node" parent="Player"]
-
-[node name="Glue Launch" type="AudioStreamPlayer" parent="Player/SoundFX"]
-stream = ExtResource( 4 )
 
 [node name="BigDemon" parent="." groups=[
 "enemies",

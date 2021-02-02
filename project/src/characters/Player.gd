@@ -8,7 +8,9 @@ const run_speed := 100
 var velocity := Vector2()
 
 onready var player_sprite := $PlayerSprite
-onready var healthGUI := $HealthLayer/HealthGUI
+onready var health_GUI := $HealthLayer/HealthGUI
+onready var muzzle := $Muzzel
+onready var glue_launch_fx := $GlueLaunch
 
 
 func _ready():
@@ -16,13 +18,13 @@ func _ready():
 
 
 func _process(_delta):
-	healthGUI.update_health(health)
+	health_GUI.update_health(health)
 	if health <= 0:
 		print("Player dead")
 
 
 func _physics_process(_delta):
-	$Muzzel.look_at(get_global_mouse_position())
+	muzzle.look_at(get_global_mouse_position())
 	if Input.is_action_pressed("move_up"):
 		velocity.y = -run_speed
 	elif Input.is_action_pressed("move_down"):
@@ -52,11 +54,8 @@ func player_hit():
 func shoot():
 	var b = GlueBullet.instance()
 	owner.add_child(b)
-	b.transform = $Muzzel.global_transform
-
-	if Input.is_action_just_pressed("shoot_glue"):
-		var FX = $"SoundFX/Glue Launch"
-		FX.play()
+	b.transform = muzzle.global_transform
+	glue_launch_fx.play()
 		
 
 
