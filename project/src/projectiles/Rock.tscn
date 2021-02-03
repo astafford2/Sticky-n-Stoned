@@ -11,7 +11,7 @@ height = 3.94843
 radius = 15.2718
 height = 7.32165
 
-[node name="Node2D" type="Area2D" groups=[
+[node name="Rock" type="Area2D" groups=[
 "interactable",
 ]]
 script = ExtResource( 1 )
