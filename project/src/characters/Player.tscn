@@ -60,7 +60,7 @@ shape = SubResource( 2 )
 position = Vector2( 0.0706227, 4.76858 )
 shape = SubResource( 3 )
 
-[node name="Muzzel" type="Position2D" parent="."]
+[node name="Muzzle" type="Position2D" parent="."]
 position = Vector2( -0.396434, 9.2655 )
 
 [node name="GlueLaunch" type="AudioStreamPlayer" parent="."]

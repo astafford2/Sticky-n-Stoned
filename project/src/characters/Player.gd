@@ -9,7 +9,7 @@ var velocity := Vector2()
 
 onready var player_sprite := $PlayerSprite
 onready var health_GUI := $HealthLayer/HealthGUI
-onready var muzzle := $Muzzel
+onready var muzzle := $Muzzle
 onready var glue_launch_fx := $GlueLaunch
 
 

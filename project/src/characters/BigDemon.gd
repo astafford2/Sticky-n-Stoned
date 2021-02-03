@@ -46,6 +46,7 @@ func glue(amount, time):
 
 func enemy_hit(damage):
 	health -= damage
+	print("damaged")
 
 func _on_DetectRadius_body_entered(body):
 	player = body
