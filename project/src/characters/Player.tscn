@@ -63,6 +63,11 @@ shape = SubResource( 3 )
 [node name="Muzzle" type="Position2D" parent="."]
 position = Vector2( -0.396434, 9.2655 )
 
+[node name="PlayerCam" type="Camera2D" parent="."]
+current = true
+smoothing_enabled = true
+editor_draw_drag_margin = true
+
 [node name="GlueLaunch" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 12 )
 volume_db = 0.07
