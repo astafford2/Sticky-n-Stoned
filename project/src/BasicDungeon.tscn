@@ -429,31 +429,45 @@ tile_data = PoolIntArray( -1245167, 0, 0, -1245166, 0, 0, -1245165, 0, 0, -12451
 position = Vector2( 623.945, 253.951 )
 scale = Vector2( 0.75, 0.75 )
 
-[node name="BigDemon2" parent="." instance=ExtResource( 3 )]
+[node name="BigDemon2" parent="." groups=[
+"enemies",
+] instance=ExtResource( 3 )]
 position = Vector2( 361.585, 80.7259 )
 scale = Vector2( 0.75, 0.75 )
 
-[node name="BigDemon3" parent="." instance=ExtResource( 3 )]
+[node name="BigDemon3" parent="." groups=[
+"enemies",
+] instance=ExtResource( 3 )]
 position = Vector2( -205.179, 132.861 )
 scale = Vector2( 0.75, 0.75 )
 
-[node name="BigDemon4" parent="." instance=ExtResource( 3 )]
+[node name="BigDemon4" parent="." groups=[
+"enemies",
+] instance=ExtResource( 3 )]
 position = Vector2( 60.5443, 770.261 )
 scale = Vector2( 0.75, 0.75 )
 
-[node name="BigDemon5" parent="." instance=ExtResource( 3 )]
+[node name="BigDemon5" parent="." groups=[
+"enemies",
+] instance=ExtResource( 3 )]
 position = Vector2( 544.901, 686.171 )
 scale = Vector2( 0.75, 0.75 )
 
-[node name="BigDemon6" parent="." instance=ExtResource( 3 )]
+[node name="BigDemon6" parent="." groups=[
+"enemies",
+] instance=ExtResource( 3 )]
 position = Vector2( 1533.79, 23.5451 )
 scale = Vector2( 0.75, 0.75 )
 
-[node name="BigDemon7" parent="." instance=ExtResource( 3 )]
+[node name="BigDemon7" parent="." groups=[
+"enemies",
+] instance=ExtResource( 3 )]
 position = Vector2( 1353.84, -477.629 )
 scale = Vector2( 0.75, 0.75 )
 
-[node name="BigDemon8" parent="." instance=ExtResource( 3 )]
+[node name="BigDemon8" parent="." groups=[
+"enemies",
+] instance=ExtResource( 3 )]
 position = Vector2( 652.535, -529.765 )
 scale = Vector2( 0.75, 0.75 )
 

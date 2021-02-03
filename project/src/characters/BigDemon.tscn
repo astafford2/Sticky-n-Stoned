@@ -33,6 +33,7 @@ height = 18.8704
 radius = 306.918
 
 [node name="BigDemon" type="KinematicBody2D" groups=[
+"enemies",
 "glueable",
 ]]
 script = ExtResource( 9 )
