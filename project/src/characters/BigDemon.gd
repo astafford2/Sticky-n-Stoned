@@ -19,8 +19,10 @@ func _ready():
 func _process(_delta):
 	bd_sprite.animation = "run" if velocity != Vector2.ZERO else "idle"
 	bd_sprite.play()
-	
 	bd_sprite.flip_h = true if sign(velocity.x) == -1 else false
+	
+	if health <= 0:
+		kill_enemy()
 
 
 func _physics_process(_delta):
@@ -47,6 +49,11 @@ func glue(amount, time):
 func enemy_hit(damage):
 	health -= damage
 	print("damaged")
+
+
+func kill_enemy():
+	call_deferred("queue_free")
+
 
 func _on_DetectRadius_body_entered(body):
 	player = body

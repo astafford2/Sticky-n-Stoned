@@ -20,7 +20,7 @@ func _ready():
 func _process(_delta):
 	health_GUI.update_health(health)
 	if health <= 0:
-		print("Player dead")
+		kill_player()
 
 
 func _physics_process(_delta):
@@ -51,12 +51,16 @@ func player_hit():
 	player_sprite.play("hit")
 	health -= 1
 
+
 func shoot():
 	var b = GlueBullet.instance()
 	owner.add_child(b)
 	b.transform = muzzle.global_transform
 	glue_launch_fx.play()
-		
+
+
+func kill_player():
+	call_deferred("queue_free")
 
 
 func _on_PlayerArea_body_entered(body):
