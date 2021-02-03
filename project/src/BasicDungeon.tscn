@@ -420,6 +420,16 @@ points = PoolVector2Array( 0, 0, 32, 0, 32, 32, 0, 32 )
 
 [node name="Dungeon" type="Node2D"]
 
+[node name="BackgroundColor" type="ColorRect" parent="."]
+margin_left = -419.0
+margin_top = -706.0
+margin_right = 1686.0
+margin_bottom = 1136.0
+color = Color( 0.137255, 0.0823529, 0.0823529, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="Floor" type="TileMap" parent="."]
 tile_set = SubResource( 1 )
 cell_size = Vector2( 32, 32 )
