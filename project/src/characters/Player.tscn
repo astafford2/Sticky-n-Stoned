@@ -65,6 +65,7 @@ position = Vector2( -0.396434, 9.2655 )
 
 [node name="PlayerCam" type="Camera2D" parent="."]
 current = true
+zoom = Vector2( 0.75, 0.75 )
 smoothing_enabled = true
 editor_draw_drag_margin = true
 
