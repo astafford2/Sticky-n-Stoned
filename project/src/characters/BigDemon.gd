@@ -7,7 +7,8 @@ var RUN_SPEED := 50
 var glued = false
 
 var velocity := Vector2()
-var player = null
+var player : KinematicBody2D = null
+var spatter : Area2D = null
 
 onready var bd_sprite = $BDSprite
 
@@ -36,7 +37,7 @@ func glue(amount, time):
 		glued = true
 		var FX = $"SoundFX/Glue Landing"
 		FX.play()
-		var spatter = GlueSpatter.instance()
+		spatter = GlueSpatter.instance()
 		owner.call_deferred("add_child", spatter)
 		spatter.transform = $BDShape.global_transform
 		RUN_SPEED = RUN_SPEED-amount
@@ -53,10 +54,13 @@ func enemy_hit(damage):
 
 func kill_enemy():
 	call_deferred("queue_free")
+	if spatter:
+		spatter.call_deferred("queue_free")
 
 
 func _on_DetectRadius_body_entered(body):
-	player = body
+	if body.has_method("shoot"):
+		player = body
 
 
 func _on_DetectRadius_body_exited(_body):
