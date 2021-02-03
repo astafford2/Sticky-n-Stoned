@@ -11,6 +11,7 @@ onready var player_sprite := $PlayerSprite
 onready var health_GUI := $HealthLayer/HealthGUI
 onready var muzzle := $Muzzle
 onready var glue_launch_fx := $GlueLaunch
+onready var hurt_fx := $HurtSound
 
 
 func _ready():
@@ -49,6 +50,7 @@ func _physics_process(_delta):
 
 func player_hit():
 	player_sprite.play("hit")
+	hurt_fx.play()
 	health -= 1
 
 
