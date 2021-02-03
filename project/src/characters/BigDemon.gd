@@ -10,7 +10,8 @@ var velocity := Vector2()
 var player : KinematicBody2D = null
 var spatter : Area2D = null
 
-onready var bd_sprite = $BDSprite
+onready var bd_sprite := $BDSprite
+onready var glue_landing_fx := $GlueLanding
 
 
 func _ready():
@@ -35,8 +36,7 @@ func _physics_process(_delta):
 func glue(amount, time):
 	if !glued:
 		glued = true
-		var FX = $"SoundFX/Glue Landing"
-		FX.play()
+		glue_landing_fx.play()
 		spatter = GlueSpatter.instance()
 		owner.call_deferred("add_child", spatter)
 		spatter.transform = $BDShape.global_transform
