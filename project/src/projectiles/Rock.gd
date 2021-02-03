@@ -1,13 +1,13 @@
 extends Area2D
 
 var projectile = false
-var interactable = false
-var throwable = false
+var falling = false
+var thrower : KinematicBody2D = null
 export var speed = 200
-var currentbody = null
 
 onready var interactionBox := $InteractionBox
 onready var hurtBox := $Hurtbox
+onready var sprite := $Sprite
 
 
 # Called when the node enters the scene tree for the first time.
@@ -16,46 +16,42 @@ func _ready():
 
 
 func _physics_process(delta):
-	if interactable and Input.is_action_just_pressed("interact"):
-		Interact(currentbody)
-	elif projectile:
+	if projectile:
 		position += transform.x * speed * delta
-	elif throwable and Input.is_action_just_pressed("use_weapon"):
-		Thrown()
-	if !interactable and !projectile and throwable:
-		self.rotation = self.get_parent().get_node("Muzzle").global_rotation
+		sprite.rotation += 50 * delta
+	elif falling:
+		position -= transform.x * speed * delta / 2
+		sprite.rotation -= 20 * delta
 
 func Interact(body):
+	thrower = body
 	self.get_parent().remove_child(self)
 	body.add_child(self)
 	position =  Vector2(0, 20)
-	interactable = false
-	throwable = true
 	interactionBox.set_deferred("disabled", true)
 
-func Thrown():
+func Use():
+	remove_from_group("interactable")
 	projectile = true
-	throwable = false
 	var player = self.get_parent()
 	player.remove_child(self)
 	player.get_parent().add_child(self)
 	position = player.get_position()
 	hurtBox.set_deferred("disabled", false)
+	return true #tells the player that the object is no longer in their inventory
 
 func HitsAndFalls():
+	add_to_group("interactable")
 	projectile = false
-	interactable = true
+	falling = true
+	thrower = null
 	hurtBox.set_deferred("disabled", true)
+	yield(get_tree().create_timer(0.5), "timeout")
 	interactionBox.set_deferred("disabled", false)
+	falling = false
 
 func _on_body_entered(body):
 	if projectile and !body.has_method("shoot"):
 		if body.is_in_group("enemies"):
-			body.enemy_hit(1)
+			body.enemy_hit(1, thrower)
 		HitsAndFalls()
-	elif !projectile and body.has_method("shoot"):
-		currentbody = body
-		interactable = true
-
-func _on_body_exit():
-	interactable = false

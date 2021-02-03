@@ -3,7 +3,7 @@ extends KinematicBody2D
 export (PackedScene) var GlueSpatter
 export var health : int
 
-var RUN_SPEED := 50
+var RUN_SPEED := 110
 var glued = false
 
 var velocity := Vector2()
@@ -38,8 +38,8 @@ func glue(amount, time):
 		glued = true
 		glue_landing_fx.play()
 		spatter = GlueSpatter.instance()
-		owner.call_deferred("add_child", spatter)
-		spatter.transform = $BDShape.global_transform
+		self.call_deferred("add_child", spatter)
+		spatter.position += Vector2(0, 20)
 		RUN_SPEED = RUN_SPEED-amount
 		yield(get_tree().create_timer(time), "timeout")
 		spatter.queue_free()
@@ -47,8 +47,9 @@ func glue(amount, time):
 		glued=false
 
 
-func enemy_hit(damage):
+func enemy_hit(damage, thrower):
 	health -= damage
+	player = thrower
 	print("damaged")
 
 

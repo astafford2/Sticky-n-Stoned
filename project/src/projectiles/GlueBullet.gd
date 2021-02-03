@@ -10,7 +10,7 @@ func _on_GlueBullet_body_entered(body):
 	if !body.has_method("shoot"):
 		queue_free()
 	if body.is_in_group("glueable"):
-		body.glue(45, 5)
+		body.glue(70, 5)
 		queue_free()
 
 
