@@ -1,6 +1,6 @@
 extends Area2D
 
-export var speed = 200
+export var speed = 350
 
 # Called when the node enters the scene tree for the first time.
 func _physics_process(delta):
