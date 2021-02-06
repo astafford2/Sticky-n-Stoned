@@ -104,6 +104,10 @@ func kill_player():
 func pitfalled(center):
 	position = center
 	animation_player.play("pitfalled")
+	yield(animation_player, "animation_finished")
+	scale = Vector2(0.75, 0.75)
+	rotation_degrees = 0
+	position.y += 20
 	player_hit()
 
 
