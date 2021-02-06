@@ -3,7 +3,7 @@ extends KinematicBody2D
 export (PackedScene) var GlueBullet
 export var health := 6
 
-const run_speed := 100
+var run_speed := 100
 var velocity := Vector2()
 var interactablesInRange = []
 var inventory = null
@@ -13,6 +13,8 @@ onready var health_GUI := $HealthLayer/HealthGUI
 onready var muzzle := $Muzzle
 onready var glue_launch_fx := $GlueLaunch
 onready var hurt_fx := $HurtSound
+
+onready var animation_player := $AnimationPlayer
 
 var canShoot = true
 
@@ -99,18 +101,41 @@ func kill_player():
 	call_deferred("queue_free")
 
 
+func pitfalled(center):
+	position = center
+	animation_player.play("pitfalled")
+	player_hit()
+
+
+func freeze_player():
+	run_speed = 0
+
+
+func unfreeze_player():
+	run_speed = 100
+
+
 func _on_PlayerArea_body_entered(body):
 	if body.is_in_group("enemies"):
 		player_hit()
 
+
 func _on_PlayerArea_body_exited(_body):
 	pass
+
 
 func _on_PlayerArea_area_entered(area):
 	if area.is_in_group("interactable"):
 		interactablesInRange.append(area)
 
+
 func _on_PlayerArea_area_exited(area):
 	if area.is_in_group("interactable"):
 		interactablesInRange.erase(area)
-	
+
+
+func _on_AnimationPlayer_animation_finished(anim_name):
+	if anim_name == "pitfalled":
+		scale = Vector2(0.75, 0.75)
+		rotation_degrees = 0
+		position.y += 20

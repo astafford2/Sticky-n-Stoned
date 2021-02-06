@@ -1,11 +1,13 @@
 extends Area2D
 
 
-func _ready():
-	pass
+var delta2
+
+
+func _process(delta):
+	delta2 = delta
 
 
 func _on_Pitfall_body_entered(body):
 	if body.has_method("shoot"):
-		body.player_hit()
-		body.rotation += 50
+		body.pitfalled(position+Vector2(16, 16))
