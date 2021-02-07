@@ -7,6 +7,7 @@ var run_speed := 100
 var velocity := Vector2()
 var interactablesInRange = []
 var inventory = null
+var last_door : Node2D = null
 
 onready var player_sprite := $PlayerSprite
 onready var health_GUI := $HealthLayer/HealthGUI
@@ -109,6 +110,11 @@ func pitfalled(center):
 	rotation_degrees = 0
 	position.y += 20
 	player_hit()
+
+
+func set_door(door):
+	last_door = door
+	print(last_door)
 
 
 func freeze_player():
