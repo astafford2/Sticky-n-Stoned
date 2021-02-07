@@ -10,20 +10,31 @@ onready var open_shape_1 := $OpenShape
 onready var open_shape_2 := $OpenShape2
 
 
+func _ready():
+	closed_shape.set_deferred("disabled", true)
+
+
 func open():
 	door_sprite.texture = open_texture
-	open_shape_1.disabled = false
-	open_shape_2.disabled = false
-	closed_shape.disabled = true
+	open_shape_1.set_deferred("disabled", false)
+	open_shape_2.set_deferred("disabled", false)
+	closed_shape.set_deferred("disabled", true)
 
 
 func close():
 	door_sprite.texture = closed_texture
-	closed_shape.disabled = false
-	open_shape_1.disabled = true
-	open_shape_2.disabled = true
+	closed_shape.set_deferred("disabled", false)
+	open_shape_1.set_deferred("disabled", true)
+	open_shape_2.set_deferred("disabled", true)
 
 
 func _on_DoorArea_body_entered(body):
 	if body.has_method("shoot"):
 		body.set_door(get_parent())
+		z_index = -1
+
+
+func _on_DoorArea_body_exited(body):
+	if body.has_method("shoot"):
+		close()
+		z_index = 0

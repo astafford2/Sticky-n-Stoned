@@ -114,7 +114,6 @@ func pitfalled(center):
 
 func set_door(door):
 	last_door = door
-	print(last_door)
 
 
 func freeze_player():
