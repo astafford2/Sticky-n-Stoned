@@ -9,4 +9,4 @@ func _ready():
 
 
 func _on_Play_pressed():
-	get_tree().change_scene(dungeon_scene)
+	var _ignored = get_tree().change_scene(dungeon_scene)
