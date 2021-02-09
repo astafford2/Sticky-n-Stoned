@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=2]
+[gd_scene load_steps=27 format=2]
 
 [ext_resource path="res://assets/0x72_DungeonTilesetII_v1.3.png" type="Texture" id=1]
 [ext_resource path="res://assets/fonts/Sticky Bits.ttf" type="DynamicFontData" id=2]
@@ -168,13 +168,13 @@ tracks/5/keys = {
 } ]
 }
 tracks/6/type = "method"
-tracks/6/path = NodePath("AnimationPlayer")
+tracks/6/path = NodePath("AnimationPlayer2")
 tracks/6/interp = 1
 tracks/6/loop_wrap = true
 tracks/6/imported = false
 tracks/6/enabled = true
 tracks/6/keys = {
-"times": PoolRealArray( 1.6 ),
+"times": PoolRealArray( 1.5 ),
 "transitions": PoolRealArray( 1 ),
 "values": [ {
 "args": [ "enemy-ish_loop" ],
@@ -209,6 +209,23 @@ tracks/1/keys = {
 "transitions": PoolRealArray( 1, 1 ),
 "update": 1,
 "values": [ false, true ]
+}
+
+[sub_resource type="Animation" id=13]
+resource_name = "enemy-ish_loop"
+length = 3.0
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Enemy-ish:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1.5, 3 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 964.843, 514.939 ), Vector2( 964.843, 415.939 ), Vector2( 964.843, 514.939 ) ]
 }
 
 [node name="TitleScreen" type="Node2D"]
@@ -251,15 +268,15 @@ __meta__ = {
 }
 
 [node name="Player-ish" type="AnimatedSprite" parent="."]
-position = Vector2( 68.5992, 280.633 )
+position = Vector2( 126.199, 280.633 )
 frames = SubResource( 9 )
-frame = 3
 playing = true
+flip_h = true
 
 [node name="Enemy-ish" type="AnimatedSprite" parent="."]
 position = Vector2( 964.843, 514.939 )
 frames = SubResource( 11 )
-frame = 2
+frame = 3
 playing = true
 flip_h = true
 
@@ -271,4 +288,7 @@ autoplay = "intro"
 anims/enemy-ish_loop = SubResource( 12 )
 anims/intro = SubResource( 8 )
 anims/player-ish_loop = SubResource( 10 )
+
+[node name="AnimationPlayer2" type="AnimationPlayer" parent="."]
+anims/enemy-ish_loop = SubResource( 13 )
 [connection signal="pressed" from="Play" to="." method="_on_Play_pressed"]
