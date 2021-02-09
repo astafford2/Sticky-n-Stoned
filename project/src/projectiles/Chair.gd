@@ -1,24 +1,26 @@
-extends Area2D
+extends "res://src/projectiles/Projectile.gd"
 
 export (PackedScene) var ChairLeg
 export (PackedScene) var ChairPiece
 
 var rng = RandomNumberGenerator.new()
 
-var projectile = false
-var falling = false
-var thrower : KinematicBody2D = null
 var health : int = 2
-export var speed = 200
 
 onready var interactionBox := $InteractionBox
-onready var hurtBox := $Hurtbox
-onready var sprite := $Sprite
 
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass
+	self.add_to_group("inventoryItem")
+
+func hitActivity(delta):
+	position -= transform.x * speed * delta / 2
+	sprite.rotation -= 10 * delta
+
+func projectileActivity(delta):
+	position += transform.x * speed * delta
+	sprite.rotation += 30 * delta
 
 func _process(_delta):
 	if health <= 0:
@@ -34,14 +36,6 @@ func _process(_delta):
 			piece.rotation = rng.randf_range(0.0, 360.0)
 			piece.HitsAndFalls()
 		queue_free()
-
-func _physics_process(delta):
-	if projectile:
-		position += transform.x * speed * delta
-		sprite.rotation += 30 * delta
-	elif falling:
-		position -= transform.x * speed * delta / 2
-		sprite.rotation -= 10 * delta
 
 func Interact(body):
 	thrower = body
@@ -64,14 +58,14 @@ func HitsAndFalls():
 	health -=1
 	add_to_group("interactable")
 	projectile = false
-	falling = true
+	hit = true
 	thrower = null
 	hurtBox.set_deferred("disabled", true)
 	yield(get_tree().create_timer(0.5), "timeout")
 	interactionBox.set_deferred("disabled", false)
-	falling = false
+	hit = false
 
-func _on_Chair_body_entered(body):
+func _on_body_entered(body):
 	if projectile and !body.has_method("shoot"):
 		if body.is_in_group("enemies"):
 			body.enemy_hit(1, thrower)
