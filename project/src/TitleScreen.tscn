@@ -213,7 +213,7 @@ tracks/1/keys = {
 
 [sub_resource type="Animation" id=13]
 resource_name = "enemy-ish_loop"
-length = 3.0
+length = 3.5
 loop = true
 tracks/0/type = "value"
 tracks/0/path = NodePath("Enemy-ish:position")
@@ -222,7 +222,7 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 1.5, 3 ),
+"times": PoolRealArray( 0, 1.7, 3.5 ),
 "transitions": PoolRealArray( 1, 1, 1 ),
 "update": 0,
 "values": [ Vector2( 964.843, 514.939 ), Vector2( 964.843, 415.939 ), Vector2( 964.843, 514.939 ) ]
@@ -270,6 +270,7 @@ __meta__ = {
 [node name="Player-ish" type="AnimatedSprite" parent="."]
 position = Vector2( 126.199, 280.633 )
 frames = SubResource( 9 )
+frame = 3
 playing = true
 flip_h = true
 
