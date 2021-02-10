@@ -8,6 +8,8 @@ var rng = RandomNumberGenerator.new()
 var health : int = 2
 
 onready var interactionBox := $InteractionBox
+onready var splinters := $Splinters
+onready var nails := $Nails
 
 
 # Called when the node enters the scene tree for the first time.
@@ -24,6 +26,7 @@ func projectileActivity(delta):
 
 func _process(_delta):
 	if health <= 0:
+		break_particles()
 		var leg1 = ChairLeg.instance()
 		var leg2 = ChairLeg.instance()
 		var leg3 = ChairLeg.instance()
@@ -36,6 +39,12 @@ func _process(_delta):
 			piece.rotation = rng.randf_range(0.0, 360.0)
 			piece.HitsAndFalls()
 		queue_free()
+
+func break_particles():
+	splinters.one_shot = true
+	splinters.emitting = true
+	nails.one_shot = true
+	nails.emitting = true
 
 func Interact(body):
 	thrower = body
