@@ -38,7 +38,7 @@ func _process(_delta):
 			rng.randomize()
 			piece.rotation = rng.randf_range(0.0, 360.0)
 			piece.HitsAndFalls()
-		queue_free()
+		call_deferred("queue_free")
 
 func break_particles():
 	splinters.one_shot = true
