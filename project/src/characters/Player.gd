@@ -8,16 +8,14 @@ var velocity := Vector2()
 var interactablesInRange = []
 var inventory = null
 var last_door : Node2D = null
+var canShoot = true
 
 onready var player_sprite := $PlayerSprite
 onready var health_GUI := $HealthLayer/HealthGUI
 onready var muzzle := $Muzzle
 onready var glue_launch_fx := $GlueLaunch
 onready var hurt_fx := $HurtSound
-
 onready var animation_player := $AnimationPlayer
-
-var canShoot = true
 
 func _ready():
 	pass
@@ -27,7 +25,6 @@ func _process(_delta):
 	health_GUI.update_health(health)
 	if health <= 0:
 		kill_player()
-
 
 func _physics_process(_delta):
 	muzzle.look_at(get_global_mouse_position())
@@ -56,12 +53,11 @@ func _physics_process(_delta):
 			inventory = null
 	
 	if Input.is_action_just_pressed("interact"):
-		#Check to make sure there isnt something in the current inventory
-		if inventory == null and !interactablesInRange.empty():
-			#determine who the closest is if any
+		if!interactablesInRange.empty():
 			var closest = null
 			var distance = 90000
 			for obj in interactablesInRange:
+				#determine who the closest is if any
 				var objp = obj.get_position()
 				var selfp = self.get_position()
 				if closest == null:
@@ -70,10 +66,12 @@ func _physics_process(_delta):
 				elif objp.distance_to(selfp) < distance:
 					closest = obj
 					distance = objp.distance_to(selfp)
-			
-			#Interact code
-			inventory = closest #might have to be changed later for non inventory interactables
-			closest.Interact(self)
+			if closest.is_in_group("inventoryItem"): #Check to make sure there isnt something in the current inventory
+				#update Inventory and Interact
+				inventory = closest #might have to be changed later for non inventory interactables
+				closest.Interact(self)
+			else:
+				closest.Interact(self)
 	
 	if inventory != null:
 		inventory.rotation = muzzle.global_rotation
