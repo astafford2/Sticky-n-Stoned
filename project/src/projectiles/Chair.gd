@@ -15,6 +15,9 @@ func _ready():
 	self.add_to_group("inventoryItem")
 
 func hitActivity(delta):
+	health -=1
+	add_to_group("interactable")
+	HitsAndFalls()
 	position -= transform.x * speed * delta / 2
 	sprite.rotation -= 10 * delta
 
@@ -55,18 +58,7 @@ func Use():
 	return true #tells the player that the object is no longer in their inventory
 
 func HitsAndFalls():
-	health -=1
-	add_to_group("interactable")
-	projectile = false
-	hit = true
-	thrower = null
 	hurtBox.set_deferred("disabled", true)
 	yield(get_tree().create_timer(0.5), "timeout")
 	interactionBox.set_deferred("disabled", false)
 	hit = false
-
-func _on_body_entered(body):
-	if projectile and !body.has_method("shoot"):
-		if body.is_in_group("enemies"):
-			body.enemy_hit(1, thrower)
-		HitsAndFalls()

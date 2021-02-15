@@ -1,13 +1,9 @@
-extends KinematicBody2D
+extends "res://src/characters/Mob.gd"
 
 export (PackedScene) var GlueSpatter
-export var health : int
 
-var RUN_SPEED := 110
-var glued = false
-
+var glued := false
 var velocity := Vector2()
-var player : KinematicBody2D = null
 var spatter : Area2D = null
 
 onready var bd_sprite := $BDSprite
@@ -15,7 +11,8 @@ onready var glue_landing_fx := $GlueLanding
 
 
 func _ready():
-	pass
+	RUN_SPEED = 110
+	Health = 6
 
 
 func _process(_delta):
@@ -23,14 +20,14 @@ func _process(_delta):
 	bd_sprite.play()
 	bd_sprite.flip_h = true if sign(velocity.x) == -1 else false
 	
-	if health <= 0:
+	if Health <= 0:
 		kill_enemy()
 
 
 func _physics_process(_delta):
 	velocity = Vector2.ZERO
-	if player:
-		velocity = position.direction_to(player.position) * RUN_SPEED
+	if Target:
+		velocity = position.direction_to(Target.position) * RUN_SPEED
 	velocity = move_and_slide(velocity, Vector2.ZERO)
 
 func glue(amount, time):
@@ -47,10 +44,9 @@ func glue(amount, time):
 		glued=false
 
 
-func enemy_hit(damage, thrower):
-	health -= damage
-	player = thrower
-	print("damaged")
+func damagedActivity(thrower, damage):
+	Health -= damage
+	Target = thrower
 
 
 func kill_enemy():
@@ -61,8 +57,8 @@ func kill_enemy():
 
 func _on_DetectRadius_body_entered(body):
 	if body.has_method("shoot"):
-		player = body
+		Target = body
 
 
 func _on_DetectRadius_body_exited(_body):
-	player = null
+	Target = null

@@ -43,21 +43,21 @@ outline_size = 1
 outline_color = Color( 0.819608, 0.72549, 0.105882, 1 )
 font_data = ExtResource( 2 )
 
-[sub_resource type="StyleBoxTexture" id=4]
+[sub_resource type="StyleBoxTexture" id=3]
 content_margin_right = 30.0
 content_margin_bottom = 21.0
 
-[sub_resource type="StyleBoxEmpty" id=6]
-
-[sub_resource type="StyleBoxEmpty" id=7]
+[sub_resource type="StyleBoxEmpty" id=4]
 
 [sub_resource type="StyleBoxEmpty" id=5]
 
-[sub_resource type="DynamicFont" id=3]
+[sub_resource type="StyleBoxEmpty" id=6]
+
+[sub_resource type="DynamicFont" id=7]
 size = 32
 font_data = ExtResource( 3 )
 
-[sub_resource type="SpriteFrames" id=9]
+[sub_resource type="SpriteFrames" id=8]
 animations = [ {
 "frames": [ ExtResource( 7 ), ExtResource( 8 ), ExtResource( 9 ), ExtResource( 6 ) ],
 "loop": true,
@@ -65,7 +65,7 @@ animations = [ {
 "speed": 5.0
 } ]
 
-[sub_resource type="SpriteFrames" id=11]
+[sub_resource type="SpriteFrames" id=9]
 animations = [ {
 "frames": [ ExtResource( 12 ), ExtResource( 13 ), ExtResource( 10 ), ExtResource( 11 ) ],
 "loop": true,
@@ -73,7 +73,7 @@ animations = [ {
 "speed": 5.0
 } ]
 
-[sub_resource type="Animation" id=12]
+[sub_resource type="Animation" id=10]
 resource_name = "enemy-ish_loop"
 length = 3.0
 loop = true
@@ -90,8 +90,7 @@ tracks/0/keys = {
 "values": [ Vector2( 964.843, 514.939 ), Vector2( 964.843, 415.939 ), Vector2( 964.843, 514.939 ) ]
 }
 
-[sub_resource type="Animation" id=8]
-resource_name = "intro"
+[sub_resource type="Animation" id=11]
 length = 1.5
 tracks/0/type = "value"
 tracks/0/path = NodePath("Title:rect_scale")
@@ -182,8 +181,7 @@ tracks/6/keys = {
 } ]
 }
 
-[sub_resource type="Animation" id=10]
-resource_name = "player-ish_loop"
+[sub_resource type="Animation" id=12]
 length = 3.0
 loop = true
 tracks/0/type = "value"
@@ -256,11 +254,11 @@ margin_left = 437.8
 margin_top = 417.2
 margin_right = 569.8
 margin_bottom = 476.2
-custom_styles/hover = SubResource( 4 )
-custom_styles/pressed = SubResource( 6 )
-custom_styles/focus = SubResource( 7 )
-custom_styles/normal = SubResource( 5 )
-custom_fonts/font = SubResource( 3 )
+custom_styles/hover = SubResource( 3 )
+custom_styles/pressed = SubResource( 4 )
+custom_styles/focus = SubResource( 5 )
+custom_styles/normal = SubResource( 6 )
+custom_fonts/font = SubResource( 7 )
 custom_colors/font_color_hover = Color( 0.819608, 0.72549, 0.105882, 1 )
 text = "Play"
 __meta__ = {
@@ -269,15 +267,14 @@ __meta__ = {
 
 [node name="Player-ish" type="AnimatedSprite" parent="."]
 position = Vector2( 126.199, 280.633 )
-frames = SubResource( 9 )
-frame = 3
+frames = SubResource( 8 )
 playing = true
 flip_h = true
 
 [node name="Enemy-ish" type="AnimatedSprite" parent="."]
 position = Vector2( 964.843, 514.939 )
-frames = SubResource( 11 )
-frame = 2
+frames = SubResource( 9 )
+frame = 3
 playing = true
 flip_h = true
 
@@ -286,9 +283,9 @@ stream = ExtResource( 5 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 autoplay = "intro"
-anims/enemy-ish_loop = SubResource( 12 )
-anims/intro = SubResource( 8 )
-anims/player-ish_loop = SubResource( 10 )
+anims/enemy-ish_loop = SubResource( 10 )
+anims/intro = SubResource( 11 )
+anims/player-ish_loop = SubResource( 12 )
 
 [node name="AnimationPlayer2" type="AnimationPlayer" parent="."]
 anims/enemy-ish_loop = SubResource( 13 )

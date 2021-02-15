@@ -1,9 +1,10 @@
 extends Area2D
 
-var projectile = false
-var hit = false
+var projectile := false
+var hit := false
 var thrower : KinematicBody2D = null
-export var speed = 200
+var damage := 0
+export var speed := 200
 
 onready var hurtBox := $Hurtbox
 onready var sprite := $Sprite
@@ -18,7 +19,8 @@ func _physics_process(delta):
 		self.add_to_group("projectile")
 		projectileActivity(delta)
 	elif hit:
-		self.remove_from_group("projectile")
+		if self.is_in_group("projectile"):
+			self.remove_from_group("projectile")
 		hitActivity(delta)
 
 func projectileActivity(_delta):
@@ -26,3 +28,10 @@ func projectileActivity(_delta):
 
 func hitActivity(_delta):
 	pass
+
+func _on_body_entered(body):
+	if projectile and body != thrower:
+		SignalMaster.attacked(thrower, body, damage)
+		projectile = false
+		hit = true
+		thrower = null
