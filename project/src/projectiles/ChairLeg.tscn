@@ -7,9 +7,7 @@
 radius = 7.25106
 height = 22.4979
 
-[node name="ChairLeg" type="Area2D" groups=[
-"interactable",
-]]
+[node name="ChairLeg" type="Area2D"]
 position = Vector2( 0.655382, 0.214961 )
 script = ExtResource( 1 )
 
@@ -18,7 +16,6 @@ texture = ExtResource( 2 )
 
 [node name="Hurtbox" type="CollisionPolygon2D" parent="."]
 polygon = PoolVector2Array( -10.1065, -1.55267, 9.75972, -1.55267, 7.34215, 1.81091, -10.0013, 2.12625 )
-disabled = true
 
 [node name="InteractionBox" type="CollisionShape2D" parent="."]
 position = Vector2( -0.795273, -0.315693 )

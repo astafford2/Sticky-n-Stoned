@@ -18,7 +18,6 @@ texture = ExtResource( 2 )
 
 [node name="Hurtbox" type="CollisionPolygon2D" parent="."]
 polygon = PoolVector2Array( 10.8217, 15.4237, -10.5683, 15.4237, -9.33088, 10.6508, -10.5683, 6.05457, -10.7451, 0.0441637, -7.73989, -3.31459, -8.09344, -8.26434, -5.44179, -10.3857, -3.67402, -13.2141, 10.9984, -12.507 )
-disabled = true
 
 [node name="InteractionBox" type="CollisionShape2D" parent="."]
 position = Vector2( 0.131706, 0.138206 )

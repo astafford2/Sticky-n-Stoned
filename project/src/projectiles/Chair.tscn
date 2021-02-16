@@ -47,9 +47,7 @@ angle_random = 0.86
 scale = 0.5
 color = Color( 0.647059, 0.639216, 0.623529, 1 )
 
-[node name="Chair" type="Area2D" groups=[
-"interactable",
-]]
+[node name="Chair" type="Area2D"]
 position = Vector2( -26.1434, 13.5442 )
 script = ExtResource( 1 )
 ChairLeg = ExtResource( 4 )
@@ -60,7 +58,6 @@ texture = ExtResource( 2 )
 
 [node name="Hurtbox" type="CollisionPolygon2D" parent="."]
 polygon = PoolVector2Array( -20.9484, -15.2181, 26.7315, -14.5137, 25.9144, 14.457, -20.8783, 15.0884, -15.8974, 8.98503, -1.79642, 9.19549, -2.00688, -9.11467, -16.1078, -9.11467 )
-disabled = true
 
 [node name="InteractionBox" type="CollisionShape2D" parent="."]
 position = Vector2( 6.14212, 0.31498 )

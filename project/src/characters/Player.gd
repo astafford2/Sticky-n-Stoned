@@ -60,17 +60,18 @@ func _physics_process(_delta):
 				#determine who the closest is if any
 				var objp = obj.get_position()
 				var selfp = self.get_position()
-				if closest == null:
+				if closest == null and obj.is_in_group("interactable"):
 					closest = obj
 					distance = objp.distance_to(selfp)
 				elif objp.distance_to(selfp) < distance:
 					closest = obj
 					distance = objp.distance_to(selfp)
-			if closest.is_in_group("inventoryItem"): 
+			if closest != null: 
 				#Check to make sure there isnt something in the current inventory
 				if !inventory:
 					#update Inventory and Interact
 					inventory = closest #might have to be changed later for non inventory interactables
+					interactablesInRange.erase(inventory)
 					closest.Interact(self)
 			else:
 				closest.Interact(self)

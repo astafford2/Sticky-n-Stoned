@@ -8,8 +8,11 @@ onready var interactionBox := $InteractionBox
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	self.add_to_group("inventoryItem")
+	self.add_to_group("interactable")
+	hurtBox.set_deferred("disabled", true)
 
 func hitActivity(delta):
+	add_to_group("interactable")
 	position -= transform.x * speed * delta / 2
 	sprite.rotation -= 10 * delta
 
@@ -25,8 +28,8 @@ func Interact(body):
 	thrower = body
 	self.get_parent().remove_child(self)
 	body.add_child(self)
-	position =  Vector2(0, 20)
 	interactionBox.set_deferred("disabled", true)
+	position =  Vector2(0, 20)
 
 func Use():
 	remove_from_group("interactable")
@@ -38,19 +41,9 @@ func Use():
 	hurtBox.set_deferred("disabled", false)
 	return true #tells the player that the object is no longer in their inventory
 
-func HitsAndFalls():
-	health -=1
-	add_to_group("interactable")
-	projectile = false
-	hit = true
-	thrower = null
+func _on_hit_single_call():
+	health -= 1
 	hurtBox.set_deferred("disabled", true)
 	yield(get_tree().create_timer(0.5), "timeout")
 	interactionBox.set_deferred("disabled", false)
 	hit = false
-
-func _on_body_entered(body):
-	if projectile and !body.has_method("shoot"):
-		if body.is_in_group("enemies"):
-			body.enemy_hit(1, thrower)
-		HitsAndFalls()

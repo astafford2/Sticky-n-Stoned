@@ -29,9 +29,13 @@ func projectileActivity(_delta):
 func hitActivity(_delta):
 	pass
 
+func _on_hit_single_call():
+	pass
+
 func _on_body_entered(body):
 	if projectile and body != thrower:
 		SignalMaster.attacked(thrower, body, damage)
 		projectile = false
 		hit = true
 		thrower = null
+		_on_hit_single_call()
