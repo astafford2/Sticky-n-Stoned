@@ -46,6 +46,7 @@ func break_particles():
 	nails.one_shot = true
 	nails.emitting = true
 
+
 func Interact(body):
 	thrower = body
 	self.get_parent().remove_child(self)
