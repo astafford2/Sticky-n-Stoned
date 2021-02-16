@@ -1,17 +1,53 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://src/projectiles/Chair.gd" type="Script" id=1]
 [ext_resource path="res://assets/projectiles/Chair2.png" type="Texture" id=2]
 [ext_resource path="res://src/projectiles/ChairPiece.tscn" type="PackedScene" id=3]
 [ext_resource path="res://src/projectiles/ChairLeg.tscn" type="PackedScene" id=4]
+[ext_resource path="res://assets/particles/nail.png" type="Texture" id=5]
+[ext_resource path="res://assets/particles/splinter.png" type="Texture" id=6]
 
 [sub_resource type="CapsuleShape2D" id=1]
 radius = 26.0288
 height = 29.7564
 
-[node name="Chair" type="Area2D" groups=[
-"interactable",
-]]
+[sub_resource type="ParticlesMaterial" id=2]
+lifetime_randomness = 0.33
+flag_disable_z = true
+spread = 180.0
+gravity = Vector3( 20, 98, 0 )
+initial_velocity = 80.0
+initial_velocity_random = 0.76
+angular_velocity = 620.69
+angular_velocity_random = 0.92
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+linear_accel = 6.89
+linear_accel_random = 0.25
+radial_accel = 20.69
+radial_accel_random = 0.31
+angle_random = 0.86
+color = Color( 0.647059, 0.639216, 0.623529, 1 )
+
+[sub_resource type="ParticlesMaterial" id=3]
+flag_disable_z = true
+spread = 180.0
+gravity = Vector3( 20, 98, 0 )
+initial_velocity = 240.92
+initial_velocity_random = 0.76
+angular_velocity = 438.62
+angular_velocity_random = 0.92
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+linear_accel = 25.28
+linear_accel_random = 0.24
+radial_accel = 20.65
+radial_accel_random = 0.31
+angle_random = 0.86
+scale = 0.5
+color = Color( 0.647059, 0.639216, 0.623529, 1 )
+
+[node name="Chair" type="Area2D"]
 position = Vector2( -26.1434, 13.5442 )
 script = ExtResource( 1 )
 ChairLeg = ExtResource( 4 )
@@ -22,10 +58,27 @@ texture = ExtResource( 2 )
 
 [node name="Hurtbox" type="CollisionPolygon2D" parent="."]
 polygon = PoolVector2Array( -20.9484, -15.2181, 26.7315, -14.5137, 25.9144, 14.457, -20.8783, 15.0884, -15.8974, 8.98503, -1.79642, 9.19549, -2.00688, -9.11467, -16.1078, -9.11467 )
-disabled = true
 
 [node name="InteractionBox" type="CollisionShape2D" parent="."]
 position = Vector2( 6.14212, 0.31498 )
 rotation = 1.5708
 shape = SubResource( 1 )
+
+[node name="Splinters" type="Particles2D" parent="."]
+emitting = false
+lifetime = 0.75
+one_shot = true
+explosiveness = 1.0
+process_material = SubResource( 2 )
+texture = ExtResource( 6 )
+
+[node name="Nails" type="Particles2D" parent="."]
+emitting = false
+amount = 4
+lifetime = 0.75
+one_shot = true
+explosiveness = 0.82
+randomness = 0.63
+process_material = SubResource( 3 )
+texture = ExtResource( 5 )
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]

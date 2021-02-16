@@ -5,16 +5,21 @@ export (PackedScene) var ChairPiece
 
 var rng = RandomNumberGenerator.new()
 
-var health : int = 2
+var health := 3
 
 onready var interactionBox := $InteractionBox
+onready var splinters := $Splinters
+onready var nails := $Nails
 
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	self.add_to_group("inventoryItem")
+	self.add_to_group("interactable")
+	hurtBox.set_deferred("disabled", true)
 
 func hitActivity(delta):
+	add_to_group("interactable")
 	position -= transform.x * speed * delta / 2
 	sprite.rotation -= 10 * delta
 
@@ -24,7 +29,8 @@ func projectileActivity(delta):
 
 func _process(_delta):
 	if health <= 0:
-		var leg1 = ChairLeg.instance()
+		break_particles()
+		var leg1:Area2D = ChairLeg.instance()
 		var leg2 = ChairLeg.instance()
 		var leg3 = ChairLeg.instance()
 		var back = ChairPiece.instance()
@@ -34,8 +40,15 @@ func _process(_delta):
 			piece.transform = self.global_transform
 			rng.randomize()
 			piece.rotation = rng.randf_range(0.0, 360.0)
-			piece.HitsAndFalls()
-		queue_free()
+			piece.hit = true
+			piece._on_hit_single_call()
+		call_deferred("queue_free")
+
+func break_particles():
+	splinters.one_shot = true
+	splinters.emitting = true
+	nails.one_shot = true
+	nails.emitting = true
 
 func Interact(body):
 	thrower = body
@@ -54,19 +67,9 @@ func Use():
 	hurtBox.set_deferred("disabled", false)
 	return true #tells the player that the object is no longer in their inventory
 
-func HitsAndFalls():
+func _on_hit_single_call():
 	health -=1
-	add_to_group("interactable")
-	projectile = false
-	hit = true
-	thrower = null
 	hurtBox.set_deferred("disabled", true)
 	yield(get_tree().create_timer(0.5), "timeout")
 	interactionBox.set_deferred("disabled", false)
 	hit = false
-
-func _on_body_entered(body):
-	if projectile and !body.has_method("shoot"):
-		if body.is_in_group("enemies"):
-			body.enemy_hit(1, thrower)
-		HitsAndFalls()
