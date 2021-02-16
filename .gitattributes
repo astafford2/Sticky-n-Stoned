@@ -1,0 +1,12 @@
+# Properly detect languages on Github
+*.h linguist-language=cpp
+*.inc linguist-language=cpp
+thirdparty/* linguist-vendored
+
+* text=auto eol=lf
+
+*.icns binary
+*.ico binary
+*.jar binary
+*.png binary
+*.ttf binary

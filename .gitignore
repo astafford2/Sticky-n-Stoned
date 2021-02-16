@@ -1,1 +1,6 @@
+*~
+build
+.directory
 project/.import
+project/logs
+*mmpz.bak
