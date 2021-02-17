@@ -1,5 +1,7 @@
 extends Area2D
 
+class_name Projectile
+
 var projectile := false
 var hit := false
 var thrower : KinematicBody2D = null

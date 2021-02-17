@@ -96,7 +96,7 @@ GlueBullet = ExtResource( 11 )
 [node name="PlayerSprite" type="AnimatedSprite" parent="."]
 scale = Vector2( 1.25, 1.25 )
 frames = SubResource( 1 )
-animation = "hit"
+animation = "idle"
 
 [node name="PlayerShape" type="CollisionShape2D" parent="."]
 position = Vector2( 0.0706227, 4.76858 )
