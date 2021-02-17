@@ -136,6 +136,8 @@ margin_right = 96.0
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/pitfalled = SubResource( 5 )
+
+[node name="DodgeRollTween" type="Tween" parent="."]
 [connection signal="area_entered" from="PlayerArea" to="." method="_on_PlayerArea_area_entered"]
 [connection signal="area_exited" from="PlayerArea" to="." method="_on_PlayerArea_area_exited"]
 [connection signal="body_entered" from="PlayerArea" to="." method="_on_PlayerArea_body_entered"]
