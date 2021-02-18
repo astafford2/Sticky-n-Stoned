@@ -19,7 +19,9 @@ height = 5.62543
 [sub_resource type="CircleShape2D" id=3]
 radius = 275.0
 
-[node name="DemonShaman" type="KinematicBody2D"]
+[node name="DemonShaman" type="KinematicBody2D" groups=[
+"glueable",
+]]
 script = ExtResource( 3 )
 
 [node name="DSSprite" type="AnimatedSprite" parent="."]
