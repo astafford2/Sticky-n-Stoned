@@ -8,6 +8,7 @@ var velocity := Vector2()
 var spatter : Area2D = null
 
 onready var bd_sprite := $DSSprite
+onready var muzzle := $Muzzle
 onready var glue_landing_fx := $GlueLanding
 
 
@@ -25,13 +26,16 @@ func _physics_process(_delta):
 	velocity = Vector2.ZERO
 	if Target:
 		velocity = -(position.direction_to(Target.position) * RUN_SPEED)
+		muzzle.look_at(position.direction_to(Target.position))
+		attack()
 	velocity = move_and_slide(velocity, Vector2.ZERO)
 
 
 func attack():
 	var f = fireball.instance()
 	owner.add_child(f)
-	f.transform = position.direction_to(Target.position)
+	f.transform = muzzle.global_transform
+
 
 func glue(amount, time):
 	if !glued:
