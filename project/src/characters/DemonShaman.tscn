@@ -1,7 +1,8 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://assets/Audio/Glue Landing.wav" type="AudioStream" id=1]
 [ext_resource path="res://assets/characters/DemonShaman.png" type="Texture" id=2]
+[ext_resource path="res://src/characters/DemonShaman.gd" type="Script" id=3]
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
@@ -19,6 +20,7 @@ height = 5.62543
 radius = 275.0
 
 [node name="DemonShaman" type="KinematicBody2D"]
+script = ExtResource( 3 )
 
 [node name="DSSprite" type="AnimatedSprite" parent="."]
 scale = Vector2( 0.25, 0.25 )
