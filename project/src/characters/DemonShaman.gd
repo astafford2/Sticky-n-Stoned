@@ -1,4 +1,4 @@
-extends "res://src/characters/Mob.gd"
+extends Mob
 
 export (PackedScene) var GlueSpatter
 

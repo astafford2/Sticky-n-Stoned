@@ -1,5 +1,7 @@
 extends KinematicBody2D
 
+class_name Mob
+
 export var Health : int
 
 var RUN_SPEED := 0
