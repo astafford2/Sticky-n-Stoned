@@ -1,6 +1,7 @@
 extends Mob
 
 export (PackedScene) var GlueSpatter
+export (PackedScene) var fireball
 
 var glued := false
 var velocity := Vector2()
@@ -25,6 +26,12 @@ func _physics_process(_delta):
 	if Target:
 		velocity = -(position.direction_to(Target.position) * RUN_SPEED)
 	velocity = move_and_slide(velocity, Vector2.ZERO)
+
+
+func attack():
+	var f = fireball.instance()
+	owner.add_child(f)
+	f.transform = position.direction_to(Target.position)
 
 func glue(amount, time):
 	if !glued:
