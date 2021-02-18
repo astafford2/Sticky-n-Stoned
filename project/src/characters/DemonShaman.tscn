@@ -1,0 +1,38 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://assets/Audio/Glue Landing.wav" type="AudioStream" id=1]
+[ext_resource path="res://assets/characters/DemonShaman.png" type="Texture" id=2]
+
+[sub_resource type="SpriteFrames" id=1]
+animations = [ {
+"frames": [ ExtResource( 2 ) ],
+"loop": true,
+"name": "idle",
+"speed": 5.0
+} ]
+
+[sub_resource type="CapsuleShape2D" id=2]
+radius = 18.1833
+height = 5.62543
+
+[sub_resource type="CircleShape2D" id=3]
+radius = 275.0
+
+[node name="DemonShaman" type="KinematicBody2D"]
+
+[node name="DSSprite" type="AnimatedSprite" parent="."]
+scale = Vector2( 0.25, 0.25 )
+frames = SubResource( 1 )
+animation = "idle"
+
+[node name="DSShape" type="CollisionShape2D" parent="."]
+position = Vector2( -3.65967, 1.35898 )
+shape = SubResource( 2 )
+
+[node name="DetectRadius" type="Area2D" parent="."]
+
+[node name="DetectShape" type="CollisionShape2D" parent="DetectRadius"]
+shape = SubResource( 3 )
+
+[node name="GlueLanding" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 1 )
