@@ -26,7 +26,7 @@ func _physics_process(_delta):
 	velocity = Vector2.ZERO
 	if Target:
 		velocity = -(position.direction_to(Target.position) * RUN_SPEED)
-		muzzle.look_at(position.direction_to(Target.position))
+		muzzle.look_at(Target.global_position)
 		attack()
 	velocity = move_and_slide(velocity, Vector2.ZERO)
 
