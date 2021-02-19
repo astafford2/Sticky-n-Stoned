@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/S&S Level 1 Mastered.ogg-579570cfadc41a67e925827c5d03c395.oggstr"
+
+[deps]
+
+source_file="res://assets/Audio/S&S Level 1 Mastered.ogg"
+dest_files=[ "res://.import/S&S Level 1 Mastered.ogg-579570cfadc41a67e925827c5d03c395.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0
