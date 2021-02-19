@@ -33,6 +33,7 @@ func _physics_process(_delta):
 
 func attack():
 	var f = fireball.instance()
+	f.init(self)
 	owner.add_child(f)
 	f.transform = muzzle.global_transform
 

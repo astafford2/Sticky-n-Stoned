@@ -18,7 +18,7 @@ onready var hurt_fx := $HurtSound
 onready var animation_player := $AnimationPlayer
 
 func _ready():
-	pass
+	SignalMaster.connect("attacked", self, "player_hit")
 
 
 func _process(_delta):
@@ -86,10 +86,11 @@ func _physics_process(_delta):
 	velocity = move_and_slide(velocity, Vector2.ZERO)
 
 
-func player_hit():
-	player_sprite.play("hit")
-	hurt_fx.play()
-	health -= 1
+func player_hit(_thrower, target, damage):
+	if target == self:
+		player_sprite.play("hit")
+		hurt_fx.play()
+		health -= damage
 
 
 func shoot():
@@ -110,7 +111,7 @@ func pitfalled(center):
 	scale = Vector2(0.75, 0.75)
 	rotation_degrees = 0
 	position.y += 20
-	player_hit()
+	player_hit(null, self, 1)
 
 
 func set_door(door):
@@ -127,7 +128,7 @@ func unfreeze_player():
 
 func _on_PlayerArea_body_entered(body):
 	if body.is_in_group("enemies"):
-		player_hit()
+		player_hit(null, self, 1)
 
 
 func _on_PlayerArea_body_exited(_body):
