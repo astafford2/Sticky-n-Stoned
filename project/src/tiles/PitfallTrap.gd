@@ -3,8 +3,10 @@ extends "res://src/tiles/Traps.gd"
 onready var sprite := $Sprite
 onready var shape := $PitfallShape
 
+
 func _ready():
 	pass # Replace with function body.
+
 
 func activate(_delta):
 	sprite.texture = preload("res://assets/tiles/hole.png")

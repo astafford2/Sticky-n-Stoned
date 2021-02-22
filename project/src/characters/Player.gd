@@ -8,7 +8,13 @@ var velocity := Vector2()
 var interactablesInRange = []
 var inventory = null
 var last_door : Node2D = null
-var canShoot := true
+var last_ValidTile = null
+var canShoot = true
+var rolling = false
+var Foot1 = null
+var Foot2 = null
+var feetArea = null
+var managedPits = []
 var canRoll := true
 
 onready var player := $"."
@@ -18,9 +24,16 @@ onready var muzzle := $Muzzle
 onready var glue_launch_fx := $GlueLaunch
 onready var hurt_fx := $HurtSound
 onready var animation_player := $AnimationPlayer
+onready var Foot1S := $FallingBox/Foot1
+onready var Foot2S := $FallingBox/Foot2
 onready var dodge_tween := $DodgeRollTween
 
+
 func _ready():
+# warning-ignore:return_value_discarded
+	SignalMaster.connect("overlapped", self, "_on_feet_overlapped")
+# warning-ignore:return_value_discarded
+	SignalMaster.connect("enteredValidTile", self, "UpdateLastTile")
 	SignalMaster.connect("attacked", self, "player_hit")
 
 
@@ -28,6 +41,8 @@ func _process(_delta):
 	health_GUI.update_health(health)
 	if health <= 0:
 		kill_player()
+	if !rolling:
+		UpdateFooting()
 
 func _physics_process(_delta):
 	muzzle.look_at(get_global_mouse_position())
@@ -126,14 +141,22 @@ func kill_player():
 	call_deferred("queue_free")
 
 
-func pitfalled(center):
-	position = center
+func pitfalled():
+	rolling = true
+	Foot1S.set_deferred("disabled", true)
+	Foot2S.set_deferred("disabled", true)
 	animation_player.play("pitfalled")
 	yield(animation_player, "animation_finished")
 	scale = Vector2(0.75, 0.75)
 	rotation_degrees = 0
-	position.y += 20
+	if last_ValidTile:
+		global_position = last_ValidTile.global_position
+	else:
+		global_position = Vector2(0,0)
 	player_hit(null, self, 1)
+	Foot1S.set_deferred("disabled", false)
+	Foot2S.set_deferred("disabled", false)
+	rolling = false
 
 
 func set_door(door):
@@ -146,6 +169,34 @@ func freeze_player():
 
 func unfreeze_player():
 	run_speed = 100
+
+
+func UpdateFooting():
+	Foot1 = Rect2(Foot1S.global_position - Foot1S.shape.extents, Foot1S.shape.extents * 2)
+	Foot2 = Rect2(Foot2S.global_position - Foot2S.shape.extents, Foot2S.shape.extents * 2)
+	feetArea = floor(Foot1.get_area() + Foot2.get_area())
+	var totalArea := 0
+	if managedPits.size() > 0:
+		for pit in managedPits:
+			var overlapArea := 0
+			for foot in [Foot1, Foot2]:
+				overlapArea += foot.clip(pit).get_area()
+			if overlapArea == 0:
+					managedPits.erase(pit)
+			totalArea += overlapArea
+	if ceil(totalArea) >= feetArea:
+		pitfalled()
+
+
+func UpdateLastTile(body, tile):
+	if body==self:
+		last_ValidTile = tile
+
+
+func _on_feet_overlapped(area, rect):
+	if area == self:
+		if !managedPits.has(rect):
+			managedPits.append(rect)
 
 
 func _on_PlayerArea_body_entered(body):
