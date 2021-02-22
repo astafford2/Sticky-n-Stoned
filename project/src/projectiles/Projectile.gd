@@ -14,6 +14,7 @@ onready var sprite := $Sprite
 func _ready():
 	pass
 
+
 func _physics_process(delta):
 	if projectile:
 		self.add_to_group("projectile")
@@ -23,14 +24,18 @@ func _physics_process(delta):
 			self.remove_from_group("projectile")
 		hitActivity(delta)
 
+
 func projectileActivity(_delta):
 	pass
+
 
 func hitActivity(_delta):
 	pass
 
+
 func _on_hit_single_call():
 	pass
+
 
 func _on_body_entered(body):
 	if projectile and body != thrower:

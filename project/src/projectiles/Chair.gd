@@ -17,15 +17,19 @@ func _ready():
 	self.add_to_group("inventoryItem")
 	self.add_to_group("interactable")
 	hurtBox.set_deferred("disabled", true)
+	damage = 1
+
 
 func hitActivity(delta):
 	add_to_group("interactable")
 	position -= transform.x * speed * delta / 2
 	sprite.rotation -= 10 * delta
 
+
 func projectileActivity(delta):
 	position += transform.x * speed * delta
 	sprite.rotation += 30 * delta
+
 
 func _process(_delta):
 	if health <= 0:
@@ -44,11 +48,13 @@ func _process(_delta):
 			piece._on_hit_single_call()
 		call_deferred("queue_free")
 
+
 func break_particles():
 	splinters.one_shot = true
 	splinters.emitting = true
 	nails.one_shot = true
 	nails.emitting = true
+
 
 func Interact(body):
 	thrower = body
@@ -56,6 +62,7 @@ func Interact(body):
 	body.add_child(self)
 	position =  Vector2(0, 20)
 	interactionBox.set_deferred("disabled", true)
+
 
 func Use():
 	remove_from_group("interactable")
@@ -66,6 +73,7 @@ func Use():
 	position = player.get_position()
 	hurtBox.set_deferred("disabled", false)
 	return true #tells the player that the object is no longer in their inventory
+
 
 func _on_hit_single_call():
 	health -=1
