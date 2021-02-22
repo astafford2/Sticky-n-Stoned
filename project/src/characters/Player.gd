@@ -10,7 +10,7 @@ var inventory = null
 var last_door : Node2D = null
 var last_ValidTile = null
 var canShoot = true
-var animating = false
+var rolling = false
 var Foot1 = null
 var Foot2 = null
 var feetArea = null
@@ -37,7 +37,7 @@ func _process(_delta):
 	health_GUI.update_health(health)
 	if health <= 0:
 		kill_player()
-	if !animating:
+	if !rolling:
 		UpdateFooting()
 
 func _physics_process(_delta):
@@ -118,7 +118,7 @@ func kill_player():
 
 
 func pitfalled():
-	animating = true
+	rolling = true
 	Foot1S.set_deferred("disabled", true)
 	Foot2S.set_deferred("disabled", true)
 	animation_player.play("pitfalled")
@@ -132,7 +132,7 @@ func pitfalled():
 	player_hit()
 	Foot1S.set_deferred("disabled", false)
 	Foot2S.set_deferred("disabled", false)
-	animating = false
+	rolling = false
 
 
 func set_door(door):
