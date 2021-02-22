@@ -10,6 +10,7 @@ var inventory = null
 var last_door : Node2D = null
 var canShoot := true
 var canRoll := true
+var rolling := false
 
 onready var player := $"."
 onready var player_sprite := $PlayerSprite
@@ -96,7 +97,9 @@ func _physics_process(_delta):
 	velocity = move_and_slide(velocity, Vector2.ZERO)
 
 
-func player_hit(_thrower, target, damage):
+func player_hit(thrower, target, damage):
+	if thrower.has_method("attack") and rolling:
+		return
 	if target == self:
 		player_sprite.play("hit")
 		hurt_fx.play()
@@ -112,12 +115,14 @@ func shoot():
 
 func dodge_roll():
 	freeze_player()
+	rolling = true
 	dodge_tween.interpolate_property(player, "position",
 		player.position, (player.position + Vector2(sign(velocity.x)*100, sign(velocity.y)*100)), 0.3,
 		Tween.TRANS_LINEAR, Tween.EASE_IN_OUT)
 	dodge_tween.start()
 	yield(dodge_tween, "tween_completed")
 	unfreeze_player()
+	rolling = false
 
 
 func kill_player():
