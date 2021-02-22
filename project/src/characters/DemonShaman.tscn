@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://assets/Audio/Glue Landing.wav" type="AudioStream" id=1]
 [ext_resource path="res://assets/characters/DemonShaman.png" type="Texture" id=2]
@@ -21,6 +21,12 @@ height = 5.62543
 [sub_resource type="CircleShape2D" id=3]
 radius = 275.0
 
+[sub_resource type="CircleShape2D" id=4]
+radius = 217.24
+
+[sub_resource type="CircleShape2D" id=5]
+radius = 117.262
+
 [node name="DemonShaman" type="KinematicBody2D" groups=[
 "glueable",
 ]]
@@ -41,6 +47,16 @@ shape = SubResource( 2 )
 
 [node name="DetectShape" type="CollisionShape2D" parent="DetectRadius"]
 shape = SubResource( 3 )
+
+[node name="FleeEdge" type="Area2D" parent="."]
+
+[node name="EdgeShape" type="CollisionShape2D" parent="FleeEdge"]
+shape = SubResource( 4 )
+
+[node name="FleeRange" type="Area2D" parent="."]
+
+[node name="FleeShape" type="CollisionShape2D" parent="FleeRange"]
+shape = SubResource( 5 )
 
 [node name="GlueLanding" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 1 )
