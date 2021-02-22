@@ -38,7 +38,6 @@ radius = 306.918
 ]]
 script = ExtResource( 9 )
 GlueSpatter = ExtResource( 10 )
-health = 5
 
 [node name="BDSprite" type="AnimatedSprite" parent="."]
 frames = SubResource( 1 )
