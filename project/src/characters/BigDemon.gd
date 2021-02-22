@@ -5,14 +5,21 @@ export (PackedScene) var GlueSpatter
 var glued := false
 var velocity := Vector2()
 var spatter : Area2D = null
+var Foot1 = null
+var Foot2 = null
+var feetArea = null
+var managedPits = []
 
 onready var bd_sprite := $BDSprite
 onready var glue_landing_fx := $GlueLanding
-
+onready var Foot1S := $FallingBox/Foot1
+onready var Foot2S := $FallingBox/Foot2
 
 func _ready():
 	RUN_SPEED = 110
 	Health = 6
+# warning-ignore:return_value_discarded
+	SignalMaster.connect("overlapped", self, "_on_feet_overlapped")
 
 
 func _process(_delta):
@@ -22,6 +29,7 @@ func _process(_delta):
 	
 	if Health <= 0:
 		kill_enemy()
+	UpdateFooting()
 
 
 func _physics_process(_delta):
@@ -49,10 +57,37 @@ func damagedActivity(thrower, damage):
 	Target = thrower
 
 
+func UpdateFooting():
+	Foot1 = Rect2(Foot1S.global_position - Foot1S.shape.extents, Foot1S.shape.extents * 2)
+	Foot2 = Rect2(Foot2S.global_position - Foot2S.shape.extents, Foot2S.shape.extents * 2)
+	feetArea = floor(Foot1.get_area() + Foot2.get_area())
+	var totalArea := 0
+	if managedPits.size() > 0:
+		for pit in managedPits:
+			var overlapArea := 0
+			for foot in [Foot1, Foot2]:
+				overlapArea += foot.clip(pit).get_area()
+			if overlapArea == 0:
+					managedPits.erase(pit)
+			totalArea += overlapArea
+	if ceil(totalArea) >= feetArea:
+		pitfalled()
+
+
+func pitfalled():
+	queue_free()
+
+
 func kill_enemy():
 	call_deferred("queue_free")
 	if spatter:
 		spatter.call_deferred("queue_free")
+
+
+func _on_feet_overlapped(area, rect):
+	if area == self:
+		if !managedPits.has(rect):
+			managedPits.append(rect)
 
 
 func _on_DetectRadius_body_entered(body):

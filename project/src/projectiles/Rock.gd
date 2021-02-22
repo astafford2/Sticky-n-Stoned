@@ -9,13 +9,16 @@ func _ready():
 	self.add_to_group("interactable")
 	hurtBox.set_deferred("disabled", true)
 
+
 func hitActivity(delta):
 	position -= transform.x * speed * delta / 2
 	sprite.rotation -= 20 * delta
 
+
 func projectileActivity(delta):
 	position += transform.x * speed * delta
 	sprite.rotation += 50 * delta
+
 
 func Interact(body):
 	self.remove_from_group("interactable")
@@ -25,6 +28,7 @@ func Interact(body):
 	interactionBox.set_deferred("disabled", true)
 	position =  Vector2(0, 20)
 
+
 func Use():
 	projectile = true
 	var player = self.get_parent()
@@ -33,6 +37,7 @@ func Use():
 	position = player.get_position()
 	hurtBox.set_deferred("disabled", false)
 	return true #tells the player that the object is no longer in their inventory
+
 
 func _on_hit_single_call():
 	hurtBox.set_deferred("disabled", true)
