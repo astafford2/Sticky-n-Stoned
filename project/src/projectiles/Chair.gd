@@ -1,4 +1,4 @@
-extends "res://src/projectiles/Projectile.gd"
+extends Projectile
 
 export (PackedScene) var ChairLeg
 export (PackedScene) var ChairPiece

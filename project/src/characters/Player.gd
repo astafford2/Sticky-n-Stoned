@@ -8,14 +8,17 @@ var velocity := Vector2()
 var interactablesInRange = []
 var inventory = null
 var last_door : Node2D = null
-var canShoot = true
+var canShoot := true
+var canRoll := true
 
+onready var player := $"."
 onready var player_sprite := $PlayerSprite
 onready var health_GUI := $HealthLayer/HealthGUI
 onready var muzzle := $Muzzle
 onready var glue_launch_fx := $GlueLaunch
 onready var hurt_fx := $HurtSound
 onready var animation_player := $AnimationPlayer
+onready var dodge_tween := $DodgeRollTween
 
 func _ready():
 	SignalMaster.connect("attacked", self, "player_hit")
@@ -28,6 +31,13 @@ func _process(_delta):
 
 func _physics_process(_delta):
 	muzzle.look_at(get_global_mouse_position())
+	
+	if Input.is_action_just_pressed("dodge_roll") and canRoll:
+		dodge_roll()
+		canRoll = false
+		yield(get_tree().create_timer(0.5), "timeout")
+		canRoll = true
+	
 	if Input.is_action_pressed("move_up"):
 		velocity.y = -run_speed
 	elif Input.is_action_pressed("move_down"):
@@ -98,6 +108,16 @@ func shoot():
 	owner.add_child(b)
 	b.transform = muzzle.global_transform
 	glue_launch_fx.play()
+
+
+func dodge_roll():
+	freeze_player()
+	dodge_tween.interpolate_property(player, "position",
+		player.position, (player.position + Vector2(sign(velocity.x)*100, sign(velocity.y)*100)), 0.3,
+		Tween.TRANS_LINEAR, Tween.EASE_IN_OUT)
+	dodge_tween.start()
+	yield(dodge_tween, "tween_completed")
+	unfreeze_player()
 
 
 func kill_player():
