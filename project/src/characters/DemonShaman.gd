@@ -6,6 +6,7 @@ export (PackedScene) var fireball
 var glued := false
 var velocity := Vector2()
 var spatter : Area2D = null
+var canShoot := true
 var flee := false
 
 onready var bd_sprite := $DSSprite
@@ -29,7 +30,11 @@ func _physics_process(_delta):
 		if flee:
 			velocity = -(position.direction_to(Target.position) * RUN_SPEED)
 		muzzle.look_at(Target.global_position)
-		attack()
+		if canShoot:
+			attack()
+			canShoot = false
+			yield(get_tree().create_timer(1), "timeout")
+			canShoot = true
 	velocity = move_and_slide(velocity, Vector2.ZERO)
 
 
