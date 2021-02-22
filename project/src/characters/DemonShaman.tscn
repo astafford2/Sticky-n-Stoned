@@ -65,3 +65,5 @@ stream = ExtResource( 1 )
 position = Vector2( 15.7021, -8.24081 )
 [connection signal="body_entered" from="DetectRadius" to="." method="_on_DetectRadius_body_entered"]
 [connection signal="body_exited" from="DetectRadius" to="." method="_on_DetectRadius_body_exited"]
+[connection signal="body_exited" from="FleeEdge" to="." method="_on_FleeEdge_body_exited"]
+[connection signal="body_entered" from="FleeRange" to="." method="_on_FleeRange_body_entered"]

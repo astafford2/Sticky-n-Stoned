@@ -6,6 +6,7 @@ export (PackedScene) var fireball
 var glued := false
 var velocity := Vector2()
 var spatter : Area2D = null
+var flee := false
 
 onready var bd_sprite := $DSSprite
 onready var muzzle := $Muzzle
@@ -25,7 +26,8 @@ func _process(_delta):
 func _physics_process(_delta):
 	velocity = Vector2.ZERO
 	if Target:
-		velocity = -(position.direction_to(Target.position) * RUN_SPEED)
+		if flee:
+			velocity = -(position.direction_to(Target.position) * RUN_SPEED)
 		muzzle.look_at(Target.global_position)
 		attack()
 	velocity = move_and_slide(velocity, Vector2.ZERO)
@@ -71,3 +73,13 @@ func _on_DetectRadius_body_entered(body):
 func _on_DetectRadius_body_exited(body):
 	if body.has_method("shoot"):
 		Target = null
+
+
+func _on_FleeRange_body_entered(body):
+	if body.has_method("shoot"):
+		flee = true
+
+
+func _on_FleeEdge_body_exited(body):
+	if body.has_method("shoot"):
+		flee = false
