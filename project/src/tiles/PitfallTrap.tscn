@@ -3,12 +3,12 @@
 [ext_resource path="res://src/tiles/PitfallTrap.gd" type="Script" id=2]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 16, 16 )
+extents = Vector2( 16.541, 16.185 )
 
 [node name="PitfallTrap" type="Area2D"]
+collision_mask = 2
 script = ExtResource( 2 )
 
 [node name="PitfallShape" type="CollisionShape2D" parent="."]
-position = Vector2( 16, 16 )
+position = Vector2( 16.5, 16 )
 shape = SubResource( 1 )
-[connection signal="body_entered" from="." to="." method="_on_PitfallTrap_body_entered"]
