@@ -8,6 +8,7 @@ func init(Thrower):
 func _ready():
 	speed = 350
 	projectile = true
+	damage = 1
 
 
 func projectileActivity(delta):
