@@ -13,6 +13,7 @@ var attacking := false
 onready var ds_sprite := $DSSprite
 onready var muzzle := $Muzzle
 onready var glue_landing_fx := $GlueLanding
+onready var fireball_shot_fx := $FireballShot
 
 
 func _ready():
@@ -47,6 +48,7 @@ func attack():
 		f.init(self)
 		owner.add_child(f)
 		f.transform = muzzle.global_transform
+		fireball_shot_fx.play()
 		yield(get_tree().create_timer(1.3), "timeout")
 		attacking = false
 
