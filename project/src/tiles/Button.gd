@@ -1,11 +1,13 @@
 extends "res://src/tiles/Activateable.gd"
 
 onready var sprite := $Sprite
+onready var press_fx := $ButtonPress
 
 func _ready():
 	projectileActivateable = true
 	playerActivateable = true
 	toggleable = true
+	sfx = press_fx
 	self.add_to_group("interactable")
 	self.add_to_group("projectileInteractable")
 	

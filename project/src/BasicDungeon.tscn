@@ -458,7 +458,7 @@ scale = Vector2( 0.75, 0.75 )
 position = Vector2( 787.555, -524.739 )
 
 [node name="Player" parent="." instance=ExtResource( 2 )]
-position = Vector2( 1341.49, -347.373 )
+position = Vector2( 329.685, 370.771 )
 
 [node name="Walls" type="TileMap" parent="."]
 tile_set = SubResource( 28 )

@@ -5,6 +5,7 @@ var toggleable = false
 var projectileActivateable = false
 var playerActivateable = false
 var traps := []
+var sfx : AudioStreamPlayer = null
 
 
 func _ready():
@@ -27,6 +28,8 @@ func on_body_entered(body):
 			activated = false
 		else:
 			activated = true
+		if sfx:
+			sfx.play()
 
 
 func Interact(_body):
@@ -34,3 +37,5 @@ func Interact(_body):
 		activated = false
 	else:
 		activated = true
+	if sfx:
+		sfx.play()
