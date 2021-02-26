@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/shamanProjectile.png-57ff82cb6fb72ab829b0bb42e8630d94.stex"
+path="res://.import/shamanProjectile.png-6b6b4c7d6e45d600578e448764880902.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/characters/DemonShaman/shamanProjectile.png"
-dest_files=[ "res://.import/shamanProjectile.png-57ff82cb6fb72ab829b0bb42e8630d94.stex" ]
+source_file="res://assets/projectiles/shamanProjectile.png"
+dest_files=[ "res://.import/shamanProjectile.png-6b6b4c7d6e45d600578e448764880902.stex" ]
 
 [params]
 
