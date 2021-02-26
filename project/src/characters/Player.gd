@@ -23,6 +23,8 @@ onready var health_GUI := $HealthLayer/HealthGUI
 onready var muzzle := $Muzzle
 onready var glue_launch_fx := $GlueLaunch
 onready var hurt_fx := $HurtSound
+onready var dodge_roll_fx := $DodgeRollSfx
+onready var pitfall_fx := $PitfallSfx
 onready var animation_player := $AnimationPlayer
 onready var Foot1S := $FallingBox/Foot1
 onready var Foot2S := $FallingBox/Foot2
@@ -133,6 +135,7 @@ func dodge_roll():
 		player.position, (player.position + Vector2(sign(velocity.x)*100, sign(velocity.y)*100)), 0.3,
 		Tween.TRANS_LINEAR, Tween.EASE_IN_OUT)
 	dodge_tween.start()
+	dodge_roll_fx.play()
 	yield(dodge_tween, "tween_completed")
 	unfreeze_player()
 	set_collision_mask_bit(2, true)
@@ -147,6 +150,7 @@ func pitfalled():
 	Foot1S.set_deferred("disabled", true)
 	Foot2S.set_deferred("disabled", true)
 	animation_player.play("pitfalled")
+	pitfall_fx.play()
 	yield(animation_player, "animation_finished")
 	scale = Vector2(0.75, 0.75)
 	rotation_degrees = 0

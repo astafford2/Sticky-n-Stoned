@@ -10,6 +10,7 @@ var health := 3
 onready var interactionBox := $InteractionBox
 onready var splinters := $Splinters
 onready var nails := $Nails
+onready var break_sfx := $ChairBreak
 
 
 # Called when the node enters the scene tree for the first time.
@@ -34,6 +35,7 @@ func projectileActivity(delta):
 func _process(_delta):
 	if health <= 0:
 		break_particles()
+		break_sfx.play()
 		var leg1:Area2D = ChairLeg.instance()
 		var leg2 = ChairLeg.instance()
 		var leg3 = ChairLeg.instance()

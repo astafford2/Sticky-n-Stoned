@@ -3,6 +3,7 @@ extends Projectile
 var health := 5
 
 onready var interactionBox := $InteractionBox
+onready var break_sfx := $BreakSfx
 
 
 # Called when the node enters the scene tree for the first time.
@@ -26,6 +27,7 @@ func projectileActivity(delta):
 
 func _process(_delta):
 	if health <= 0:
+		break_sfx.play()
 		queue_free()
 
 

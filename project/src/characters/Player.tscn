@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=2]
+[gd_scene load_steps=22 format=2]
 
 [ext_resource path="res://assets/characters/lizard_f/lizard_f_idle_anim_f2.png" type="Texture" id=1]
 [ext_resource path="res://src/characters/Player.gd" type="Script" id=2]
@@ -14,6 +14,8 @@
 [ext_resource path="res://assets/Audio/Glue Launch.wav" type="AudioStream" id=12]
 [ext_resource path="res://src/GUI/HealthGUI.tscn" type="PackedScene" id=13]
 [ext_resource path="res://assets/Audio/Losing Health Sound.wav" type="AudioStream" id=14]
+[ext_resource path="res://assets/Audio/DodgeRoll.wav" type="AudioStream" id=15]
+[ext_resource path="res://assets/Audio/PlayerPitfall.wav" type="AudioStream" id=16]
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
@@ -124,6 +126,12 @@ volume_db = 0.07
 
 [node name="HurtSound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 14 )
+
+[node name="DodgeRollSfx" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 15 )
+
+[node name="PitfallSfx" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 16 )
 
 [node name="HealthLayer" type="CanvasLayer" parent="."]
 
