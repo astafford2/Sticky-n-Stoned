@@ -1,4 +1,4 @@
-[gd_scene load_steps=40 format=2]
+[gd_scene load_steps=41 format=2]
 
 [ext_resource path="res://assets/0x72_DungeonTilesetII_v1.3.png" type="Texture" id=1]
 [ext_resource path="res://src/characters/Player.tscn" type="PackedScene" id=2]
@@ -11,6 +11,7 @@
 [ext_resource path="res://src/tiles/Floor.gd" type="Script" id=9]
 [ext_resource path="res://src/BasicDungeon.gd" type="Script" id=10]
 [ext_resource path="res://src/tiles/Button.tscn" type="PackedScene" id=11]
+[ext_resource path="res://src/characters/DemonShaman.tscn" type="PackedScene" id=12]
 
 [sub_resource type="ConvexPolygonShape2D" id=1]
 points = PoolVector2Array( 0, 0, 32, 0, 32, 32, 0, 32 )
@@ -453,16 +454,11 @@ scale = Vector2( 0.75, 0.75 )
 position = Vector2( 1533.79, 23.5451 )
 scale = Vector2( 0.75, 0.75 )
 
-[node name="BigDemon7" parent="." instance=ExtResource( 3 )]
-position = Vector2( 1353.84, -477.629 )
-scale = Vector2( 0.75, 0.75 )
-
-[node name="BigDemon8" parent="." instance=ExtResource( 3 )]
-position = Vector2( 652.535, -529.765 )
-scale = Vector2( 0.75, 0.75 )
+[node name="DemonShaman" parent="." instance=ExtResource( 12 )]
+position = Vector2( 787.555, -524.739 )
 
 [node name="Player" parent="." instance=ExtResource( 2 )]
-position = Vector2( 336.359, 341.404 )
+position = Vector2( 1341.49, -347.373 )
 
 [node name="Walls" type="TileMap" parent="."]
 tile_set = SubResource( 28 )
