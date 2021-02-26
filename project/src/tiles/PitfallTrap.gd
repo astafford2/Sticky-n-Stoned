@@ -10,7 +10,6 @@ onready var closed := $Closed
 
 func _ready():
 	rect = Rect2(pit.global_position - pit.shape.extents, pit.shape.extents * 2)
-	activated = true
 
 
 func activate(_delta):
