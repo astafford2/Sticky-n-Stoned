@@ -142,6 +142,8 @@ shape = SubResource( 5 )
 [node name="Foot2" type="CollisionShape2D" parent="FallingBox"]
 position = Vector2( -9.657, 34.5145 )
 shape = SubResource( 5 )
+
+[node name="DodgeRollTween" type="Tween" parent="."]
 [connection signal="area_entered" from="PlayerArea" to="." method="_on_PlayerArea_area_entered"]
 [connection signal="area_exited" from="PlayerArea" to="." method="_on_PlayerArea_area_exited"]
 [connection signal="body_entered" from="PlayerArea" to="." method="_on_PlayerArea_body_entered"]

@@ -9,12 +9,24 @@
 config_version=4
 
 _global_script_classes=[ {
+"base": "KinematicBody2D",
+"class": "Mob",
+"language": "GDScript",
+"path": "res://src/characters/Mob.gd"
+}, {
 "base": "Area2D",
+"class": "Projectile",
+"language": "GDScript",
+"path": "res://src/projectiles/Projectile.gd"
+}, {
+"base": "Node2D",
 "class": "Traps",
 "language": "GDScript",
 "path": "res://src/tiles/Traps.gd"
 } ]
 _global_script_class_icons={
+"Mob": "",
+"Projectile": "",
 "Traps": ""
 }
 

@@ -15,7 +15,9 @@ var Foot1 = null
 var Foot2 = null
 var feetArea = null
 var managedPits = []
+var canRoll := true
 
+onready var player := $"."
 onready var player_sprite := $PlayerSprite
 onready var health_GUI := $HealthLayer/HealthGUI
 onready var muzzle := $Muzzle
@@ -24,6 +26,7 @@ onready var hurt_fx := $HurtSound
 onready var animation_player := $AnimationPlayer
 onready var Foot1S := $FallingBox/Foot1
 onready var Foot2S := $FallingBox/Foot2
+onready var dodge_tween := $DodgeRollTween
 
 
 func _ready():
@@ -31,6 +34,7 @@ func _ready():
 	SignalMaster.connect("overlapped", self, "_on_feet_overlapped")
 # warning-ignore:return_value_discarded
 	SignalMaster.connect("enteredValidTile", self, "UpdateLastTile")
+	SignalMaster.connect("attacked", self, "player_hit")
 
 
 func _process(_delta):
@@ -42,6 +46,13 @@ func _process(_delta):
 
 func _physics_process(_delta):
 	muzzle.look_at(get_global_mouse_position())
+	
+	if Input.is_action_just_pressed("dodge_roll") and canRoll:
+		dodge_roll()
+		canRoll = false
+		yield(get_tree().create_timer(0.5), "timeout")
+		canRoll = true
+	
 	if Input.is_action_pressed("move_up"):
 		velocity.y = -run_speed
 	elif Input.is_action_pressed("move_down"):
@@ -100,10 +111,11 @@ func _physics_process(_delta):
 	velocity = move_and_slide(velocity, Vector2.ZERO)
 
 
-func player_hit():
-	player_sprite.play("hit")
-	hurt_fx.play()
-	health -= 1
+func player_hit(thrower, target, damage):
+	if target == self:
+		player_sprite.play("hit")
+		hurt_fx.play()
+		health -= damage
 
 
 func shoot():
@@ -111,6 +123,18 @@ func shoot():
 	owner.add_child(b)
 	b.transform = muzzle.global_transform
 	glue_launch_fx.play()
+
+
+func dodge_roll():
+	freeze_player()
+	set_collision_mask_bit(2, false)
+	dodge_tween.interpolate_property(player, "position",
+		player.position, (player.position + Vector2(sign(velocity.x)*100, sign(velocity.y)*100)), 0.3,
+		Tween.TRANS_LINEAR, Tween.EASE_IN_OUT)
+	dodge_tween.start()
+	yield(dodge_tween, "tween_completed")
+	unfreeze_player()
+	set_collision_mask_bit(2, true)
 
 
 func kill_player():
@@ -129,7 +153,7 @@ func pitfalled():
 		global_position = last_ValidTile.global_position
 	else:
 		global_position = Vector2(0,0)
-	player_hit()
+	player_hit(null, self, 1)
 	Foot1S.set_deferred("disabled", false)
 	Foot2S.set_deferred("disabled", false)
 	rolling = false
@@ -177,7 +201,7 @@ func _on_feet_overlapped(area, rect):
 
 func _on_PlayerArea_body_entered(body):
 	if body.is_in_group("enemies"):
-		player_hit()
+		player_hit(null, self, 1)
 
 
 func _on_PlayerArea_body_exited(_body):
