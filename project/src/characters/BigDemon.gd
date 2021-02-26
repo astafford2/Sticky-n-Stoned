@@ -35,7 +35,7 @@ func _process(_delta):
 func _physics_process(_delta):
 	velocity = Vector2.ZERO
 	if Target:
-		velocity = position.direction_to(Target.position) * RUN_SPEED
+		velocity = global_position.direction_to(Target.global_position) * RUN_SPEED
 	velocity = move_and_slide(velocity, Vector2.ZERO)
 
 func glue(amount, time):
@@ -95,5 +95,6 @@ func _on_DetectRadius_body_entered(body):
 		Target = body
 
 
-func _on_DetectRadius_body_exited(_body):
-	Target = null
+func _on_DetectRadius_body_exited(body):
+	if body.has_method("shoot"):
+		Target = null

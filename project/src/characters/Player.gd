@@ -23,6 +23,8 @@ onready var health_GUI := $HealthLayer/HealthGUI
 onready var muzzle := $Muzzle
 onready var glue_launch_fx := $GlueLaunch
 onready var hurt_fx := $HurtSound
+onready var dodge_roll_fx := $DodgeRollSfx
+onready var pitfall_fx := $PitfallSfx
 onready var animation_player := $AnimationPlayer
 onready var Foot1S := $FallingBox/Foot1
 onready var Foot2S := $FallingBox/Foot2
@@ -46,7 +48,14 @@ func _process(_delta):
 
 func _physics_process(_delta):
 	muzzle.look_at(get_global_mouse_position())
+	controls()
+	player_sprite.animation = "run" if velocity != Vector2.ZERO else "idle"
 	
+	player_sprite.play()
+	velocity = move_and_slide(velocity, Vector2.ZERO)
+
+
+func controls():
 	if Input.is_action_just_pressed("dodge_roll") and canRoll:
 		dodge_roll()
 		canRoll = false
@@ -91,7 +100,7 @@ func _physics_process(_delta):
 				elif objp.distance_to(selfp) < distance:
 					closest = obj
 					distance = objp.distance_to(selfp)
-			if closest != null: 
+			if closest != null and closest.is_in_group("inventoryItem"): 
 				#Check to make sure there isnt something in the current inventory
 				if !inventory:
 					#update Inventory and Interact
@@ -103,12 +112,6 @@ func _physics_process(_delta):
 	
 	if inventory != null:
 		inventory.rotation = muzzle.global_rotation
-	
-	
-	player_sprite.animation = "run" if velocity != Vector2.ZERO else "idle"
-	
-	player_sprite.play()
-	velocity = move_and_slide(velocity, Vector2.ZERO)
 
 
 func player_hit(thrower, target, damage):
@@ -132,6 +135,7 @@ func dodge_roll():
 		player.position, (player.position + Vector2(sign(velocity.x)*100, sign(velocity.y)*100)), 0.3,
 		Tween.TRANS_LINEAR, Tween.EASE_IN_OUT)
 	dodge_tween.start()
+	dodge_roll_fx.play()
 	yield(dodge_tween, "tween_completed")
 	unfreeze_player()
 	set_collision_mask_bit(2, true)
@@ -146,6 +150,7 @@ func pitfalled():
 	Foot1S.set_deferred("disabled", true)
 	Foot2S.set_deferred("disabled", true)
 	animation_player.play("pitfalled")
+	pitfall_fx.play()
 	yield(animation_player, "animation_finished")
 	scale = Vector2(0.75, 0.75)
 	rotation_degrees = 0

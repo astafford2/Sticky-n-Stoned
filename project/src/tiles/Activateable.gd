@@ -4,7 +4,8 @@ var activated = false
 var toggleable = false
 var projectileActivateable = false
 var playerActivateable = false
-var trap : Traps = null
+var traps := []
+var sfx : AudioStreamPlayer = null
 
 
 func _ready():
@@ -12,11 +13,13 @@ func _ready():
 
 
 func _physics_process(delta):
-	if !trap == null: #prevents crash just in case there is no longer a trap
+	if !(traps.size() == 0): #prevents crash just in case there is no longer a trap
 		if activated:
-			trap.activated = true
+			for trap in traps:
+				trap.activated = true
 		else:
-			trap.activated = false
+			for trap in traps:
+				trap.activated = false
 
 
 func on_body_entered(body):
@@ -25,6 +28,8 @@ func on_body_entered(body):
 			activated = false
 		else:
 			activated = true
+		if sfx:
+			sfx.play()
 
 
 func Interact(_body):
@@ -32,3 +37,5 @@ func Interact(_body):
 		activated = false
 	else:
 		activated = true
+	if sfx:
+		sfx.play()

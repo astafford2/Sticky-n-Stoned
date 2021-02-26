@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://src/projectiles/Chair.gd" type="Script" id=1]
 [ext_resource path="res://assets/projectiles/Chair2.png" type="Texture" id=2]
@@ -6,6 +6,7 @@
 [ext_resource path="res://src/projectiles/ChairLeg.tscn" type="PackedScene" id=4]
 [ext_resource path="res://assets/particles/nail.png" type="Texture" id=5]
 [ext_resource path="res://assets/particles/splinter.png" type="Texture" id=6]
+[ext_resource path="res://assets/Audio/ChairBreak.wav" type="AudioStream" id=7]
 
 [sub_resource type="CapsuleShape2D" id=1]
 radius = 26.0288
@@ -81,4 +82,7 @@ explosiveness = 0.82
 randomness = 0.63
 process_material = SubResource( 3 )
 texture = ExtResource( 5 )
+
+[node name="ChairBreak" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 7 )
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]

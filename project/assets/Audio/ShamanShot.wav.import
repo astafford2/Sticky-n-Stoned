@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/ShamanShot.wav-c54a71b1040ce41e2b3bd454f9413bb5.sample"
+
+[deps]
+
+source_file="res://assets/Audio/ShamanShot.wav"
+dest_files=[ "res://.import/ShamanShot.wav-c54a71b1040ce41e2b3bd454f9413bb5.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://src/projectiles/ChairPiece.gd" type="Script" id=1]
 [ext_resource path="res://assets/projectiles/ChairLeg.png" type="Texture" id=2]
+[ext_resource path="res://assets/Audio/ChairLegBreak.wav" type="AudioStream" id=3]
 
 [sub_resource type="CapsuleShape2D" id=1]
 radius = 7.25106
@@ -21,4 +22,7 @@ polygon = PoolVector2Array( -10.1065, -1.55267, 9.75972, -1.55267, 7.34215, 1.81
 position = Vector2( -0.795273, -0.315693 )
 rotation = 1.5708
 shape = SubResource( 1 )
+
+[node name="BreakSfx" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 3 )
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
