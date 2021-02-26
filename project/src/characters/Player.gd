@@ -46,7 +46,14 @@ func _process(_delta):
 
 func _physics_process(_delta):
 	muzzle.look_at(get_global_mouse_position())
+	controls()
+	player_sprite.animation = "run" if velocity != Vector2.ZERO else "idle"
 	
+	player_sprite.play()
+	velocity = move_and_slide(velocity, Vector2.ZERO)
+
+
+func controls():
 	if Input.is_action_just_pressed("dodge_roll") and canRoll:
 		dodge_roll()
 		canRoll = false
@@ -91,7 +98,7 @@ func _physics_process(_delta):
 				elif objp.distance_to(selfp) < distance:
 					closest = obj
 					distance = objp.distance_to(selfp)
-			if closest != null: 
+			if closest != null and closest.is_in_group("inventoryItem"): 
 				#Check to make sure there isnt something in the current inventory
 				if !inventory:
 					#update Inventory and Interact
@@ -103,12 +110,6 @@ func _physics_process(_delta):
 	
 	if inventory != null:
 		inventory.rotation = muzzle.global_rotation
-	
-	
-	player_sprite.animation = "run" if velocity != Vector2.ZERO else "idle"
-	
-	player_sprite.play()
-	velocity = move_and_slide(velocity, Vector2.ZERO)
 
 
 func player_hit(thrower, target, damage):

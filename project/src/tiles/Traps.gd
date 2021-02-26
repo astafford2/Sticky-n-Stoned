@@ -6,7 +6,7 @@ var activated := false
 
 
 func _ready():
-	pass
+	self.add_to_group("trap")
 
 
 func _physics_process(delta):

@@ -4,7 +4,7 @@ var activated = false
 var toggleable = false
 var projectileActivateable = false
 var playerActivateable = false
-var trap : Traps = null
+var traps := []
 
 
 func _ready():
@@ -12,11 +12,13 @@ func _ready():
 
 
 func _physics_process(delta):
-	if !trap == null: #prevents crash just in case there is no longer a trap
+	if !(traps.size() == 0): #prevents crash just in case there is no longer a trap
 		if activated:
-			trap.activated = true
+			for trap in traps:
+				trap.activated = true
 		else:
-			trap.activated = false
+			for trap in traps:
+				trap.activated = false
 
 
 func on_body_entered(body):
