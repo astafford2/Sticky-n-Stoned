@@ -9,6 +9,7 @@ var Foot1 = null
 var Foot2 = null
 var feetArea = null
 var managedPits = []
+var path := PoolVector2Array()
 
 onready var bd_sprite := $BDSprite
 onready var glue_landing_fx := $GlueLanding
@@ -32,11 +33,30 @@ func _process(_delta):
 	UpdateFooting()
 
 
-func _physics_process(_delta):
+func _physics_process(delta):
 	velocity = Vector2.ZERO
 	if Target:
-		velocity = global_position.direction_to(Target.global_position) * RUN_SPEED
-	velocity = move_and_slide(velocity, Vector2.ZERO)
+#		velocity = global_position.direction_to(Target.global_position) * RUN_SPEED
+		pathfind(delta)
+#	velocity = move_and_slide(velocity, Vector2.ZERO)
+
+
+func pathfind(delta):
+	# Calculate movement distance for current frame
+	var distance_to_walk = RUN_SPEED * delta
+	
+	# Move enemy along path until run out of movement or path ends
+	while distance_to_walk > 0 and path.size() > 0:
+		var distance_to_next_point = position.distance_to(path[0])
+		if distance_to_walk <= distance_to_next_point:
+			# Enemy does not have enough movement left to get to next point
+			position += position.direction_to(path[0]) * distance_to_walk
+		else:
+			# enemy gets to next point
+			position = path[0]
+			path.remove(0)
+		# Update distance to walk
+		distance_to_walk -= distance_to_next_point
 
 func glue(amount, time):
 	if !glued:

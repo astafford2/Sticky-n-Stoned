@@ -14,3 +14,4 @@ func _ready():
 func _process(delta):
 	var path = nav.get_simple_path(enemy.position, player.position)
 	path_line.points = path
+	enemy.path = path
