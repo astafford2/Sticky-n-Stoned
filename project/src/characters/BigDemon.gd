@@ -33,24 +33,26 @@ func _process(_delta):
 	UpdateFooting()
 
 
-func _physics_process(delta):
+func _physics_process(_delta):
 	velocity = Vector2.ZERO
 	if Target:
 #		velocity = global_position.direction_to(Target.global_position) * RUN_SPEED
-		pathfind(delta)
+		pathfind()
 #	velocity = move_and_slide(velocity, Vector2.ZERO)
 
 
-func pathfind(delta):
+func pathfind():
 	# Calculate movement distance for current frame
-	var distance_to_walk = RUN_SPEED * delta
+	# Does not multiply delta as move_and_slide does that itself
+	var distance_to_walk = RUN_SPEED
 	
 	# Move enemy along path until run out of movement or path ends
 	while distance_to_walk > 0 and path.size() > 0:
 		var distance_to_next_point = position.distance_to(path[0])
 		if distance_to_walk <= distance_to_next_point:
 			# Enemy does not have enough movement left to get to next point
-			position += position.direction_to(path[0]) * distance_to_walk
+#			position += position.direction_to(path[0]) * distance_to_walk
+			velocity = move_and_slide(position.direction_to(path[0])*distance_to_walk, Vector2.ZERO)
 		else:
 			# enemy gets to next point
 			position = path[0]
