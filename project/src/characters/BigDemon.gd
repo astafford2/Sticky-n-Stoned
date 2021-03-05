@@ -35,7 +35,7 @@ func _process(_delta):
 	UpdateFooting()
 	
 	if navpath:
-		nav.get_simple_path(self.global_position, nav_target.global_position)
+		nav.get_simple_path(self.position, nav_target.position)
 
 
 func _physics_process(_delta):
@@ -69,7 +69,7 @@ func pathfind():
 func set_navigation(nav_poly, target):
 	nav.navpoly_add(nav_poly, Transform2D.IDENTITY)
 	nav_target = target
-	navpath = nav.get_simple_path(self.global_position, nav_target.global_position)
+	navpath = nav.get_simple_path(self.position, nav_target.position)
 
 func glue(amount, time):
 	if !glued:
