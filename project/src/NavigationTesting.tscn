@@ -389,6 +389,10 @@ tile_data = PoolIntArray( 327719, 2, 0, 327720, 0, 0, 327721, 2, 0, 327722, 2, 0
 position = Vector2( 84.1608, 118.042 )
 scale = Vector2( 0.75, 0.75 )
 
+[node name="BigDemon2" parent="." instance=ExtResource( 2 )]
+position = Vector2( 690.447, 111.314 )
+scale = Vector2( 0.75, 0.75 )
+
 [node name="Player" parent="." instance=ExtResource( 6 )]
 position = Vector2( 720.751, 384.693 )
 
@@ -399,4 +403,8 @@ navpoly = SubResource( 29 )
 
 [node name="Line2D" type="Line2D" parent="."]
 width = 2.0
-default_color = Color( 0.815686, 0.0352941, 0.0352941, 1 )
+default_color = Color( 0.752941, 0.0470588, 0.0470588, 1 )
+
+[node name="Line2D2" type="Line2D" parent="."]
+width = 2.0
+default_color = Color( 0.729412, 0.0666667, 0.0666667, 1 )

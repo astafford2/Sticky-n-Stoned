@@ -2,16 +2,13 @@ extends Node2D
 
 
 onready var player := $Player
-onready var enemy := $BigDemon
 onready var nav := $Navigation2D
-onready var path_line := $Line2D
+onready var enemy := $BigDemon
+onready var enemy2 := $BigDemon2
+onready var line1 := $Line2D
+onready var line2 := $Line2D2
 
 
-func _ready():
-	pass
-
-
-func _process(delta):
-	var path = nav.get_simple_path(enemy.position, player.position)
-	path_line.points = path
-	enemy.path = path
+func _process(_delta):
+	for enemy in get_tree().get_nodes_in_group("enemies"):
+		enemy.set_navigation(nav.get_simple_path(enemy.global_position, player.global_position))
