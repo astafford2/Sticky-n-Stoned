@@ -3,6 +3,8 @@ extends "res://src/tiles/Activateable.gd"
 onready var sprite := $Sprite
 onready var press_fx := $ButtonPress
 
+const mat := preload("res://src/defaultMaterial.tres")
+
 func _ready():
 	projectileActivateable = true
 	playerActivateable = true
@@ -24,3 +26,10 @@ func _physics_process(delta):
 
 func _on_Button_body_entered(body):
 	self.on_body_entered(body)
+
+
+func highlight():
+	sprite.set_material(mat)
+
+func unhighlight():
+	sprite.set_material(null)
