@@ -15,6 +15,8 @@ onready var bd_sprite := $BDSprite
 onready var glue_landing_fx := $GlueLanding
 onready var Foot1S := $FallingBox/Foot1
 onready var Foot2S := $FallingBox/Foot2
+onready var nav := $Navigation2D
+onready var nav_target : KinematicBody2D
 
 func _ready():
 	RUN_SPEED = 110
@@ -31,6 +33,9 @@ func _process(_delta):
 	if Health <= 0:
 		kill_enemy()
 	UpdateFooting()
+	
+	if navpath:
+		nav.get_simple_path(self.global_position, nav_target.global_position)
 
 
 func _physics_process(_delta):
@@ -55,14 +60,16 @@ func pathfind():
 			velocity = move_and_slide(position.direction_to(navpath[0])*distance_to_walk, Vector2.ZERO)
 		else:
 			# enemy gets to next point
-			position = navpath[0]
+			velocity = move_and_slide(position.direction_to(navpath[0])*distance_to_walk, Vector2.ZERO)
 			navpath.remove(0)
 		# Update distance to walk
 		distance_to_walk -= distance_to_next_point
 
 
-func set_navigation(nav_path):
-	navpath = nav_path
+func set_navigation(nav_poly, target):
+	nav.navpoly_add(nav_poly, Transform2D.IDENTITY)
+	nav_target = target
+	navpath = nav.get_simple_path(self.global_position, nav_target.global_position)
 
 func glue(amount, time):
 	if !glued:

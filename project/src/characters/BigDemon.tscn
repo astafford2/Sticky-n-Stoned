@@ -72,5 +72,7 @@ shape = SubResource( 4 )
 [node name="Foot2" type="CollisionShape2D" parent="FallingBox"]
 position = Vector2( 9.01017, 34.1218 )
 shape = SubResource( 4 )
+
+[node name="Navigation2D" type="Navigation2D" parent="."]
 [connection signal="body_entered" from="DetectRadius" to="." method="_on_DetectRadius_body_entered"]
 [connection signal="body_exited" from="DetectRadius" to="." method="_on_DetectRadius_body_exited"]

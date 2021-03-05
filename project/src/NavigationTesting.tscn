@@ -396,15 +396,5 @@ scale = Vector2( 0.75, 0.75 )
 [node name="Player" parent="." instance=ExtResource( 6 )]
 position = Vector2( 720.751, 384.693 )
 
-[node name="Navigation2D" type="Navigation2D" parent="."]
-
-[node name="NavigationPolygonInstance" type="NavigationPolygonInstance" parent="Navigation2D"]
+[node name="NavigationPolygonInstance" type="NavigationPolygonInstance" parent="."]
 navpoly = SubResource( 29 )
-
-[node name="Line2D" type="Line2D" parent="."]
-width = 2.0
-default_color = Color( 0.752941, 0.0470588, 0.0470588, 1 )
-
-[node name="Line2D2" type="Line2D" parent="."]
-width = 2.0
-default_color = Color( 0.729412, 0.0666667, 0.0666667, 1 )
