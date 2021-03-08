@@ -9,11 +9,15 @@ var spatter : Area2D = null
 var canShoot := true
 var flee := false
 var attacking := false
+var shaman_runto := Vector2()
+var navpath := PoolVector2Array()
 
 onready var ds_sprite := $DSSprite
 onready var muzzle := $Muzzle
 onready var glue_landing_fx := $GlueLanding
 onready var fireball_shot_fx := $FireballShot
+onready var nav := $Navigation2D
+onready var nav_target : KinematicBody2D
 
 
 func _ready():
@@ -24,6 +28,10 @@ func _ready():
 func _process(_delta):
 	if Health <= 0:
 		kill_enemy()
+	
+	if navpath:
+		shaman_runto = self.position.distance_to(nav_target.position) * self.position.direction_to(nav_target.position)
+		navpath = nav.get_simple_path(self.position, shaman_runto)
 
 
 func _physics_process(_delta):
@@ -31,7 +39,8 @@ func _physics_process(_delta):
 	if Target:
 		if flee:
 			ds_sprite.animation = "walk"
-			velocity = -(position.direction_to(Target.position) * RUN_SPEED)
+#			velocity = -(position.direction_to(Target.position) * RUN_SPEED)
+			pathfind()
 		muzzle.look_at(Target.global_position)
 		if canShoot:
 			ds_sprite.animation = "shoot"
@@ -39,6 +48,32 @@ func _physics_process(_delta):
 	else:
 		ds_sprite.animation = "idle"
 	velocity = move_and_slide(velocity, Vector2.ZERO)
+
+
+func pathfind():
+	# Calculate movement distance for current frame
+	# Does not multiply delta as move_and_slide does that itself
+	var distance_to_walk = RUN_SPEED
+	
+	# Move enemy along path until run out of movement or path ends
+	while distance_to_walk > 0 and navpath.size() > 0:
+		var distance_to_next_point = position.distance_to(navpath[0])
+		if distance_to_walk <= distance_to_next_point:
+			# Enemy does not have enough movement left to get to next point
+#			position += position.direction_to(path[0]) * distance_to_walk
+			velocity = move_and_slide(position.direction_to(navpath[0])*distance_to_walk, Vector2.ZERO)
+		else:
+			# enemy gets to next point
+			velocity = move_and_slide(position.direction_to(navpath[0])*distance_to_walk, Vector2.ZERO)
+			navpath.remove(0)
+		# Update distance to walk
+		distance_to_walk -= distance_to_next_point
+
+
+func set_navigation(nav_poly, target):
+	nav.navpoly_add(nav_poly, Transform2D.IDENTITY)
+	nav_target = target
+	navpath = nav.get_simple_path(self.position, shaman_runto)
 
 
 func attack():

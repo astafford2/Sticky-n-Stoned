@@ -1,10 +1,13 @@
 extends Node2D
 
 
+var shaman_runto := Vector2()
+
+
 onready var player := $Player
 onready var nav_instance := $NavigationPolygonInstance
 onready var enemy := $BigDemon
-onready var enemy2 := $BigDemon2
+onready var shaman := $DemonShaman
 
 
 func _process(_delta):

@@ -1,4 +1,4 @@
-[gd_scene load_steps=36 format=2]
+[gd_scene load_steps=37 format=2]
 
 [ext_resource path="res://src/tiles/Floor.gd" type="Script" id=1]
 [ext_resource path="res://src/characters/BigDemon.tscn" type="PackedScene" id=2]
@@ -6,6 +6,7 @@
 [ext_resource path="res://assets/0x72_DungeonTilesetII_v1.3.png" type="Texture" id=4]
 [ext_resource path="res://src/tiles/Floor.tres" type="TileSet" id=5]
 [ext_resource path="res://src/characters/Player.tscn" type="PackedScene" id=6]
+[ext_resource path="res://src/characters/DemonShaman.tscn" type="PackedScene" id=7]
 
 [sub_resource type="ConvexPolygonShape2D" id=1]
 points = PoolVector2Array( 0, 0, 32, 0, 32, 32, 0, 32 )
@@ -390,12 +391,11 @@ tile_data = PoolIntArray( 327719, 2, 0, 327720, 0, 0, 327721, 2, 0, 327722, 2, 0
 position = Vector2( 84.1608, 118.042 )
 scale = Vector2( 0.75, 0.75 )
 
-[node name="BigDemon2" parent="." instance=ExtResource( 2 )]
-position = Vector2( 690.447, 111.314 )
-scale = Vector2( 0.75, 0.75 )
+[node name="DemonShaman" parent="." instance=ExtResource( 7 )]
+position = Vector2( 565.081, 313.213 )
 
 [node name="Player" parent="." instance=ExtResource( 6 )]
-position = Vector2( 720.751, 384.693 )
+position = Vector2( 926.77, 454.203 )
 
 [node name="NavigationPolygonInstance" type="NavigationPolygonInstance" parent="."]
 navpoly = SubResource( 29 )
