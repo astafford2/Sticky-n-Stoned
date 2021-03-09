@@ -152,26 +152,30 @@ fireball = ExtResource( 5 )
 scale = Vector2( 2, 2 )
 frames = SubResource( 26 )
 animation = "idle"
-frame = 1
+frame = 3
 playing = true
 
 [node name="DSShape" type="CollisionShape2D" parent="."]
+visible = false
 position = Vector2( -4.74018, 9.62599 )
 shape = SubResource( 27 )
 
 [node name="DetectRadius" type="Area2D" parent="."]
 
 [node name="DetectShape" type="CollisionShape2D" parent="DetectRadius"]
+visible = false
 shape = SubResource( 28 )
 
 [node name="FleeEdge" type="Area2D" parent="."]
 
 [node name="EdgeShape" type="CollisionShape2D" parent="FleeEdge"]
+visible = false
 shape = SubResource( 29 )
 
 [node name="FleeRange" type="Area2D" parent="."]
 
 [node name="FleeShape" type="CollisionShape2D" parent="FleeRange"]
+visible = false
 shape = SubResource( 30 )
 
 [node name="GlueLanding" type="AudioStreamPlayer" parent="."]
