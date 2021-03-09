@@ -30,7 +30,7 @@ func _process(_delta):
 	if Health <= 0:
 		kill_enemy()
 	
-	if navpath:
+	if nav_target:
 		shaman_to_nav_target = Vector2(nav_target.position.x - self.position.x, nav_target.position.y - self.position.y)
 		shaman_runto = self.position - shaman_to_nav_target
 		navpath = nav.get_simple_path(self.position, shaman_runto)

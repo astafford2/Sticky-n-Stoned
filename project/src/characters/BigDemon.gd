@@ -34,7 +34,7 @@ func _process(_delta):
 		kill_enemy()
 	UpdateFooting()
 	
-	if navpath:
+	if nav_target:
 		nav.get_simple_path(self.position, nav_target.position)
 
 
