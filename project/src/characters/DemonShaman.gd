@@ -9,6 +9,7 @@ var spatter : Area2D = null
 var canShoot := true
 var flee := false
 var attacking := false
+var shaman_to_nav_target := Vector2()
 var shaman_runto := Vector2()
 var navpath := PoolVector2Array()
 
@@ -30,7 +31,8 @@ func _process(_delta):
 		kill_enemy()
 	
 	if navpath:
-		shaman_runto = self.position.distance_to(nav_target.position) * self.position.direction_to(nav_target.position)
+		shaman_to_nav_target = Vector2(nav_target.position.x - self.position.x, nav_target.position.y - self.position.y)
+		shaman_runto = self.position - shaman_to_nav_target
 		navpath = nav.get_simple_path(self.position, shaman_runto)
 
 
