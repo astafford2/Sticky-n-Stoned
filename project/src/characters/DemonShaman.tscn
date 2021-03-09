@@ -149,10 +149,11 @@ GlueSpatter = ExtResource( 4 )
 fireball = ExtResource( 5 )
 
 [node name="DSSprite" type="AnimatedSprite" parent="."]
+position = Vector2( 4, -27 )
 scale = Vector2( 2, 2 )
 frames = SubResource( 26 )
 animation = "idle"
-frame = 3
+frame = 1
 playing = true
 
 [node name="DSShape" type="CollisionShape2D" parent="."]
@@ -161,18 +162,21 @@ position = Vector2( -4.74018, 9.62599 )
 shape = SubResource( 27 )
 
 [node name="DetectRadius" type="Area2D" parent="."]
+position = Vector2( 4, -27 )
 
 [node name="DetectShape" type="CollisionShape2D" parent="DetectRadius"]
 visible = false
 shape = SubResource( 28 )
 
 [node name="FleeEdge" type="Area2D" parent="."]
+position = Vector2( 4, -27 )
 
 [node name="EdgeShape" type="CollisionShape2D" parent="FleeEdge"]
 visible = false
 shape = SubResource( 29 )
 
 [node name="FleeRange" type="Area2D" parent="."]
+position = Vector2( 4, -27 )
 
 [node name="FleeShape" type="CollisionShape2D" parent="FleeRange"]
 visible = false
@@ -185,9 +189,10 @@ stream = ExtResource( 1 )
 stream = ExtResource( 8 )
 
 [node name="Muzzle" type="Position2D" parent="."]
-position = Vector2( 15.1509, -10.6819 )
+position = Vector2( 19.1509, -37.6819 )
 
 [node name="Navigation2D" type="Navigation2D" parent="."]
+position = Vector2( 4, -27 )
 [connection signal="body_entered" from="DetectRadius" to="." method="_on_DetectRadius_body_entered"]
 [connection signal="body_exited" from="DetectRadius" to="." method="_on_DetectRadius_body_exited"]
 [connection signal="body_exited" from="FleeEdge" to="." method="_on_FleeEdge_body_exited"]
