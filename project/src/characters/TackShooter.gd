@@ -5,7 +5,10 @@ export (PackedScene) var tack
 
 var attacking := false
 
-onready var muzzle := $Muzzle
+onready var muzzle_t := $Muzzle_t
+onready var muzzle_r := $Muzzle_r
+onready var muzzle_l := $Muzzle_l
+onready var muzzle_b := $Muzzle_b
 
 
 func _ready():
@@ -17,10 +20,22 @@ func _ready():
 func _physics_process(_delta):
 	if !attacking:
 		attacking = true
-		var t = tack.instance()
-		t.init(self)
-		owner.add_child(t)
-		t.transform = muzzle.global_transform
+		var tt = tack.instance()
+		var tr = tack.instance()
+		var tl = tack.instance()
+		var tb = tack.instance()
+		tt.init(self)
+		tr.init(self)
+		tl.init(self)
+		tb.init(self)
+		owner.add_child(tt)
+		owner.add_child(tr)
+		owner.add_child(tl)
+		owner.add_child(tb)
+		tt.transform = muzzle_t.global_transform
+		tr.transform = muzzle_r.global_transform
+		tl.transform = muzzle_l.global_transform
+		tb.transform = muzzle_b.global_transform
 #		fireball_shot_fx.play()
 		yield(get_tree().create_timer(3), "timeout")
 		attacking = false
