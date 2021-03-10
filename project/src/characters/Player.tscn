@@ -101,14 +101,14 @@ animations = [ {
 "speed": 5.0
 }, {
 "frames": [ ExtResource( 3 ) ],
-"loop": true,
+"loop": false,
 "name": "hit",
 "speed": 5.0
 }, {
 "frames": [ SubResource( 25 ), SubResource( 26 ), SubResource( 27 ), SubResource( 28 ), SubResource( 29 ), SubResource( 30 ), SubResource( 31 ), SubResource( 32 ), SubResource( 33 ), SubResource( 34 ) ],
-"loop": true,
+"loop": false,
 "name": "dodge_roll",
-"speed": 20.0
+"speed": 15.0
 } ]
 
 [sub_resource type="CapsuleShape2D" id=21]

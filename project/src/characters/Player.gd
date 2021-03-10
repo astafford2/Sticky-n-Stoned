@@ -61,10 +61,10 @@ func _physics_process(_delta):
 
 
 func controls():
-	if Input.is_action_just_pressed("dodge_roll") and canRoll:
+	if Input.is_action_just_pressed("dodge_roll") and canRoll and velocity != Vector2.ZERO:
 		dodge_roll()
 		canRoll = false
-		yield(get_tree().create_timer(0.5), "timeout")
+		yield(get_tree().create_timer(0.8), "timeout")
 		canRoll = true
 	
 	if Input.is_action_pressed("move_up"):
@@ -138,7 +138,7 @@ func dodge_roll():
 	set_collision_mask_bit(2, false)
 	isRolling = true
 	dodge_tween.interpolate_property(player, "position",
-		player.position, (player.position + Vector2(sign(velocity.x)*100, sign(velocity.y)*100)), 0.3,
+		player.position, (player.position + Vector2(sign(velocity.x)*100, sign(velocity.y)*100)), 0.5,
 		Tween.TRANS_LINEAR, Tween.EASE_IN_OUT)
 	dodge_tween.start()
 	dodge_roll_fx.play()
