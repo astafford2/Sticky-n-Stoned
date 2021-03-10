@@ -1,6 +1,6 @@
 [gd_scene load_steps=8 format=2]
 
-[ext_resource path="res://src/projectiles/Projectile.gd" type="Script" id=1]
+[ext_resource path="res://src/projectiles/Tack.gd" type="Script" id=1]
 [ext_resource path="res://assets/projectiles/tack.png" type="Texture" id=2]
 
 [sub_resource type="AtlasTexture" id=1]
@@ -33,7 +33,7 @@ script = ExtResource( 1 )
 [node name="Sprite" type="AnimatedSprite" parent="."]
 scale = Vector2( 1.33, 1.33 )
 frames = SubResource( 4 )
-frame = 2
+frame = 1
 playing = true
 
 [node name="Hurtbox" type="CollisionShape2D" parent="."]
