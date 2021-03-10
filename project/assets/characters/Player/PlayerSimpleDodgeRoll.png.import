@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Player-Idle.png-de050a53c528b546483144eb06c93230.stex"
+path="res://.import/PlayerSimpleDodgeRoll.png-5260fa996adfd36ddd266a4a378d6fd3.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/characters/Player/Player-Idle.png"
-dest_files=[ "res://.import/Player-Idle.png-de050a53c528b546483144eb06c93230.stex" ]
+source_file="res://assets/characters/Player/PlayerSimpleDodgeRoll.png"
+dest_files=[ "res://.import/PlayerSimpleDodgeRoll.png-5260fa996adfd36ddd266a4a378d6fd3.stex" ]
 
 [params]
 
