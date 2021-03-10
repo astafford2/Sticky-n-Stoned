@@ -16,6 +16,7 @@ var Foot2 = null
 var feetArea = null
 var managedPits = []
 var canRoll := true
+var isRolling := false
 
 onready var player := $"."
 onready var player_sprite := $PlayerSprite
@@ -50,8 +51,8 @@ func _physics_process(_delta):
 	muzzle.look_at(get_global_mouse_position())
 	controls()
 	
-	if !canRoll:
-		player_sprite.animation = "dodge_roll"
+	if isRolling:
+		player_sprite.play("dodge_roll")
 	else:
 		player_sprite.animation = "run" if velocity != Vector2.ZERO else "idle"
 	
@@ -135,6 +136,7 @@ func shoot():
 func dodge_roll():
 	freeze_player()
 	set_collision_mask_bit(2, false)
+	isRolling = true
 	dodge_tween.interpolate_property(player, "position",
 		player.position, (player.position + Vector2(sign(velocity.x)*100, sign(velocity.y)*100)), 0.3,
 		Tween.TRANS_LINEAR, Tween.EASE_IN_OUT)
@@ -143,6 +145,7 @@ func dodge_roll():
 	yield(dodge_tween, "tween_completed")
 	unfreeze_player()
 	set_collision_mask_bit(2, true)
+	isRolling = false
 
 
 func kill_player():
