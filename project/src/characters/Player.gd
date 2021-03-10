@@ -49,7 +49,11 @@ func _process(_delta):
 func _physics_process(_delta):
 	muzzle.look_at(get_global_mouse_position())
 	controls()
-	player_sprite.animation = "run" if velocity != Vector2.ZERO else "idle"
+	
+	if !canRoll:
+		player_sprite.animation = "dodge_roll"
+	else:
+		player_sprite.animation = "run" if velocity != Vector2.ZERO else "idle"
 	
 	player_sprite.play()
 	velocity = move_and_slide(velocity, Vector2.ZERO)
