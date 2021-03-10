@@ -79,7 +79,7 @@ tack = ExtResource( 3 )
 [node name="TSSprite" type="AnimatedSprite" parent="."]
 scale = Vector2( 1.33, 1.33 )
 frames = SubResource( 16 )
-frame = 6
+frame = 11
 playing = true
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]

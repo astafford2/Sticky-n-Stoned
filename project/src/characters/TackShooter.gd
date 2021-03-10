@@ -13,7 +13,7 @@ onready var muzzle_b := $Muzzle_b
 
 func _ready():
 	attacking = true
-	yield(get_tree().create_timer(1.4), "timeout")
+	yield(get_tree().create_timer(0.4), "timeout")
 	attacking = false
 
 
