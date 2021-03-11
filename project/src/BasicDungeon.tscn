@@ -456,7 +456,7 @@ position = Vector2( 1533.79, 23.5451 )
 scale = Vector2( 0.75, 0.75 )
 
 [node name="DemonShaman" parent="." instance=ExtResource( 12 )]
-position = Vector2( 787.555, -524.739 )
+position = Vector2( 405.254, 272.577 )
 
 [node name="Player" parent="." instance=ExtResource( 2 )]
 position = Vector2( 329.685, 370.771 )
@@ -472,4 +472,4 @@ stream = ExtResource( 4 )
 autoplay = true
 
 [node name="TackShooter" parent="." instance=ExtResource( 13 )]
-position = Vector2( 253.963, 268.946 )
+position = Vector2( 321.348, 85.562 )
