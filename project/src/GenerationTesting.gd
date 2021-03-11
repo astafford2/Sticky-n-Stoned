@@ -2,6 +2,11 @@ extends Node2D
 
 var rng = RandomNumberGenerator.new()
 var path 
+var Tiles := {}
+var maxsize := 0
+
+#temp
+var validsT
 
 onready var Rooms := $Rooms
 onready var Floor := $Floor
@@ -28,12 +33,29 @@ func _ready():
 
 
 func _draw():
-	if path:
-		for p in path.get_points():
-			for c in path.get_point_connections(p):
-				var pp= path.get_point_position(p)
-				var cp = path.get_point_position(c)
-				draw_line(Vector2(pp.x,pp.y), Vector2(cp.x,cp.y), Color(1,1,0), 15, true)
+	pass
+#	if path:
+#		for p in path.get_points():
+#			for c in path.get_point_connections(p):
+#				var pp= path.get_point_position(p)
+#				var cp = path.get_point_position(c)
+#				draw_line(Vector2(pp.x,pp.y), Vector2(cp.x,cp.y), Color(1,1,0), 15, true)
+#	if validsT:
+#		for paths in validsT:
+#			var point_start = paths[0]
+#			var point_end = paths[len(paths) - 1]
+#
+#			var last_point = Vector2(point_start.x, point_start.y)
+#			for index in range(1, len(paths)):
+#				var current_point =Vector2(paths[index].x, paths[index].y)
+#				draw_line(last_point, current_point, Color(1,0,0), 5, true)
+#				last_point = current_point
+
+#		for p in validsT.get_points():
+#			for c in validsT.get_point_connections(p):
+#				var pp = validsT.get_point_position(p)
+#				var cp = validsT.get_point_position(c)
+#				draw_line(Vector2(pp.x,pp.y), Vector2(cp.x,cp.y), Color(1, 0, 0), 5, true)
 
 
 func _process(_delta):
@@ -74,7 +96,7 @@ func moveRooms():
 				if currentRect.intersects(taken):
 					valid = false
 			if valid:
-				currentTaken.append(currentRect.grow(144))
+				currentTaken.append(currentRect.grow(192))
 				if !currentRoom.has_method("updateFloors"):
 					currentRoom.queue_free()
 					break
@@ -84,6 +106,8 @@ func moveRooms():
 			rooms.erase(currentRoom)
 		else:
 			dist += 16
+	#64 is the maximum size for a single room
+	maxsize = (dist+32)*2
 
 
 #func combineTiles():
@@ -109,15 +133,143 @@ func moveRooms():
 #		walls.clear()
 
 
+func checkTileNotOnMap(TilePosition):
+	var valid = true
+	for tileset in Tiles.keys():
+		var used = tileset.get_used_cells()
+		for cell in used:
+			if TilePosition == Floor.world_to_map(tileset.map_to_world(cell) + Tiles.get(tileset).global_position):
+				valid = false
+	return valid
+
+
+func checkPlacementValid(TilePosition):
+	var valid = true
+	for tileset in Tiles.keys():
+		var used = tileset.get_used_cells()
+		for cell in used:
+			var standardPos = Floor.world_to_map(tileset.map_to_world(cell) + Tiles.get(tileset).global_position)
+			var left =  TilePosition+ Vector2(-1,0) == standardPos
+			var right =  TilePosition+ Vector2(1,0) == standardPos
+			var up =  TilePosition+ Vector2(0,1) == standardPos or TilePosition+ Vector2(0,2) == standardPos
+			var down =  TilePosition+ Vector2(0,-1) == standardPos or TilePosition+ Vector2(0,-2) == standardPos
+			var topright = TilePosition+ Vector2(1,1) == standardPos
+			var topleft = TilePosition+ Vector2(-1,1) == standardPos
+			var bottomright = TilePosition+ Vector2(1,-1) == standardPos
+			var bottomleft = TilePosition+ Vector2(-1,-1) == standardPos
+			var posIs = TilePosition == standardPos
+			if left or right or up or down or posIs or topright or topleft or bottomright or bottomleft:
+				if tileset.tile_set == Floor.tile_set and !posIs:
+					continue
+				valid = false
+	return valid
+
+
+func calculate_point_index(point):
+	return (maxsize + point.x) + maxsize * (maxsize + point.y) 
+
+
+func is_out_map(point):
+	#Assumes in grid location
+	return point.x < -(maxsize / 2) or point.y < -(maxsize / 2) or point.x >= (maxsize/2) or point.y >= (maxsize/2)
+
+
 func makeHalls():
 	var rooms := Rooms.get_children()
 	var doorPositions := {} #We use a dicitonary so that we can have to position [key] and the owner room [value]
 	for room in rooms: #Get all door Positions
+		var tiles = room.get_Tiles()
+		Tiles[tiles[0]] = room
+		Tiles[tiles[1]] = room
 		var doors = room.get_DoorPositions()
 		for door in doors:
 			doorPositions[Vector3(door.global_position.x, door.global_position.y, 0)] = room
 	yield(get_tree(), 'idle_frame')
 	path = find_mst(doorPositions)
+	#MST and Tiles have been populated
+	print("MST found")
+	var validP = []
+	var valids = AStar.new()
+	var map_size = Vector2(maxsize, maxsize)
+	#Add valid points to valids
+	for y2 in range(map_size.y):
+		var y = y2 - (maxsize / 2)
+		for x2 in range(map_size.x):
+			var x = x2 - (maxsize / 2)
+			var point = Vector2(x, y)
+			if !checkPlacementValid(point):
+				continue
+			var worldLoc = Floor.map_to_world(point) #+ (Floor.cell_size / 2)
+			validP.append(point)
+			var point_index = calculate_point_index(point)
+			valids.add_point(point_index, Vector3(worldLoc.x, worldLoc.y, 0.0))
+	#Connect all valid points
+	for point in validP:
+		var point_index = calculate_point_index(point)
+		var points_relative = PoolVector2Array([
+			Vector2(point.x + 1, point.y),
+			Vector2(point.x, point.y+1),
+			Vector2(point.x - 1, point.y),
+			Vector2(point.x, point.y-1)])
+		for point_relative in points_relative:
+			var point_relative_index = calculate_point_index(point_relative)
+			if is_out_map(point_relative):
+				continue
+			if not valids.has_point(point_relative_index):
+				continue
+			valids.connect_points(point_index, point_relative_index, false)
+	var Paths = []
+	#calculate path between locations
+	var calculated = []
+	for p in path.get_points():
+			for c in path.get_point_connections(p):
+				var s = valids.get_point_position(valids.get_closest_point(path.get_point_position(p)))
+				var g = valids.get_point_position(valids.get_closest_point(path.get_point_position(c)))
+				var start= Floor.world_to_map(Vector2(s.x, s.y))
+				var goal = Floor.world_to_map(Vector2(g.x, g.y))
+				var startIndex = calculate_point_index(start)
+				var goalIndex = calculate_point_index(goal)
+				if !(calculated.has([goalIndex, startIndex]) or calculated.has([startIndex, goalIndex])):
+					Paths.append(valids.get_point_path(startIndex, goalIndex))
+					calculated.append([startIndex, goalIndex])
+	#place Floors
+	for singlePath in Paths:
+		for point in singlePath:
+			var cellPos = Floor.world_to_map(Vector2(point.x, point.y))
+			Floor.set_cellv(cellPos, 0)
+			if checkPlacementValid(cellPos+ Vector2(-1, 0)) and Floor.get_cellv(cellPos+Vector2(-1, 0)) == -1:
+				Floor.set_cellv(cellPos+ Vector2(-1, 0), 0)
+			if checkPlacementValid(cellPos+ Vector2(1, 0)) and Floor.get_cellv(cellPos+Vector2(1, 0)) == -1:
+				Floor.set_cellv(cellPos+ Vector2(1, 0), 0)
+			if checkPlacementValid(cellPos+ Vector2(0, 1)) and Floor.get_cellv(cellPos+Vector2(0, 1)) == -1:
+				Floor.set_cellv(cellPos+ Vector2(0, 1), 0)
+			if checkPlacementValid(cellPos+ Vector2(0, -1)) and Floor.get_cellv(cellPos+Vector2(0, -1)) == -1:
+				Floor.set_cellv(cellPos+ Vector2(0, -1), 0)
+	#Place Walls around Floors:
+	for cell in Floor.get_used_cells():
+		var u =cell + Vector2(0,1)
+		var d = cell + Vector2(0,-1)
+		var l = cell + Vector2(-1,0)
+		var r =  cell + Vector2(1,0)
+		var up =  Floor.get_cellv(u) == -1
+		var down =  Floor.get_cellv(d) == -1
+		var left =  Floor.get_cellv(l) == -1
+		var right =  Floor.get_cellv(r) == -1
+		
+		if up and Walls.get_cellv(u) == -1 and checkTileNotOnMap(u):
+			Walls.set_cellv(u, 6)
+			Floor.set_cellv(u, 0)
+			Walls.set_cellv(cell+Vector2(0,2), 9)
+		if left and Walls.get_cellv(l) == -1 and checkTileNotOnMap(l):
+			Walls.set_cellv(l, 13)
+		if right and Walls.get_cellv(r) == -1 and checkTileNotOnMap(r):
+			Walls.set_cellv(r, 25)
+		if down and Walls.get_cellv(d) == -1 and checkTileNotOnMap(d):
+			Walls.set_cellv(d, 9)
+			Walls.set_cellv(cell+Vector2(0,-2), 6)
+	#validsT = Paths
+	validsT = valids
+	
 
 
 func find_mst(doors):
