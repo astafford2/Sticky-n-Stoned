@@ -1,10 +1,11 @@
-[gd_scene load_steps=36 format=2]
+[gd_scene load_steps=45 format=2]
 
 [ext_resource path="res://assets/characters/Player/Player-Idle.png" type="Texture" id=1]
 [ext_resource path="res://src/characters/Player.gd" type="Script" id=2]
 [ext_resource path="res://assets/characters/lizard_f/lizard_f_hit_anim_f0.png" type="Texture" id=3]
 [ext_resource path="res://assets/characters/Player/PlayerSimpleDodgeRoll.png" type="Texture" id=4]
 [ext_resource path="res://assets/characters/Player/playerRun.png" type="Texture" id=5]
+[ext_resource path="res://assets/characters/Player/playerFalling.png" type="Texture" id=6]
 [ext_resource path="res://src/projectiles/GlueBullet.tscn" type="PackedScene" id=11]
 [ext_resource path="res://assets/Audio/Glue Launch.wav" type="AudioStream" id=12]
 [ext_resource path="res://src/GUI/HealthGUI.tscn" type="PackedScene" id=13]
@@ -88,7 +89,39 @@ region = Rect2( 48, 0, 24, 35 )
 atlas = ExtResource( 5 )
 region = Rect2( 72, 0, 24, 35 )
 
-[sub_resource type="SpriteFrames" id=20]
+[sub_resource type="AtlasTexture" id=20]
+atlas = ExtResource( 6 )
+region = Rect2( 0, 0, 24, 35 )
+
+[sub_resource type="AtlasTexture" id=21]
+atlas = ExtResource( 6 )
+region = Rect2( 24, 0, 24, 35 )
+
+[sub_resource type="AtlasTexture" id=22]
+atlas = ExtResource( 6 )
+region = Rect2( 48, 0, 24, 35 )
+
+[sub_resource type="AtlasTexture" id=23]
+atlas = ExtResource( 6 )
+region = Rect2( 72, 0, 24, 35 )
+
+[sub_resource type="AtlasTexture" id=24]
+atlas = ExtResource( 6 )
+region = Rect2( 96, 0, 24, 35 )
+
+[sub_resource type="AtlasTexture" id=25]
+atlas = ExtResource( 6 )
+region = Rect2( 120, 0, 24, 35 )
+
+[sub_resource type="AtlasTexture" id=26]
+atlas = ExtResource( 6 )
+region = Rect2( 144, 0, 24, 35 )
+
+[sub_resource type="AtlasTexture" id=27]
+atlas = ExtResource( 6 )
+region = Rect2( 168, 0, 24, 35 )
+
+[sub_resource type="SpriteFrames" id=28]
 animations = [ {
 "frames": [ SubResource( 1 ), SubResource( 2 ), SubResource( 3 ), SubResource( 4 ), SubResource( 5 ) ],
 "loop": true,
@@ -105,21 +138,26 @@ animations = [ {
 "name": "run",
 "speed": 8.0
 }, {
+"frames": [ SubResource( 20 ), SubResource( 21 ), SubResource( 22 ), SubResource( 23 ), SubResource( 24 ), SubResource( 25 ), SubResource( 26 ), SubResource( 27 ) ],
+"loop": true,
+"name": "falling",
+"speed": 8.5
+}, {
 "frames": [ ExtResource( 3 ) ],
 "loop": false,
 "name": "hit",
 "speed": 5.0
 } ]
 
-[sub_resource type="CapsuleShape2D" id=21]
+[sub_resource type="CapsuleShape2D" id=29]
 radius = 18.4067
 height = 10.8142
 
-[sub_resource type="CapsuleShape2D" id=22]
+[sub_resource type="CapsuleShape2D" id=30]
 radius = 21.5213
 height = 29.935
 
-[sub_resource type="Animation" id=23]
+[sub_resource type="Animation" id=31]
 length = 1.6
 tracks/0/type = "value"
 tracks/0/path = NodePath(".:rotation_degrees")
@@ -163,7 +201,7 @@ tracks/2/keys = {
 } ]
 }
 
-[sub_resource type="RectangleShape2D" id=24]
+[sub_resource type="RectangleShape2D" id=32]
 extents = Vector2( 2.29297, 0.481319 )
 
 [node name="Player" type="KinematicBody2D"]
@@ -175,19 +213,19 @@ GlueBullet = ExtResource( 11 )
 [node name="PlayerSprite" type="AnimatedSprite" parent="."]
 position = Vector2( -0.444957, 1.11238 )
 scale = Vector2( 2.3, 2.3 )
-frames = SubResource( 20 )
-animation = "idle"
-frame = 4
+frames = SubResource( 28 )
+animation = "falling"
+playing = true
 
 [node name="PlayerShape" type="CollisionShape2D" parent="."]
 position = Vector2( 0.0706227, 4.76858 )
-shape = SubResource( 21 )
+shape = SubResource( 29 )
 
 [node name="PlayerArea" type="Area2D" parent="."]
 
 [node name="PlayerShape2" type="CollisionShape2D" parent="PlayerArea"]
 position = Vector2( 0.0706227, 8.62913 )
-shape = SubResource( 22 )
+shape = SubResource( 30 )
 
 [node name="Muzzle" type="Position2D" parent="."]
 position = Vector2( -0.396434, 9.2655 )
@@ -217,18 +255,18 @@ stream = ExtResource( 16 )
 margin_right = 96.0
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-anims/pitfalled = SubResource( 23 )
+anims/pitfalled = SubResource( 31 )
 
 [node name="FallingBox" type="Area2D" parent="."]
 collision_layer = 2
 
 [node name="Foot1" type="CollisionShape2D" parent="FallingBox"]
 position = Vector2( 5.21485, 34.5378 )
-shape = SubResource( 24 )
+shape = SubResource( 32 )
 
 [node name="Foot2" type="CollisionShape2D" parent="FallingBox"]
 position = Vector2( -9.657, 34.5145 )
-shape = SubResource( 24 )
+shape = SubResource( 32 )
 
 [node name="DodgeRollTween" type="Tween" parent="."]
 [connection signal="area_entered" from="PlayerArea" to="." method="_on_PlayerArea_area_entered"]
