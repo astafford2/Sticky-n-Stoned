@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/big_demon_idle_anim_f0.png-4c1dab0edcff017e61a8134805db8c1f.stex"
+path="res://.import/Trap Door.png-359f11973ab69541daf6cf94c7fc46e5.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/characters/big_demon/big_demon_idle_anim_f0.png"
-dest_files=[ "res://.import/big_demon_idle_anim_f0.png-4c1dab0edcff017e61a8134805db8c1f.stex" ]
+source_file="res://assets/tiles/Trap Door.png"
+dest_files=[ "res://.import/Trap Door.png-359f11973ab69541daf6cf94c7fc46e5.stex" ]
 
 [params]
 

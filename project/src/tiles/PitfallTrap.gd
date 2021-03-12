@@ -2,10 +2,10 @@ extends Traps
 
 
 var rect : Rect2
+var opened := false
 
 onready var pit := $PitfallShape
-onready var open := $Open
-onready var closed := $Closed
+onready var sprite := $Sprite
 
 
 func _ready():
@@ -13,8 +13,10 @@ func _ready():
 
 
 func activate(_delta):
-	closed.visible = false
-	open.visible = true
+	if !opened:
+		opened = true
+		#Sprite plays
+		sprite.animation = "Opening"
 	var intersecting = get_overlapping_areas()
 	if intersecting.size() > 0:
 		for area in get_overlapping_areas():
@@ -22,5 +24,8 @@ func activate(_delta):
 
 # what the child trap will do when deactivated or idle
 func deactivated(_delta):
-	closed.visible = true
-	open.visible = false
+	if opened:
+		var intersecting = get_overlapping_areas()
+		if intersecting.size() > 0:
+			for area in get_overlapping_areas():
+				SignalMaster.overlapped(area.get_parent(), rect)
