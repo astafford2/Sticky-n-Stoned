@@ -269,13 +269,13 @@ __meta__ = {
 [node name="Player-ish" type="AnimatedSprite" parent="."]
 position = Vector2( 126.199, 280.633 )
 frames = SubResource( 8 )
-frame = 1
 playing = true
 flip_h = true
 
 [node name="Enemy-ish" type="AnimatedSprite" parent="."]
 position = Vector2( 964.843, 514.939 )
 frames = SubResource( 9 )
+frame = 3
 playing = true
 flip_h = true
 

@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/shamanProjectile.png-6b6b4c7d6e45d600578e448764880902.stex"
+path="res://.import/Player-Idle.png-de050a53c528b546483144eb06c93230.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/projectiles/shamanProjectile.png"
-dest_files=[ "res://.import/shamanProjectile.png-6b6b4c7d6e45d600578e448764880902.stex" ]
+source_file="res://assets/characters/Player/Player-Idle.png"
+dest_files=[ "res://.import/Player-Idle.png-de050a53c528b546483144eb06c93230.stex" ]
 
 [params]
 
@@ -24,7 +24,7 @@ flags/filter=false
 flags/mipmaps=false
 flags/anisotropic=false
 flags/srgb=2
-process/fix_alpha_border=false
+process/fix_alpha_border=true
 process/premult_alpha=false
 process/HDR_as_SRGB=false
 process/invert_color=false
