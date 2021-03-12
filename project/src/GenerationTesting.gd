@@ -3,7 +3,9 @@ extends Node2D
 var rng = RandomNumberGenerator.new()
 var path 
 var Tiles := {}
+var obstacles := {}
 var maxsize := 0
+
 
 #temp
 var validsT
@@ -81,7 +83,7 @@ func spawnRooms():
 func moveRooms():
 	var rooms := Rooms.get_children()
 	var currentTaken := []
-	var dist := 16
+	var dist := 10
 	while !rooms.empty():
 		var currentRoom = rooms[0]
 		var valid := true
@@ -105,7 +107,7 @@ func moveRooms():
 		if valid:
 			rooms.erase(currentRoom)
 		else:
-			dist += 16
+			dist += 10
 	#64 is the maximum size for a single room
 	maxsize = (dist+32)*2
 
@@ -135,33 +137,39 @@ func moveRooms():
 
 func checkTileNotOnMap(TilePosition):
 	var valid = true
-	for tileset in Tiles.keys():
-		var used = tileset.get_used_cells()
-		for cell in used:
-			if TilePosition == Floor.world_to_map(tileset.map_to_world(cell) + Tiles.get(tileset).global_position):
-				valid = false
+	for cell in obstacles:
+		if TilePosition == cell:
+			valid = false
 	return valid
 
+func updateObstacles():
+	for tileset in Tiles.keys():
+			var used = tileset.get_used_cells()
+			for cell in used:
+				var globalPos = Floor.world_to_map(tileset.map_to_world(cell) + Tiles.get(tileset).global_position)
+				obstacles[globalPos] = tileset
 
 func checkPlacementValid(TilePosition):
 	var valid = true
-	for tileset in Tiles.keys():
-		var used = tileset.get_used_cells()
-		for cell in used:
-			var standardPos = Floor.world_to_map(tileset.map_to_world(cell) + Tiles.get(tileset).global_position)
-			var left =  TilePosition+ Vector2(-1,0) == standardPos
-			var right =  TilePosition+ Vector2(1,0) == standardPos
-			var up =  TilePosition+ Vector2(0,1) == standardPos or TilePosition+ Vector2(0,2) == standardPos
-			var down =  TilePosition+ Vector2(0,-1) == standardPos or TilePosition+ Vector2(0,-2) == standardPos
-			var topright = TilePosition+ Vector2(1,1) == standardPos
-			var topleft = TilePosition+ Vector2(-1,1) == standardPos
-			var bottomright = TilePosition+ Vector2(1,-1) == standardPos
-			var bottomleft = TilePosition+ Vector2(-1,-1) == standardPos
-			var posIs = TilePosition == standardPos
-			if left or right or up or down or posIs or topright or topleft or bottomright or bottomleft:
-				if tileset.tile_set == Floor.tile_set and !posIs:
-					continue
-				valid = false
+	if !obstacles:
+		updateObstacles()
+	for cell in obstacles:
+		var tileset = obstacles.get(cell)
+		var standardPos = cell
+		var left =  TilePosition+ Vector2(-1,0) == standardPos
+		var right =  TilePosition+ Vector2(1,0) == standardPos
+		var up =  TilePosition+ Vector2(0,1) == standardPos or TilePosition+ Vector2(0,2) == standardPos
+		var down =  TilePosition+ Vector2(0,-1) == standardPos or TilePosition+ Vector2(0,-2) == standardPos
+		var topright = TilePosition+ Vector2(1,1) == standardPos
+		var topleft = TilePosition+ Vector2(-1,1) == standardPos
+		var bottomright = TilePosition+ Vector2(1,-1) == standardPos
+		var bottomleft = TilePosition+ Vector2(-1,-1) == standardPos
+		var posIs = TilePosition == standardPos
+		if left or right or up or down or posIs or topright or topleft or bottomright or bottomleft:
+			if tileset.tile_set == Floor.tile_set and !posIs:
+				continue
+			valid = false
+	
 	return valid
 
 
@@ -171,7 +179,30 @@ func calculate_point_index(point):
 
 func is_out_map(point):
 	#Assumes in grid location
+# warning-ignore:integer_division
+# warning-ignore:integer_division
+# warning-ignore:integer_division
+# warning-ignore:integer_division
 	return point.x < -(maxsize / 2) or point.y < -(maxsize / 2) or point.x >= (maxsize/2) or point.y >= (maxsize/2)
+
+
+func getRangePoints(userdata): #designed for multi-threading
+	var startx = userdata[0]
+	var starty = userdata[1]
+	var endx = userdata[2]
+	var endy = userdata[3]
+	var returnInfo = [] # Entry is array [point, point_index, Vector3(worldLoc.x, worldLoc.y, 0.0)]
+	for y2 in range(starty, endy):
+		var y = y2-(maxsize/2)
+		for x2 in range(startx, endx):
+			var x = x2-(maxsize/2)
+			var point = Vector2(x, y)
+			if !checkPlacementValid(point):
+				continue
+			var worldLoc = Floor.map_to_world(point)
+			var point_index = calculate_point_index(point)
+			returnInfo.append([point, point_index, Vector3(worldLoc.x, worldLoc.y, 0.0)])
+	return returnInfo
 
 
 func makeHalls():
@@ -190,19 +221,36 @@ func makeHalls():
 	print("MST found")
 	var validP = []
 	var valids = AStar.new()
+# warning-ignore:unused_variable
 	var map_size = Vector2(maxsize, maxsize)
-	#Add valid points to valids
-	for y2 in range(map_size.y):
-		var y = y2 - (maxsize / 2)
-		for x2 in range(map_size.x):
-			var x = x2 - (maxsize / 2)
-			var point = Vector2(x, y)
-			if !checkPlacementValid(point):
-				continue
-			var worldLoc = Floor.map_to_world(point) #+ (Floor.cell_size / 2)
-			validP.append(point)
-			var point_index = calculate_point_index(point)
-			valids.add_point(point_index, Vector3(worldLoc.x, worldLoc.y, 0.0))
+	#Add valid points to valids (This is the longest generation step)
+	var thread1 = Thread.new()
+	var thread2 = Thread.new()
+	var thread3 = Thread.new()
+	var thread4 = Thread.new()
+	thread1.start(self, "getRangePoints", [0,0, ceil(maxsize/2), ceil(maxsize/2)])
+	thread2.start(self, "getRangePoints", [ceil(maxsize/2),0, maxsize, ceil(maxsize/2)])
+	thread3.start(self, "getRangePoints", [0,ceil(maxsize/2), ceil(maxsize/2), maxsize])
+	thread4.start(self, "getRangePoints", [ceil(maxsize/2),ceil(maxsize/2), maxsize, maxsize])
+	var set1 = thread1.wait_to_finish()
+	var set2 = thread2.wait_to_finish()
+	var set3 = thread3.wait_to_finish()
+	var set4 = thread4.wait_to_finish()
+	for set in [set1, set2, set3, set4]:
+		for data in set:
+			validP.append(data[0])
+			valids.add_point(data[1], data[2])
+#	for y2 in range(map_size.y):
+#		var y = y2 - (maxsize / 2)
+#		for x2 in range(map_size.x):
+#			var x = x2 - (maxsize / 2)
+#			var point = Vector2(x, y)
+#			if !checkPlacementValid(point):
+#				continue
+#			var worldLoc = Floor.map_to_world(point) 
+#			var point_index = calculate_point_index(point)
+#			validP.append(point)
+#			valids.add_point(point_index, Vector3(worldLoc.x, worldLoc.y, 0.0))
 	#Connect all valid points
 	for point in validP:
 		var point_index = calculate_point_index(point)
@@ -256,17 +304,18 @@ func makeHalls():
 		var left =  Floor.get_cellv(l) == -1
 		var right =  Floor.get_cellv(r) == -1
 		
+		if down and Walls.get_cellv(d) == -1 and checkTileNotOnMap(d):
+			Walls.set_cellv(d, 9)
+			Walls.set_cellv(cell+Vector2(0,-2), 6)
 		if up and Walls.get_cellv(u) == -1 and checkTileNotOnMap(u):
-			Walls.set_cellv(u, 6)
-			Floor.set_cellv(u, 0)
-			Walls.set_cellv(cell+Vector2(0,2), 9)
+			Walls.set_cellv(cell, 6)
+			Walls.set_cellv(u, 9)
 		if left and Walls.get_cellv(l) == -1 and checkTileNotOnMap(l):
 			Walls.set_cellv(l, 13)
 		if right and Walls.get_cellv(r) == -1 and checkTileNotOnMap(r):
 			Walls.set_cellv(r, 25)
-		if down and Walls.get_cellv(d) == -1 and checkTileNotOnMap(d):
-			Walls.set_cellv(d, 9)
-			Walls.set_cellv(cell+Vector2(0,-2), 6)
+		
+		
 	#validsT = Paths
 	validsT = valids
 	
