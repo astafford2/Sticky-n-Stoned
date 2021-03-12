@@ -43,15 +43,17 @@ script = ExtResource( 9 )
 GlueSpatter = ExtResource( 10 )
 
 [node name="BDSprite" type="AnimatedSprite" parent="."]
+position = Vector2( 1.26099, -34.9186 )
 frames = SubResource( 1 )
 animation = "idle"
 
 [node name="BDShape" type="CollisionShape2D" parent="."]
 visible = false
-position = Vector2( -0.572372, 6.53214 )
+position = Vector2( 0.0586395, 0.591759 )
 shape = SubResource( 2 )
 
 [node name="DetectRadius" type="Area2D" parent="."]
+position = Vector2( 1.26099, -34.9186 )
 
 [node name="DetectShape" type="CollisionShape2D" parent="DetectRadius"]
 visible = false
@@ -62,6 +64,7 @@ shape = SubResource( 3 )
 stream = ExtResource( 11 )
 
 [node name="FallingBox" type="Area2D" parent="."]
+position = Vector2( 1.26099, -34.9186 )
 collision_layer = 2
 collision_mask = 2
 
@@ -72,5 +75,7 @@ shape = SubResource( 4 )
 [node name="Foot2" type="CollisionShape2D" parent="FallingBox"]
 position = Vector2( 9.01017, 34.1218 )
 shape = SubResource( 4 )
+
+[node name="Navigation2D" type="Navigation2D" parent="."]
 [connection signal="body_entered" from="DetectRadius" to="." method="_on_DetectRadius_body_entered"]
 [connection signal="body_exited" from="DetectRadius" to="." method="_on_DetectRadius_body_exited"]
