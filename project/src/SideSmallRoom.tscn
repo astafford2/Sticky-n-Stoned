@@ -30,7 +30,6 @@ position = Vector2( -21.2852, -111.599 )
 scale = Vector2( 0.75, 0.75 )
 
 [node name="Dimensions" type="Area2D" parent="."]
-visible = false
 
 [node name="Shape" type="CollisionShape2D" parent="Dimensions"]
 position = Vector2( -15.1191, -100.794 )
@@ -39,4 +38,4 @@ shape = SubResource( 1 )
 [node name="Doors" type="Node2D" parent="."]
 
 [node name="Door1" type="Position2D" parent="Doors"]
-position = Vector2( 160, 48 )
+position = Vector2( 160, 64 )

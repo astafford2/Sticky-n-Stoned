@@ -6,6 +6,7 @@ const PitReturn = preload("res://src/tiles/PitReturn.tscn")
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	instanceTiles()
 	pass
 
 

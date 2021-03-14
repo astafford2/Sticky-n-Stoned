@@ -1,14 +1,21 @@
 extends Node2D
 
+class MyAStar:
+	extends AStar
+
+	func _compute_cost(u, v):
+		return abs(u - v)
+
+	func _estimate_cost(u, v):
+		return min(0, abs(u - v) - 1)
+
+
 var rng = RandomNumberGenerator.new()
 var path 
 var Tiles := {}
 var obstacles := {}
-var maxsize := 0
+var maxsize:float = 0
 
-
-#temp
-var validsT
 
 onready var Rooms := $Rooms
 onready var Floor := $Floor
@@ -17,12 +24,31 @@ onready var Walls := $Walls
 #Rooms
 export (PackedScene) var multiRoom
 export (PackedScene) var SideSmallRoom
+export (PackedScene) var BossRoom
+export (PackedScene) var DescentRoom
+export (PackedScene) var LargeRoom
+export (PackedScene) var MonsterRoom
 
 #Spawns up to minimum at 100% and then any more past to maximum at Probability
 onready var spawnInfo = {
 	#Room preload : [MinSpawn, MaxSpawn, Probability]
-	multiRoom : [1, 1, 1], #Pretend this is the character instance room
-	SideSmallRoom : [1, 5, 0.5] #Pretend this is a common room
+	#Rooms should be organized in order of centrality 
+	#single door rooms are last while multi door rooms are first
+	multiRoom : [1, 1, 1], 
+	SideSmallRoom : [0, 2, 0.5],
+	BossRoom : [1, 1, 1],
+	DescentRoom : [1, 1, 1],
+	#MonsterRoom : [2, 3, 0.25], #Currently giving pathing issues
+	LargeRoom : [1, 2, 0.75]
+	
+}
+var wallConversions = {
+	[13,6] : 21,
+	[13,25] : [12,6],
+	[12, 13] : [16,6],
+	[12,25] : [20, 6],
+	[13, 6] : 19,
+	[25, 6] : 18
 }
 
 # Called when the node enters the scene tree for the first time.
@@ -30,38 +56,7 @@ func _ready():
 	rng.randomize()
 	spawnRooms()
 	moveRooms()
-	#combineTiles()
 	makeHalls()
-
-
-func _draw():
-	pass
-#	if path:
-#		for p in path.get_points():
-#			for c in path.get_point_connections(p):
-#				var pp= path.get_point_position(p)
-#				var cp = path.get_point_position(c)
-#				draw_line(Vector2(pp.x,pp.y), Vector2(cp.x,cp.y), Color(1,1,0), 15, true)
-#	if validsT:
-#		for paths in validsT:
-#			var point_start = paths[0]
-#			var point_end = paths[len(paths) - 1]
-#
-#			var last_point = Vector2(point_start.x, point_start.y)
-#			for index in range(1, len(paths)):
-#				var current_point =Vector2(paths[index].x, paths[index].y)
-#				draw_line(last_point, current_point, Color(1,0,0), 5, true)
-#				last_point = current_point
-
-#		for p in validsT.get_points():
-#			for c in validsT.get_point_connections(p):
-#				var pp = validsT.get_point_position(p)
-#				var cp = validsT.get_point_position(c)
-#				draw_line(Vector2(pp.x,pp.y), Vector2(cp.x,cp.y), Color(1, 0, 0), 5, true)
-
-
-func _process(_delta):
-	update()
 
 
 func spawnRooms():
@@ -108,31 +103,8 @@ func moveRooms():
 			rooms.erase(currentRoom)
 		else:
 			dist += 10
-	#64 is the maximum size for a single room
-	maxsize = (dist+32)*2
-
-
-#func combineTiles():
-#	var mainFSet = Floor.tile_set
-#	var mainWSet = Walls.tile_set
-#	for room in Rooms.get_children():
-#		var tiles = room.get_Tiles()
-#		var floors = tiles[0]
-#		var floorSet = floors.tile_set
-#		var walls = tiles[1]
-#		var wallSet = walls.tile_set
-#		for cell in floors.get_used_cells():
-#			var value = floors.get_cellv(cell)
-#			var pos = floors.map_to_world(cell) + room.global_position
-#			var autotile = floors.get_cell_autotile_coord(pos.x, pos.y)
-#			Floor.set_cell(Floor.world_to_map(pos).x,Floor.world_to_map(pos).y , value, false, false, false, Vector2(1,1))
-#		for cell in walls.get_used_cells():
-#			var value = walls.get_cellv(cell)
-#			var pos = walls.map_to_world(cell) + room.global_position
-#			var autotile = walls.get_cell_autotile_coord(pos.x, pos.y)
-#			Walls.set_cell(Walls.world_to_map(pos).x,Walls.world_to_map(pos).y , value, false, false, false, Vector2(1,1))
-#		floors.clear()
-#		walls.clear()
+	#32 is the maximum size for a single room
+	maxsize = (dist+100)*2
 
 
 func checkTileNotOnMap(TilePosition):
@@ -142,6 +114,7 @@ func checkTileNotOnMap(TilePosition):
 			valid = false
 	return valid
 
+
 func updateObstacles():
 	for tileset in Tiles.keys():
 			var used = tileset.get_used_cells()
@@ -149,28 +122,27 @@ func updateObstacles():
 				var globalPos = Floor.world_to_map(tileset.map_to_world(cell) + Tiles.get(tileset).global_position)
 				obstacles[globalPos] = tileset
 
+
+func getNearby(TilePosition):
+	var result = []
+	for x in range(-3, 3):
+		for y in range(-3, 3):
+			result.append(TilePosition+ Vector2(x,y))
+	return result
+
+
 func checkPlacementValid(TilePosition):
-	var valid = true
-	if !obstacles:
-		updateObstacles()
-	for cell in obstacles:
-		var tileset = obstacles.get(cell)
-		var standardPos = cell
-		var left =  TilePosition+ Vector2(-1,0) == standardPos
-		var right =  TilePosition+ Vector2(1,0) == standardPos
-		var up =  TilePosition+ Vector2(0,1) == standardPos or TilePosition+ Vector2(0,2) == standardPos
-		var down =  TilePosition+ Vector2(0,-1) == standardPos or TilePosition+ Vector2(0,-2) == standardPos
-		var topright = TilePosition+ Vector2(1,1) == standardPos
-		var topleft = TilePosition+ Vector2(-1,1) == standardPos
-		var bottomright = TilePosition+ Vector2(1,-1) == standardPos
-		var bottomleft = TilePosition+ Vector2(-1,-1) == standardPos
-		var posIs = TilePosition == standardPos
-		if left or right or up or down or posIs or topright or topleft or bottomright or bottomleft:
-			if tileset.tile_set == Floor.tile_set and !posIs:
-				continue
-			valid = false
+	var nearby = getNearby(TilePosition)
 	
-	return valid
+	if obstacles.has(TilePosition):
+		return false
+	for cell in nearby:
+		if obstacles.has(cell):
+			var tileset = obstacles.get(cell)
+			if tileset.tile_set == Floor.tile_set and !(TilePosition == cell):
+				continue
+			return false
+	return true
 
 
 func calculate_point_index(point):
@@ -179,10 +151,6 @@ func calculate_point_index(point):
 
 func is_out_map(point):
 	#Assumes in grid location
-# warning-ignore:integer_division
-# warning-ignore:integer_division
-# warning-ignore:integer_division
-# warning-ignore:integer_division
 	return point.x < -(maxsize / 2) or point.y < -(maxsize / 2) or point.x >= (maxsize/2) or point.y >= (maxsize/2)
 
 
@@ -205,25 +173,7 @@ func getRangePoints(userdata): #designed for multi-threading
 	return returnInfo
 
 
-func makeHalls():
-	var rooms := Rooms.get_children()
-	var doorPositions := {} #We use a dicitonary so that we can have to position [key] and the owner room [value]
-	for room in rooms: #Get all door Positions
-		var tiles = room.get_Tiles()
-		Tiles[tiles[0]] = room
-		Tiles[tiles[1]] = room
-		var doors = room.get_DoorPositions()
-		for door in doors:
-			doorPositions[Vector3(door.global_position.x, door.global_position.y, 0)] = room
-	yield(get_tree(), 'idle_frame')
-	path = find_mst(doorPositions)
-	#MST and Tiles have been populated
-	print("MST found")
-	var validP = []
-	var valids = AStar.new()
-# warning-ignore:unused_variable
-	var map_size = Vector2(maxsize, maxsize)
-	#Add valid points to valids (This is the longest generation step)
+func gatherRangeSets():
 	var thread1 = Thread.new()
 	var thread2 = Thread.new()
 	var thread3 = Thread.new()
@@ -236,21 +186,58 @@ func makeHalls():
 	var set2 = thread2.wait_to_finish()
 	var set3 = thread3.wait_to_finish()
 	var set4 = thread4.wait_to_finish()
-	for set in [set1, set2, set3, set4]:
+	return [set1,set2,set3,set4]
+
+
+func makeHalls():
+	var rooms := Rooms.get_children() #Each individual room
+	var validP := [] #A list of all points in valids
+	var valids := MyAStar.new() #An Astar where all points are connected to neighboring points (hall generation)
+	var doorPositions := {} #We use a dicitonary so that we can have to position [key] and the owner room [value]
+	for room in rooms: #Get all door Positions
+		var tiles = room.get_Tiles()
+		#populate the Tiles for later obstacle generation
+		Tiles[tiles[0]] = room
+		Tiles[tiles[1]] = room
+		var doors = room.get_DoorPositions()
+		for door in doors:
+			doorPositions[Vector3(door.global_position.x, door.global_position.y, 0)] = room
+	path = find_mst(doorPositions)
+	#MST and Tiles have been populated
+	#Add valid points to valids (This is the longest generation step)
+	updateObstacles()
+	var sets = gatherRangeSets()
+	for set in sets:
 		for data in set:
 			validP.append(data[0])
 			valids.add_point(data[1], data[2])
-#	for y2 in range(map_size.y):
-#		var y = y2 - (maxsize / 2)
-#		for x2 in range(map_size.x):
-#			var x = x2 - (maxsize / 2)
-#			var point = Vector2(x, y)
-#			if !checkPlacementValid(point):
-#				continue
-#			var worldLoc = Floor.map_to_world(point) 
-#			var point_index = calculate_point_index(point)
-#			validP.append(point)
-#			valids.add_point(point_index, Vector3(worldLoc.x, worldLoc.y, 0.0))
+	for p in doorPositions.keys():
+		var point = Floor.world_to_map(Vector2(p.x, p.y))
+		var closest_I = valids.get_closest_point(p)
+		var point_I = calculate_point_index(point)
+		var c = valids.get_point_position(closest_I)
+		var closest = Floor.world_to_map(Vector2(c.x,c.y))
+		var directionVector = point-closest #says left if need to go Left from closest
+		while directionVector.x != 0:
+			var direction = 1
+			if directionVector.x < 0:
+				direction = -1
+			var newP = closest + Vector2(directionVector.x, 0)
+			var newP_W = Floor.map_to_world(newP)
+			var newP_I = calculate_point_index(newP)
+			validP.append(newP)
+			valids.add_point(newP_I, Vector3(newP_W.x, newP_W.y, 0.0))
+			directionVector.x -= direction
+		while directionVector.y != 0:
+			var direction = 1
+			if directionVector.y < 0:
+				direction = -1
+			var newP = closest + Vector2(0, directionVector.y)
+			var newP_W = Floor.map_to_world(newP)
+			var newP_I = calculate_point_index(newP)
+			validP.append(newP)
+			valids.add_point(newP_I, Vector3(newP_W.x, newP_W.y, 0.0))
+			directionVector.y -= direction
 	#Connect all valid points
 	for point in validP:
 		var point_index = calculate_point_index(point)
@@ -282,64 +269,100 @@ func makeHalls():
 					calculated.append([startIndex, goalIndex])
 	#place Floors
 	for singlePath in Paths:
-		for point in singlePath:
+		for pointI in range(0, singlePath.size()-1):
+			var point = singlePath[pointI]
+			var nextPoint = singlePath[pointI + 1]
+			var priorPoint = singlePath[pointI - 1]
+			var direction = [(point-priorPoint)/32, (nextPoint-point)/32]
+			if priorPoint == singlePath[-1]:
+				priorPoint = null
+				direction = [(point-nextPoint)/32, (point-nextPoint)/32]
 			var cellPos = Floor.world_to_map(Vector2(point.x, point.y))
 			Floor.set_cellv(cellPos, 0)
-			if checkPlacementValid(cellPos+ Vector2(-1, 0)) and Floor.get_cellv(cellPos+Vector2(-1, 0)) == -1:
-				Floor.set_cellv(cellPos+ Vector2(-1, 0), 0)
-			if checkPlacementValid(cellPos+ Vector2(1, 0)) and Floor.get_cellv(cellPos+Vector2(1, 0)) == -1:
-				Floor.set_cellv(cellPos+ Vector2(1, 0), 0)
-			if checkPlacementValid(cellPos+ Vector2(0, 1)) and Floor.get_cellv(cellPos+Vector2(0, 1)) == -1:
-				Floor.set_cellv(cellPos+ Vector2(0, 1), 0)
-			if checkPlacementValid(cellPos+ Vector2(0, -1)) and Floor.get_cellv(cellPos+Vector2(0, -1)) == -1:
-				Floor.set_cellv(cellPos+ Vector2(0, -1), 0)
+			match (direction):
+				[Vector3(-1, 0, 0), Vector3(-1,0,0)]: #Left, so up
+					Floor.set_cellv(cellPos+Vector2(0, -1), 0)
+				[Vector3(1, 0, 0), Vector3(1,0,0)]: #Right, so up
+					Floor.set_cellv(cellPos+Vector2(0, -1), 0)
+				[Vector3(0, -1, 0), Vector3(0,-1,0) ]: #Up, so left
+					Floor.set_cellv(cellPos+Vector2(-1, 0), 0)
+				[Vector3(0, 1, 0), Vector3(0,1,0) ]: #Down, so left
+					Floor.set_cellv(cellPos+Vector2(-1, 0), 0)
+
+				[Vector3(-1, 0, 0), Vector3(0,-1,0) ]: #Left Up, so left
+					Floor.set_cellv(cellPos+Vector2(-1, 0), 0)
+				[Vector3(-1, 0, 0), Vector3(0,1,0) ]: #Left Down, so left up/left up
+					Floor.set_cellv(cellPos+Vector2(-1, 0), 0)
+					Floor.set_cellv(cellPos+Vector2(-1, -1), 0)
+					Floor.set_cellv(cellPos+Vector2(0, -1), 0)
+
+				[Vector3(1, 0, 0), Vector3(0,-1,0) ]: #Right Up, so none
+					pass
+					#Floor.set_cellv(cellPos+Vector2(0, -1), 3)
+				[Vector3(1, 0, 0), Vector3(0,1,0) ]: #Right Down, so up
+					Floor.set_cellv(cellPos+Vector2(0, -1), 0)
+
+				[Vector3(0, -1, 0), Vector3(-1,0,0) ]: #Up Left, so up
+					Floor.set_cellv(cellPos+Vector2(0, -1), 0)
+				[Vector3(0, -1, 0), Vector3(1,0,0) ]: #Up Right, so left up/left up
+					Floor.set_cellv(cellPos+Vector2(-1, 0), 0)
+					Floor.set_cellv(cellPos+Vector2(-1, -1), 0)
+					Floor.set_cellv(cellPos+Vector2(0, -1), 0)
+
+				[Vector3(0, 1, 0), Vector3(-1,0,0) ]: #Down Left, none
+					pass
+					#Floor.set_cellv(cellPos+Vector2(-1, 0), 3)
+				[Vector3(0, 1, 0), Vector3(1,0,0) ]: #Down Right, left
+					Floor.set_cellv(cellPos+Vector2(-1, 0), 0)
+
 	#Place Walls around Floors:
 	for cell in Floor.get_used_cells():
 		var u =cell + Vector2(0,1)
 		var d = cell + Vector2(0,-1)
 		var l = cell + Vector2(-1,0)
 		var r =  cell + Vector2(1,0)
-		var up =  Floor.get_cellv(u) == -1
-		var down =  Floor.get_cellv(d) == -1
-		var left =  Floor.get_cellv(l) == -1
-		var right =  Floor.get_cellv(r) == -1
+		var up =  Floor.get_cellv(u) == -1 and Walls.get_cellv(u) == -1
+		var down =  Floor.get_cellv(d) == -1 and Walls.get_cellv(d) == -1
+		var left =  Floor.get_cellv(l) == -1 and Walls.get_cellv(l) == -1
+		var right =  Floor.get_cellv(r) == -1 and Walls.get_cellv(r) == -1
 		
-		if down and Walls.get_cellv(d) == -1 and checkTileNotOnMap(d):
+		if down and checkTileNotOnMap(d):
 			Walls.set_cellv(d, 9)
 			Walls.set_cellv(cell+Vector2(0,-2), 6)
-		if up and Walls.get_cellv(u) == -1 and checkTileNotOnMap(u):
+		if up and checkTileNotOnMap(u):
 			Walls.set_cellv(cell, 6)
 			Walls.set_cellv(u, 9)
-		if left and Walls.get_cellv(l) == -1 and checkTileNotOnMap(l):
+		if left and checkTileNotOnMap(l):
 			Walls.set_cellv(l, 13)
-		if right and Walls.get_cellv(r) == -1 and checkTileNotOnMap(r):
+		if right and checkTileNotOnMap(r):
 			Walls.set_cellv(r, 25)
-		
-		
-	#validsT = Paths
-	validsT = valids
-	
+
+
+func wallAddition(value1, value2):
+	var newValue = wallConversions.get([value1, value2])
+	if newValue == null:
+		newValue = wallConversions.get([value2, value1])
+	return newValue
 
 
 func find_mst(doors):
-# warning-ignore:shadowed_variable
-	var path = AStar.new()
+	var Mpath = AStar.new()
 	var positions = doors.keys()
-	path.add_point(path.get_available_point_id(), positions.pop_front())
+	Mpath.add_point(Mpath.get_available_point_id(), positions.pop_front())
 	
 	while positions:
 		var min_dist = INF
 		var min_p = null
 		var p = null
-		for p1 in path.get_points():
-			p1 = path.get_point_position(p1)
+		for p1 in Mpath.get_points():
+			p1 = Mpath.get_point_position(p1)
 			for p2 in positions:
 				if p1.distance_to(p2) < min_dist and doors.get(p1) != doors.get(p2):
 					min_dist = p1.distance_to(p2)
 					min_p = p2
 					p = p1
-		var n = path.get_available_point_id()
-		path.add_point(n, min_p)
-		path.connect_points(path.get_closest_point(p), n)
+		var n = Mpath.get_available_point_id()
+		Mpath.add_point(n, min_p)
+		Mpath.connect_points(Mpath.get_closest_point(p), n)
 		positions.erase(min_p)
-	return path
+	return Mpath

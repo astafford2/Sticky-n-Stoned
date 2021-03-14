@@ -1,10 +1,15 @@
-[gd_scene load_steps=25 format=2]
+[gd_scene load_steps=30 format=2]
 
-[ext_resource path="res://src/GenerationTesting.gd" type="Script" id=1]
+[ext_resource path="res://src/characters/Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://src/Multi-Room.tscn" type="PackedScene" id=2]
 [ext_resource path="res://src/SideSmallRoom.tscn" type="PackedScene" id=3]
 [ext_resource path="res://src/tiles/Floor.tres" type="TileSet" id=4]
 [ext_resource path="res://assets/0x72_DungeonTilesetII_v1.3.png" type="Texture" id=5]
+[ext_resource path="res://src/Large Room.tscn" type="PackedScene" id=6]
+[ext_resource path="res://src/Monster Room.tscn" type="PackedScene" id=7]
+[ext_resource path="res://src/DescentRoom.tscn" type="PackedScene" id=8]
+[ext_resource path="res://src/Boss Room.tscn" type="PackedScene" id=9]
+[ext_resource path="res://src/GenerationTesting.gd" type="Script" id=10]
 
 [sub_resource type="ConvexPolygonShape2D" id=1]
 points = PoolVector2Array( 22, 0, 32, 0, 32, 32, 22, 32 )
@@ -445,9 +450,15 @@ points = PoolVector2Array( 0, 0, 32, 0, 32, 32, 0, 32 )
 26/z_index = 0
 
 [node name="Node2D" type="Node2D"]
-script = ExtResource( 1 )
+script = ExtResource( 10 )
 multiRoom = ExtResource( 2 )
 SideSmallRoom = ExtResource( 3 )
+BossRoom = ExtResource( 9 )
+DescentRoom = ExtResource( 8 )
+LargeRoom = ExtResource( 6 )
+MonsterRoom = ExtResource( 7 )
+
+[node name="Rooms" type="Node2D" parent="."]
 
 [node name="Floor" type="TileMap" parent="."]
 tile_set = ExtResource( 4 )
@@ -459,8 +470,8 @@ tile_set = SubResource( 19 )
 cell_size = Vector2( 32, 32 )
 format = 1
 
-[node name="Rooms" type="Node2D" parent="."]
-
 [node name="Camera2D" type="Camera2D" parent="."]
 current = true
 zoom = Vector2( 3, 3 )
+
+[node name="Player" parent="." instance=ExtResource( 1 )]

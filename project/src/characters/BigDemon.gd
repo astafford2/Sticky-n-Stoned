@@ -35,7 +35,7 @@ func _process(_delta):
 	UpdateFooting()
 	
 	if nav_target:
-		nav.get_simple_path(self.position, nav_target.position)
+		navpath = nav.get_simple_path(self.position, nav_target.position)
 
 
 func _physics_process(_delta):
