@@ -1,6 +1,5 @@
-[gd_scene load_steps=30 format=2]
+[gd_scene load_steps=29 format=2]
 
-[ext_resource path="res://src/characters/Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://src/Multi-Room.tscn" type="PackedScene" id=2]
 [ext_resource path="res://src/SideSmallRoom.tscn" type="PackedScene" id=3]
 [ext_resource path="res://src/tiles/Floor.tres" type="TileSet" id=4]
@@ -473,5 +472,3 @@ format = 1
 [node name="Camera2D" type="Camera2D" parent="."]
 current = true
 zoom = Vector2( 3, 3 )
-
-[node name="Player" parent="." instance=ExtResource( 1 )]

@@ -45,10 +45,12 @@ onready var spawnInfo = {
 var wallConversions = {
 	[13,6] : 21,
 	[13,25] : [12,6],
-	[12, 13] : [16,6],
-	[12,25] : [20, 6],
+	[12, 13] : [20,6],
+	[12,25] : [16, 6],
 	[13, 6] : 19,
-	[25, 6] : 18
+	[25, 6] : 18,
+	[9, 25] : [9,6],
+	[9, 13] : [9,6]
 }
 
 # Called when the node enters the scene tree for the first time.
@@ -321,21 +323,49 @@ func makeHalls():
 		var d = cell + Vector2(0,-1)
 		var l = cell + Vector2(-1,0)
 		var r =  cell + Vector2(1,0)
-		var up =  Floor.get_cellv(u) == -1 and Walls.get_cellv(u) == -1
-		var down =  Floor.get_cellv(d) == -1 and Walls.get_cellv(d) == -1
-		var left =  Floor.get_cellv(l) == -1 and Walls.get_cellv(l) == -1
-		var right =  Floor.get_cellv(r) == -1 and Walls.get_cellv(r) == -1
+		var up =  Floor.get_cellv(u) == -1
+		var down =  Floor.get_cellv(d) == -1
+		var left =  Floor.get_cellv(l) == -1
+		var right =  Floor.get_cellv(r) == -1
 		
-		if down and checkTileNotOnMap(d):
-			Walls.set_cellv(d, 9)
-			Walls.set_cellv(cell+Vector2(0,-2), 6)
-		if up and checkTileNotOnMap(u):
-			Walls.set_cellv(cell, 6)
-			Walls.set_cellv(u, 9)
-		if left and checkTileNotOnMap(l):
-			Walls.set_cellv(l, 13)
-		if right and checkTileNotOnMap(r):
-			Walls.set_cellv(r, 25)
+		if checkTileNotOnMap(d) and down:
+			placeOrMerge(d, 9)
+			placeOrMerge(d + Vector2(0,-1), 6)
+		if checkTileNotOnMap(u) and up:
+			placeOrMerge(cell, 6)
+			placeOrMerge(u, 12)
+		if checkTileNotOnMap(l) and left:
+			placeOrMerge(l, 13)
+		if checkTileNotOnMap(r) and right:
+			placeOrMerge(r, 25)
+	#wall cleanup
+	var cornerChecks = [Walls.get_used_cells_by_id(13), Walls.get_used_cells_by_id(25)]
+	for set in cornerChecks:
+		for cell in set:
+			var u = cell + Vector2(0,-1)
+			var d = cell + Vector2(0, 1)
+			var wallV = Walls.get_cellv(cell)
+			if Walls.get_cellv(u) == -1 and !obstacles.has(u):
+				Walls.set_cellv(u, wallV)
+			if Walls.get_cellv(d) == -1 and !obstacles.has(d):
+				Walls.set_cellv(d, wallV+1)
+		
+
+
+func placeOrMerge(location, value):
+	var currentTile = Walls.get_cellv(location)
+	if currentTile == -1:
+		Walls.set_cellv(location, value)
+		return
+	var new = wallAddition(currentTile, value)
+	if !new:
+		new = wallAddition(value, currentTile)
+	if new:
+		if typeof(new) == TYPE_INT:
+			Walls.set_cellv(location, new)
+		else:
+			Walls.set_cellv(location, new[0])
+			placeOrMerge(location + Vector2(0,-1), new[1])
 
 
 func wallAddition(value1, value2):
