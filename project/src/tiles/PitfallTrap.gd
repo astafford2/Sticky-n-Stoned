@@ -1,19 +1,31 @@
-extends "res://src/tiles/Traps.gd"
+extends Traps
 
+
+var rect : Rect2
+var opened := false
+
+onready var pit := $PitfallShape
 onready var sprite := $Sprite
-onready var shape := $PitfallShape
+
 
 func _ready():
-	pass # Replace with function body.
+	rect = Rect2(pit.global_position - pit.shape.extents, pit.shape.extents * 2)
+
 
 func activate(_delta):
-	sprite.texture = preload("res://assets/tiles/hole.png")
+	if !opened:
+		opened = true
+		#Sprite plays
+		sprite.animation = "Opening"
+	var intersecting = get_overlapping_areas()
+	if intersecting.size() > 0:
+		for area in get_overlapping_areas():
+			SignalMaster.overlapped(area.get_parent(), rect)
 
 # what the child trap will do when deactivated or idle
 func deactivated(_delta):
-	sprite.texture = preload("res://assets/tiles/RegularTIle.png")
-
-
-func _on_PitfallTrap_body_entered(body):
-	if body.has_method("shoot") and activated:
-		body.pitfalled(global_position+Vector2(16, 16))
+	if opened:
+		var intersecting = get_overlapping_areas()
+		if intersecting.size() > 0:
+			for area in get_overlapping_areas():
+				SignalMaster.overlapped(area.get_parent(), rect)

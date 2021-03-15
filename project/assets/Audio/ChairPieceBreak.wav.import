@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/ChairPieceBreak.wav-c64c5d6d0464d71b1cafbe4619719f5d.sample"
+
+[deps]
+
+source_file="res://assets/Audio/ChairPieceBreak.wav"
+dest_files=[ "res://.import/ChairPieceBreak.wav-c64c5d6d0464d71b1cafbe4619719f5d.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

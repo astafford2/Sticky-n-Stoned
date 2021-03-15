@@ -8,6 +8,8 @@ onready var door_sprite := $Sprite
 onready var closed_shape := $ClosedShape
 onready var open_shape_1 := $OpenShape
 onready var open_shape_2 := $OpenShape2
+onready var open_sfx := $OpenSfx
+onready var close_sfx := $CloseSfx
 
 
 func _ready():
@@ -19,6 +21,7 @@ func open():
 	open_shape_1.set_deferred("disabled", false)
 	open_shape_2.set_deferred("disabled", false)
 	closed_shape.set_deferred("disabled", true)
+	open_sfx.play()
 
 
 func close():
@@ -26,6 +29,7 @@ func close():
 	closed_shape.set_deferred("disabled", false)
 	open_shape_1.set_deferred("disabled", true)
 	open_shape_2.set_deferred("disabled", true)
+	close_sfx.play()
 
 
 func _on_DoorArea_body_entered(body):

@@ -1,7 +1,9 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://assets/tiles/door_open.png" type="Texture" id=1]
 [ext_resource path="res://src/tiles/Door.gd" type="Script" id=2]
+[ext_resource path="res://assets/Audio/DoorOpening.wav" type="AudioStream" id=3]
+[ext_resource path="res://assets/Audio/DoorClosing.wav" type="AudioStream" id=4]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 63.5, 16.5 )
@@ -36,5 +38,11 @@ shape = SubResource( 2 )
 [node name="CollisionShape2D" type="CollisionShape2D" parent="DoorArea"]
 position = Vector2( 63.5, 56 )
 shape = SubResource( 3 )
+
+[node name="OpenSfx" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 3 )
+
+[node name="CloseSfx" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 4 )
 [connection signal="body_entered" from="DoorArea" to="." method="_on_DoorArea_body_entered"]
 [connection signal="body_exited" from="DoorArea" to="." method="_on_DoorArea_body_exited"]
