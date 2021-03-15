@@ -48,8 +48,7 @@ frames = SubResource( 1 )
 animation = "idle"
 
 [node name="BDShape" type="CollisionShape2D" parent="."]
-visible = false
-position = Vector2( 0.0586395, 0.591759 )
+position = Vector2( 0.0586395, -23.4625 )
 shape = SubResource( 2 )
 
 [node name="DetectRadius" type="Area2D" parent="."]

@@ -34,8 +34,8 @@ func _process(_delta):
 		kill_enemy()
 	UpdateFooting()
 	
-	if navpath:
-		nav.get_simple_path(self.position, nav_target.position)
+	if nav_target:
+		navpath = nav.get_simple_path(self.position, nav_target.position)
 
 
 func _physics_process(_delta):

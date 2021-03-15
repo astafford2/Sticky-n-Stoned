@@ -13,7 +13,7 @@ onready var muzzle_b := $Muzzle_b
 
 func _ready():
 	attacking = true
-	yield(get_tree().create_timer(0.4), "timeout")
+	#yield(get_tree().create_timer(0.4), "timeout")
 	attacking = false
 
 
@@ -37,5 +37,5 @@ func _physics_process(_delta):
 		tl.transform = muzzle_l.global_transform
 		tb.transform = muzzle_b.global_transform
 #		fireball_shot_fx.play()
-		yield(get_tree().create_timer(3), "timeout")
+		yield(get_tree().create_timer(1), "timeout")
 		attacking = false

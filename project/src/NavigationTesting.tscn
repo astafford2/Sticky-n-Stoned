@@ -1,4 +1,4 @@
-[gd_scene load_steps=36 format=2]
+[gd_scene load_steps=41 format=2]
 
 [ext_resource path="res://src/tiles/Floor.gd" type="Script" id=1]
 [ext_resource path="res://src/characters/BigDemon.tscn" type="PackedScene" id=2]
@@ -6,6 +6,10 @@
 [ext_resource path="res://assets/0x72_DungeonTilesetII_v1.3.png" type="Texture" id=4]
 [ext_resource path="res://src/tiles/Floor.tres" type="TileSet" id=5]
 [ext_resource path="res://src/characters/Player.tscn" type="PackedScene" id=6]
+[ext_resource path="res://src/characters/DemonShaman.tscn" type="PackedScene" id=7]
+[ext_resource path="res://src/projectiles/Rock.tscn" type="PackedScene" id=8]
+[ext_resource path="res://src/characters/TackShooter.tscn" type="PackedScene" id=9]
+[ext_resource path="res://src/characters/GreenSlime.tscn" type="PackedScene" id=10]
 
 [sub_resource type="ConvexPolygonShape2D" id=1]
 points = PoolVector2Array( 0, 0, 32, 0, 32, 32, 0, 32 )
@@ -367,6 +371,11 @@ vertices = PoolVector2Array( 486.914, 422.735, 1014.46, 506.998, 10.1788, 506.05
 polygons = [ PoolIntArray( 0, 1, 2, 3 ), PoolIntArray( 4, 5, 6, 7, 8 ), PoolIntArray( 9, 1, 10, 11 ), PoolIntArray( 10, 1, 0, 5 ), PoolIntArray( 4, 10, 5 ), PoolIntArray( 9, 11, 12, 13 ), PoolIntArray( 12, 11, 14, 15 ), PoolIntArray( 14, 4, 8, 15 ), PoolIntArray( 16, 17, 18, 19 ), PoolIntArray( 20, 9, 13, 21 ), PoolIntArray( 20, 21, 15, 8, 16, 19 ), PoolIntArray( 20, 19, 22 ), PoolIntArray( 2, 20, 22, 23 ), PoolIntArray( 3, 2, 23, 18, 17 ), PoolIntArray( 6, 3, 17, 7 ) ]
 outlines = [ PoolVector2Array( 9.23495, 31.2852, 1013.52, 33.1729, 1014.46, 506.998, 10.1788, 506.054 ), PoolVector2Array( 120.669, 183.044, 231.685, 183.751, 232.392, 262.24, 122.084, 262.24 ), PoolVector2Array( 408.338, 311.617, 407.544, 421.942, 486.914, 422.735, 486.121, 310.824 ), PoolVector2Array( 410.719, 89.3812, 410.719, 163.989, 485.327, 163.989, 484.533, 89.3812 ), PoolVector2Array( 475.803, 186.213, 548.823, 186.213, 549.617, 260.027, 475.803, 260.027 ), PoolVector2Array( 315.475, 217.167, 388.496, 217.167, 390.083, 292.568, 313.888, 292.568 ) ]
 
+[sub_resource type="NavigationPolygon" id=30]
+vertices = PoolVector2Array( 314.074, 216.36, 389.38, 216.008, 391.502, 293.473, 313.013, 293.473 )
+polygons = [ PoolIntArray( 0, 1, 2, 3 ) ]
+outlines = [ PoolVector2Array( 314.074, 216.36, 389.38, 216.008, 391.502, 293.473, 313.013, 293.473 ) ]
+
 [node name="NavigationTesting" type="Node2D"]
 scale = Vector2( 1, 1.00409 )
 script = ExtResource( 3 )
@@ -390,12 +399,31 @@ tile_data = PoolIntArray( 327719, 2, 0, 327720, 0, 0, 327721, 2, 0, 327722, 2, 0
 position = Vector2( 84.1608, 118.042 )
 scale = Vector2( 0.75, 0.75 )
 
-[node name="BigDemon2" parent="." instance=ExtResource( 2 )]
-position = Vector2( 690.447, 111.314 )
-scale = Vector2( 0.75, 0.75 )
+[node name="DemonShaman" parent="." instance=ExtResource( 7 )]
+position = Vector2( 565.081, 313.213 )
 
 [node name="Player" parent="." instance=ExtResource( 6 )]
-position = Vector2( 720.751, 384.693 )
+position = Vector2( 926.77, 454.203 )
 
 [node name="NavigationPolygonInstance" type="NavigationPolygonInstance" parent="."]
 navpoly = SubResource( 29 )
+
+[node name="Trapdoor" type="NavigationPolygonInstance" parent="."]
+navpoly = SubResource( 30 )
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2( 519.674, 255.429 )
+current = true
+
+[node name="Line2D" type="Line2D" parent="."]
+width = 2.0
+default_color = Color( 0.713726, 0.14902, 0.14902, 1 )
+
+[node name="Rock" parent="." instance=ExtResource( 8 )]
+position = Vector2( 843.033, 105.949 )
+
+[node name="TackShooter" parent="." instance=ExtResource( 9 )]
+position = Vector2( 785.822, 137.604 )
+
+[node name="GreenSlime" parent="." instance=ExtResource( 10 )]
+position = Vector2( 704.243, 219.905 )
