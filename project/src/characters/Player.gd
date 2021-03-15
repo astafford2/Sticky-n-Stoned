@@ -16,6 +16,7 @@ var Foot2 = null
 var feetArea = null
 var managedPits = []
 var canRoll := true
+var isRolling := false
 
 onready var player := $"."
 onready var player_sprite := $PlayerSprite
@@ -45,21 +46,35 @@ func _process(_delta):
 		kill_player()
 	if !rolling:
 		UpdateFooting()
+	if !interactablesInRange.empty():
+		var queued = getClosestInteractable()
+		if queued.has_method("highlight"):
+			if queued.is_in_group("inventoryItem") and inventory!=null:
+				pass
+			else:
+				queued.highlight()
+		for interactable in interactablesInRange:
+			if interactable != queued and interactable.has_method("unhighlight"):
+				interactable.unhighlight()
 
 func _physics_process(_delta):
 	muzzle.look_at(get_global_mouse_position())
 	controls()
-	player_sprite.animation = "run" if velocity != Vector2.ZERO else "idle"
+	
+	if isRolling:
+		player_sprite.play("dodge_roll")
+	else:
+		player_sprite.animation = "run" if velocity != Vector2.ZERO else "idle"
 	
 	player_sprite.play()
 	velocity = move_and_slide(velocity, Vector2.ZERO)
 
 
 func controls():
-	if Input.is_action_just_pressed("dodge_roll") and canRoll:
+	if Input.is_action_just_pressed("dodge_roll") and canRoll and velocity != Vector2.ZERO:
 		dodge_roll()
 		canRoll = false
-		yield(get_tree().create_timer(0.5), "timeout")
+		yield(get_tree().create_timer(0.8), "timeout")
 		canRoll = true
 	
 	if Input.is_action_pressed("move_up"):
@@ -87,7 +102,25 @@ func controls():
 			inventory = null
 	
 	if Input.is_action_just_pressed("interact"):
-		if!interactablesInRange.empty():
+		var closest = getClosestInteractable()
+		if closest != null and closest.is_in_group("inventoryItem"): 
+			#Check to make sure there isnt something in the current inventory
+			if !inventory:
+				#update Inventory and Interact
+				inventory = closest #might have to be changed later for non inventory interactables
+				if inventory.has_method("unhighlight"):
+					inventory.unhighlight()
+				interactablesInRange.erase(inventory)
+				closest.Interact(self)
+		elif closest !=null:
+			closest.Interact(self)
+	
+	if inventory != null:
+		inventory.rotation = muzzle.global_rotation
+
+
+func getClosestInteractable():
+	if!interactablesInRange.empty():
 			var closest = null
 			var distance = 90000
 			for obj in interactablesInRange:
@@ -100,18 +133,9 @@ func controls():
 				elif objp.distance_to(selfp) < distance:
 					closest = obj
 					distance = objp.distance_to(selfp)
-			if closest != null and closest.is_in_group("inventoryItem"): 
-				#Check to make sure there isnt something in the current inventory
-				if !inventory:
-					#update Inventory and Interact
-					inventory = closest #might have to be changed later for non inventory interactables
-					interactablesInRange.erase(inventory)
-					closest.Interact(self)
-			else:
-				closest.Interact(self)
-	
-	if inventory != null:
-		inventory.rotation = muzzle.global_rotation
+			return closest
+	else:
+		return null
 
 
 func player_hit(thrower, target, damage):
@@ -131,14 +155,16 @@ func shoot():
 func dodge_roll():
 	freeze_player()
 	set_collision_mask_bit(2, false)
+	isRolling = true
 	dodge_tween.interpolate_property(player, "position",
-		player.position, (player.position + Vector2(sign(velocity.x)*100, sign(velocity.y)*100)), 0.3,
+		player.position, (player.position + Vector2(sign(velocity.x)*100, sign(velocity.y)*100)), 0.5,
 		Tween.TRANS_LINEAR, Tween.EASE_IN_OUT)
 	dodge_tween.start()
 	dodge_roll_fx.play()
 	yield(dodge_tween, "tween_completed")
 	unfreeze_player()
 	set_collision_mask_bit(2, true)
+	isRolling = false
 
 
 func kill_player():
@@ -221,6 +247,8 @@ func _on_PlayerArea_area_entered(area):
 func _on_PlayerArea_area_exited(area):
 	if area.is_in_group("interactable"):
 		interactablesInRange.erase(area)
+		if area.has_method("unhighlight"):
+			area.unhighlight()
 
 
 func _on_AnimationPlayer_animation_finished(anim_name):
