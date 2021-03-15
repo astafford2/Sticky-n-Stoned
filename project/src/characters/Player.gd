@@ -57,14 +57,17 @@ func _process(_delta):
 			if interactable != queued and interactable.has_method("unhighlight"):
 				interactable.unhighlight()
 
-func _physics_process(_delta):
+func _physics_process(delta):
 	muzzle.look_at(get_global_mouse_position())
-	controls()
-	
+	print(velocity)
 	if isRolling:
 		player_sprite.play("dodge_roll")
+		var direction = Vector2(sign(velocity.x), sign(velocity.y))
+		velocity = (direction * run_speed * 2)
 	else:
 		player_sprite.animation = "run" if velocity != Vector2.ZERO else "idle"
+		controls()
+		
 	
 	player_sprite.play()
 	velocity = move_and_slide(velocity, Vector2.ZERO)
@@ -153,16 +156,15 @@ func shoot():
 
 
 func dodge_roll():
-	freeze_player()
 	set_collision_mask_bit(2, false)
 	isRolling = true
-	dodge_tween.interpolate_property(player, "position",
-		player.position, (player.position + Vector2(sign(velocity.x)*100, sign(velocity.y)*100)), 0.5,
-		Tween.TRANS_LINEAR, Tween.EASE_IN_OUT)
-	dodge_tween.start()
+#	dodge_tween.interpolate_property(player, "position",
+#		player.position, (player.position + Vector2(sign(velocity.x)*100, sign(velocity.y)*100)), 0.5,
+#		Tween.TRANS_LINEAR, Tween.EASE_IN_OUT)
+#	dodge_tween.start()
+	yield(get_tree().create_timer(0.5), "timeout")
 	dodge_roll_fx.play()
-	yield(dodge_tween, "tween_completed")
-	unfreeze_player()
+#	yield(dodge_tween, "tween_completed")
 	set_collision_mask_bit(2, true)
 	isRolling = false
 
