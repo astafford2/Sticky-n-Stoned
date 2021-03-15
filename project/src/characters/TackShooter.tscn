@@ -4,10 +4,6 @@
 [ext_resource path="res://src/characters/TackShooter.gd" type="Script" id=2]
 [ext_resource path="res://src/projectiles/Tack.tscn" type="PackedScene" id=3]
 
-[sub_resource type="AtlasTexture" id=1]
-atlas = ExtResource( 1 )
-region = Rect2( 240, 0, 60, 55 )
-
 [sub_resource type="AtlasTexture" id=2]
 atlas = ExtResource( 1 )
 region = Rect2( 300, 0, 60, 55 )
@@ -64,12 +60,16 @@ region = Rect2( 120, 0, 60, 55 )
 atlas = ExtResource( 1 )
 region = Rect2( 180, 0, 60, 55 )
 
+[sub_resource type="AtlasTexture" id=1]
+atlas = ExtResource( 1 )
+region = Rect2( 240, 0, 60, 55 )
+
 [sub_resource type="SpriteFrames" id=16]
 animations = [ {
-"frames": [ SubResource( 1 ), SubResource( 2 ), SubResource( 3 ), SubResource( 4 ), SubResource( 5 ), SubResource( 6 ), SubResource( 7 ), SubResource( 8 ), SubResource( 9 ), SubResource( 10 ), SubResource( 11 ), SubResource( 12 ), SubResource( 13 ), SubResource( 14 ), SubResource( 15 ) ],
+"frames": [ SubResource( 2 ), SubResource( 3 ), SubResource( 4 ), SubResource( 5 ), SubResource( 6 ), SubResource( 7 ), SubResource( 8 ), SubResource( 9 ), SubResource( 10 ), SubResource( 11 ), SubResource( 12 ), SubResource( 13 ), SubResource( 14 ), SubResource( 15 ), SubResource( 1 ) ],
 "loop": true,
 "name": "default",
-"speed": 6.0
+"speed": 15.0
 } ]
 
 [node name="TackShooter" type="KinematicBody2D"]
@@ -79,7 +79,7 @@ tack = ExtResource( 3 )
 [node name="TSSprite" type="AnimatedSprite" parent="."]
 scale = Vector2( 2, 2 )
 frames = SubResource( 16 )
-frame = 11
+frame = 10
 playing = true
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]

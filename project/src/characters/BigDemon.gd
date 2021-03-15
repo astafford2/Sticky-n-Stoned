@@ -9,11 +9,14 @@ var Foot1 = null
 var Foot2 = null
 var feetArea = null
 var managedPits = []
+var navpath := PoolVector2Array()
 
 onready var bd_sprite := $BDSprite
 onready var glue_landing_fx := $GlueLanding
 onready var Foot1S := $FallingBox/Foot1
 onready var Foot2S := $FallingBox/Foot2
+onready var nav := $Navigation2D
+onready var nav_target : KinematicBody2D
 
 func _ready():
 	RUN_SPEED = 110
@@ -30,13 +33,43 @@ func _process(_delta):
 	if Health <= 0:
 		kill_enemy()
 	UpdateFooting()
+	
+	if nav_target:
+		navpath = nav.get_simple_path(self.position, nav_target.position)
 
 
 func _physics_process(_delta):
 	velocity = Vector2.ZERO
 	if Target:
-		velocity = global_position.direction_to(Target.global_position) * RUN_SPEED
-	velocity = move_and_slide(velocity, Vector2.ZERO)
+#		velocity = global_position.direction_to(Target.global_position) * RUN_SPEED
+		pathfind()
+#	velocity = move_and_slide(velocity, Vector2.ZERO)
+
+
+func pathfind():
+	# Calculate movement distance for current frame
+	# Does not multiply delta as move_and_slide does that itself
+	var distance_to_walk = RUN_SPEED
+	
+	# Move enemy along path until run out of movement or path ends
+	while distance_to_walk > 0 and navpath.size() > 0:
+		var distance_to_next_point = position.distance_to(navpath[0])
+		if distance_to_walk <= distance_to_next_point:
+			# Enemy does not have enough movement left to get to next point
+#			position += position.direction_to(path[0]) * distance_to_walk
+			velocity = move_and_slide(position.direction_to(navpath[0])*distance_to_walk, Vector2.ZERO)
+		else:
+			# enemy gets to next point
+			velocity = move_and_slide(position.direction_to(navpath[0])*distance_to_walk, Vector2.ZERO)
+			navpath.remove(0)
+		# Update distance to walk
+		distance_to_walk -= distance_to_next_point
+
+
+func set_navigation(nav_poly, target):
+	nav.navpoly_add(nav_poly, Transform2D.IDENTITY)
+	nav_target = target
+	navpath = nav.get_simple_path(self.position, nav_target.position)
 
 func glue(amount, time):
 	if !glued:

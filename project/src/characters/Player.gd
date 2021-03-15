@@ -46,6 +46,16 @@ func _process(_delta):
 		kill_player()
 	if !rolling:
 		UpdateFooting()
+	if !interactablesInRange.empty():
+		var queued = getClosestInteractable()
+		if queued.has_method("highlight"):
+			if queued.is_in_group("inventoryItem") and inventory!=null:
+				pass
+			else:
+				queued.highlight()
+		for interactable in interactablesInRange:
+			if interactable != queued and interactable.has_method("unhighlight"):
+				interactable.unhighlight()
 
 func _physics_process(_delta):
 	muzzle.look_at(get_global_mouse_position())
@@ -92,7 +102,25 @@ func controls():
 			inventory = null
 	
 	if Input.is_action_just_pressed("interact"):
-		if!interactablesInRange.empty():
+		var closest = getClosestInteractable()
+		if closest != null and closest.is_in_group("inventoryItem"): 
+			#Check to make sure there isnt something in the current inventory
+			if !inventory:
+				#update Inventory and Interact
+				inventory = closest #might have to be changed later for non inventory interactables
+				if inventory.has_method("unhighlight"):
+					inventory.unhighlight()
+				interactablesInRange.erase(inventory)
+				closest.Interact(self)
+		elif closest !=null:
+			closest.Interact(self)
+	
+	if inventory != null:
+		inventory.rotation = muzzle.global_rotation
+
+
+func getClosestInteractable():
+	if!interactablesInRange.empty():
 			var closest = null
 			var distance = 90000
 			for obj in interactablesInRange:
@@ -105,18 +133,9 @@ func controls():
 				elif objp.distance_to(selfp) < distance:
 					closest = obj
 					distance = objp.distance_to(selfp)
-			if closest != null and closest.is_in_group("inventoryItem"): 
-				#Check to make sure there isnt something in the current inventory
-				if !inventory:
-					#update Inventory and Interact
-					inventory = closest #might have to be changed later for non inventory interactables
-					interactablesInRange.erase(inventory)
-					closest.Interact(self)
-			else:
-				closest.Interact(self)
-	
-	if inventory != null:
-		inventory.rotation = muzzle.global_rotation
+			return closest
+	else:
+		return null
 
 
 func player_hit(thrower, target, damage):
@@ -228,6 +247,8 @@ func _on_PlayerArea_area_entered(area):
 func _on_PlayerArea_area_exited(area):
 	if area.is_in_group("interactable"):
 		interactablesInRange.erase(area)
+		if area.has_method("unhighlight"):
+			area.unhighlight()
 
 
 func _on_AnimationPlayer_animation_finished(anim_name):
