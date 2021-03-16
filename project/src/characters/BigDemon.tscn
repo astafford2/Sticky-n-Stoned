@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://assets/characters/big_demon/big_demon_run_anim_f0.png" type="Texture" id=1]
 [ext_resource path="res://assets/characters/big_demon/big_demon_run_anim_f2.png" type="Texture" id=2]
@@ -11,6 +11,7 @@
 [ext_resource path="res://src/characters/BigDemon.gd" type="Script" id=9]
 [ext_resource path="res://src/projectiles/GlueSpatter.tscn" type="PackedScene" id=10]
 [ext_resource path="res://assets/Audio/Glue Landing.wav" type="AudioStream" id=11]
+[ext_resource path="res://assets/Miscellaneous/ShadowCircle.png" type="Texture" id=12]
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
@@ -41,6 +42,11 @@ extents = Vector2( 3.16501, 1.8746 )
 ]]
 script = ExtResource( 9 )
 GlueSpatter = ExtResource( 10 )
+
+[node name="ShadowCircle" type="Sprite" parent="."]
+position = Vector2( 0.762634, -3.38928 )
+scale = Vector2( 2.91175, 2.98277 )
+texture = ExtResource( 12 )
 
 [node name="BDSprite" type="AnimatedSprite" parent="."]
 position = Vector2( 1.26099, -34.9186 )

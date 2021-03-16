@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Shadow.png-489664f8e7eddbf8f0eb1c24590ab3b4.stex"
+path="res://.import/enemy4DirectionalTurret.png-275f75b15ceebc292e8664b99c9a717d.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/characters/Shadow.png"
-dest_files=[ "res://.import/Shadow.png-489664f8e7eddbf8f0eb1c24590ab3b4.stex" ]
+source_file="res://assets/characters/TackShooter/enemy4DirectionalTurret.png"
+dest_files=[ "res://.import/enemy4DirectionalTurret.png-275f75b15ceebc292e8664b99c9a717d.stex" ]
 
 [params]
 

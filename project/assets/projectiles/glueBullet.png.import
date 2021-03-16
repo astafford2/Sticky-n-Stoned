@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/enemy4DirectionalTurret.png-622820f7b2cccaec042b0f4aac80742b.stex"
+path="res://.import/glueBullet.png-228d3e054f744bb6d54a7979d2df96b3.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/characters/enemy4DirectionalTurret.png"
-dest_files=[ "res://.import/enemy4DirectionalTurret.png-622820f7b2cccaec042b0f4aac80742b.stex" ]
+source_file="res://assets/projectiles/glueBullet.png"
+dest_files=[ "res://.import/glueBullet.png-228d3e054f744bb6d54a7979d2df96b3.stex" ]
 
 [params]
 

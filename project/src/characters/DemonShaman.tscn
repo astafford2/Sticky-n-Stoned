@@ -8,7 +8,7 @@
 [ext_resource path="res://assets/characters/DemonShaman/DemonShaman-Walk.png" type="Texture" id=6]
 [ext_resource path="res://assets/characters/DemonShaman/DemonShaman-Shoot.png" type="Texture" id=7]
 [ext_resource path="res://assets/Audio/ShamanShot.wav" type="AudioStream" id=8]
-[ext_resource path="res://assets/characters/Shadow.png" type="Texture" id=9]
+[ext_resource path="res://assets/Miscellaneous/ShadowCircle.png" type="Texture" id=9]
 
 [sub_resource type="AtlasTexture" id=1]
 atlas = ExtResource( 2 )
@@ -142,8 +142,8 @@ GlueSpatter = ExtResource( 4 )
 fireball = ExtResource( 5 )
 
 [node name="Shadow" type="Sprite" parent="."]
-position = Vector2( -1.13, 4.30427 )
-scale = Vector2( 2.01335, 2.01335 )
+position = Vector2( -1.10865, 0.283198 )
+scale = Vector2( 2.20523, 2.2398 )
 texture = ExtResource( 9 )
 
 [node name="DSSprite" type="AnimatedSprite" parent="."]
@@ -151,6 +151,7 @@ position = Vector2( 4, -27 )
 scale = Vector2( 2, 2 )
 frames = SubResource( 24 )
 animation = "idle"
+frame = 2
 playing = true
 
 [node name="DSShape" type="CollisionShape2D" parent="."]
