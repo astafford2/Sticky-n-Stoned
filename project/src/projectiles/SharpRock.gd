@@ -12,11 +12,6 @@ func _ready():
 	hurtBox.set_deferred("disabled", true)
 
 
-func hitActivity(delta):
-	position -= transform.x * speed * delta / 2
-	sprite.rotation -= 20 * delta
-
-
 func projectileActivity(delta):
 	position += transform.x * speed * delta
 	sprite.rotation += 50 * delta
@@ -42,9 +37,9 @@ func Use():
 
 
 func _on_hit_single_call():
-	call_deferred("queue_free")
 	hurtBox.set_deferred("disabled", true)
 	yield(get_tree().create_timer(0.5), "timeout")
 	interactionBox.set_deferred("disabled", false)
 	hit = false
 	self.add_to_group("interactable")
+	call_deferred("queue_free")

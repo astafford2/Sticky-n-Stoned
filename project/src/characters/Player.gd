@@ -37,6 +37,7 @@ func _ready():
 	SignalMaster.connect("overlapped", self, "_on_feet_overlapped")
 # warning-ignore:return_value_discarded
 	SignalMaster.connect("enteredValidTile", self, "UpdateLastTile")
+# warning-ignore:return_value_discarded
 	SignalMaster.connect("attacked", self, "player_hit")
 
 
@@ -140,7 +141,7 @@ func getClosestInteractable():
 		return null
 
 
-func player_hit(thrower, target, damage):
+func player_hit(_thrower, target, damage):
 	if target == self:
 		player_sprite.play("hit")
 		hurt_fx.play()
