@@ -217,8 +217,8 @@ GlueBullet = ExtResource( 11 )
 position = Vector2( -0.444957, 1.11238 )
 scale = Vector2( 2.3, 2.3 )
 frames = SubResource( 29 )
-animation = "idle"
-frame = 3
+animation = "falling"
+frame = 5
 playing = true
 
 [node name="PlayerShape" type="CollisionShape2D" parent="."]
@@ -277,4 +277,3 @@ shape = SubResource( 33 )
 [connection signal="area_exited" from="PlayerArea" to="." method="_on_PlayerArea_area_exited"]
 [connection signal="body_entered" from="PlayerArea" to="." method="_on_PlayerArea_body_entered"]
 [connection signal="body_exited" from="PlayerArea" to="." method="_on_PlayerArea_body_exited"]
-[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]
