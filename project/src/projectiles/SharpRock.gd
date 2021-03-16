@@ -1,5 +1,6 @@
 extends Projectile
 
+
 onready var interactionBox := $InteractionBox
 
 # Called when the node enters the scene tree for the first time.
@@ -41,6 +42,7 @@ func Use():
 
 
 func _on_hit_single_call():
+	call_deferred("queue_free")
 	hurtBox.set_deferred("disabled", true)
 	yield(get_tree().create_timer(0.5), "timeout")
 	interactionBox.set_deferred("disabled", false)
