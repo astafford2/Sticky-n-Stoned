@@ -5,7 +5,7 @@ export (PackedScene) var ChairPiece
 
 var rng = RandomNumberGenerator.new()
 
-var health := 3
+var health := 1
 
 onready var interactionBox := $InteractionBox
 onready var splinters := $Splinters

@@ -96,7 +96,7 @@ func glue(amount, time):
 		glue_landing_fx.play()
 		spatter = GlueSpatter.instance()
 		self.call_deferred("add_child", spatter)
-		spatter.position += Vector2(0, 10)
+		spatter.position += Vector2(0, 4)
 		RUN_SPEED = RUN_SPEED-amount
 		yield(get_tree().create_timer(time), "timeout")
 		spatter.queue_free()
