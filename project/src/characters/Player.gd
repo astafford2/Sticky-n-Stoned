@@ -44,7 +44,7 @@ func _process(_delta):
 	health_GUI.update_health(health)
 	if health <= 0:
 		kill_player()
-	if !falling:
+	if !falling and !isRolling:
 		UpdateFooting()
 	if !interactablesInRange.empty():
 		var queued = getClosestInteractable()
