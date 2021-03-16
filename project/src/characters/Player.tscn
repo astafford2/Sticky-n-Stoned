@@ -163,7 +163,7 @@ height = 29.935
 [sub_resource type="Animation" id=32]
 length = 1.6
 tracks/0/type = "value"
-tracks/0/path = NodePath(".:rotation_degrees")
+tracks/0/path = NodePath(".:scale")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
@@ -172,27 +172,15 @@ tracks/0/keys = {
 "times": PoolRealArray( 0, 0.7, 1.5 ),
 "transitions": PoolRealArray( 1, 1, 1 ),
 "update": 0,
-"values": [ 0.0, 360.0, 720.0 ]
+"values": [ Vector2( 0.75, 0.75 ), Vector2( 0.5, 0.5 ), Vector2( 0.25, 0.25 ) ]
 }
-tracks/1/type = "value"
-tracks/1/path = NodePath(".:scale")
+tracks/1/type = "method"
+tracks/1/path = NodePath(".")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 0, 0.7, 1.5 ),
-"transitions": PoolRealArray( 1, 1, 1 ),
-"update": 0,
-"values": [ Vector2( 0.75, 0.75 ), Vector2( 0.5, 0.5 ), Vector2( 0.25, 0.25 ) ]
-}
-tracks/2/type = "method"
-tracks/2/path = NodePath(".")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/keys = {
 "times": PoolRealArray( 0, 1.6 ),
 "transitions": PoolRealArray( 1, 1 ),
 "values": [ {
@@ -202,6 +190,18 @@ tracks/2/keys = {
 "args": [  ],
 "method": "unfreeze_player"
 } ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("PlayerSprite:animation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 1.6 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ "falling", "idle" ]
 }
 
 [sub_resource type="RectangleShape2D" id=33]
@@ -218,6 +218,7 @@ position = Vector2( -0.444957, 1.11238 )
 scale = Vector2( 2.3, 2.3 )
 frames = SubResource( 29 )
 animation = "idle"
+frame = 3
 playing = true
 
 [node name="PlayerShape" type="CollisionShape2D" parent="."]
