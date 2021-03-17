@@ -7,7 +7,6 @@ var run_speed := 100
 var velocity := Vector2()
 var interactablesInRange = []
 var inventory = null
-var last_door : Node2D = null
 var last_ValidTile = null
 var canShoot = true
 var falling = false
@@ -61,14 +60,16 @@ func _process(_delta):
 
 func _physics_process(_delta):
 	muzzle.look_at(get_global_mouse_position())
-	controls()
-	
 	if isRolling:
 		player_sprite.play("dodge_roll")
+		var direction = Vector2(sign(velocity.x), sign(velocity.y))
+		velocity = (direction * run_speed * 2)
 	elif falling:
 		player_sprite.play("falling")
 	else:
 		player_sprite.animation = "run" if velocity != Vector2.ZERO else "idle"
+		controls()
+		
 	
 	player_sprite.play()
 	velocity = move_and_slide(velocity, Vector2.ZERO)
@@ -158,16 +159,10 @@ func shoot():
 
 
 func dodge_roll():
-	freeze_player()
 	set_collision_mask_bit(2, false)
 	isRolling = true
-	dodge_tween.interpolate_property(player, "position",
-		player.position, (player.position + Vector2(sign(velocity.x)*100, sign(velocity.y)*100)), 0.5,
-		Tween.TRANS_LINEAR, Tween.EASE_IN_OUT)
-	dodge_tween.start()
+	yield(get_tree().create_timer(0.5), "timeout")
 	dodge_roll_fx.play()
-	yield(dodge_tween, "tween_completed")
-	unfreeze_player()
 	set_collision_mask_bit(2, true)
 	isRolling = false
 
@@ -192,10 +187,6 @@ func pitfalled():
 	Foot1S.set_deferred("disabled", false)
 	Foot2S.set_deferred("disabled", false)
 	falling = false
-
-
-func set_door(door):
-	last_door = door
 
 
 func freeze_player():

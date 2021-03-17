@@ -12,7 +12,7 @@ func _ready():
 	rect = Rect2(pit.global_position - pit.shape.extents, pit.shape.extents * 2)
 
 
-func activate(_delta):
+func activateActivity(_delta):
 	if !opened:
 		opened = true
 		#Sprite plays
@@ -23,7 +23,7 @@ func activate(_delta):
 			SignalMaster.overlapped(area.get_parent(), rect)
 
 # what the child trap will do when deactivated or idle
-func deactivated(_delta):
+func deactivateActivity(_delta):
 	if opened:
 		var intersecting = get_overlapping_areas()
 		if intersecting.size() > 0:

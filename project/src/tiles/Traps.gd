@@ -11,16 +11,22 @@ func _ready():
 
 func _physics_process(delta):
 	if activated:
-		activate(delta)
+		activateActivity(delta)
 	else:
-		deactivated(delta)
+		deactivateActivity(delta)
 
 
 # what the child trap will do when activated
-func activate(_delta):
+func activateActivity(_delta):
 	pass
 
 
 # what the child trap will do when deactivated or idle
-func deactivated(_delta):
+func deactivateActivity(_delta):
 	pass
+
+func activate():
+	activated = true
+
+func deactivate():
+	activated = false
