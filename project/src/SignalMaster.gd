@@ -5,6 +5,7 @@ extends Node
 signal attacked(thrower, target, damage)
 signal overlapped(body, rect)
 signal enteredValidTile(body, tile)
+signal doorsOpenOrClose(room)
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -21,3 +22,6 @@ func overlapped(body, rect):
 
 func enteredValidTile(body, tile):
 	emit_signal("enteredValidTile", body, tile)
+
+func doorsOpenOrClose(room):
+	emit_signal("doorsOpenOrClose", room)

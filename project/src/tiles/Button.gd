@@ -18,7 +18,7 @@ func _ready():
 		if child.is_in_group("trap"):
 			traps.push_back(child)
 
-func _physics_process(delta):
+func _physics_process(_delta):
 	if activated:
 		sprite.texture = preload("res://assets/tiles/ButtonPressed.png")
 	else:

@@ -7,7 +7,6 @@ var run_speed := 100
 var velocity := Vector2()
 var interactablesInRange = []
 var inventory = null
-var last_door : Node2D = null
 var last_ValidTile = null
 var canShoot = true
 var rolling = false
@@ -57,7 +56,7 @@ func _process(_delta):
 			if interactable != queued and interactable.has_method("unhighlight"):
 				interactable.unhighlight()
 
-func _physics_process(delta):
+func _physics_process(_delta):
 	muzzle.look_at(get_global_mouse_position())
 	if isRolling:
 		player_sprite.play("dodge_roll")
@@ -140,7 +139,7 @@ func getClosestInteractable():
 		return null
 
 
-func player_hit(thrower, target, damage):
+func player_hit(_thrower, target, damage):
 	if target == self:
 		player_sprite.play("hit")
 		hurt_fx.play()
@@ -184,10 +183,6 @@ func pitfalled():
 	Foot1S.set_deferred("disabled", false)
 	Foot2S.set_deferred("disabled", false)
 	rolling = false
-
-
-func set_door(door):
-	last_door = door
 
 
 func freeze_player():

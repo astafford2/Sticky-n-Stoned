@@ -1,13 +1,31 @@
 extends Node2D
 
+var open = true
+var objectiveComplete = false
+
 onready var rectShape := $Dimensions/Shape
 onready var Floors := $Floors
 onready var Walls := $Walls
 onready var Doors := $Doors
+onready var DoorEntities := $DoorEntities
+onready var Enemies := $Enemies
+onready var PlayerDetection := $PlayerDetection
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	SignalMaster.connect("doorsOpenOrClose", self, "toggleDoors")
 	pass # Replace with function body.
+
+
+func _process(_delta):
+	if !objectiveComplete:
+		objectiveHandler()
+
+
+func objectiveHandler():
+	if Enemies.get_child_count() == 0:
+		objectiveComplete = true
+		SignalMaster.doorsOpenOrClose(DoorEntities)
 
 
 func getRect2():
@@ -21,3 +39,28 @@ func get_DoorPositions():
 
 func get_Tiles():
 	return [Floors, Walls]
+
+func toggleDoors(room):
+	var tempSelf = self
+	if room == DoorEntities:
+		if open and !objectiveComplete:
+			closeDoors()
+			open = false
+		else:
+			openDoors()
+
+func closeDoors():
+	for door in DoorEntities.get_children():
+		if door.has_method("close"):
+			door.close()
+
+
+func openDoors():
+	for door in DoorEntities.get_children():
+		if door.has_method("open"):
+			door.open()
+
+
+func _on_PlayerDetection_body_entered(body):
+	if body.has_method("shoot") and !objectiveComplete:
+		toggleDoors(DoorEntities)
