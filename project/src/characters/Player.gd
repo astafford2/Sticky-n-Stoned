@@ -158,13 +158,8 @@ func shoot():
 func dodge_roll():
 	set_collision_mask_bit(2, false)
 	isRolling = true
-#	dodge_tween.interpolate_property(player, "position",
-#		player.position, (player.position + Vector2(sign(velocity.x)*100, sign(velocity.y)*100)), 0.5,
-#		Tween.TRANS_LINEAR, Tween.EASE_IN_OUT)
-#	dodge_tween.start()
 	yield(get_tree().create_timer(0.5), "timeout")
 	dodge_roll_fx.play()
-#	yield(dodge_tween, "tween_completed")
 	set_collision_mask_bit(2, true)
 	isRolling = false
 
