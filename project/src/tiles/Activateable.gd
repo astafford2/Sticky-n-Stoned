@@ -16,10 +16,10 @@ func _physics_process(_delta):
 	if !(traps.size() == 0): #prevents crash just in case there is no longer a trap
 		if activated:
 			for trap in traps:
-				trap.activated = true
+				trap.activate()
 		else:
 			for trap in traps:
-				trap.activated = false
+				trap.deactivate()
 
 
 func on_body_entered(body):

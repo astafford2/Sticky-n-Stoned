@@ -1,5 +1,7 @@
 extends Node2D
 
+class_name Door
+
 onready var open_sfx := $OpenSfx
 onready var close_sfx := $CloseSfx
 onready var walls := $Walls
