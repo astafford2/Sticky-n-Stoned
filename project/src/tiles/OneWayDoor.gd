@@ -1,16 +1,35 @@
-extends Node
+extends Door
 
+var openable := false
+var currentlyOpen := false
 
-# Declare member variables here. Examples:
-# var a = 2
-# var b = "text"
-
-
-# Called when the node enters the scene tree for the first time.
 func _ready():
-	pass # Replace with function body.
+	self.add_to_group("trap")
+	close()
+
+func open():
+	if openable and !currentlyOpen:
+		walls.set_cellv(Vector2(1,0), 12)
+		walls.set_cellv(Vector2(2,0), 13)
+		walls.set_cellv(Vector2(1,1), 14)
+		walls.set_cellv(Vector2(2,1), 15)
+		open_sfx.play()
+		currentlyOpen = true
 
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass
+func close():
+	if !openable:
+		walls.set_cellv(Vector2(1,0), 6)
+		walls.set_cellv(Vector2(2,0), 9)
+		walls.set_cellv(Vector2(1,1), 7)
+		walls.set_cellv(Vector2(2,1), 8)
+		close_sfx.play()
+
+
+func activate():
+	openable = true
+	open()
+
+
+func deactivate(): #This is to assure no crashing with interactions of the button
+	pass

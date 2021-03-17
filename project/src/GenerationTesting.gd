@@ -28,18 +28,20 @@ export (PackedScene) var BossRoom
 export (PackedScene) var DescentRoom
 export (PackedScene) var LargeRoom
 export (PackedScene) var MonsterRoom
+export (PackedScene) var SpawnRoom
 
 #Spawns up to minimum at 100% and then any more past to maximum at Probability
 onready var spawnInfo = {
 	#Room preload : [MinSpawn, MaxSpawn, Probability]
 	#Rooms should be organized in order of centrality 
 	#single door rooms are last while multi door rooms are first
-	multiRoom : [1, 1, 1], 
-	SideSmallRoom : [0, 2, 0.5],
-	BossRoom : [1, 1, 1],
-	DescentRoom : [1, 1, 1],
+	SpawnRoom : [1,1,1],
+	#multiRoom : [1, 1, 1], 
+	SideSmallRoom : [4, 10, 0.5],
+	#BossRoom : [1, 1, 1],
+	#DescentRoom : [1, 1, 1],
 	#MonsterRoom : [2, 3, 0.25], #Currently giving pathing issues
-	LargeRoom : [1, 2, 0.75]
+	#LargeRoom : [1, 2, 0.75]
 	
 }
 var wallConversions = {
