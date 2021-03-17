@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/enemy4DirectionalTurret.png-622820f7b2cccaec042b0f4aac80742b.stex"
+path="res://.import/crate.png-a97efdfe6e7c096fc3831f09556c73f0.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/characters/enemy4DirectionalTurret.png"
-dest_files=[ "res://.import/enemy4DirectionalTurret.png-622820f7b2cccaec042b0f4aac80742b.stex" ]
+source_file="res://assets/Props + Decor/crate.png"
+dest_files=[ "res://.import/crate.png-a97efdfe6e7c096fc3831f09556c73f0.stex" ]
 
 [params]
 

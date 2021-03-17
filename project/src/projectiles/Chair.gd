@@ -7,7 +7,7 @@ export (PackedScene) var Nails
 
 var rng = RandomNumberGenerator.new()
 
-var health := 3
+var health := 1
 
 onready var interactionBox := $InteractionBox
 onready var break_sfx := $ChairBreak

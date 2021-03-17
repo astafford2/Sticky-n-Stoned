@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/slime.png-de9d74cc81ac94d75d54e0dcde12082d.stex"
+path="res://.import/glueBullet.png-228d3e054f744bb6d54a7979d2df96b3.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/characters/slime.png"
-dest_files=[ "res://.import/slime.png-de9d74cc81ac94d75d54e0dcde12082d.stex" ]
+source_file="res://assets/projectiles/glueBullet.png"
+dest_files=[ "res://.import/glueBullet.png-228d3e054f744bb6d54a7979d2df96b3.stex" ]
 
 [params]
 

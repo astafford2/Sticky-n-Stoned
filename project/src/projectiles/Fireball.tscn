@@ -5,22 +5,22 @@
 
 [sub_resource type="AtlasTexture" id=1]
 atlas = ExtResource( 1 )
-region = Rect2( 0, 0, 21, 12 )
+region = Rect2( 0, 0, 22, 13 )
 
 [sub_resource type="AtlasTexture" id=2]
 atlas = ExtResource( 1 )
-region = Rect2( 21, 0, 21, 12 )
+region = Rect2( 22, 0, 22, 13 )
 
 [sub_resource type="AtlasTexture" id=3]
 atlas = ExtResource( 1 )
-region = Rect2( 42, 0, 21, 12 )
+region = Rect2( 44, 0, 22, 13 )
 
 [sub_resource type="SpriteFrames" id=4]
 animations = [ {
 "frames": [ SubResource( 1 ), SubResource( 2 ), SubResource( 3 ) ],
 "loop": true,
 "name": "default",
-"speed": 8.5
+"speed": 12.0
 } ]
 
 [sub_resource type="CapsuleShape2D" id=5]
@@ -35,7 +35,6 @@ script = ExtResource( 2 )
 [node name="Sprite" type="AnimatedSprite" parent="."]
 scale = Vector2( 1.8, 1.8 )
 frames = SubResource( 4 )
-frame = 1
 playing = true
 
 [node name="Hurtbox" type="CollisionShape2D" parent="."]

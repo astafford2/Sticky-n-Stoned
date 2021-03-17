@@ -21,6 +21,8 @@ Splinters = ExtResource( 6 )
 Nails = ExtResource( 5 )
 
 [node name="Sprite" type="Sprite" parent="."]
+position = Vector2( 12.561, -7.90037 )
+scale = Vector2( 1.62084, 1.62084 )
 texture = ExtResource( 2 )
 
 [node name="Hurtbox" type="CollisionPolygon2D" parent="."]

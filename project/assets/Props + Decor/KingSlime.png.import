@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/rock.png-6ed9fc0871950ac249df7f0f0988bccd.stex"
+path="res://.import/KingSlime.png-617cc44cbbcccb95f6c671c99f531394.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/projectiles/rock.png"
-dest_files=[ "res://.import/rock.png-6ed9fc0871950ac249df7f0f0988bccd.stex" ]
+source_file="res://assets/Props + Decor/KingSlime.png"
+dest_files=[ "res://.import/KingSlime.png-617cc44cbbcccb95f6c671c99f531394.stex" ]
 
 [params]
 
