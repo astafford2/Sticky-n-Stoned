@@ -12,7 +12,7 @@
 extents = Vector2( 273.39, 197.478 )
 
 [sub_resource type="RectangleShape2D" id=2]
-extents = Vector2( 264, 128 )
+extents = Vector2( 240, 128 )
 
 [node name="Side Small Room" type="Node2D"]
 script = ExtResource( 3 )
@@ -60,6 +60,7 @@ position = Vector2( -15.1191, -100.794 )
 shape = SubResource( 1 )
 
 [node name="PlayerDetection" type="Area2D" parent="."]
+visible = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerDetection"]
 position = Vector2( -16, -96 )
