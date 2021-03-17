@@ -59,7 +59,6 @@ func _process(_delta):
 
 func _physics_process(delta):
 	muzzle.look_at(get_global_mouse_position())
-	print(velocity)
 	if isRolling:
 		player_sprite.play("dodge_roll")
 		var direction = Vector2(sign(velocity.x), sign(velocity.y))
