@@ -9,12 +9,7 @@ onready var muzzle_t := $Muzzle_t
 onready var muzzle_r := $Muzzle_r
 onready var muzzle_l := $Muzzle_l
 onready var muzzle_b := $Muzzle_b
-
-
-func _ready():
-	attacking = true
-	#yield(get_tree().create_timer(0.4), "timeout")
-	attacking = false
+onready var tack_shot_fx := $TackShot
 
 
 func _physics_process(_delta):
@@ -36,6 +31,6 @@ func _physics_process(_delta):
 		tr.transform = muzzle_r.global_transform
 		tl.transform = muzzle_l.global_transform
 		tb.transform = muzzle_b.global_transform
-#		fireball_shot_fx.play()
+		tack_shot_fx.play()
 		yield(get_tree().create_timer(1), "timeout")
 		attacking = false

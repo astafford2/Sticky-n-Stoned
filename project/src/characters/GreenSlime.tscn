@@ -1,9 +1,10 @@
-[gd_scene load_steps=17 format=2]
+[gd_scene load_steps=18 format=2]
 
 [ext_resource path="res://assets/characters/slime.png" type="Texture" id=1]
 [ext_resource path="res://src/characters/GreenSlime.gd" type="Script" id=2]
 [ext_resource path="res://assets/Audio/Glue Landing.wav" type="AudioStream" id=3]
 [ext_resource path="res://src/projectiles/GlueSpatter.tscn" type="PackedScene" id=4]
+[ext_resource path="res://assets/Audio/SlimeMunch.wav" type="AudioStream" id=5]
 
 [sub_resource type="AtlasTexture" id=1]
 atlas = ExtResource( 1 )
@@ -54,10 +55,10 @@ animations = [ {
 radius = 6.63964
 height = 3.23232
 
-[sub_resource type="CircleShape2D" id=12]
+[sub_resource type="CircleShape2D" id=11]
 radius = 305.385
 
-[sub_resource type="RectangleShape2D" id=11]
+[sub_resource type="RectangleShape2D" id=12]
 extents = Vector2( 0.596558, 6.62274 )
 
 [node name="GreenSlime" type="KinematicBody2D" groups=[
@@ -81,10 +82,13 @@ shape = SubResource( 10 )
 
 [node name="DetectShape" type="CollisionShape2D" parent="DetectRadius"]
 visible = false
-shape = SubResource( 12 )
+shape = SubResource( 11 )
 
 [node name="GlueLanding" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 3 )
+
+[node name="SlimeMunch" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 5 )
 
 [node name="FallingBox" type="Area2D" parent="."]
 position = Vector2( 1.00226, -2.78406 )
@@ -92,6 +96,6 @@ position = Vector2( 1.00226, -2.78406 )
 [node name="Foot" type="CollisionShape2D" parent="FallingBox"]
 position = Vector2( -0.625, 8.75 )
 rotation = 1.5708
-shape = SubResource( 11 )
+shape = SubResource( 12 )
 [connection signal="body_entered" from="DetectRadius" to="." method="_on_DetectRadius_body_entered"]
 [connection signal="body_exited" from="DetectRadius" to="." method="_on_DetectRadius_body_exited"]

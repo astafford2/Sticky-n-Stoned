@@ -1,6 +1,7 @@
 extends "res://src/projectiles/Projectile.gd"
 
 onready var interactionBox := $InteractionBox
+onready var rock_hit_fx := $RockHitSfx
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -40,6 +41,7 @@ func Use():
 
 
 func _on_hit_single_call():
+	rock_hit_fx.play()
 	hurtBox.set_deferred("disabled", true)
 	yield(get_tree().create_timer(0.5), "timeout")
 	interactionBox.set_deferred("disabled", false)

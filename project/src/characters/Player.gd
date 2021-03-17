@@ -23,6 +23,7 @@ onready var player_sprite := $PlayerSprite
 onready var health_GUI := $HealthLayer/HealthGUI
 onready var muzzle := $Muzzle
 onready var glue_launch_fx := $GlueLaunch
+onready var throw_fx := $ThrowSfx
 onready var hurt_fx := $HurtSound
 onready var dodge_roll_fx := $DodgeRollSfx
 onready var pitfall_fx := $PitfallSfx
@@ -101,6 +102,7 @@ func controls():
 		canShoot = true
 	
 	if Input.is_action_just_pressed("use_weapon") and inventory != null:
+		throw_fx.play()
 		if inventory.Use():
 			inventory = null
 	
