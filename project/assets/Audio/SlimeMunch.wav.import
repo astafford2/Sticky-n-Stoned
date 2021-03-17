@@ -2,12 +2,12 @@
 
 importer="wav"
 type="AudioStreamSample"
-path="res://.import/DodgeRoll.wav-4cd8a3374c6e7f9a425bd5262fee9158.sample"
+path="res://.import/SlimeMunch.wav-f72f957ba4b354669c56916c84132bb8.sample"
 
 [deps]
 
-source_file="res://assets/Audio/DodgeRoll.wav"
-dest_files=[ "res://.import/DodgeRoll.wav-4cd8a3374c6e7f9a425bd5262fee9158.sample" ]
+source_file="res://assets/Audio/SlimeMunch.wav"
+dest_files=[ "res://.import/SlimeMunch.wav-f72f957ba4b354669c56916c84132bb8.sample" ]
 
 [params]
 
