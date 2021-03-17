@@ -2,14 +2,14 @@ extends Projectile
 
 export (PackedScene) var ChairLeg
 export (PackedScene) var ChairPiece
+export (PackedScene) var Splinters
+export (PackedScene) var Nails
 
 var rng = RandomNumberGenerator.new()
 
 var health := 3
 
 onready var interactionBox := $InteractionBox
-onready var splinters := $Splinters
-onready var nails := $Nails
 onready var break_sfx := $ChairBreak
 
 
@@ -52,10 +52,12 @@ func _process(_delta):
 
 
 func break_particles():
-	splinters.one_shot = true
-	splinters.emitting = true
-	nails.one_shot = true
-	nails.emitting = true
+	var splinters = Splinters.instance()
+	var nails = Nails.instance()
+#	owner.add_child(splinters)
+#	owner.add_child(nails)
+#	splinters.emitting = true
+#	nails.emitting = true
 
 
 func Interact(body):

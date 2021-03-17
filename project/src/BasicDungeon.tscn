@@ -375,10 +375,10 @@ points = PoolVector2Array( 0, 0, 32, 0, 32, 32, 0, 32 )
 script = ExtResource( 10 )
 
 [node name="BackgroundColor" type="ColorRect" parent="."]
-margin_left = -458.769
-margin_top = -603.306
-margin_right = 1646.23
-margin_bottom = 1238.69
+margin_left = -681.151
+margin_top = -411.249
+margin_right = 1423.85
+margin_bottom = 1430.75
 color = Color( 0.137255, 0.0823529, 0.0823529, 1 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -469,7 +469,7 @@ scale = Vector2( 0.75, 0.75 )
 position = Vector2( 405.254, 272.577 )
 
 [node name="Player" parent="." instance=ExtResource( 2 )]
-position = Vector2( 329.685, 370.771 )
+position = Vector2( 321.36, 380.879 )
 
 [node name="Walls" type="TileMap" parent="."]
 tile_set = SubResource( 28 )
