@@ -1,5 +1,7 @@
 extends Node
 
+class_name Activateable
+
 var activated = false
 var toggleable = false
 var projectileActivateable = false

@@ -1,0 +1,38 @@
+[gd_scene load_steps=9 format=2]
+
+[ext_resource path="res://src/projectiles/Environmental/Chair.gd" type="Script" id=1]
+[ext_resource path="res://assets/projectiles/Chair2.png" type="Texture" id=2]
+[ext_resource path="res://src/projectiles/Environmental/ChairPiece.tscn" type="PackedScene" id=3]
+[ext_resource path="res://src/projectiles/Environmental/ChairLeg.tscn" type="PackedScene" id=4]
+[ext_resource path="res://src/particles/Nails.tscn" type="PackedScene" id=5]
+[ext_resource path="res://src/particles/Splinters.tscn" type="PackedScene" id=6]
+[ext_resource path="res://assets/Audio/ChairBreak.wav" type="AudioStream" id=7]
+
+[sub_resource type="CapsuleShape2D" id=1]
+radius = 26.0288
+height = 29.7564
+
+[node name="Chair" type="Area2D"]
+position = Vector2( -26.1434, 13.5442 )
+script = ExtResource( 1 )
+ChairLeg = ExtResource( 4 )
+ChairPiece = ExtResource( 3 )
+Splinters = ExtResource( 6 )
+Nails = ExtResource( 5 )
+
+[node name="Sprite" type="Sprite" parent="."]
+position = Vector2( 12.561, -7.90037 )
+scale = Vector2( 1.62084, 1.62084 )
+texture = ExtResource( 2 )
+
+[node name="Hurtbox" type="CollisionPolygon2D" parent="."]
+polygon = PoolVector2Array( -20.9484, -15.2181, 26.7315, -14.5137, 25.9144, 14.457, -20.8783, 15.0884, -15.8974, 8.98503, -1.79642, 9.19549, -2.00688, -9.11467, -16.1078, -9.11467 )
+
+[node name="InteractionBox" type="CollisionShape2D" parent="."]
+position = Vector2( 6.14212, 0.31498 )
+rotation = 1.5708
+shape = SubResource( 1 )
+
+[node name="ChairBreak" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 7 )
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

@@ -1,7 +1,7 @@
 extends TileMap
 
-const Pit = preload("res://src/tiles/Pitfall.tscn")
-const PitReturn = preload("res://src/tiles/PitReturn.tscn")
+const Pit = preload("res://src/tiles/Individual/Pitfall.tscn")
+const PitReturn = preload("res://src/tiles/Individual/PitReturn.tscn")
 
 
 # Called when the node enters the scene tree for the first time.
