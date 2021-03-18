@@ -2,7 +2,7 @@
 
 [ext_resource path="res://assets/particles/nail.png" type="Texture" id=1]
 
-[sub_resource type="ParticlesMaterial" id=3]
+[sub_resource type="ParticlesMaterial" id=1]
 flag_disable_z = true
 spread = 180.0
 gravity = Vector3( 20, 98, 0 )
@@ -21,11 +21,9 @@ scale = 0.5
 color = Color( 0.647059, 0.639216, 0.623529, 1 )
 
 [node name="Nails" type="Particles2D"]
-emitting = false
 amount = 4
 lifetime = 0.75
-one_shot = true
 explosiveness = 0.82
 randomness = 0.63
-process_material = SubResource( 3 )
+process_material = SubResource( 1 )
 texture = ExtResource( 1 )

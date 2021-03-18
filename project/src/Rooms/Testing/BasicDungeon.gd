@@ -6,3 +6,4 @@ func _process(_delta):
 		if Input.is_action_just_pressed("kill_enemies"):
 			for enemy in get_tree().get_nodes_in_group("enemies"):
 				enemy.kill_enemy()
+			print(get_children())

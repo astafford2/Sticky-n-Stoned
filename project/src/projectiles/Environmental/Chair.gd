@@ -54,10 +54,12 @@ func _process(_delta):
 func break_particles():
 	var splinters = Splinters.instance()
 	var nails = Nails.instance()
-#	owner.add_child(splinters)
-#	owner.add_child(nails)
-#	splinters.emitting = true
-#	nails.emitting = true
+	splinters.position = self.position
+	splinters.one_shot = true
+	nails.position = self.position
+	nails.one_shot = true
+	get_parent().call_deferred("add_child", splinters)
+	get_parent().call_deferred("add_child", nails)
 
 
 func Interact(body):
