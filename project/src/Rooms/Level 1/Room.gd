@@ -2,6 +2,7 @@ extends Node2D
 
 var open = true
 var objectiveComplete = false
+var started = false
 
 onready var rectShape := $Dimensions/Shape
 onready var Floors := $Floors
@@ -64,5 +65,6 @@ func openDoors():
 
 
 func _on_PlayerDetection_body_entered(body):
-	if body.has_method("shoot") and !objectiveComplete:
+	if body.has_method("shoot") and !objectiveComplete and !started:
 		toggleDoors(DoorEntities)
+		started = true
