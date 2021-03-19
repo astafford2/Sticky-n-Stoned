@@ -159,10 +159,10 @@ func shoot():
 
 
 func dodge_roll():
+	dodge_roll_fx.play()
 	set_collision_mask_bit(2, false)
 	isRolling = true
 	yield(get_tree().create_timer(0.5), "timeout")
-	dodge_roll_fx.play()
 	set_collision_mask_bit(2, true)
 	isRolling = false
 
