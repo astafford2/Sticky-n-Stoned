@@ -1,8 +1,15 @@
-extends "res://src/projectiles/Projectile.gd"
+extends Projectile
+
+
+var t := 0.0
+var p0 := Vector2()
+var p1 := Vector2()
+var p2 := Vector2()
+
 
 onready var interactionBox := $InteractionBox
 
-# Called when the node enters the scene tree for the first time.
+
 func _ready():
 	damage = 3
 	self.add_to_group("inventoryItem")
@@ -10,12 +17,29 @@ func _ready():
 	hurtBox.set_deferred("disabled", true)
 
 
-func hitActivity(delta):
-	position -= transform.x * speed * delta / 2
+func _process(_delta):
+	if t == 1:
+		_on_hit_single_call()
+		yield(get_tree().create_timer(1), "timeout")
+		t = 0.0
+
+
+#func hitActivity(delta):
+#	position -= transform.x * speed * delta / 2
 
 
 func projectileActivity(delta):
-	position += transform.x * speed * delta
+	hurtBox.set_deferred("disabled", true)
+	t += delta/1.5
+	t = clamp(t, 0, 1)
+	position = _quadratic_bezier(p0, p1, p2, t)
+
+
+func _quadratic_bezier(p0: Vector2, p1: Vector2, p2: Vector2, t: float):
+	var q0 = p0.linear_interpolate(p1, t)
+	var q1 = p1.linear_interpolate(p2, t)
+	var r = q0.linear_interpolate(q1, t)
+	return r
 
 
 func Interact(body):
@@ -28,6 +52,10 @@ func Interact(body):
 
 
 func Use():
+	t = 0.0
+	p0 = self.global_position
+	p1 = self.global_position+Vector2(140, -283)
+	p2 = self.global_position+Vector2(290, 0)
 	projectile = true
 	var player = self.get_parent()
 	player.remove_child(self)

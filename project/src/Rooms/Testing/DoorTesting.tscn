@@ -10,12 +10,6 @@
 [ext_resource path="res://src/tiles/Structures/OneWayDoor.gd" type="Script" id=8]
 [ext_resource path="res://src/tiles/Individual/Button.tscn" type="PackedScene" id=9]
 
-
-
-
-
-
-
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 296, 64 )
 

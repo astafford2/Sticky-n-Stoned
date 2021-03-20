@@ -12,8 +12,6 @@
 [ext_resource path="res://src/Rooms/Testing/GenerationTesting.gd" type="Script" id=10]
 [ext_resource path="res://src/characters/Player.tscn" type="PackedScene" id=11]
 
-
-
 [sub_resource type="ConvexPolygonShape2D" id=1]
 points = PoolVector2Array( 22, 0, 32, 0, 32, 32, 22, 32 )
 
