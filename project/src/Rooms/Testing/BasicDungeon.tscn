@@ -630,11 +630,13 @@ texture = ExtResource( 22 )
 [node name="nonMovingSlime" type="AnimatedSprite" parent="."]
 position = Vector2( 831.934, 692.113 )
 frames = SubResource( 39 )
+frame = 1
 playing = true
 
 [node name="nonMovingSlime2" type="AnimatedSprite" parent="."]
 position = Vector2( 1024.76, 790.643 )
 frames = SubResource( 39 )
+frame = 1
 playing = true
 
 [node name="GreenSlime" parent="." instance=ExtResource( 6 )]
@@ -679,20 +681,21 @@ texture = ExtResource( 16 )
 position = Vector2( 926.836, 742.462 )
 scale = Vector2( 1.34483, 1.34483 )
 frames = SubResource( 47 )
-frame = 5
+frame = 4
 playing = true
 
 [node name="Torch2" type="AnimatedSprite" parent="."]
 position = Vector2( 857.936, 587.79 )
 scale = Vector2( 1.35636, 1.22272 )
 frames = SubResource( 54 )
-frame = 5
+frame = 4
 playing = true
 
 [node name="Torch" type="AnimatedSprite" parent="."]
 position = Vector2( 955.517, 589.204 )
 scale = Vector2( 1.35636, 1.22272 )
 frames = SubResource( 54 )
+frame = 5
 playing = true
 
 [node name="SharpRock" parent="." instance=ExtResource( 4 )]
