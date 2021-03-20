@@ -19,9 +19,7 @@ func _ready():
 
 func _process(_delta):
 	if t == 1:
-		_on_hit_single_call()
-		yield(get_tree().create_timer(1), "timeout")
-		t = 0.0
+		_on_body_entered(null)
 
 
 #func hitActivity(delta):
@@ -29,7 +27,6 @@ func _process(_delta):
 
 
 func projectileActivity(delta):
-	hurtBox.set_deferred("disabled", true)
 	t += delta/1.5
 	t = clamp(t, 0, 1)
 	position = _quadratic_bezier(p0, p1, p2, t)
@@ -53,15 +50,14 @@ func Interact(body):
 
 func Use():
 	t = 0.0
+	var player = self.get_parent()
 	p0 = self.global_position
 	p1 = self.global_position+Vector2(140, -283)
 	p2 = self.global_position+Vector2(290, 0)
 	projectile = true
-	var player = self.get_parent()
 	player.remove_child(self)
 	player.get_parent().add_child(self)
 	position = player.get_position()
-	hurtBox.set_deferred("disabled", false)
 	return true #tells the player that the object is no longer in their inventory
 
 
