@@ -85,7 +85,6 @@ shape = SubResource( 10 )
 [node name="DetectRadius" type="Area2D" parent="."]
 
 [node name="DetectShape" type="CollisionShape2D" parent="DetectRadius"]
-visible = false
 shape = SubResource( 11 )
 
 [node name="GlueLanding" type="AudioStreamPlayer" parent="."]
