@@ -1,7 +1,6 @@
-[gd_scene load_steps=19 format=2]
+[gd_scene load_steps=18 format=2]
 
 [ext_resource path="res://src/characters/Level1/GreenSlime.gd" type="Script" id=1]
-[ext_resource path="res://src/projectiles/Enemy/GlueSpatter.tscn" type="PackedScene" id=2]
 [ext_resource path="res://assets/Audio/Glue Landing.wav" type="AudioStream" id=3]
 [ext_resource path="res://assets/characters/GreenSlime/slime.png" type="Texture" id=4]
 [ext_resource path="res://assets/Miscellaneous/ShadowCircle.png" type="Texture" id=5]
@@ -67,7 +66,6 @@ extents = Vector2( 0.596558, 6.62274 )
 "glueable",
 ]]
 script = ExtResource( 1 )
-GlueSpatter = ExtResource( 2 )
 
 [node name="Shadow" type="Sprite" parent="."]
 position = Vector2( 0.284456, 5.34083 )

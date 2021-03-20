@@ -596,6 +596,7 @@ tile_data = PoolIntArray( -1376239, 2, 0, -1376238, 0, 1, -1376237, 0, 1, -13762
 position = Vector2( 1310.18, 284.485 )
 scale = Vector2( 1.40614, 1.40374 )
 frames = SubResource( 34 )
+frame = 3
 playing = true
 
 [node name="Rock4" parent="." instance=ExtResource( 11 )]
@@ -626,11 +627,13 @@ texture = ExtResource( 22 )
 [node name="nonMovingSlime" type="AnimatedSprite" parent="."]
 position = Vector2( 831.934, 692.113 )
 frames = SubResource( 39 )
+frame = 2
 playing = true
 
 [node name="nonMovingSlime2" type="AnimatedSprite" parent="."]
 position = Vector2( 1024.76, 790.643 )
 frames = SubResource( 39 )
+frame = 2
 playing = true
 
 [node name="GreenSlime" parent="." instance=ExtResource( 6 )]
@@ -675,21 +678,20 @@ texture = ExtResource( 16 )
 position = Vector2( 926.836, 742.462 )
 scale = Vector2( 1.34483, 1.34483 )
 frames = SubResource( 47 )
-frame = 5
+frame = 4
 playing = true
 
 [node name="Torch2" type="AnimatedSprite" parent="."]
 position = Vector2( 857.936, 587.79 )
 scale = Vector2( 1.35636, 1.22272 )
 frames = SubResource( 54 )
-frame = 3
+frame = 5
 playing = true
 
 [node name="Torch" type="AnimatedSprite" parent="."]
 position = Vector2( 955.517, 589.204 )
 scale = Vector2( 1.35636, 1.22272 )
 frames = SubResource( 54 )
-frame = 4
 playing = true
 
 [node name="SharpRock" parent="." instance=ExtResource( 4 )]

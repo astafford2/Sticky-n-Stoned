@@ -1,5 +1,7 @@
 extends Mob
 
+class_name GreenSlime
+
 
 export (PackedScene) var GlueSpatter
 
