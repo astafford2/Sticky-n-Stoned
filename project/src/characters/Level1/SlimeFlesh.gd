@@ -7,8 +7,6 @@ var slime_flesh_target : AnimatedSprite = null
 func _ready():
 	RUN_SPEED = 105
 	Health = 1
-# warning-ignore:return_value_discarded
-	SignalMaster.connect("overlapped", self, "_on_feet_overlapped")
 	
 	slime_flesh_target = get_parent().get_node("KingSlimeProp")
 
@@ -20,9 +18,9 @@ func _physics_process(_delta):
 	velocity = move_and_slide(velocity, Vector2.ZERO)
 
 
-func _on_DetectRadius_body_entered(body):
+func _on_DetectRadius_body_entered(_body):
 	pass
 
 
-func _on_DetectRadius_body_exited(body):
+func _on_DetectRadius_body_exited(_body):
 	pass
