@@ -19,6 +19,7 @@ onready var Foot1S := $FallingBox/Foot
 func _ready():
 	RUN_SPEED = 105
 	Health = 2
+	health_bar.set_max_health(Health)
 # warning-ignore:return_value_discarded
 	SignalMaster.connect("overlapped", self, "_on_feet_overlapped")
 

@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=2]
+[gd_scene load_steps=18 format=2]
 
 [ext_resource path="res://assets/characters/big_demon/big_demon_run_anim_f0.png" type="Texture" id=1]
 [ext_resource path="res://assets/characters/big_demon/big_demon_run_anim_f2.png" type="Texture" id=2]
@@ -12,8 +12,7 @@
 [ext_resource path="res://src/projectiles/Enemy/GlueSpatter.tscn" type="PackedScene" id=10]
 [ext_resource path="res://assets/Audio/Glue Landing.wav" type="AudioStream" id=11]
 [ext_resource path="res://assets/Miscellaneous/ShadowCircle.png" type="Texture" id=12]
-
-
+[ext_resource path="res://src/GUI/HealthBar.tscn" type="PackedScene" id=13]
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
@@ -84,5 +83,11 @@ position = Vector2( 9.01017, 34.1218 )
 shape = SubResource( 4 )
 
 [node name="Navigation2D" type="Navigation2D" parent="."]
+
+[node name="HealthBar" parent="." instance=ExtResource( 13 )]
+margin_left = -19.4997
+margin_top = -67.6922
+margin_right = 20.5003
+margin_bottom = -27.6922
 [connection signal="body_entered" from="DetectRadius" to="." method="_on_DetectRadius_body_entered"]
 [connection signal="body_exited" from="DetectRadius" to="." method="_on_DetectRadius_body_exited"]
