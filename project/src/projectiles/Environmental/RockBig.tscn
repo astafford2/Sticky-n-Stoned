@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://src/projectiles/Environmental/RockBig.gd" type="Script" id=1]
 [ext_resource path="res://assets/projectiles/rockBoulder.png" type="Texture" id=2]
@@ -11,6 +11,9 @@ height = 3.94843
 [sub_resource type="CapsuleShape2D" id=2]
 radius = 15.2718
 height = 7.32165
+
+[sub_resource type="CircleShape2D" id=4]
+radius = 114.485
 
 [sub_resource type="Animation" id=3]
 resource_name = "arcThrow"
@@ -41,6 +44,13 @@ visible = false
 rotation = 1.5708
 shape = SubResource( 2 )
 
+[node name="AOE" type="Area2D" parent="."]
+
+[node name="AOEbox" type="CollisionShape2D" parent="AOE"]
+visible = false
+shape = SubResource( 4 )
+disabled = true
+
 [node name="Sprite" type="Sprite" parent="."]
 position = Vector2( 0.0496106, -0.360774 )
 scale = Vector2( 1.15933, 1.15933 )
@@ -52,3 +62,5 @@ stream = ExtResource( 3 )
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/arcThrow = SubResource( 3 )
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_entered" from="AOE" to="." method="_on_AOE_body_entered"]
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]
