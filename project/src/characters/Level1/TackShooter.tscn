@@ -91,7 +91,7 @@ texture = ExtResource( 3 )
 [node name="TSSprite" type="AnimatedSprite" parent="."]
 scale = Vector2( 2, 2 )
 frames = SubResource( 16 )
-frame = 1
+frame = 2
 playing = true
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
@@ -112,5 +112,5 @@ rotation = 3.14159
 position = Vector2( 1.62012, 30.1159 )
 rotation = 1.5708
 
-[node name="TackShot" type="AudioStreamPlayer" parent="."]
+[node name="TackShot" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource( 5 )
