@@ -21,9 +21,11 @@ func _ready():
 	hurtBox.set_deferred("disabled", true)
 
 
-#func _process(_delta):
-#	if t == 1:
-#		_on_body_entered(null)
+func _process(_delta):
+	if t == 1:
+		AOEbox.set_deferred("disabled", false)
+		yield(get_tree().create_timer(0.5), "timeout")
+		AOEbox.set_deferred("disabled", true)
 
 
 #func hitActivity(delta):
@@ -31,7 +33,10 @@ func _ready():
 
 
 func projectileActivity(delta):
-	position += transform.x * speed * delta
+#	position += transform.x * speed * delta
+	t += delta/2
+	t = clamp(t, 0, 1)
+	position = _quadratic_bezier(p0, p1, p2, t)
 	animPlayer.play("arcThrow")
 
 
@@ -52,11 +57,21 @@ func Interact(body):
 
 
 func Use():
-#	t = 0.0
+	t = 0.0
 	var player = self.get_parent()
-#	p0 = self.global_position
-#	p1 = self.global_position+Vector2(140, -283)
-#	p2 = self.global_position+Vector2(290, 0)
+	var muzzle_angle = player.muzzle.global_rotation
+	p0 = self.global_position
+	p2 = Vector2(p0.x + (290 * cos(muzzle_angle)), p0.y + (290 * sin(muzzle_angle)))
+	p1 = Vector2(p0.x + (145 * cos(muzzle_angle)), p0.y + (145 * sin(muzzle_angle)))
+	
+	var temp_angle = rad2deg(muzzle_angle)
+	temp_angle = abs(temp_angle)
+	var dist = ((90 - temp_angle) / 90) * 100
+	if temp_angle > 90:
+		dist = ((temp_angle - 90) / 90) * 100
+	print(dist)
+		
+	p1 = Vector2(p1.x + (dist * -abs(cos(muzzle_angle - (PI/2)))), p1.y + (dist * -abs(sin(muzzle_angle - (PI/2)))))
 	projectile = true
 	player.remove_child(self)
 	player.get_parent().add_child(self)
@@ -75,10 +90,9 @@ func _on_hit_single_call():
 
 func _on_AnimationPlayer_animation_finished(_anim_name):
 #	_on_body_entered(null)
-	AOEbox.set_deferred("disabled", false)
-	yield(get_tree().create_timer(0.5), "timeout")
-	AOEbox.set_deferred("disabled", true)
+	pass
 
 
 func _on_AOE_body_entered(body):
+	print(body)
 	_on_body_entered(body)

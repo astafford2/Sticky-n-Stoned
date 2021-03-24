@@ -91,7 +91,7 @@ texture = ExtResource( 3 )
 [node name="TSSprite" type="AnimatedSprite" parent="."]
 scale = Vector2( 2, 2 )
 frames = SubResource( 16 )
-frame = 2
+frame = 8
 playing = true
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]

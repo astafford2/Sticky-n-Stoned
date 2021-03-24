@@ -17,3 +17,6 @@ func _process(_delta):
 		slime_flesh.set_script(script2)
 		slime_flesh.position = $Player.position + Vector2(50, 0)
 		add_child(slime_flesh)
+	
+	if Input.is_action_just_pressed("cheat_infinite_health"):
+		get_node("Player").health = 999999999999999999
