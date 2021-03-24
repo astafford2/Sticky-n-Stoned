@@ -1,15 +1,17 @@
-[gd_scene load_steps=45 format=2]
+[gd_scene load_steps=47 format=2]
 
 [ext_resource path="res://assets/characters/Player/Player-Idle.png" type="Texture" id=1]
 [ext_resource path="res://src/characters/Player.gd" type="Script" id=2]
+[ext_resource path="res://assets/Miscellaneous/ShadowCircle.png" type="Texture" id=3]
 [ext_resource path="res://assets/characters/Player/PlayerSimpleDodgeRoll.png" type="Texture" id=4]
 [ext_resource path="res://assets/characters/Player/playerRun.png" type="Texture" id=5]
 [ext_resource path="res://assets/characters/Player/playerFalling.png" type="Texture" id=6]
+[ext_resource path="res://assets/Audio/Projectile Launch.wav" type="AudioStream" id=7]
+[ext_resource path="res://assets/Audio/Dodge_Roll.wav" type="AudioStream" id=8]
 [ext_resource path="res://src/projectiles/GlueBullet.tscn" type="PackedScene" id=11]
 [ext_resource path="res://assets/Audio/Glue Launch.wav" type="AudioStream" id=12]
 [ext_resource path="res://src/GUI/HealthGUI.tscn" type="PackedScene" id=13]
 [ext_resource path="res://assets/Audio/Losing Health Sound.wav" type="AudioStream" id=14]
-[ext_resource path="res://assets/Audio/DodgeRoll.wav" type="AudioStream" id=15]
 [ext_resource path="res://assets/Audio/PlayerPitfall.wav" type="AudioStream" id=16]
 
 [sub_resource type="AtlasTexture" id=1]
@@ -37,92 +39,92 @@ atlas = ExtResource( 5 )
 region = Rect2( 0, 0, 24, 35 )
 
 [sub_resource type="AtlasTexture" id=7]
-atlas = ExtResource( 5 )
-region = Rect2( 24, 0, 24, 35 )
+atlas = ExtResource( 6 )
+region = Rect2( 72, 0, 24, 35 )
 
 [sub_resource type="AtlasTexture" id=8]
-atlas = ExtResource( 5 )
-region = Rect2( 48, 0, 24, 35 )
-
-[sub_resource type="AtlasTexture" id=9]
-atlas = ExtResource( 5 )
-region = Rect2( 72, 0, 24, 35 )
-
-[sub_resource type="AtlasTexture" id=10]
-atlas = ExtResource( 4 )
-region = Rect2( 0, 0, 24, 36 )
-
-[sub_resource type="AtlasTexture" id=11]
-atlas = ExtResource( 4 )
-region = Rect2( 24, 0, 24, 36 )
-
-[sub_resource type="AtlasTexture" id=12]
-atlas = ExtResource( 4 )
-region = Rect2( 48, 0, 24, 36 )
-
-[sub_resource type="AtlasTexture" id=13]
-atlas = ExtResource( 4 )
-region = Rect2( 72, 0, 24, 36 )
-
-[sub_resource type="AtlasTexture" id=14]
-atlas = ExtResource( 4 )
-region = Rect2( 96, 0, 24, 36 )
-
-[sub_resource type="AtlasTexture" id=15]
-atlas = ExtResource( 4 )
-region = Rect2( 120, 0, 24, 36 )
-
-[sub_resource type="AtlasTexture" id=16]
-atlas = ExtResource( 4 )
-region = Rect2( 144, 0, 24, 36 )
-
-[sub_resource type="AtlasTexture" id=17]
-atlas = ExtResource( 4 )
-region = Rect2( 168, 0, 24, 36 )
-
-[sub_resource type="AtlasTexture" id=18]
-atlas = ExtResource( 4 )
-region = Rect2( 192, 0, 24, 36 )
-
-[sub_resource type="AtlasTexture" id=19]
-atlas = ExtResource( 4 )
-region = Rect2( 216, 0, 24, 36 )
-
-[sub_resource type="AtlasTexture" id=20]
-atlas = ExtResource( 6 )
-region = Rect2( 0, 0, 24, 35 )
-
-[sub_resource type="AtlasTexture" id=21]
-atlas = ExtResource( 6 )
-region = Rect2( 24, 0, 24, 35 )
-
-[sub_resource type="AtlasTexture" id=22]
-atlas = ExtResource( 6 )
-region = Rect2( 48, 0, 24, 35 )
-
-[sub_resource type="AtlasTexture" id=23]
-atlas = ExtResource( 6 )
-region = Rect2( 72, 0, 24, 35 )
-
-[sub_resource type="AtlasTexture" id=24]
 atlas = ExtResource( 6 )
 region = Rect2( 96, 0, 24, 35 )
 
-[sub_resource type="AtlasTexture" id=25]
+[sub_resource type="AtlasTexture" id=9]
 atlas = ExtResource( 6 )
 region = Rect2( 120, 0, 24, 35 )
 
-[sub_resource type="AtlasTexture" id=26]
+[sub_resource type="AtlasTexture" id=10]
 atlas = ExtResource( 6 )
 region = Rect2( 144, 0, 24, 35 )
 
-[sub_resource type="AtlasTexture" id=27]
+[sub_resource type="AtlasTexture" id=11]
 atlas = ExtResource( 6 )
 region = Rect2( 168, 0, 24, 35 )
 
-[sub_resource type="AtlasTexture" id=28]
+[sub_resource type="AtlasTexture" id=12]
+atlas = ExtResource( 6 )
+region = Rect2( 120, 0, 24, 35 )
+
+[sub_resource type="AtlasTexture" id=13]
+atlas = ExtResource( 6 )
+region = Rect2( 144, 0, 24, 35 )
+
+[sub_resource type="AtlasTexture" id=14]
+atlas = ExtResource( 6 )
+region = Rect2( 168, 0, 24, 35 )
+
+[sub_resource type="AtlasTexture" id=15]
+atlas = ExtResource( 4 )
+region = Rect2( 0, 0, 24, 36 )
+
+[sub_resource type="AtlasTexture" id=16]
+atlas = ExtResource( 4 )
+region = Rect2( 24, 0, 24, 36 )
+
+[sub_resource type="AtlasTexture" id=17]
+atlas = ExtResource( 4 )
+region = Rect2( 48, 0, 24, 36 )
+
+[sub_resource type="AtlasTexture" id=18]
+atlas = ExtResource( 4 )
+region = Rect2( 72, 0, 24, 36 )
+
+[sub_resource type="AtlasTexture" id=19]
+atlas = ExtResource( 4 )
+region = Rect2( 96, 0, 24, 36 )
+
+[sub_resource type="AtlasTexture" id=20]
+atlas = ExtResource( 4 )
+region = Rect2( 120, 0, 24, 36 )
+
+[sub_resource type="AtlasTexture" id=21]
+atlas = ExtResource( 4 )
+region = Rect2( 144, 0, 24, 36 )
+
+[sub_resource type="AtlasTexture" id=22]
+atlas = ExtResource( 4 )
+region = Rect2( 168, 0, 24, 36 )
+
+[sub_resource type="AtlasTexture" id=23]
+atlas = ExtResource( 4 )
+region = Rect2( 192, 0, 24, 36 )
+
+[sub_resource type="AtlasTexture" id=24]
+atlas = ExtResource( 4 )
+region = Rect2( 216, 0, 24, 36 )
+
+[sub_resource type="AtlasTexture" id=25]
 atlas = ExtResource( 5 )
 region = Rect2( 0, 0, 24, 35 )
+
+[sub_resource type="AtlasTexture" id=26]
+atlas = ExtResource( 5 )
+region = Rect2( 24, 0, 24, 35 )
+
+[sub_resource type="AtlasTexture" id=27]
+atlas = ExtResource( 5 )
+region = Rect2( 48, 0, 24, 35 )
+
+[sub_resource type="AtlasTexture" id=28]
+atlas = ExtResource( 5 )
+region = Rect2( 72, 0, 24, 35 )
 
 [sub_resource type="SpriteFrames" id=29]
 animations = [ {
@@ -131,25 +133,25 @@ animations = [ {
 "name": "idle",
 "speed": 7.0
 }, {
-"frames": [ SubResource( 6 ), SubResource( 7 ), SubResource( 8 ), SubResource( 9 ) ],
-"loop": true,
-"name": "run",
-"speed": 8.0
-}, {
-"frames": [ SubResource( 10 ), SubResource( 11 ), SubResource( 12 ), SubResource( 13 ), SubResource( 14 ), SubResource( 15 ), SubResource( 16 ), SubResource( 17 ), SubResource( 18 ), SubResource( 19 ) ],
+"frames": [ SubResource( 6 ) ],
 "loop": false,
-"name": "dodge_roll",
-"speed": 15.0
+"name": "hit",
+"speed": 5.0
 }, {
-"frames": [ SubResource( 20 ), SubResource( 21 ), SubResource( 22 ), SubResource( 23 ), SubResource( 24 ), SubResource( 25 ), SubResource( 26 ), SubResource( 27 ) ],
+"frames": [ SubResource( 7 ), SubResource( 8 ), SubResource( 9 ), SubResource( 10 ), SubResource( 11 ), SubResource( 12 ), SubResource( 13 ), SubResource( 14 ) ],
 "loop": true,
 "name": "falling",
 "speed": 8.5
 }, {
-"frames": [ SubResource( 28 ) ],
+"frames": [ SubResource( 15 ), SubResource( 16 ), SubResource( 17 ), SubResource( 18 ), SubResource( 19 ), SubResource( 20 ), SubResource( 21 ), SubResource( 22 ), SubResource( 23 ), SubResource( 24 ) ],
 "loop": false,
-"name": "hit",
-"speed": 5.0
+"name": "dodge_roll",
+"speed": 15.0
+}, {
+"frames": [ SubResource( 25 ), SubResource( 26 ), SubResource( 27 ), SubResource( 28 ) ],
+"loop": true,
+"name": "run",
+"speed": 8.0
 } ]
 
 [sub_resource type="CapsuleShape2D" id=30]
@@ -163,7 +165,7 @@ height = 29.935
 [sub_resource type="Animation" id=32]
 length = 1.6
 tracks/0/type = "value"
-tracks/0/path = NodePath(".:rotation_degrees")
+tracks/0/path = NodePath(".:scale")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
@@ -172,27 +174,15 @@ tracks/0/keys = {
 "times": PoolRealArray( 0, 0.7, 1.5 ),
 "transitions": PoolRealArray( 1, 1, 1 ),
 "update": 0,
-"values": [ 0.0, 360.0, 720.0 ]
+"values": [ Vector2( 0.75, 0.75 ), Vector2( 0.5, 0.5 ), Vector2( 0.25, 0.25 ) ]
 }
-tracks/1/type = "value"
-tracks/1/path = NodePath(".:scale")
+tracks/1/type = "method"
+tracks/1/path = NodePath(".")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 0, 0.7, 1.5 ),
-"transitions": PoolRealArray( 1, 1, 1 ),
-"update": 0,
-"values": [ Vector2( 0.75, 0.75 ), Vector2( 0.5, 0.5 ), Vector2( 0.25, 0.25 ) ]
-}
-tracks/2/type = "method"
-tracks/2/path = NodePath(".")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/keys = {
 "times": PoolRealArray( 0, 1.6 ),
 "transitions": PoolRealArray( 1, 1 ),
 "values": [ {
@@ -202,6 +192,18 @@ tracks/2/keys = {
 "args": [  ],
 "method": "unfreeze_player"
 } ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("PlayerSprite:animation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 1.6 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ "falling", "idle" ]
 }
 
 [sub_resource type="RectangleShape2D" id=33]
@@ -213,12 +215,16 @@ collision_mask = 5
 script = ExtResource( 2 )
 GlueBullet = ExtResource( 11 )
 
+[node name="Shadow" type="Sprite" parent="."]
+position = Vector2( -0.413555, 30.0761 )
+scale = Vector2( 2.49627, 2.52527 )
+texture = ExtResource( 3 )
+
 [node name="PlayerSprite" type="AnimatedSprite" parent="."]
-position = Vector2( -0.444957, 1.11238 )
+position = Vector2( -0.35667, 1.11238 )
 scale = Vector2( 2.3, 2.3 )
 frames = SubResource( 29 )
-animation = "falling"
-frame = 1
+animation = "idle"
 playing = true
 
 [node name="PlayerShape" type="CollisionShape2D" parent="."]
@@ -228,7 +234,7 @@ shape = SubResource( 30 )
 [node name="PlayerArea" type="Area2D" parent="."]
 
 [node name="PlayerShape2" type="CollisionShape2D" parent="PlayerArea"]
-position = Vector2( 0.0706227, 8.62913 )
+position = Vector2( 0.15891, 8.54084 )
 shape = SubResource( 31 )
 
 [node name="Muzzle" type="Position2D" parent="."]
@@ -244,11 +250,14 @@ editor_draw_drag_margin = true
 stream = ExtResource( 12 )
 volume_db = 0.07
 
+[node name="ThrowSfx" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 7 )
+
 [node name="HurtSound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 14 )
 
 [node name="DodgeRollSfx" type="AudioStreamPlayer" parent="."]
-stream = ExtResource( 15 )
+stream = ExtResource( 8 )
 
 [node name="PitfallSfx" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 16 )
@@ -277,4 +286,3 @@ shape = SubResource( 33 )
 [connection signal="area_exited" from="PlayerArea" to="." method="_on_PlayerArea_area_exited"]
 [connection signal="body_entered" from="PlayerArea" to="." method="_on_PlayerArea_body_entered"]
 [connection signal="body_exited" from="PlayerArea" to="." method="_on_PlayerArea_body_exited"]
-[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]

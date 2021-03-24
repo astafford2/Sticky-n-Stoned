@@ -2,8 +2,9 @@
 
 [ext_resource path="res://src/tiles/Floor.tres" type="TileSet" id=1]
 [ext_resource path="res://assets/0x72_DungeonTilesetII_v1.3.png" type="Texture" id=2]
-[ext_resource path="res://src/characters/BigDemon.tscn" type="PackedScene" id=5]
+[ext_resource path="res://src/characters/Level1/BigDemon.tscn" type="PackedScene" id=5]
 [ext_resource path="res://src/characters/Player.tscn" type="PackedScene" id=8]
+
 
 [sub_resource type="ConvexPolygonShape2D" id=1]
 points = PoolVector2Array( 0, 0, 32, 0, 32, 32, 0, 32 )

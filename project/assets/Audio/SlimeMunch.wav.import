@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/SlimeMunch.wav-f72f957ba4b354669c56916c84132bb8.sample"
+
+[deps]
+
+source_file="res://assets/Audio/SlimeMunch.wav"
+dest_files=[ "res://.import/SlimeMunch.wav-f72f957ba4b354669c56916c84132bb8.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0
