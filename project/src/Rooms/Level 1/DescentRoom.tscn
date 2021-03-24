@@ -12,6 +12,7 @@ extents = Vector2( 99.7418, 141.887 )
 script = ExtResource( 3 )
 
 [node name="Floors" type="TileMap" parent="."]
+z_index = -1
 tile_set = ExtResource( 1 )
 cell_size = Vector2( 32, 32 )
 format = 1

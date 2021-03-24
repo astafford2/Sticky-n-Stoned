@@ -25,6 +25,7 @@ outlines = [ PoolVector2Array( 543.992, 480, 544, 543.992, 608, 543.992, 607.997
 script = ExtResource( 3 )
 
 [node name="Floors" type="TileMap" parent="."]
+z_index = -1
 tile_set = ExtResource( 1 )
 cell_size = Vector2( 32, 32 )
 format = 1
