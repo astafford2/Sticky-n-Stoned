@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://src/tiles/Floor.gd" type="Script" id=1]
 [ext_resource path="res://src/characters/Level1/GreenSlime.tscn" type="PackedScene" id=2]
@@ -13,6 +13,11 @@ extents = Vector2( 273.39, 197.478 )
 
 [sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 240, 128 )
+
+[sub_resource type="NavigationPolygon" id=3]
+vertices = PoolVector2Array( -192, 0, -277.984, 0.015625, -277.92, -256.051, 64, -256, 64, -160, 245.966, -159.95, 245.997, 55.9987, -192, 56 )
+polygons = [ PoolIntArray( 0, 1, 2, 3, 4 ), PoolIntArray( 4, 5, 6, 7, 0 ) ]
+outlines = [ PoolVector2Array( -277.92, -256.051, -277.984, 0.015625, -192, 0, -192, 56, 245.997, 55.9987, 245.966, -159.95, 64, -160, 64, -256 ) ]
 
 [node name="Side Small Room" type="Node2D"]
 script = ExtResource( 3 )
@@ -32,16 +37,19 @@ format = 1
 tile_data = PoolIntArray( -589833, 2, 0, -589832, 0, 0, -589831, 0, 0, -589830, 0, 0, -589829, 0, 0, -589828, 0, 0, -589827, 0, 0, -589826, 0, 0, -589825, 0, 0, -655360, 0, 0, -655359, 0, 0, -655358, 0, 0, -655357, 0, 0, -655356, 0, 0, -655355, 0, 0, -655354, 0, 0, -655353, 2, 1, -524297, 3, 65537, -524296, 0, 131072, -524295, 0, 131072, -524294, 0, 131072, -524293, 0, 65536, -524292, 0, 131074, -524291, 0, 196610, -524290, 0, 65536, -524289, 0, 65536, -589824, 0, 65536, -589823, 0, 131074, -589822, 0, 131072, -589821, 0, 131072, -589820, 0, 131072, -589819, 0, 196610, -589818, 0, 65536, -589817, 3, 65536, -458761, 1, 65537, -524281, 1, 65536, -393225, 1, 65537, -458745, 1, 65536, -327689, 1, 65537, -393209, 1, 65536, -262153, 1, 65537, -327673, 1, 65536, -196617, 1, 65537, -262137, 1, 65536, -131081, 1, 65537, -196601, 1, 65536, -65545, 1, 65537, -131065, 1, 65536, -9, 1, 65537, -65529, 1, 65536, 65527, 1, 65537, 7, 1, 65536, 131063, 2, 131072, 131064, 0, 2, 131065, 0, 2, 131066, 0, 2, 131067, 0, 2, 131068, 0, 2, 131069, 0, 2, 131070, 0, 2, 131071, 0, 2, 65536, 0, 2, 65537, 0, 2, 65538, 0, 2, 65539, 2, 1, 65542, 2, 0, 65543, 3, 0, 196599, 0, 65536, 196600, 0, 65536, 196601, 0, 65536, 196602, 0, 65536, 196603, 0, 65536, 196604, 0, 65536, 196605, 0, 65536, 196606, 0, 65536, 196607, 0, 65536, 131072, 0, 65536, 131073, 0, 65536, 131074, 0, 65537, 131075, 2, 65537, 131078, 2, 65536, 131079, 0, 65537 )
 
 [node name="Doors" type="Node2D" parent="."]
+visible = false
 
 [node name="Door1" type="Position2D" parent="Doors"]
 position = Vector2( 160, 64 )
 
 [node name="DoorEntities" type="Node2D" parent="."]
+visible = false
 
 [node name="Door" parent="DoorEntities" instance=ExtResource( 6 )]
 position = Vector2( 96, 32 )
 
 [node name="Enemies" type="Node2D" parent="."]
+visible = false
 
 [node name="GreenSlime" parent="Enemies" instance=ExtResource( 2 )]
 position = Vector2( -240, -208 )
@@ -60,6 +68,7 @@ position = Vector2( -15.1191, -100.794 )
 shape = SubResource( 1 )
 
 [node name="PlayerDetection" type="Area2D" parent="."]
+visible = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerDetection"]
 position = Vector2( -16, -96 )
@@ -78,3 +87,6 @@ position = Vector2( -144, -208 )
 
 [node name="Rock4" parent="Decorations" instance=ExtResource( 7 )]
 position = Vector2( -240, -80 )
+
+[node name="NavigationPolygonInstance" type="NavigationPolygonInstance" parent="."]
+navpoly = SubResource( 3 )

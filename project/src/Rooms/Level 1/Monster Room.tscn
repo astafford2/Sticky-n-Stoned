@@ -60,3 +60,5 @@ shape = SubResource( 2 )
 
 [node name="NavigationPolygonInstance" type="NavigationPolygonInstance" parent="."]
 navpoly = SubResource( 3 )
+
+[node name="Decorations" type="Node2D" parent="."]

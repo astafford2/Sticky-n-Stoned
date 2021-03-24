@@ -5,7 +5,6 @@
 [ext_resource path="res://src/Rooms/Level 1/Room.gd" type="Script" id=3]
 [ext_resource path="res://src/tiles/Floor.gd" type="Script" id=4]
 
-
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 99.7418, 141.887 )
 
@@ -35,3 +34,5 @@ position = Vector2( -32, 96 )
 [node name="Shape" type="CollisionShape2D" parent="Dimensions"]
 position = Vector2( 96.2997, 92.7404 )
 shape = SubResource( 1 )
+
+[node name="DoorEntities" type="Node2D" parent="."]
