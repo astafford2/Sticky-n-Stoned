@@ -26,6 +26,8 @@ func _process(_delta):
 		AOEbox.set_deferred("disabled", false)
 		yield(get_tree().create_timer(0.5), "timeout")
 		AOEbox.set_deferred("disabled", true)
+		projectile = false
+		thrower = null
 
 
 #func hitActivity(delta):
@@ -97,5 +99,9 @@ func _on_AnimationPlayer_animation_finished(_anim_name):
 
 
 func _on_AOE_body_entered(body):
-	print(body)
-	_on_body_entered(body)
+	if projectile and body != thrower:
+		SignalMaster.attacked(thrower, body, damage)
+#		projectile = false
+		hit = true
+#		thrower = null
+		_on_hit_single_call()
