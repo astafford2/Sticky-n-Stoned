@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://src/tiles/Floor.tres" type="TileSet" id=1]
 [ext_resource path="res://src/tiles/Walls.tres" type="TileSet" id=2]
@@ -12,6 +12,9 @@ extents = Vector2( 510.494, 354.785 )
 vertices = PoolVector2Array( 830, 576, 898.008, 575.992, 958, 576.008, 1013.99, 631.985, 10.0532, 631.948, 770, 576.008, 126, 479.992, 898.016, 448, 957.992, 447.992, 957.984, 512, 898, 512, 637.992, 447.992, 578.009, 448.006, 446, 447.984, 385.992, 448.016, 638, 320, 898.016, 256.008, 958, 256, 957.984, 384, 897.992, 384.008, 958, 128, 1015.94, -0.00467491, 957.992, 192, 957.992, 64.0078, 254, 575.984, 770, 511.984, 194.006, 576.006, 126.008, 575.984, 66, 575.992, 9.90273, -0.0344448, 65.9922, 512.016, 897.992, 64, 637.992, 256.008, 898, 192, 125.992, 416.008, 386, 384, 898.008, 128.016, 830, 128, 830, 63.9922, 193.981, 63.9968, 125.999, 63.9267, 770, 64, 253.969, 64.0115, 66.0874, 64.2347, 194, 511.992, 126, 512.008, 637.992, 384, 578, 384.008, 445.998, 384.003, 253.975, 128.033, 770.016, 128.016, 578, 256, 578, 320, 445.992, 319.984, 445.984, 256.008, 385.992, 256, 386.016, 320.008, 125.988, 256.005, 125.956, 191.996, 194.028, 127.993, 254, 512, 829.992, 512, 66.0104, 480.001, 66, 415.992, 65.9643, 255.99, 65.9856, 192.027, 125.915, 128.082, 66.0144, 128.249 )
 polygons = [ PoolIntArray( 0, 1, 2, 3, 4, 5 ), PoolIntArray( 6, 7, 8, 9, 10 ), PoolIntArray( 11, 7, 6, 12 ), PoolIntArray( 13, 12, 6, 14 ), PoolIntArray( 15, 16, 17, 18, 19 ), PoolIntArray( 20, 21, 3, 17, 22 ), PoolIntArray( 8, 17, 3, 2 ), PoolIntArray( 17, 8, 18 ), PoolIntArray( 21, 20, 23 ), PoolIntArray( 8, 2, 9 ), PoolIntArray( 5, 4, 24, 25 ), PoolIntArray( 26, 24, 4 ), PoolIntArray( 27, 26, 4, 28 ), PoolIntArray( 28, 4, 29, 30 ), PoolIntArray( 29, 21, 23, 31 ), PoolIntArray( 16, 15, 32, 33 ), PoolIntArray( 14, 6, 34, 35 ), PoolIntArray( 31, 36, 37, 38 ), PoolIntArray( 29, 31, 38 ), PoolIntArray( 39, 40, 29, 38, 41, 42 ), PoolIntArray( 29, 40, 43 ), PoolIntArray( 44, 26, 27, 45, 6 ), PoolIntArray( 15, 19, 7, 11, 46 ), PoolIntArray( 36, 20, 22, 33 ), PoolIntArray( 47, 12, 13, 48 ), PoolIntArray( 49, 50, 36, 33, 32, 51 ), PoolIntArray( 52, 15, 46, 47, 48 ), PoolIntArray( 53, 51, 52, 48 ), PoolIntArray( 51, 53, 54 ), PoolIntArray( 49, 51, 54, 55 ), PoolIntArray( 49, 55, 56, 57, 58, 59 ), PoolIntArray( 25, 24, 60 ), PoolIntArray( 56, 53, 48, 35 ), PoolIntArray( 10, 1, 0, 61 ), PoolIntArray( 6, 10, 61, 25 ), PoolIntArray( 6, 25, 60, 44 ), PoolIntArray( 62, 6, 45, 30 ), PoolIntArray( 63, 62, 30, 29, 64 ), PoolIntArray( 57, 56, 35, 34, 63, 64 ), PoolIntArray( 65, 64, 29 ), PoolIntArray( 39, 59, 58, 65, 66 ), PoolIntArray( 29, 43, 67 ), PoolIntArray( 65, 29, 67 ), PoolIntArray( 65, 67, 66 ), PoolIntArray( 39, 66, 40 ), PoolIntArray( 49, 42, 41, 50 ), PoolIntArray( 36, 50, 37 ) ]
 outlines = [ PoolVector2Array( 9.90273, -0.0344448, 10.0532, 631.948, 1013.99, 631.985, 1015.94, -0.00467491 ), PoolVector2Array( 66.0874, 64.2347, 125.999, 63.9267, 125.915, 128.082, 66.0144, 128.249 ), PoolVector2Array( 193.981, 63.9968, 194.028, 127.993, 253.975, 128.033, 253.969, 64.0115 ), PoolVector2Array( 65.9643, 255.99, 125.988, 256.005, 125.956, 191.996, 65.9856, 192.027 ), PoolVector2Array( 66, 415.992, 66.0104, 480.001, 126, 479.992, 125.992, 416.008 ), PoolVector2Array( 66, 575.992, 126.008, 575.984, 126, 512.008, 65.9922, 512.016 ), PoolVector2Array( 194, 511.992, 194.006, 576.006, 254, 575.984, 254, 512 ), PoolVector2Array( 385.992, 256, 386.016, 320.008, 445.992, 319.984, 445.984, 256.008 ), PoolVector2Array( 386, 384, 385.992, 448.016, 446, 447.984, 445.998, 384.003 ), PoolVector2Array( 578, 256, 578, 320, 638, 320, 637.992, 256.008 ), PoolVector2Array( 578, 384.008, 578.009, 448.006, 637.992, 447.992, 637.992, 384 ), PoolVector2Array( 770, 511.984, 770, 576.008, 830, 576, 829.992, 512 ), PoolVector2Array( 898, 512, 898.008, 575.992, 958, 576.008, 957.984, 512 ), PoolVector2Array( 897.992, 384.008, 898.016, 448, 957.992, 447.992, 957.984, 384 ), PoolVector2Array( 898, 192, 898.016, 256.008, 958, 256, 957.992, 192 ), PoolVector2Array( 897.992, 64, 898.008, 128.016, 958, 128, 957.992, 64.0078 ), PoolVector2Array( 770, 64, 770.016, 128.016, 830, 128, 830, 63.9922 ) ]
+
+[sub_resource type="RectangleShape2D" id=3]
+extents = Vector2( 480.408, 288.793 )
 
 [node name="Boss Room" type="Node2D"]
 script = ExtResource( 3 )
@@ -52,8 +55,16 @@ position = Vector2( 512, 672 )
 position = Vector2( 992, 320 )
 
 [node name="NavigationPolygonInstance" type="NavigationPolygonInstance" parent="."]
+visible = false
 navpoly = SubResource( 2 )
 
 [node name="Enemies" type="Node2D" parent="."]
 
 [node name="Decorations" type="Node2D" parent="."]
+
+[node name="PlayerDetection" type="Area2D" parent="."]
+visible = false
+
+[node name="Detection" type="CollisionShape2D" parent="PlayerDetection"]
+position = Vector2( 511.74, 319.129 )
+shape = SubResource( 3 )

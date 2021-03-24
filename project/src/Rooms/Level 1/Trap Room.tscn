@@ -393,6 +393,7 @@ position = Vector2( 913.244, -259.938 )
 shape = SubResource( 29 )
 
 [node name="PlayerDetection" type="Area2D" parent="."]
+visible = false
 position = Vector2( -273.518, 542.278 )
 
 [node name="Detection" type="CollisionShape2D" parent="PlayerDetection"]
@@ -409,7 +410,6 @@ position = Vector2( 704.023, -96.0023 )
 [node name="Enemies" type="Node2D" parent="."]
 
 [node name="NavigationPolygonInstance" type="NavigationPolygonInstance" parent="."]
-visible = false
 position = Vector2( 273.521, -511.375 )
 navpoly = SubResource( 31 )
 
