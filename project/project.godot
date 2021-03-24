@@ -9,11 +9,6 @@
 config_version=4
 
 _global_script_classes=[ {
-"base": "Node",
-"class": "Activateable",
-"language": "GDScript",
-"path": "res://src/tiles/Activateable.gd"
-}, {
 "base": "Node2D",
 "class": "Door",
 "language": "GDScript",
@@ -40,7 +35,6 @@ _global_script_classes=[ {
 "path": "res://src/tiles/Traps.gd"
 } ]
 _global_script_class_icons={
-"Activateable": "",
 "Door": "",
 "GreenSlime": "",
 "Mob": "",
@@ -113,11 +107,6 @@ cheat_kill={
 kill_enemies={
 "deadzone": 0.5,
 "events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":69,"unicode":0,"echo":false,"script":null)
- ]
-}
-spawn_slime_flesh={
-"deadzone": 0.5,
-"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":70,"unicode":0,"echo":false,"script":null)
  ]
 }
 
