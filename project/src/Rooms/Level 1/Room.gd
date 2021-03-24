@@ -10,12 +10,19 @@ onready var Doors := $Doors
 onready var DoorEntities := $DoorEntities
 onready var Enemies := $Enemies
 onready var PlayerDetection := $PlayerDetection
+onready var nav_instance := $NavigationPolygonInstance
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	print(self)
 	SignalMaster.connect("doorsOpenOrClose", self, "toggleDoors")
 	PlayerDetection.connect("body_entered", self, "_on_PlayerDetection_body_entered")
+	
+	var player = owner.get_node("Player")
+	
+	for enemy in Enemies.get_children():
+		if enemy.has_method("set_navigation"):
+			enemy.set_navigation(nav_instance.navpoly, player)
 	pass # Replace with function body.
 
 
