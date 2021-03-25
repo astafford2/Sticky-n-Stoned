@@ -7,10 +7,9 @@ var run_speed := 100
 var velocity := Vector2()
 var interactablesInRange = []
 var inventory = null
-var last_door : Node2D = null
 var last_ValidTile = null
 var canShoot = true
-var rolling = false
+var falling = false
 var Foot1 = null
 var Foot2 = null
 var feetArea = null
@@ -23,6 +22,7 @@ onready var player_sprite := $PlayerSprite
 onready var health_GUI := $HealthLayer/HealthGUI
 onready var muzzle := $Muzzle
 onready var glue_launch_fx := $GlueLaunch
+onready var throw_fx := $ThrowSfx
 onready var hurt_fx := $HurtSound
 onready var dodge_roll_fx := $DodgeRollSfx
 onready var pitfall_fx := $PitfallSfx
@@ -37,6 +37,7 @@ func _ready():
 	SignalMaster.connect("overlapped", self, "_on_feet_overlapped")
 # warning-ignore:return_value_discarded
 	SignalMaster.connect("enteredValidTile", self, "UpdateLastTile")
+# warning-ignore:return_value_discarded
 	SignalMaster.connect("attacked", self, "player_hit")
 
 
@@ -44,7 +45,7 @@ func _process(_delta):
 	health_GUI.update_health(health)
 	if health <= 0:
 		kill_player()
-	if !rolling:
+	if !falling and !isRolling:
 		UpdateFooting()
 	if !interactablesInRange.empty():
 		var queued = getClosestInteractable()
@@ -59,12 +60,16 @@ func _process(_delta):
 
 func _physics_process(_delta):
 	muzzle.look_at(get_global_mouse_position())
-	controls()
-	
 	if isRolling:
 		player_sprite.play("dodge_roll")
+		var direction = Vector2(sign(velocity.x), sign(velocity.y))
+		velocity = (direction * run_speed * 2)
+	elif falling:
+		player_sprite.play("falling")
 	else:
 		player_sprite.animation = "run" if velocity != Vector2.ZERO else "idle"
+		controls()
+		
 	
 	player_sprite.play()
 	velocity = move_and_slide(velocity, Vector2.ZERO)
@@ -98,6 +103,7 @@ func controls():
 		canShoot = true
 	
 	if Input.is_action_just_pressed("use_weapon") and inventory != null:
+		throw_fx.play()
 		if inventory.Use():
 			inventory = null
 	
@@ -138,7 +144,7 @@ func getClosestInteractable():
 		return null
 
 
-func player_hit(thrower, target, damage):
+func player_hit(_thrower, target, damage):
 	if target == self:
 		player_sprite.play("hit")
 		hurt_fx.play()
@@ -153,16 +159,10 @@ func shoot():
 
 
 func dodge_roll():
-	freeze_player()
 	set_collision_mask_bit(2, false)
 	isRolling = true
-	dodge_tween.interpolate_property(player, "position",
-		player.position, (player.position + Vector2(sign(velocity.x)*100, sign(velocity.y)*100)), 0.5,
-		Tween.TRANS_LINEAR, Tween.EASE_IN_OUT)
-	dodge_tween.start()
+	yield(get_tree().create_timer(0.5), "timeout")
 	dodge_roll_fx.play()
-	yield(dodge_tween, "tween_completed")
-	unfreeze_player()
 	set_collision_mask_bit(2, true)
 	isRolling = false
 
@@ -172,14 +172,13 @@ func kill_player():
 
 
 func pitfalled():
-	rolling = true
+	falling = true
 	Foot1S.set_deferred("disabled", true)
 	Foot2S.set_deferred("disabled", true)
 	animation_player.play("pitfalled")
 	pitfall_fx.play()
 	yield(animation_player, "animation_finished")
 	scale = Vector2(0.75, 0.75)
-	rotation_degrees = 0
 	if last_ValidTile:
 		global_position = last_ValidTile.global_position
 	else:
@@ -187,11 +186,7 @@ func pitfalled():
 	player_hit(null, self, 1)
 	Foot1S.set_deferred("disabled", false)
 	Foot2S.set_deferred("disabled", false)
-	rolling = false
-
-
-func set_door(door):
-	last_door = door
+	falling = false
 
 
 func freeze_player():
@@ -249,10 +244,3 @@ func _on_PlayerArea_area_exited(area):
 		interactablesInRange.erase(area)
 		if area.has_method("unhighlight"):
 			area.unhighlight()
-
-
-func _on_AnimationPlayer_animation_finished(anim_name):
-	if anim_name == "pitfalled":
-		scale = Vector2(0.75, 0.75)
-		rotation_degrees = 0
-		position.y += 20
