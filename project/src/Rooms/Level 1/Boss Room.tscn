@@ -4,10 +4,12 @@
 [ext_resource path="res://src/tiles/Walls.tres" type="TileSet" id=2]
 [ext_resource path="res://src/Rooms/Level 1/Room.gd" type="Script" id=3]
 [ext_resource path="res://src/tiles/Floor.gd" type="Script" id=4]
-[ext_resource path="res://src/characters/Level1/KingSlime.tscn" type="PackedScene" id=5]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 510.494, 354.785 )
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 480, 288 )
 
 [node name="Boss Room" type="Node2D"]
 script = ExtResource( 3 )
@@ -47,5 +49,10 @@ position = Vector2( 992, 320 )
 
 [node name="Enemies" type="Node2D" parent="."]
 
-[node name="KingSlime" parent="Enemies" instance=ExtResource( 5 )]
-position = Vector2( 512, 352 )
+[node name="DoorEntities" type="Node2D" parent="."]
+
+[node name="PlayerDetection" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerDetection"]
+position = Vector2( 512, 320 )
+shape = SubResource( 2 )

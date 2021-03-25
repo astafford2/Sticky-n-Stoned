@@ -53,20 +53,20 @@ func _ready():
 	}
 	rng.randomize()
 	randomize()
-	#var fan1 = generateFanRooms(SpawnRoom)
-	#var fan2 = generateFanRooms(SpawnRoom, 7, -90, 90)
+	var fan1 = generateFanRooms(SpawnRoom)
+	var fan2 = generateFanRooms(SpawnRoom, 7, -90, 90)
 	var BossSegment = generateBossRooms(SpawnRoom, 3, 0)
-	#moveAllSegments([fan1, fan2, BossSegment])
-	#FanPathUpdates(fan1)
-	#FanPathUpdates(fan2)
+	moveAllSegments([fan1, fan2, BossSegment])
+	FanPathUpdates(fan1)
+	FanPathUpdates(fan2)
 	BossPathUpdates(BossSegment)
 	
 	#spawnRooms(roomInfo)
 	#moveRooms()
 	updateMaxsize()
 	makeHalls(ManualPaths)
-	#ManualPaths = get_HubConnections([fan1, fan2, BossSegment])
-	#makeHalls(ManualPaths)
+	ManualPaths = get_HubConnections([fan1, fan2, BossSegment])
+	makeHalls(ManualPaths)
 
 
 #func _draw():
