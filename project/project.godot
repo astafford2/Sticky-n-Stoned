@@ -9,10 +9,20 @@
 config_version=4
 
 _global_script_classes=[ {
+"base": "Node",
+"class": "Activateable",
+"language": "GDScript",
+"path": "res://src/tiles/Activateable.gd"
+}, {
 "base": "Node2D",
 "class": "Door",
 "language": "GDScript",
 "path": "res://src/tiles/Structures/Door.gd"
+}, {
+"base": "Node2D",
+"class": "GenerationBase",
+"language": "GDScript",
+"path": "res://src/Rooms/GenerationBase.gd"
 }, {
 "base": "Mob",
 "class": "GreenSlime",
@@ -35,7 +45,9 @@ _global_script_classes=[ {
 "path": "res://src/tiles/Traps.gd"
 } ]
 _global_script_class_icons={
+"Activateable": "",
 "Door": "",
+"GenerationBase": "",
 "GreenSlime": "",
 "Mob": "",
 "Projectile": "",

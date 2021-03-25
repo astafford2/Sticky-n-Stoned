@@ -1,16 +1,17 @@
 extends GenerationBase
 
 #Rooms
-onready var multiRoom := load("res://src/Rooms/Level 1/Multi-Room.tscn")
-onready var SideSmallRoom := load("res://src/Rooms/Level 1/SideSmallRoom.tscn")
 onready var BossRoom := load("res://src/Rooms/Level 1/Boss Room.tscn")
 onready var DescentRoom := load("res://src/Rooms/Level 1/DescentRoom.tscn")
 onready var LargeRoom := load("res://src/Rooms/Level 1/Large Room.tscn")
 onready var MonsterRoom := load("res://src/Rooms/Level 1/Monster Room.tscn")
+onready var multi1Room := load("res://src/Rooms/Level 1/Multi-Room(pitfalls).tscn")
+onready var multi2Room := load("res://src/Rooms/Level 1/Multi-Room(pitfalls)Variation.tscn")
+onready var multi3Room := load("res://src/Rooms/Level 1/Multi-RoomVariation.tscn")
+onready var multi4Room := load("res://src/Rooms/Level 1/Multi-Room.tscn")
+onready var SideRoom := load("res://src/Rooms/Level 1/SideSmallRoom.tscn")
 onready var SpawnRoom := load("res://src/Rooms/Level 1/SpawnRoom.tscn")
 
-onready var Segment1 := load("res://src/Rooms/Testing/SegmentHelper1.tscn")
-onready var Segment2 := load("res://src/Rooms/Testing/SegmentHelper2.tscn")
 
 
 var ManualPaths = AStar.new()
@@ -29,14 +30,19 @@ onready var roomInfo = {
 }
 
 onready var testFan = {
-	multiRoom: [1,4,1],
-	Segment1: [1,1,1],
-	SideSmallRoom : [1, 1, 1],
-	Segment2: [1,1,1],
-	MonsterRoom : [1, 3, 0.25]
+	BossRoom :[1,4,1],
+	DescentRoom :[1,4,1],
+	LargeRoom :[1,4,1],
+	MonsterRoom :[1,4,1],
+	multi1Room :[1,4,1],
+	multi2Room :[1,4,1],
+	multi3Room :[1,4,1],
+	multi4Room :[1,4,1],
+	SideRoom :[1,4,1],
+	SpawnRoom :[1,4,1]
 }
 
-onready var TwoDoors = [multiRoom, Segment1, Segment2, MonsterRoom]
+onready var TwoDoors = [MonsterRoom, multi1Room, multi3Room, multi2Room]
 
 
 # Called when the node enters the scene tree for the first time.

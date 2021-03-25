@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/LargeRockLand.wav-6ea3cab871f58e0f3c58ac9811937adf.sample"
+
+[deps]
+
+source_file="res://assets/Audio/LargeRockLand.wav"
+dest_files=[ "res://.import/LargeRockLand.wav-6ea3cab871f58e0f3c58ac9811937adf.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0
