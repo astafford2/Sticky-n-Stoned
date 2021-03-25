@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/logoTest.png-a30ea69087201d7270b4ba3a1e8d4ff3.stex"
+path="res://.import/buttonsBG.png-3f117c46efb757ee12ff1057fc43f4a7.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Props + Decor/logoTest.png"
-dest_files=[ "res://.import/logoTest.png-a30ea69087201d7270b4ba3a1e8d4ff3.stex" ]
+source_file="res://assets/GUI/buttonsBG.png"
+dest_files=[ "res://.import/buttonsBG.png-3f117c46efb757ee12ff1057fc43f4a7.stex" ]
 
 [params]
 
@@ -20,7 +20,7 @@ compress/hdr_mode=0
 compress/bptc_ldr=0
 compress/normal_map=0
 flags/repeat=0
-flags/filter=false
+flags/filter=true
 flags/mipmaps=false
 flags/anisotropic=false
 flags/srgb=2
