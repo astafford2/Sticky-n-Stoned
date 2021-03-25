@@ -55,7 +55,7 @@ func _ready():
 	randomize()
 	var fan1 = generateFanRooms(SpawnRoom)
 	var fan2 = generateFanRooms(SpawnRoom, 7, -90, 90)
-	var BossSegment = generateBossRooms(SpawnRoom, 3, 0)
+	var BossSegment = generateBossRooms(SideSmallRoom, 3, 0)
 	moveAllSegments([fan1, fan2, BossSegment])
 	FanPathUpdates(fan1)
 	FanPathUpdates(fan2)
