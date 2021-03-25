@@ -14,10 +14,7 @@ onready var PlayerDetection := $PlayerDetection
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	print(self)
 	SignalMaster.connect("doorsOpenOrClose", self, "toggleDoors")
-	PlayerDetection.connect("body_entered", self, "_on_PlayerDetection_body_entered")
-	pass # Replace with function body.
 
 
 func _process(_delta):
@@ -44,7 +41,6 @@ func get_Tiles():
 	return [Floors, Walls]
 
 func toggleDoors(room):
-	var tempSelf = self
 	if room == DoorEntities:
 		if open and !objectiveComplete:
 			closeDoors()
