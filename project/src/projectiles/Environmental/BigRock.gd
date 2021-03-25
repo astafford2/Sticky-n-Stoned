@@ -8,10 +8,14 @@ var p2 := Vector2()
 
 
 onready var interactionBox := $InteractionBox
+onready var animPlayer := $AnimationPlayer
+onready var AOE := $AOE
+onready var AOEbox := $AOE/AOEbox
 
 
 func _ready():
 	damage = 3
+	speed = 100
 	self.add_to_group("inventoryItem")
 	self.add_to_group("interactable")
 	hurtBox.set_deferred("disabled", true)
@@ -19,7 +23,11 @@ func _ready():
 
 func _process(_delta):
 	if t == 1:
-		_on_body_entered(null)
+		AOEbox.set_deferred("disabled", false)
+		yield(get_tree().create_timer(0.5), "timeout")
+		AOEbox.set_deferred("disabled", true)
+		projectile = false
+		thrower = null
 
 
 #func hitActivity(delta):
@@ -27,9 +35,11 @@ func _process(_delta):
 
 
 func projectileActivity(delta):
-	t += delta/1.5
+#	position += transform.x * speed * delta
+	t += delta/2
 	t = clamp(t, 0, 1)
 	position = _quadratic_bezier(p0, p1, p2, t)
+	animPlayer.play("arcThrow")
 
 
 func _quadratic_bezier(p0: Vector2, p1: Vector2, p2: Vector2, t: float):
@@ -37,6 +47,16 @@ func _quadratic_bezier(p0: Vector2, p1: Vector2, p2: Vector2, t: float):
 	var q1 = p1.linear_interpolate(p2, t)
 	var r = q0.linear_interpolate(q1, t)
 	return r
+
+
+func get_curve_points(muzzle_angle):
+	var temp_angle = rad2deg(muzzle_angle)
+	temp_angle = abs(temp_angle)
+	var dist = ((90 - temp_angle) / 90) * 100
+	if temp_angle > 90:
+		dist = ((temp_angle - 90) / 90) * 100
+	
+	return dist
 
 
 func Interact(body):
@@ -51,13 +71,17 @@ func Interact(body):
 func Use():
 	t = 0.0
 	var player = self.get_parent()
+	var muzzle_angle = player.muzzle.global_rotation
 	p0 = self.global_position
-	p1 = self.global_position+Vector2(140, -283)
-	p2 = self.global_position+Vector2(290, 0)
+	p2 = Vector2(p0.x + (290 * cos(muzzle_angle)), p0.y + (290 * sin(muzzle_angle)))
+	p1 = Vector2(p0.x + (145 * cos(muzzle_angle)), p0.y + (145 * sin(muzzle_angle)))
+	var dist = get_curve_points(muzzle_angle)
+	p1 = Vector2(p1.x + (dist * -abs(cos(muzzle_angle - (PI/2)))), p1.y + (dist * -abs(sin(muzzle_angle - (PI/2)))))
 	projectile = true
 	player.remove_child(self)
 	player.get_parent().add_child(self)
 	position = player.get_position()
+#	hurtBox.set_deferred("disabled", false)
 	return true #tells the player that the object is no longer in their inventory
 
 
@@ -67,3 +91,17 @@ func _on_hit_single_call():
 	interactionBox.set_deferred("disabled", false)
 	hit = false
 	self.add_to_group("interactable")
+
+
+func _on_AnimationPlayer_animation_finished(_anim_name):
+#	_on_body_entered(null)
+	pass
+
+
+func _on_AOE_body_entered(body):
+	if projectile and body != thrower:
+		SignalMaster.attacked(thrower, body, damage)
+#		projectile = false
+		hit = true
+#		thrower = null
+		_on_hit_single_call()
