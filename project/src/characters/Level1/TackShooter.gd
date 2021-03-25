@@ -31,6 +31,10 @@ func _physics_process(_delta):
 		tr.transform = muzzle_r.global_transform
 		tl.transform = muzzle_l.global_transform
 		tb.transform = muzzle_b.global_transform
+		tt.global_position = muzzle_t.global_position
+		tr.global_position = muzzle_r.global_position
+		tl.global_position = muzzle_l.global_position
+		tb.global_position = muzzle_b.global_position
 		tack_shot_fx.play()
 		yield(get_tree().create_timer(1), "timeout")
 		attacking = false
