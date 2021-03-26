@@ -27,6 +27,7 @@ func _process(_delta):
 		yield(get_tree().create_timer(0.5), "timeout")
 		AOEbox.set_deferred("disabled", true)
 		projectile = false
+		t = 0.0
 		thrower = null
 
 
