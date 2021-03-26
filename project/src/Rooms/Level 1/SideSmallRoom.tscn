@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://src/tiles/Floor.gd" type="Script" id=1]
 [ext_resource path="res://src/characters/Level1/GreenSlime.tscn" type="PackedScene" id=2]
@@ -9,11 +9,11 @@
 [ext_resource path="res://src/projectiles/Environmental/Rock.tscn" type="PackedScene" id=7]
 [ext_resource path="res://src/tiles/Structures/SideDoor.tscn" type="PackedScene" id=8]
 
-[sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 273.39, 197.478 )
-
 [sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 240, 128 )
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 273.39, 197.478 )
 
 [sub_resource type="NavigationPolygon" id=3]
 vertices = PoolVector2Array( -192, 0, -277.984, 0.015625, -277.92, -256.051, 64, -256, 64, -160, 245.966, -159.95, 245.997, 55.9987, -192, 56 )
@@ -74,20 +74,6 @@ position = Vector2( -240, -16 )
 [node name="GreenSlime3" parent="Enemies" instance=ExtResource( 2 )]
 position = Vector2( 16, -208 )
 
-[node name="Dimensions" type="Area2D" parent="."]
-visible = false
-
-[node name="Shape" type="CollisionShape2D" parent="Dimensions"]
-position = Vector2( -15.1191, -100.794 )
-shape = SubResource( 1 )
-
-[node name="PlayerDetection" type="Area2D" parent="."]
-visible = false
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerDetection"]
-position = Vector2( -16, -96 )
-shape = SubResource( 2 )
-
 [node name="Decorations" type="Node2D" parent="."]
 
 [node name="Rock" parent="Decorations" instance=ExtResource( 7 )]
@@ -101,6 +87,20 @@ position = Vector2( -144, -208 )
 
 [node name="Rock4" parent="Decorations" instance=ExtResource( 7 )]
 position = Vector2( -240, -80 )
+
+[node name="PlayerDetection" type="Area2D" parent="."]
+visible = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerDetection"]
+position = Vector2( -16, -96 )
+shape = SubResource( 2 )
+
+[node name="Dimensions" type="Area2D" parent="."]
+visible = false
+
+[node name="Shape" type="CollisionShape2D" parent="Dimensions"]
+position = Vector2( -15.1191, -100.794 )
+shape = SubResource( 1 )
 
 [node name="NavigationPolygonInstance" type="NavigationPolygonInstance" parent="."]
 navpoly = SubResource( 3 )

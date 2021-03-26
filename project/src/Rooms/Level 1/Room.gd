@@ -17,12 +17,15 @@ onready var nav_instance := $NavigationPolygonInstance
 func _ready():
 	SignalMaster.connect("doorsOpenOrClose", self, "toggleDoors")
 	PlayerDetection.connect("body_entered", self, "_on_PlayerDetection_body_entered")
-	
-	var player = owner.get_node("Player")
-	
-	for enemy in Enemies.get_children():
-		if enemy.has_method("set_navigation"):
-			enemy.set_navigation(nav_instance.navpoly, player)
+
+
+func setEnemyTargets():
+	pass
+#	var player = get_node("/root/Player")
+#
+#	for enemy in Enemies.get_children():
+#		if enemy.has_method("set_navigation"):
+#			enemy.set_navigation(nav_instance.navpoly, player)
 
 
 func _process(_delta):
