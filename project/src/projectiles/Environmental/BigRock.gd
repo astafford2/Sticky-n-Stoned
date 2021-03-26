@@ -27,16 +27,15 @@ func _process(_delta):
 		yield(get_tree().create_timer(0.5), "timeout")
 		AOEbox.set_deferred("disabled", true)
 		projectile = false
+		t = 0.0
 		thrower = null
 
 
-func hitActivity(delta):
+#func hitActivity(delta):
 #	position -= transform.x * speed * delta / 2
-	print("hit")
 
 
 func projectileActivity(delta):
-	print("projectile")
 #	position += transform.x * speed * delta
 	t += delta/2
 	t = clamp(t, 0, 1)
@@ -71,7 +70,6 @@ func Interact(body):
 
 
 func Use():
-	print("use")
 	t = 0.0
 	var player = self.get_parent()
 	var muzzle_angle = player.muzzle.global_rotation
@@ -81,7 +79,6 @@ func Use():
 	var dist = get_curve_points(muzzle_angle)
 	p1 = Vector2(p1.x + (dist * -abs(cos(muzzle_angle - (PI/2)))), p1.y + (dist * -abs(sin(muzzle_angle - (PI/2)))))
 	projectile = true
-	print(projectile)
 	player.remove_child(self)
 	player.get_parent().add_child(self)
 	position = player.get_position()

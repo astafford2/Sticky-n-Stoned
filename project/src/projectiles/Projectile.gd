@@ -23,7 +23,6 @@ func _ready():
 func _physics_process(delta):
 	if projectile:
 		self.add_to_group("projectile")
-		print("here")
 		projectileActivity(delta)
 	elif hit:
 		if self.is_in_group("projectile"):
