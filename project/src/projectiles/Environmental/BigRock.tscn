@@ -13,47 +13,46 @@ height = 3.94843
 radius = 15.2718
 height = 7.32165
 
-[sub_resource type="CapsuleShape2D" id=5]
-radius = 58.5
-height = 52.0
+[sub_resource type="CircleShape2D" id=13]
+radius = 129.617
 
-[sub_resource type="AtlasTexture" id=6]
+[sub_resource type="AtlasTexture" id=4]
 atlas = ExtResource( 4 )
 region = Rect2( 0, 0, 58, 42 )
 
-[sub_resource type="AtlasTexture" id=7]
+[sub_resource type="AtlasTexture" id=5]
 atlas = ExtResource( 4 )
 region = Rect2( 58, 0, 58, 42 )
 
-[sub_resource type="AtlasTexture" id=8]
+[sub_resource type="AtlasTexture" id=6]
 atlas = ExtResource( 4 )
 region = Rect2( 116, 0, 58, 42 )
 
-[sub_resource type="AtlasTexture" id=9]
+[sub_resource type="AtlasTexture" id=7]
 atlas = ExtResource( 4 )
 region = Rect2( 174, 0, 58, 42 )
 
-[sub_resource type="AtlasTexture" id=10]
+[sub_resource type="AtlasTexture" id=8]
 atlas = ExtResource( 4 )
 region = Rect2( 232, 0, 58, 42 )
 
-[sub_resource type="AtlasTexture" id=11]
+[sub_resource type="AtlasTexture" id=9]
 atlas = ExtResource( 4 )
 region = Rect2( 290, 0, 58, 42 )
 
-[sub_resource type="AtlasTexture" id=12]
+[sub_resource type="AtlasTexture" id=10]
 atlas = ExtResource( 4 )
 region = Rect2( 348, 0, 58, 42 )
 
-[sub_resource type="SpriteFrames" id=13]
+[sub_resource type="SpriteFrames" id=11]
 animations = [ {
-"frames": [ SubResource( 6 ), SubResource( 7 ), SubResource( 8 ), SubResource( 9 ), SubResource( 10 ), SubResource( 11 ), SubResource( 12 ) ],
+"frames": [ SubResource( 4 ), SubResource( 5 ), SubResource( 6 ), SubResource( 7 ), SubResource( 8 ), SubResource( 9 ), SubResource( 10 ) ],
 "loop": false,
 "name": "splash",
 "speed": 5.0
 } ]
 
-[sub_resource type="Animation" id=4]
+[sub_resource type="Animation" id=12]
 length = 1.85
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:scale")
@@ -85,13 +84,13 @@ shape = SubResource( 2 )
 
 [node name="AOEbox" type="CollisionShape2D" parent="AOE"]
 rotation = 1.5708
-shape = SubResource( 5 )
+shape = SubResource( 13 )
 disabled = true
 
 [node name="AOESplash" type="AnimatedSprite" parent="."]
 visible = false
 scale = Vector2( 3, 3 )
-frames = SubResource( 13 )
+frames = SubResource( 11 )
 animation = "splash"
 
 [node name="Sprite" type="Sprite" parent="."]
@@ -103,7 +102,7 @@ texture = ExtResource( 2 )
 stream = ExtResource( 3 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-anims/arcThrow = SubResource( 4 )
+anims/arcThrow = SubResource( 12 )
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="body_entered" from="AOE" to="." method="_on_AOE_body_entered"]
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]

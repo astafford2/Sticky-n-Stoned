@@ -5,6 +5,7 @@ var t := 0.0
 var p0 := Vector2()
 var p1 := Vector2()
 var p2 := Vector2()
+var land := false
 
 
 onready var interactionBox := $InteractionBox
@@ -25,12 +26,14 @@ func _ready():
 
 func _process(_delta):
 	if t == 1:
+		land = true
 		AOESplash.visible = true
 		AOESplash.play("splash")
 		AOEbox.set_deferred("disabled", false)
-		yield(get_tree().create_timer(1.4),"timeout")
+		yield(get_tree().create_timer(0.5),"timeout")
 		AOEbox.set_deferred("disabled", true)
 		AOESplash.visible = false
+		AOESplash.stop()
 		projectile = false
 		t = 0.0
 		thrower = null
@@ -45,7 +48,6 @@ func projectileActivity(delta):
 	t += delta/2
 	t = clamp(t, 0, 1)
 	position = _quadratic_bezier(p0, p1, p2, t)
-	animPlayer.play("arcThrow")
 
 
 func _quadratic_bezier(p0: Vector2, p1: Vector2, p2: Vector2, t: float):
@@ -88,6 +90,8 @@ func Use():
 	player.get_parent().add_child(self)
 	position = player.get_position()
 	rotation = 0
+	animPlayer.play("arcThrow")
+	AOESplash.frame = 0
 #	hurtBox.set_deferred("disabled", false)
 	return true #tells the player that the object is no longer in their inventory
 
@@ -106,7 +110,7 @@ func _on_AnimationPlayer_animation_finished(_anim_name):
 	pass
 
 
-func _on_AOE_body_entered(body):
+func _on_AOE_body_entered(body): # with new shape, will someimes not hit anything with collison (only floor) so won't continue
 	if projectile and body != thrower:
 		SignalMaster.attacked(thrower, body, damage)
 #		projectile = false
