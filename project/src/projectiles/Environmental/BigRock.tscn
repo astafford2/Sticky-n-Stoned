@@ -13,9 +13,8 @@ height = 3.94843
 radius = 15.2718
 height = 7.32165
 
-[sub_resource type="CapsuleShape2D" id=3]
-radius = 58.5
-height = 52.0
+[sub_resource type="CircleShape2D" id=13]
+radius = 129.617
 
 [sub_resource type="AtlasTexture" id=4]
 atlas = ExtResource( 4 )
@@ -85,7 +84,7 @@ shape = SubResource( 2 )
 
 [node name="AOEbox" type="CollisionShape2D" parent="AOE"]
 rotation = 1.5708
-shape = SubResource( 3 )
+shape = SubResource( 13 )
 disabled = true
 
 [node name="AOESplash" type="AnimatedSprite" parent="."]
