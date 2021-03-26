@@ -25,6 +25,7 @@ func _ready():
 
 func _process(_delta):
 	if t == 1:
+		AOESplash.frame = 0
 		AOESplash.visible = true
 		AOESplash.play("splash")
 		AOEbox.set_deferred("disabled", false)
@@ -34,6 +35,7 @@ func _process(_delta):
 		projectile = false
 		t = 0.0
 		thrower = null
+		
 
 
 #func hitActivity(delta):
@@ -83,6 +85,7 @@ func Use():
 	p1 = Vector2(p0.x + (145 * cos(muzzle_angle)), p0.y + (145 * sin(muzzle_angle)))
 	var dist = get_curve_points(muzzle_angle)
 	p1 = Vector2(p1.x + (dist * -abs(cos(muzzle_angle - (PI/2)))), p1.y + (dist * -abs(sin(muzzle_angle - (PI/2)))))
+	
 	projectile = true
 	player.remove_child(self)
 	player.get_parent().add_child(self)
