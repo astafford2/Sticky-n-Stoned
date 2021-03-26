@@ -60,8 +60,8 @@ func _ready():
 	rng.randomize()
 	randomize()
 	var fan1 = generateFanRooms(SpawnRoom)
-	var fan2 = generateFanRooms(SpawnRoom, 7, -90, 90)
-	var BossSegment = generateBossRooms(SideSmallRoom, 3, 0)
+	var fan2 = generateFanRooms(SpawnRoom)
+	var BossSegment = generateBossRooms(multi3Room, 3, 0)
 	moveAllSegments([fan1, fan2, BossSegment])
 	FanPathUpdates(fan1)
 	FanPathUpdates(fan2)
@@ -73,6 +73,9 @@ func _ready():
 	makeHalls(ManualPaths)
 	ManualPaths = get_HubConnections([fan1, fan2, BossSegment])
 	makeHalls(ManualPaths)
+	for room in Rooms.get_children():
+		if room.has_method("setEnemyTargets"):
+			room.setEnemyTargets()
 
 
 #func _draw():
@@ -209,7 +212,7 @@ func getNewFanInfo(size):
 	var middle = floor(float(size)/2)
 	for i in range (size):
 		if i == middle:
-			specs.append(SideSmallRoom)
+			specs.append(SideRoom)
 			continue
 		TwoDoors.shuffle()
 		specs.append(TwoDoors[0])

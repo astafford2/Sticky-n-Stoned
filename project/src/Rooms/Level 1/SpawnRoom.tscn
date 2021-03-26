@@ -5,11 +5,11 @@
 [ext_resource path="res://src/tiles/Walls.tres" type="TileSet" id=3]
 [ext_resource path="res://src/tiles/Floor.tres" type="TileSet" id=4]
 
-[sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 576, 328 )
-
 [sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 544, 256 )
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 576, 328 )
 
 [sub_resource type="NavigationPolygon" id=3]
 vertices = PoolVector2Array( -374.125, 1072.07, 752, 1072, 752, 1640, -374.027, 1639.99 )
@@ -54,11 +54,8 @@ position = Vector2( -192, -1360 )
 
 [node name="Enemies" type="Node2D" parent="."]
 
-[node name="Dimensions" type="Area2D" parent="."]
-visible = false
-
-[node name="Shape" type="CollisionShape2D" parent="Dimensions"]
-shape = SubResource( 1 )
+[node name="Decorations" type="Node2D" parent="."]
+position = Vector2( -192, -1360 )
 
 [node name="PlayerDetection" type="Area2D" parent="."]
 visible = false
@@ -68,9 +65,12 @@ position = Vector2( -192, -1360 )
 position = Vector2( 192, 1360 )
 shape = SubResource( 2 )
 
+[node name="Dimensions" type="Area2D" parent="."]
+visible = false
+
+[node name="Shape" type="CollisionShape2D" parent="Dimensions"]
+shape = SubResource( 1 )
+
 [node name="NavigationPolygonInstance" type="NavigationPolygonInstance" parent="."]
 position = Vector2( -192, -1360 )
 navpoly = SubResource( 3 )
-
-[node name="Decorations" type="Node2D" parent="."]
-position = Vector2( -192, -1360 )
