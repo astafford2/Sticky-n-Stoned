@@ -9,8 +9,10 @@ var p2 := Vector2()
 
 onready var interactionBox := $InteractionBox
 onready var animPlayer := $AnimationPlayer
+onready var big_rock_fx := $BigRockHitSfx
 onready var AOE := $AOE
 onready var AOEbox := $AOE/AOEbox
+onready var AOESplash := $AOESplash
 
 
 func _ready():
@@ -23,9 +25,12 @@ func _ready():
 
 func _process(_delta):
 	if t == 1:
+		AOESplash.visible = true
+		AOESplash.play("splash")
 		AOEbox.set_deferred("disabled", false)
-		yield(get_tree().create_timer(0.5), "timeout")
+		yield(get_tree().create_timer(1.4),"timeout")
 		AOEbox.set_deferred("disabled", true)
+		AOESplash.visible = false
 		projectile = false
 		t = 0.0
 		thrower = null
@@ -82,11 +87,13 @@ func Use():
 	player.remove_child(self)
 	player.get_parent().add_child(self)
 	position = player.get_position()
+	rotation = 0
 #	hurtBox.set_deferred("disabled", false)
 	return true #tells the player that the object is no longer in their inventory
 
 
 func _on_hit_single_call():
+	big_rock_fx.play()
 	hurtBox.set_deferred("disabled", true)
 	yield(get_tree().create_timer(0.5), "timeout")
 	interactionBox.set_deferred("disabled", false)
