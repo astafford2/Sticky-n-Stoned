@@ -1,4 +1,4 @@
-[gd_scene load_steps=79 format=2]
+[gd_scene load_steps=80 format=2]
 
 [ext_resource path="res://src/tiles/Floor.gd" type="Script" id=1]
 [ext_resource path="res://assets/Props + Decor/torch.png" type="Texture" id=2]
@@ -17,13 +17,14 @@
 [ext_resource path="res://assets/Props + Decor/KingSlime.png" type="Texture" id=15]
 [ext_resource path="res://assets/Props + Decor/vase.png" type="Texture" id=16]
 [ext_resource path="res://assets/0x72_DungeonTilesetII_v1.3.png" type="Texture" id=17]
-[ext_resource path="res://assets/Audio/S&S-16.ogg" type="AudioStream" id=18]
+[ext_resource path="res://assets/Audio/Level1Music.ogg" type="AudioStream" id=18]
 [ext_resource path="res://assets/characters/GreenSlime/slime.png" type="Texture" id=19]
 [ext_resource path="res://assets/Props + Decor/barrel.png" type="Texture" id=20]
 [ext_resource path="res://assets/Props + Decor/display.png" type="Texture" id=21]
 [ext_resource path="res://assets/Miscellaneous/ShadowCircle.png" type="Texture" id=22]
 [ext_resource path="res://src/tiles/Floor.tres" type="TileSet" id=23]
 [ext_resource path="res://src/characters/Level1/SlimeFlesh.gd" type="Script" id=24]
+[ext_resource path="res://assets/Audio/CombatMusic.ogg" type="AudioStream" id=25]
 
 [sub_resource type="ConvexPolygonShape2D" id=1]
 points = PoolVector2Array( 0, 0, 32, 0, 32, 32, 0, 32 )
@@ -616,6 +617,9 @@ texture = ExtResource( 14 )
 [node name="BackgroundMusic" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 18 )
 
+[node name="CombatMusic" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 25 )
+
 [node name="ShadowCircle" type="Sprite" parent="."]
 position = Vector2( 832.274, 707.348 )
 scale = Vector2( 1.58399, 1.2622 )
@@ -629,13 +633,11 @@ texture = ExtResource( 22 )
 [node name="nonMovingSlime" type="AnimatedSprite" parent="."]
 position = Vector2( 831.934, 692.113 )
 frames = SubResource( 39 )
-frame = 1
 playing = true
 
 [node name="nonMovingSlime2" type="AnimatedSprite" parent="."]
 position = Vector2( 1024.76, 790.643 )
 frames = SubResource( 39 )
-frame = 1
 playing = true
 
 [node name="GreenSlime" parent="." instance=ExtResource( 6 )]
@@ -680,20 +682,20 @@ texture = ExtResource( 16 )
 position = Vector2( 926.836, 742.462 )
 scale = Vector2( 1.34483, 1.34483 )
 frames = SubResource( 47 )
-frame = 3
 playing = true
 
 [node name="Torch2" type="AnimatedSprite" parent="."]
 position = Vector2( 857.936, 587.79 )
 scale = Vector2( 1.35636, 1.22272 )
 frames = SubResource( 54 )
-frame = 5
+frame = 2
 playing = true
 
 [node name="Torch" type="AnimatedSprite" parent="."]
 position = Vector2( 955.517, 589.204 )
 scale = Vector2( 1.35636, 1.22272 )
 frames = SubResource( 54 )
+frame = 3
 playing = true
 
 [node name="SharpRock" parent="." instance=ExtResource( 4 )]
