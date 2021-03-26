@@ -268,14 +268,18 @@ func updateMaxsize():
 
 func updateValids():
 	updateObstacles()
+	var neighborDoor = []
+	for point in doorPoints:
+		for cell in getNearby(point, 3):
+			neighborDoor.append(cell)
 	for cell in obstacles:
 		var cellI = calculate_point_index(cell)
-		var nearby = getNearby(cell, 1)
-		if valids.has_point(cellI) and !doorPoints.has(cell):
+		var nearby = getNearby(cell, 4)
+		if valids.has_point(cellI) and !doorPoints.has(cell) and !neighborDoor.has(cell):
 			valids.remove_point(cellI)
 		for ncell in nearby:
 			var ncellI = calculate_point_index(ncell)
-			if valids.has_point(ncellI) and !doorPoints.has(ncell):
+			if valids.has_point(ncellI) and !doorPoints.has(ncell) and !neighborDoor.has(ncell):
 					valids.remove_point(ncellI)
 
 #Does NOT update around MaxSize
