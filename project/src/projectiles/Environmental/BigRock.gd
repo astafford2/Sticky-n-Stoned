@@ -57,7 +57,7 @@ func _quadratic_bezier(p0: Vector2, p1: Vector2, p2: Vector2, t: float):
 	return r
 
 
-func get_curve_points(muzzle_angle):
+func get_curve_distance(muzzle_angle):
 	var temp_angle = rad2deg(muzzle_angle)
 	temp_angle = abs(temp_angle)
 	var dist = ((90 - temp_angle) / 90) * 100
@@ -83,7 +83,7 @@ func Use():
 	p0 = self.global_position
 	p2 = Vector2(p0.x + (290 * cos(muzzle_angle)), p0.y + (290 * sin(muzzle_angle)))
 	p1 = Vector2(p0.x + (145 * cos(muzzle_angle)), p0.y + (145 * sin(muzzle_angle)))
-	var dist = get_curve_points(muzzle_angle)
+	var dist = get_curve_distance(muzzle_angle)
 	p1 = Vector2(p1.x + (dist * -abs(cos(muzzle_angle - (PI/2)))), p1.y + (dist * -abs(sin(muzzle_angle - (PI/2)))))
 	projectile = true
 	player.remove_child(self)
