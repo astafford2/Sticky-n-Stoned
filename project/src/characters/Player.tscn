@@ -224,7 +224,8 @@ texture = ExtResource( 3 )
 position = Vector2( -0.35667, 1.11238 )
 scale = Vector2( 2.3, 2.3 )
 frames = SubResource( 29 )
-animation = "idle"
+animation = "falling"
+frame = 3
 playing = true
 
 [node name="PlayerShape" type="CollisionShape2D" parent="."]

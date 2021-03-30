@@ -30,6 +30,9 @@ func _process(_delta):
 		AOESplash.visible = true
 		AOESplash.play("splash")
 		AOEbox.set_deferred("disabled", false)
+		if !hit: # if AOE area detects no bodies, hit = false, _on_hit.. is not called
+			hit = true
+			_on_hit_single_call()
 		yield(get_tree().create_timer(0.5),"timeout")
 		AOEbox.set_deferred("disabled", true)
 		AOESplash.visible = false
