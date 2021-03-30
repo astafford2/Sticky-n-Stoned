@@ -66,6 +66,7 @@ func _physics_process(_delta):
 		velocity = (direction * run_speed * 2)
 	elif falling:
 		player_sprite.play("falling")
+		velocity = Vector2.ZERO
 	else:
 		player_sprite.animation = "run" if velocity != Vector2.ZERO else "idle"
 		controls()
