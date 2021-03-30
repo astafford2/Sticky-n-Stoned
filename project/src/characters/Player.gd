@@ -64,6 +64,7 @@ func _physics_process(_delta):
 		player_sprite.play("dodge_roll")
 		var direction = Vector2(sign(velocity.x), sign(velocity.y))
 		velocity = (direction * run_speed * 2)
+		dodgeRollControls()
 	elif falling:
 		player_sprite.play("falling")
 		velocity = Vector2.ZERO
@@ -109,21 +110,30 @@ func controls():
 			inventory = null
 	
 	if Input.is_action_just_pressed("interact"):
-		var closest = getClosestInteractable()
-		if closest != null and closest.is_in_group("inventoryItem"): 
-			#Check to make sure there isnt something in the current inventory
-			if !inventory:
-				#update Inventory and Interact
-				inventory = closest #might have to be changed later for non inventory interactables
-				if inventory.has_method("unhighlight"):
-					inventory.unhighlight()
-				interactablesInRange.erase(inventory)
-				closest.Interact(self)
-		elif closest !=null:
-			closest.Interact(self)
+		pickupInteractable()
 	
 	if inventory != null:
 		inventory.rotation = muzzle.global_rotation
+
+
+func dodgeRollControls():
+	if Input.is_action_just_pressed("interact"):
+		pickupInteractable()
+
+
+func pickupInteractable():
+	var closest = getClosestInteractable()
+	if closest != null and closest.is_in_group("inventoryItem"): 
+		#Check to make sure there isnt something in the current inventory
+		if !inventory:
+			#update Inventory and Interact
+			inventory = closest #might have to be changed later for non inventory interactables
+			if inventory.has_method("unhighlight"):
+				inventory.unhighlight()
+			interactablesInRange.erase(inventory)
+			closest.Interact(self)
+	elif closest !=null:
+		closest.Interact(self)
 
 
 func getClosestInteractable():
