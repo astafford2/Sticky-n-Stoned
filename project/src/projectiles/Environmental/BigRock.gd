@@ -44,13 +44,15 @@ func _process(_delta):
 
 
 func projectileActivity(delta):
-#	position += transform.x * speed * delta
+	# updates t to move rock along interpolated curve
+	# clamp t to 1 so rock does not move past level
 	t += delta/2
 	t = clamp(t, 0, 1)
 	position = _quadratic_bezier(p0, p1, p2, t)
 
 
 func _quadratic_bezier(p0: Vector2, p1: Vector2, p2: Vector2, t: float):
+	# https://docs.godotengine.org/en/stable/tutorials/math/beziers_and_curves.html#curve2d-curve3d-path-and-path2d
 	var q0 = p0.linear_interpolate(p1, t)
 	var q1 = p1.linear_interpolate(p2, t)
 	var r = q0.linear_interpolate(q1, t)
@@ -58,6 +60,8 @@ func _quadratic_bezier(p0: Vector2, p1: Vector2, p2: Vector2, t: float):
 
 
 func get_curve_distance(muzzle_angle):
+	# adjusts distance for curve depending on muzzle angle
+	# throwing staight up/down will produce shallow/no curve versus right/left producing noticable curve
 	var temp_angle = rad2deg(muzzle_angle)
 	temp_angle = abs(temp_angle)
 	var dist = ((90 - temp_angle) / 90) * 100
@@ -82,8 +86,9 @@ func Use():
 	var muzzle_angle = player.muzzle.global_rotation
 	p0 = self.global_position
 	p2 = Vector2(p0.x + (290 * cos(muzzle_angle)), p0.y + (290 * sin(muzzle_angle)))
-	p1 = Vector2(p0.x + (145 * cos(muzzle_angle)), p0.y + (145 * sin(muzzle_angle)))
+	p1 = Vector2(p0.x + (145 * cos(muzzle_angle)), p0.y + (145 * sin(muzzle_angle))) # gets middle of curve at ground level
 	var dist = get_curve_distance(muzzle_angle)
+	# updates middle point with calculated distance for interpolation
 	p1 = Vector2(p1.x + (dist * -abs(cos(muzzle_angle - (PI/2)))), p1.y + (dist * -abs(sin(muzzle_angle - (PI/2)))))
 	projectile = true
 	player.remove_child(self)
