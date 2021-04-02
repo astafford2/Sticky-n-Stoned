@@ -28,14 +28,14 @@ animations = [ {
 } ]
 
 [sub_resource type="CapsuleShape2D" id=2]
-radius = 21.104
-height = 18.8704
+radius = 16.147
+height = 10.857
 
 [sub_resource type="CircleShape2D" id=3]
 radius = 306.918
 
 [sub_resource type="RectangleShape2D" id=4]
-extents = Vector2( 3.16501, 1.8746 )
+extents = Vector2( 2.39907, 1.11029 )
 
 [node name="BigDemon" type="KinematicBody2D" groups=[
 "enemies",
@@ -45,17 +45,18 @@ script = ExtResource( 9 )
 GlueSpatter = ExtResource( 10 )
 
 [node name="ShadowCircle" type="Sprite" parent="."]
-position = Vector2( 0.762634, -3.38928 )
-scale = Vector2( 2.91175, 2.98277 )
+position = Vector2( 1.76263, -8.38928 )
+scale = Vector2( 2.184, 2.237 )
 texture = ExtResource( 12 )
 
 [node name="BDSprite" type="AnimatedSprite" parent="."]
 position = Vector2( 1.26099, -34.9186 )
+scale = Vector2( 0.75, 0.75 )
 frames = SubResource( 1 )
 animation = "idle"
 
 [node name="BDShape" type="CollisionShape2D" parent="."]
-position = Vector2( 0.0586395, -23.4625 )
+position = Vector2( 1.64604, -28.0263 )
 shape = SubResource( 2 )
 
 [node name="DetectRadius" type="Area2D" parent="."]
@@ -76,19 +77,19 @@ collision_layer = 2
 collision_mask = 2
 
 [node name="Foot1" type="CollisionShape2D" parent="FallingBox"]
-position = Vector2( -10.929, 34.1218 )
+position = Vector2( -8.28034, 25.7785 )
 shape = SubResource( 4 )
 
 [node name="Foot2" type="CollisionShape2D" parent="FallingBox"]
-position = Vector2( 9.01017, 34.1218 )
+position = Vector2( 6.82503, 25.8447 )
 shape = SubResource( 4 )
 
 [node name="Navigation2D" type="Navigation2D" parent="."]
 
 [node name="HealthBar" parent="." instance=ExtResource( 13 )]
-margin_left = -19.4997
-margin_top = -67.6922
-margin_right = 20.5003
-margin_bottom = -27.6922
+margin_left = -18.4997
+margin_top = -61.6922
+margin_right = 21.5003
+margin_bottom = -21.6922
 [connection signal="body_entered" from="DetectRadius" to="." method="_on_DetectRadius_body_entered"]
 [connection signal="body_exited" from="DetectRadius" to="." method="_on_DetectRadius_body_exited"]
