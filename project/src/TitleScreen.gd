@@ -1,7 +1,7 @@
 extends Node2D
 
 
-var dungeon_scene := "res://src/Rooms/Testing/BasicDungeon.tscn"
+var dungeon_scene := "res://src/Rooms/Level1.tscn"
 
 
 func _ready():

@@ -2,6 +2,7 @@ extends Node2D
 
 var open = true
 var objectiveComplete = false
+var started = false
 
 onready var rectShape := $Dimensions/Shape
 onready var Floors := $Floors
@@ -14,16 +15,17 @@ onready var nav_instance := $NavigationPolygonInstance
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	print(self)
 	SignalMaster.connect("doorsOpenOrClose", self, "toggleDoors")
 	PlayerDetection.connect("body_entered", self, "_on_PlayerDetection_body_entered")
-	
-	var player = owner.get_node("Player")
-	
-	for enemy in Enemies.get_children():
-		if enemy.has_method("set_navigation"):
-			enemy.set_navigation(nav_instance.navpoly, player)
-	pass # Replace with function body.
+
+
+func setEnemyTargets():
+	pass
+#	var player = get_node("/root/Player")
+#
+#	for enemy in Enemies.get_children():
+#		if enemy.has_method("set_navigation"):
+#			enemy.set_navigation(nav_instance.navpoly, player)
 
 
 func _process(_delta):
@@ -50,7 +52,6 @@ func get_Tiles():
 	return [Floors, Walls]
 
 func toggleDoors(room):
-	var tempSelf = self
 	if room == DoorEntities:
 		if open and !objectiveComplete:
 			closeDoors()
@@ -71,5 +72,6 @@ func openDoors():
 
 
 func _on_PlayerDetection_body_entered(body):
-	if body.has_method("shoot") and !objectiveComplete:
+	if body.has_method("shoot") and !objectiveComplete and !started:
 		toggleDoors(DoorEntities)
+		started = true

@@ -1,4 +1,4 @@
-[gd_scene load_steps=79 format=2]
+[gd_scene load_steps=80 format=2]
 
 [ext_resource path="res://src/tiles/Floor.gd" type="Script" id=1]
 [ext_resource path="res://assets/Props + Decor/torch.png" type="Texture" id=2]
@@ -10,20 +10,21 @@
 [ext_resource path="res://src/tiles/Individual/Button.tscn" type="PackedScene" id=8]
 [ext_resource path="res://src/projectiles/Environmental/Chair.tscn" type="PackedScene" id=9]
 [ext_resource path="res://src/characters/Level1/DemonShaman.tscn" type="PackedScene" id=10]
-[ext_resource path="res://src/projectiles/Environmental/RockBig.tscn" type="PackedScene" id=11]
+[ext_resource path="res://src/projectiles/Environmental/BigRock.tscn" type="PackedScene" id=11]
 [ext_resource path="res://src/projectiles/Environmental/Rock.tscn" type="PackedScene" id=12]
 [ext_resource path="res://src/tiles/Individual/PitfallTrap.tscn" type="PackedScene" id=13]
 [ext_resource path="res://assets/Props + Decor/crate.png" type="Texture" id=14]
 [ext_resource path="res://assets/Props + Decor/KingSlime.png" type="Texture" id=15]
 [ext_resource path="res://assets/Props + Decor/vase.png" type="Texture" id=16]
 [ext_resource path="res://assets/0x72_DungeonTilesetII_v1.3.png" type="Texture" id=17]
-[ext_resource path="res://assets/Audio/S&S-16.ogg" type="AudioStream" id=18]
+[ext_resource path="res://assets/Audio/Level1Music.ogg" type="AudioStream" id=18]
 [ext_resource path="res://assets/characters/GreenSlime/slime.png" type="Texture" id=19]
 [ext_resource path="res://assets/Props + Decor/barrel.png" type="Texture" id=20]
 [ext_resource path="res://assets/Props + Decor/display.png" type="Texture" id=21]
 [ext_resource path="res://assets/Miscellaneous/ShadowCircle.png" type="Texture" id=22]
 [ext_resource path="res://src/tiles/Floor.tres" type="TileSet" id=23]
 [ext_resource path="res://src/characters/Level1/SlimeFlesh.gd" type="Script" id=24]
+[ext_resource path="res://assets/Audio/CombatMusic.ogg" type="AudioStream" id=25]
 
 [sub_resource type="ConvexPolygonShape2D" id=1]
 points = PoolVector2Array( 0, 0, 32, 0, 32, 32, 0, 32 )
@@ -615,7 +616,9 @@ texture = ExtResource( 14 )
 
 [node name="BackgroundMusic" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 18 )
-autoplay = true
+
+[node name="CombatMusic" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 25 )
 
 [node name="ShadowCircle" type="Sprite" parent="."]
 position = Vector2( 832.274, 707.348 )
@@ -649,7 +652,7 @@ texture = ExtResource( 20 )
 offset = Vector2( 5.21246, -7.22914 )
 
 [node name="Player" parent="." instance=ExtResource( 5 )]
-position = Vector2( 648.235, 758.466 )
+position = Vector2( 1207.23, 404.466 )
 
 [node name="barrel2" type="Sprite" parent="."]
 position = Vector2( 1169.34, 496.676 )
@@ -688,14 +691,22 @@ playing = true
 position = Vector2( 857.936, 587.79 )
 scale = Vector2( 1.35636, 1.22272 )
 frames = SubResource( 54 )
+frame = 4
 playing = true
 
 [node name="Torch" type="AnimatedSprite" parent="."]
 position = Vector2( 955.517, 589.204 )
 scale = Vector2( 1.35636, 1.22272 )
 frames = SubResource( 54 )
-frame = 1
+frame = 5
 playing = true
 
 [node name="SharpRock" parent="." instance=ExtResource( 4 )]
 position = Vector2( 1343.62, 291.909 )
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2( 1268.07, 410.358 )
+
+[node name="BigDemon" parent="." instance=ExtResource( 7 )]
+position = Vector2( 311.132, 326.268 )
+scale = Vector2( 0.75, 0.75 )
