@@ -1,8 +1,11 @@
-[gd_scene load_steps=35 format=2]
+[gd_scene load_steps=38 format=2]
 
 [ext_resource path="res://src/tiles/Structures/Door.tscn" type="PackedScene" id=1]
+[ext_resource path="res://src/characters/Level1/BigDemon.tscn" type="PackedScene" id=2]
+[ext_resource path="res://src/characters/Level1/GreenSlime.tscn" type="PackedScene" id=3]
 [ext_resource path="res://assets/0x72_DungeonTilesetII_v1.3.png" type="Texture" id=4]
 [ext_resource path="res://src/tiles/Floor.tres" type="TileSet" id=5]
+[ext_resource path="res://src/characters/Level1/TackShooter.tscn" type="PackedScene" id=6]
 
 [sub_resource type="ConvexPolygonShape2D" id=1]
 points = PoolVector2Array( 0, 0, 32, 0, 32, 32, 0, 32 )
@@ -371,6 +374,7 @@ polygons = [ PoolIntArray( 0, 1, 2, 3 ), PoolIntArray( 0, 3, 4 ) ]
 outlines = [ PoolVector2Array( 312.375, 127.383, 964.477, 127.359, 964.478, 375.346, 312.498, 375.375, 312.436, 196.625 ) ]
 
 [node name="Trap Room" type="Node2D"]
+position = Vector2( -426.536, 529.802 )
 
 [node name="Floors" type="TileMap" parent="."]
 z_index = -1
@@ -408,6 +412,21 @@ position = Vector2( 704.023, -96.0023 )
 [node name="Decorations" type="Node2D" parent="."]
 
 [node name="Enemies" type="Node2D" parent="."]
+
+[node name="BigDemon" parent="Enemies" instance=ExtResource( 2 )]
+position = Vector2( 1144.22, -288.174 )
+
+[node name="GreenSlime" parent="Enemies" instance=ExtResource( 3 )]
+position = Vector2( 1102.24, -208.902 )
+
+[node name="GreenSlime2" parent="Enemies" instance=ExtResource( 3 )]
+position = Vector2( 912.697, -210.571 )
+
+[node name="GreenSlime3" parent="Enemies" instance=ExtResource( 3 )]
+position = Vector2( 880.327, -305.345 )
+
+[node name="TackShooter" parent="Enemies" instance=ExtResource( 6 )]
+position = Vector2( 947.505, -273.2 )
 
 [node name="NavigationPolygonInstance" type="NavigationPolygonInstance" parent="."]
 position = Vector2( 273.521, -511.375 )

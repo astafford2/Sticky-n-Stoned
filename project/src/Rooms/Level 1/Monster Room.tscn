@@ -1,9 +1,12 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://src/Rooms/Level 1/Room.gd" type="Script" id=1]
 [ext_resource path="res://src/tiles/Floor.gd" type="Script" id=2]
 [ext_resource path="res://src/tiles/Walls.tres" type="TileSet" id=3]
+[ext_resource path="res://src/characters/Level1/DemonShaman.tscn" type="PackedScene" id=4]
 [ext_resource path="res://src/tiles/Floor.tres" type="TileSet" id=5]
+[ext_resource path="res://src/characters/Level1/GreenSlime.tscn" type="PackedScene" id=6]
+[ext_resource path="res://src/characters/Level1/BigDemon.tscn" type="PackedScene" id=7]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 368.885, 112.979 )
@@ -17,6 +20,7 @@ polygons = [ PoolIntArray( 0, 1, 2, 3 ) ]
 outlines = [ PoolVector2Array( 9.43557, 96.1581, 789.089, 95.7134, 789.542, 376.25, 9.53906, 376.234 ) ]
 
 [node name="Monster Room" type="Node2D"]
+position = Vector2( -1166, -152 )
 script = ExtResource( 1 )
 
 [node name="Floors" type="TileMap" parent="."]
@@ -45,6 +49,18 @@ position = Vector2( 2048, 416.005 )
 [node name="DoorEntities" type="Node2D" parent="."]
 
 [node name="Enemies" type="Node2D" parent="."]
+
+[node name="DemonShaman" parent="Enemies" instance=ExtResource( 4 )]
+position = Vector2( 1648.52, 438.883 )
+
+[node name="GreenSlime" parent="Enemies" instance=ExtResource( 6 )]
+position = Vector2( 1519.33, 498.665 )
+
+[node name="GreenSlime2" parent="Enemies" instance=ExtResource( 6 )]
+position = Vector2( 1806.41, 500.656 )
+
+[node name="BigDemon" parent="Enemies" instance=ExtResource( 7 )]
+position = Vector2( 1649.31, 358.753 )
 
 [node name="Decorations" type="Node2D" parent="."]
 

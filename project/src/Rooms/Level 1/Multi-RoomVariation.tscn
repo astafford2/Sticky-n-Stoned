@@ -1,9 +1,12 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://src/Rooms/Level 1/Room.gd" type="Script" id=1]
 [ext_resource path="res://src/tiles/Walls.tres" type="TileSet" id=2]
 [ext_resource path="res://src/tiles/Floor.gd" type="Script" id=3]
+[ext_resource path="res://src/characters/Level1/DemonShaman.tscn" type="PackedScene" id=4]
 [ext_resource path="res://src/tiles/Floor.tres" type="TileSet" id=5]
+[ext_resource path="res://src/characters/Level1/GreenSlime.tscn" type="PackedScene" id=6]
+[ext_resource path="res://src/characters/Level1/TackShooter.tscn" type="PackedScene" id=7]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 304, 192 )
@@ -45,6 +48,24 @@ position = Vector2( 672, 480 )
 position = Vector2( 639.221, 45.245 )
 
 [node name="Enemies" type="Node2D" parent="."]
+
+[node name="DemonShaman" parent="Enemies" instance=ExtResource( 4 )]
+position = Vector2( 168.867, 506.602 )
+
+[node name="DemonShaman2" parent="Enemies" instance=ExtResource( 4 )]
+position = Vector2( 399.574, 247.355 )
+
+[node name="GreenSlime" parent="Enemies" instance=ExtResource( 6 )]
+position = Vector2( 368.654, 272.328 )
+
+[node name="GreenSlime2" parent="Enemies" instance=ExtResource( 6 )]
+position = Vector2( 205.733, 558.927 )
+
+[node name="GreenSlime3" parent="Enemies" instance=ExtResource( 6 )]
+position = Vector2( 561.306, 526.819 )
+
+[node name="TackShooter" parent="Enemies" instance=ExtResource( 7 )]
+position = Vector2( 392.001, 350.682 )
 
 [node name="PlayerDetection" type="Area2D" parent="."]
 visible = false

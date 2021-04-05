@@ -1,10 +1,14 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://src/Rooms/Level 1/Room.gd" type="Script" id=1]
 [ext_resource path="res://src/tiles/Floor.gd" type="Script" id=2]
 [ext_resource path="res://src/tiles/Walls.tres" type="TileSet" id=3]
 [ext_resource path="res://src/tiles/Floor.tres" type="TileSet" id=4]
 [ext_resource path="res://src/tiles/Structures/Door.tscn" type="PackedScene" id=5]
+[ext_resource path="res://src/characters/Level1/BigDemon.tscn" type="PackedScene" id=6]
+[ext_resource path="res://src/characters/Level1/DemonShaman.tscn" type="PackedScene" id=7]
+[ext_resource path="res://src/characters/Level1/GreenSlime.tscn" type="PackedScene" id=8]
+[ext_resource path="res://src/characters/Level1/TackShooter.tscn" type="PackedScene" id=9]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 544, 240 )
@@ -18,6 +22,7 @@ polygons = [ PoolIntArray( 0, 1, 2, 3 ) ]
 outlines = [ PoolVector2Array( -373.905, 1087.84, -373.986, 1624.01, 758.011, 1623.96, 758.095, 1086.7 ) ]
 
 [node name="Large Room" type="Node2D"]
+position = Vector2( 320.361, -1062.53 )
 script = ExtResource( 1 )
 
 [node name="Floors" type="TileMap" parent="."]
@@ -50,6 +55,7 @@ position = Vector2( 768, 1376 )
 position = Vector2( 192, 1664 )
 
 [node name="DoorEntities" type="Node2D" parent="."]
+visible = false
 
 [node name="Door" parent="DoorEntities" instance=ExtResource( 5 )]
 position = Vector2( 128, 1024 )
@@ -59,7 +65,35 @@ position = Vector2( 128, 1600 )
 
 [node name="Enemies" type="Node2D" parent="."]
 
+[node name="BigDemon2" parent="Enemies" instance=ExtResource( 6 )]
+position = Vector2( -306.457, 1158.88 )
+
+[node name="BigDemon" parent="Enemies" instance=ExtResource( 6 )]
+position = Vector2( 682.877, 1593.8 )
+
+[node name="DemonShaman" parent="Enemies" instance=ExtResource( 7 )]
+position = Vector2( 192, 1358 )
+
+[node name="GreenSlime2" parent="Enemies" instance=ExtResource( 8 )]
+position = Vector2( 498.154, 1168.23 )
+
+[node name="GreenSlime3" parent="Enemies" instance=ExtResource( 8 )]
+position = Vector2( -175.46, 1172.23 )
+
+[node name="GreenSlime" parent="Enemies" instance=ExtResource( 8 )]
+position = Vector2( 464.898, 1458.01 )
+
+[node name="GreenSlime4" parent="Enemies" instance=ExtResource( 8 )]
+position = Vector2( -111.459, 1582.45 )
+
+[node name="TackShooter" parent="Enemies" instance=ExtResource( 9 )]
+position = Vector2( -175.728, 1493.68 )
+
+[node name="TackShooter2" parent="Enemies" instance=ExtResource( 9 )]
+position = Vector2( 600.909, 1176.77 )
+
 [node name="Decorations" type="Node2D" parent="."]
+visible = false
 
 [node name="PlayerDetection" type="Area2D" parent="."]
 visible = false
@@ -76,4 +110,5 @@ position = Vector2( 192, 1356 )
 shape = SubResource( 2 )
 
 [node name="NavigationPolygonInstance" type="NavigationPolygonInstance" parent="."]
+visible = false
 navpoly = SubResource( 3 )
