@@ -1,6 +1,11 @@
 extends Door
 
-export var rightFacing := true
+export var rightFacing := false
+
+
+func ready():
+	walls.set_cellv(Vector2(0,1), 10)
+	walls.set_cellv(Vector2(3,1), -1)
 
 func open():
 	walls.set_cell(0,0, 5, rightFacing)

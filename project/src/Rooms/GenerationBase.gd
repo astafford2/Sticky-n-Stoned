@@ -39,8 +39,8 @@ var wallConversions = {
 	[12,25] : [16, 6],
 	[13, 6] : 19,
 	[25, 6] : 18,
-	[9, 25] : [9,6],
-	[9, 13] : [9,6]
+	[27, 25] : [27,6],
+	[27, 13] : [27,6]
 }
 
 # Called when the node enters the scene tree for the first time.
@@ -203,7 +203,7 @@ func placeWallsAroundFloors(FloorCells):
 		var right =  Floor.get_cellv(r) == -1
 		
 		if checkTileNotOnMap(d) and down:
-			placeOrMerge(d, 9)
+			placeOrMerge(d, 27)
 			placeOrMerge(d + Vector2(0,-1), 6)
 		if checkTileNotOnMap(u) and up:
 			placeOrMerge(cell, 6)

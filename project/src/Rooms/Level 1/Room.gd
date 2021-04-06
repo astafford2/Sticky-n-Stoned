@@ -20,7 +20,9 @@ func _ready():
 
 
 func setEnemyTargets():
-	var player = get_parent().get_parent().get_node("Player")
+	for enemy in Enemies.get_children():
+		if enemy.has_method("set_navPoly"):
+			enemy.set_navPoly(nav_instance.navpoly)
 
 	for enemy in Enemies.get_children():
 		if enemy.has_method("set_navigation"):
@@ -41,14 +43,18 @@ func objectiveHandler():
 func getRect2():
 	return Rect2(rectShape.global_position - rectShape.shape.extents, rectShape.shape.extents * 2)
 
+
 func updateFloors():
 	Floors.instanceTiles()
+
 
 func get_DoorPositions():
 	return Doors.get_children()
 
+
 func get_Tiles():
 	return [Floors, Walls]
+
 
 func toggleDoors(room):
 	if room == DoorEntities:
@@ -57,6 +63,7 @@ func toggleDoors(room):
 			open = false
 		else:
 			openDoors()
+
 
 func closeDoors():
 	for door in DoorEntities.get_children():
@@ -70,7 +77,16 @@ func openDoors():
 			door.open()
 
 
+func getTeleporters():
+	var Teleporters = get_node("Teleporters")
+	if Teleporters:
+		return Teleporters.get_children()
+
+
 func _on_PlayerDetection_body_entered(body):
 	if body.has_method("shoot") and !objectiveComplete and !started:
 		toggleDoors(DoorEntities)
 		started = true
+		for enemy in Enemies.get_children():
+			if enemy.has_method("set_target"):
+				enemy.set_target(body)

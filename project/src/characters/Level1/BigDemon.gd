@@ -10,7 +10,7 @@ var Foot2 = null
 var feetArea = null
 var managedPits = []
 var navpath := PoolVector2Array()
-var demon_runto := Vector2()
+var room
 
 onready var bd_sprite := $BDSprite
 onready var glue_landing_fx := $GlueLanding
@@ -25,6 +25,7 @@ func _ready():
 	health_bar.set_max_health(Health)
 # warning-ignore:return_value_discarded
 	SignalMaster.connect("overlapped", self, "_on_feet_overlapped")
+	room = self.get_parent().get_parent()
 
 
 func _process(_delta):
@@ -37,11 +38,8 @@ func _process(_delta):
 	UpdateFooting()
 	
 	if nav_target:
-		navpath = nav.get_simple_path(self.global_position, get_parent().to_local(nav_target.global_position))
-#		print(navpath)
-#		print("Player: " + str(nav_target.global_position))
-#		print("Player2: " + str(get_parent().get_parent().get_parent().get_parent().get_node("Player").global_position))
-		get_parent().get_parent().get_node("Line2D").points = navpath
+		var correctTargetPos = nav_target.global_position - room.global_position
+		navpath = nav.get_simple_path(self.position, correctTargetPos)
 
 
 func _physics_process(_delta):
@@ -72,10 +70,21 @@ func pathfind():
 		distance_to_walk -= distance_to_next_point
 
 
+func set_navPoly(nav_poly):
+	nav.navpoly_add(nav_poly, Transform2D.IDENTITY)
+
+
+func set_target(target):
+	nav_target = target
+	var correctTargetPos = nav_target.global_position - room.global_position
+	navpath = nav.get_simple_path(self.position, correctTargetPos)
+
+
 func set_navigation(nav_poly, target):
 	nav.navpoly_add(nav_poly, Transform2D.IDENTITY)
 	nav_target = target
 	navpath = nav.get_simple_path(self.global_position, get_parent().to_local(nav_target.global_position))
+
 
 func glue(amount, time):
 	if !glued:

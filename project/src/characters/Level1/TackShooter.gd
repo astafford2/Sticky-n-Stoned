@@ -3,7 +3,7 @@ extends KinematicBody2D
 
 export (PackedScene) var tack
 
-var attacking := false
+var attackCount :float= 1
 
 onready var muzzle_t := $Muzzle_t
 onready var muzzle_r := $Muzzle_r
@@ -12,9 +12,10 @@ onready var muzzle_b := $Muzzle_b
 onready var tack_shot_fx := $TackShot
 
 
-func _physics_process(_delta):
-	if !attacking:
-		attacking = true
+func _physics_process(delta):
+	attackCount += delta
+	if attackCount >= 1:
+		attackCount -=1
 		var tt = tack.instance()
 		var tr = tack.instance()
 		var tl = tack.instance()
@@ -36,5 +37,3 @@ func _physics_process(_delta):
 		tl.global_position = muzzle_l.global_position
 		tb.global_position = muzzle_b.global_position
 		tack_shot_fx.play()
-		yield(get_tree().create_timer(1), "timeout")
-		attacking = false
