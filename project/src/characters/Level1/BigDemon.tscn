@@ -45,22 +45,22 @@ script = ExtResource( 9 )
 GlueSpatter = ExtResource( 10 )
 
 [node name="ShadowCircle" type="Sprite" parent="."]
-position = Vector2( 1.76263, -8.38928 )
+position = Vector2( 1.05552, 0.626339 )
 scale = Vector2( 2.184, 2.237 )
 texture = ExtResource( 12 )
 
 [node name="BDSprite" type="AnimatedSprite" parent="."]
-position = Vector2( 1.26099, -34.9186 )
+position = Vector2( 0.553883, -25.903 )
 scale = Vector2( 0.75, 0.75 )
 frames = SubResource( 1 )
 animation = "idle"
 
 [node name="BDShape" type="CollisionShape2D" parent="."]
-position = Vector2( 1.64604, -28.0263 )
+position = Vector2( 0.938932, -19.0107 )
 shape = SubResource( 2 )
 
 [node name="DetectRadius" type="Area2D" parent="."]
-position = Vector2( 1.26099, -34.9186 )
+position = Vector2( 0.553883, -25.903 )
 
 [node name="DetectShape" type="CollisionShape2D" parent="DetectRadius"]
 visible = false
@@ -72,7 +72,7 @@ stream = ExtResource( 11 )
 max_distance = 1000.0
 
 [node name="FallingBox" type="Area2D" parent="."]
-position = Vector2( 1.26099, -34.9186 )
+position = Vector2( 0.553883, -25.903 )
 collision_layer = 2
 collision_mask = 2
 
@@ -87,9 +87,9 @@ shape = SubResource( 4 )
 [node name="Navigation2D" type="Navigation2D" parent="."]
 
 [node name="HealthBar" parent="." instance=ExtResource( 13 )]
-margin_left = -18.4997
-margin_top = -61.6922
-margin_right = 21.5003
-margin_bottom = -21.6922
+margin_left = -19.2068
+margin_top = -52.6766
+margin_right = 20.7932
+margin_bottom = -12.6766
 [connection signal="body_entered" from="DetectRadius" to="." method="_on_DetectRadius_body_entered"]
 [connection signal="body_exited" from="DetectRadius" to="." method="_on_DetectRadius_body_exited"]

@@ -32,11 +32,12 @@ func _process(_delta):
 		kill_enemy()
 	
 	if nav_target:
-		shaman_to_nav_target = Vector2(nav_target.position.x - self.position.x, nav_target.position.y - self.position.y)
-		shaman_runto = self.position - shaman_to_nav_target
-		navpath = nav.get_simple_path(self.position, shaman_runto)
-		print("Player: " + str(nav_target.global_position))
-		print(shaman_runto)
+		shaman_to_nav_target = Vector2(nav_target.global_position.x - self.global_position.x, nav_target.global_position.y - self.global_position.y)
+		shaman_runto = self.global_position - shaman_to_nav_target
+		navpath = nav.get_simple_path(self.global_position, shaman_runto)
+#		print("Player: " + str(nav_target.global_position))
+#		print("Shaman: " + str(self.global_position))
+#		print(shaman_runto)
 
 
 func _physics_process(_delta):
@@ -78,7 +79,7 @@ func pathfind():
 func set_navigation(nav_poly, target):
 	nav.navpoly_add(nav_poly, Transform2D.IDENTITY)
 	nav_target = target
-	navpath = nav.get_simple_path(self.position, shaman_runto)
+	navpath = nav.get_simple_path(self.global_position, shaman_runto)
 
 
 func attack():

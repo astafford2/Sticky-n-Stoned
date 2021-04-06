@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://src/tiles/Floor.gd" type="Script" id=1]
 [ext_resource path="res://src/characters/Level1/DemonShaman.tscn" type="PackedScene" id=2]
@@ -8,6 +8,7 @@
 [ext_resource path="res://src/tiles/Structures/Door.tscn" type="PackedScene" id=6]
 [ext_resource path="res://src/projectiles/Environmental/Rock.tscn" type="PackedScene" id=7]
 [ext_resource path="res://src/tiles/Structures/SideDoor.tscn" type="PackedScene" id=8]
+[ext_resource path="res://src/characters/Level1/BigDemon.tscn" type="PackedScene" id=9]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 240, 128 )
@@ -65,6 +66,9 @@ position = Vector2( 256, -96 )
 [node name="DemonShaman" parent="Enemies" instance=ExtResource( 2 )]
 position = Vector2( -188.212, -144.163 )
 
+[node name="BigDemon" parent="Enemies" instance=ExtResource( 9 )]
+position = Vector2( 26.6968, -171.527 )
+
 [node name="Decorations" type="Node2D" parent="."]
 
 [node name="Rock" parent="Decorations" instance=ExtResource( 7 )]
@@ -95,3 +99,7 @@ shape = SubResource( 2 )
 
 [node name="NavigationPolygonInstance" type="NavigationPolygonInstance" parent="."]
 navpoly = SubResource( 3 )
+
+[node name="Line2D" type="Line2D" parent="."]
+width = 2.0
+default_color = Color( 0.635294, 0.129412, 0.129412, 1 )
