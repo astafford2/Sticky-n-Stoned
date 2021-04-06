@@ -40,6 +40,7 @@ func _process(_delta):
 		projectile = false
 		t = 0.0
 		thrower = null
+		
 
 
 #func hitActivity(delta):
@@ -93,6 +94,7 @@ func Use():
 	var dist = get_curve_distance(muzzle_angle)
 	# updates middle point with calculated distance for interpolation
 	p1 = Vector2(p1.x + (dist * -abs(cos(muzzle_angle - (PI/2)))), p1.y + (dist * -abs(sin(muzzle_angle - (PI/2)))))
+	
 	projectile = true
 	player.remove_child(self)
 	player.get_parent().add_child(self)
