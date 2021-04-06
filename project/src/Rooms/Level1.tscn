@@ -464,7 +464,7 @@ collision_mask = 5
 format = 1
 
 [node name="Camera2D" type="Camera2D" parent="."]
-zoom = Vector2( 3, 3 )
+zoom = Vector2( 10, 10 )
 
 [node name="BackgroundMusic" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 2 )

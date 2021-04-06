@@ -152,6 +152,7 @@ position = Vector2( 4, -27 )
 scale = Vector2( 2, 2 )
 frames = SubResource( 24 )
 animation = "idle"
+frame = 3
 playing = true
 
 [node name="DSShape" type="CollisionShape2D" parent="."]

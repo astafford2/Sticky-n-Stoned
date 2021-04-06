@@ -3,7 +3,7 @@ extends KinematicBody2D
 
 export (PackedScene) var tack
 
-var attackCount :float= 0.5
+var attackCount :float= 1
 
 onready var muzzle_t := $Muzzle_t
 onready var muzzle_r := $Muzzle_r

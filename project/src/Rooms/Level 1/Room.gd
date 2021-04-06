@@ -42,14 +42,18 @@ func objectiveHandler():
 func getRect2():
 	return Rect2(rectShape.global_position - rectShape.shape.extents, rectShape.shape.extents * 2)
 
+
 func updateFloors():
 	Floors.instanceTiles()
+
 
 func get_DoorPositions():
 	return Doors.get_children()
 
+
 func get_Tiles():
 	return [Floors, Walls]
+
 
 func toggleDoors(room):
 	if room == DoorEntities:
@@ -58,6 +62,7 @@ func toggleDoors(room):
 			open = false
 		else:
 			openDoors()
+
 
 func closeDoors():
 	for door in DoorEntities.get_children():
@@ -69,6 +74,12 @@ func openDoors():
 	for door in DoorEntities.get_children():
 		if door.has_method("open"):
 			door.open()
+
+
+func getTeleporters():
+	var Teleporters = get_node("Teleporters")
+	if Teleporters:
+		return Teleporters.get_children()
 
 
 func _on_PlayerDetection_body_entered(body):
