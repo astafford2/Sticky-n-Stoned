@@ -1,9 +1,17 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://src/tiles/Floor.tres" type="TileSet" id=1]
 [ext_resource path="res://src/tiles/Walls.tres" type="TileSet" id=2]
 [ext_resource path="res://src/Rooms/Level 1/Room.gd" type="Script" id=3]
 [ext_resource path="res://src/tiles/Floor.gd" type="Script" id=4]
+[ext_resource path="res://src/characters/Level1/BigDemon.tscn" type="PackedScene" id=5]
+[ext_resource path="res://src/characters/Level1/DemonShaman.tscn" type="PackedScene" id=6]
+[ext_resource path="res://src/characters/Level1/GreenSlime.tscn" type="PackedScene" id=7]
+[ext_resource path="res://src/characters/Level1/TackShooter.tscn" type="PackedScene" id=8]
+[ext_resource path="res://src/projectiles/Environmental/SharpRock.tscn" type="PackedScene" id=9]
+[ext_resource path="res://src/projectiles/Environmental/Rock.tscn" type="PackedScene" id=10]
+[ext_resource path="res://src/projectiles/Environmental/Chair.tscn" type="PackedScene" id=11]
+[ext_resource path="res://src/projectiles/Environmental/ReversedChair.tscn" type="PackedScene" id=12]
 
 [sub_resource type="NavigationPolygon" id=1]
 vertices = PoolVector2Array( 607.997, 480.01, 608, 543.992, 544, 543.992, 543.992, 480 )
@@ -22,6 +30,7 @@ polygons = [ PoolIntArray( 0, 1, 2, 3 ), PoolIntArray( 4, 5, 6, 7, 8, 9 ), PoolI
 outlines = [ PoolVector2Array( 10, 352, 8, 352, 224, 352, 224, 160, 544, 160, 544, 384, 662.042, 383.979, 662.081, 600.061, 458.031, 599.969, 458.063, 471.977, 448.016, 472, 447.995, 416.016, 352.014, 416.017, 352.058, 471.928, 341.925, 471.925, 341.985, 600.017, 10.0048, 599.989 ), PoolVector2Array( 543.984, 480.008, 544, 544, 608.003, 543.97, 608, 480.008 ), PoolVector2Array( 320, 224.016, 319.992, 288.008, 448.008, 287.984, 448.008, 224 ), PoolVector2Array( 160.008, 512, 159.992, 576, 256, 575.984, 256.016, 512 ) ]
 
 [node name="Multi-Room" type="Node2D"]
+position = Vector2( 61.7354, -90.9194 )
 script = ExtResource( 3 )
 
 [node name="Floors" type="TileMap" parent="."]
@@ -50,7 +59,51 @@ position = Vector2( 672, 480 )
 position = Vector2( 384.221, 142.245 )
 
 [node name="Enemies" type="Node2D" parent="."]
-visible = false
+
+[node name="BigDemon" parent="Enemies" instance=ExtResource( 5 )]
+position = Vector2( 299.697, 566.843 )
+
+[node name="DemonShaman" parent="Enemies" instance=ExtResource( 6 )]
+position = Vector2( 365.923, 206.533 )
+
+[node name="GreenSlime" parent="Enemies" instance=ExtResource( 7 )]
+position = Vector2( 527.557, 367.045 )
+
+[node name="GreenSlime2" parent="Enemies" instance=ExtResource( 7 )]
+position = Vector2( 110.001, 429.903 )
+
+[node name="TackShooter" parent="Enemies" instance=ExtResource( 8 )]
+position = Vector2( 392, 341 )
+
+[node name="Decorations" type="Node2D" parent="."]
+
+[node name="Chair" parent="Decorations" instance=ExtResource( 11 )]
+position = Vector2( 227.242, 180.391 )
+
+[node name="Chair2" parent="Decorations" instance=ExtResource( 11 )]
+position = Vector2( 226.411, 240.282 )
+rotation = -0.00283518
+
+[node name="Rock" parent="Decorations" instance=ExtResource( 10 )]
+position = Vector2( 332.995, 396.903 )
+
+[node name="Rock2" parent="Decorations" instance=ExtResource( 10 )]
+position = Vector2( 50.4538, 393.539 )
+
+[node name="Rock3" parent="Decorations" instance=ExtResource( 10 )]
+position = Vector2( 592.832, 462.493 )
+
+[node name="Rock4" parent="Decorations" instance=ExtResource( 10 )]
+position = Vector2( 493.606, 274.132 )
+
+[node name="SharpRock" parent="Decorations" instance=ExtResource( 9 )]
+position = Vector2( 274.973, 302.723 )
+
+[node name="SharpRock2" parent="Decorations" instance=ExtResource( 9 )]
+position = Vector2( 109.317, 533.128 )
+
+[node name="Chair3" parent="Decorations" instance=ExtResource( 12 )]
+position = Vector2( 516.414, 213.105 )
 
 [node name="Trapdoor" type="NavigationPolygonInstance" parent="."]
 visible = false
@@ -71,4 +124,5 @@ position = Vector2( 334.946, 378.674 )
 shape = SubResource( 3 )
 
 [node name="NavigationPolygonInstance" type="NavigationPolygonInstance" parent="."]
+visible = false
 navpoly = SubResource( 4 )

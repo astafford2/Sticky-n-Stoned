@@ -1,8 +1,14 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=41 format=2]
 
 [ext_resource path="res://src/tiles/Structures/Door.tscn" type="PackedScene" id=1]
-[ext_resource path="res://src/tiles/Walls.tres" type="TileSet" id=2]
+[ext_resource path="res://src/characters/Level1/BigDemon.tscn" type="PackedScene" id=2]
+[ext_resource path="res://src/characters/Level1/GreenSlime.tscn" type="PackedScene" id=3]
+[ext_resource path="res://assets/0x72_DungeonTilesetII_v1.3.png" type="Texture" id=4]
 [ext_resource path="res://src/tiles/Floor.tres" type="TileSet" id=5]
+[ext_resource path="res://src/characters/Level1/TackShooter.tscn" type="PackedScene" id=6]
+[ext_resource path="res://src/projectiles/Environmental/BigRock.tscn" type="PackedScene" id=7]
+[ext_resource path="res://src/projectiles/Environmental/Rock.tscn" type="PackedScene" id=8]
+[ext_resource path="res://src/projectiles/Environmental/SharpRock.tscn" type="PackedScene" id=9]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 336.971, 165.074 )
@@ -16,6 +22,7 @@ polygons = [ PoolIntArray( 0, 1, 2, 3 ), PoolIntArray( 0, 3, 4 ) ]
 outlines = [ PoolVector2Array( 312.375, 127.383, 964.477, 127.359, 964.478, 375.346, 312.498, 375.375, 312.436, 196.625 ) ]
 
 [node name="Trap Room" type="Node2D"]
+position = Vector2( -426.536, 529.802 )
 
 [node name="Floors" type="TileMap" parent="."]
 z_index = -1
@@ -52,7 +59,46 @@ position = Vector2( 704.023, -96.0023 )
 
 [node name="Decorations" type="Node2D" parent="."]
 
+[node name="BigRock" parent="Decorations" instance=ExtResource( 7 )]
+position = Vector2( 1195.01, -182.434 )
+
+[node name="Rock" parent="Decorations" instance=ExtResource( 8 )]
+position = Vector2( 660.438, -332.34 )
+
+[node name="Rock2" parent="Decorations" instance=ExtResource( 8 )]
+position = Vector2( 811.759, -178.191 )
+
+[node name="Rock3" parent="Decorations" instance=ExtResource( 8 )]
+position = Vector2( 1039.45, -339.411 )
+
+[node name="Rock4" parent="Decorations" instance=ExtResource( 8 )]
+position = Vector2( 1193.6, -268.701 )
+
+[node name="SharpRock" parent="Decorations" instance=ExtResource( 9 )]
+position = Vector2( 654.781, -239.002 )
+
+[node name="SharpRock2" parent="Decorations" instance=ExtResource( 9 )]
+position = Vector2( 944.695, -367.696 )
+
+[node name="SharpRock3" parent="Decorations" instance=ExtResource( 9 )]
+position = Vector2( 844.286, -362.039 )
+
 [node name="Enemies" type="Node2D" parent="."]
+
+[node name="BigDemon" parent="Enemies" instance=ExtResource( 2 )]
+position = Vector2( 1144.22, -288.174 )
+
+[node name="GreenSlime" parent="Enemies" instance=ExtResource( 3 )]
+position = Vector2( 1102.24, -208.902 )
+
+[node name="GreenSlime2" parent="Enemies" instance=ExtResource( 3 )]
+position = Vector2( 912.697, -210.571 )
+
+[node name="GreenSlime3" parent="Enemies" instance=ExtResource( 3 )]
+position = Vector2( 880.327, -305.345 )
+
+[node name="TackShooter" parent="Enemies" instance=ExtResource( 6 )]
+position = Vector2( 947.505, -273.2 )
 
 [node name="NavigationPolygonInstance" type="NavigationPolygonInstance" parent="."]
 visible = false

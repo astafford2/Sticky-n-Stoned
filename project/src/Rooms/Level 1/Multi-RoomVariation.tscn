@@ -1,9 +1,16 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://src/Rooms/Level 1/Room.gd" type="Script" id=1]
 [ext_resource path="res://src/tiles/Walls.tres" type="TileSet" id=2]
 [ext_resource path="res://src/tiles/Floor.gd" type="Script" id=3]
+[ext_resource path="res://src/characters/Level1/DemonShaman.tscn" type="PackedScene" id=4]
 [ext_resource path="res://src/tiles/Floor.tres" type="TileSet" id=5]
+[ext_resource path="res://src/characters/Level1/GreenSlime.tscn" type="PackedScene" id=6]
+[ext_resource path="res://src/characters/Level1/TackShooter.tscn" type="PackedScene" id=7]
+[ext_resource path="res://src/projectiles/Environmental/Chair.tscn" type="PackedScene" id=8]
+[ext_resource path="res://src/projectiles/Environmental/Rock.tscn" type="PackedScene" id=9]
+[ext_resource path="res://src/projectiles/Environmental/SharpRock.tscn" type="PackedScene" id=10]
+[ext_resource path="res://src/projectiles/Environmental/ReversedChair.tscn" type="PackedScene" id=11]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 304, 192 )
@@ -45,6 +52,53 @@ position = Vector2( 672, 480 )
 position = Vector2( 639.221, 45.245 )
 
 [node name="Enemies" type="Node2D" parent="."]
+
+[node name="DemonShaman" parent="Enemies" instance=ExtResource( 4 )]
+position = Vector2( 168.867, 506.602 )
+
+[node name="DemonShaman2" parent="Enemies" instance=ExtResource( 4 )]
+position = Vector2( 399.574, 247.355 )
+
+[node name="GreenSlime" parent="Enemies" instance=ExtResource( 6 )]
+position = Vector2( 368.654, 272.328 )
+
+[node name="GreenSlime2" parent="Enemies" instance=ExtResource( 6 )]
+position = Vector2( 205.733, 558.927 )
+
+[node name="GreenSlime3" parent="Enemies" instance=ExtResource( 6 )]
+position = Vector2( 561.306, 526.819 )
+
+[node name="TackShooter" parent="Enemies" instance=ExtResource( 7 )]
+position = Vector2( 392.001, 350.682 )
+
+[node name="Decorations" type="Node2D" parent="."]
+
+[node name="Chair" parent="Decorations" instance=ExtResource( 8 )]
+position = Vector2( 294.202, 212.468 )
+
+[node name="Chair2" parent="Decorations" instance=ExtResource( 8 )]
+position = Vector2( 514.224, 531.906 )
+
+[node name="Chair3" parent="Decorations" instance=ExtResource( 11 )]
+position = Vector2( 232.207, 500.605 )
+
+[node name="Rock" parent="Decorations" instance=ExtResource( 9 )]
+position = Vector2( 127.961, 433.27 )
+
+[node name="Rock2" parent="Decorations" instance=ExtResource( 9 )]
+position = Vector2( 447.862, 289.595 )
+
+[node name="Rock3" parent="Decorations" instance=ExtResource( 9 )]
+position = Vector2( 352.453, 444.495 )
+
+[node name="Rock4" parent="Decorations" instance=ExtResource( 9 )]
+position = Vector2( 603.885, 541.027 )
+
+[node name="SharpRock" parent="Decorations" instance=ExtResource( 10 )]
+position = Vector2( 275.003, 573.578 )
+
+[node name="SharpRock2" parent="Decorations" instance=ExtResource( 10 )]
+position = Vector2( 283.983, 188.574 )
 
 [node name="PlayerDetection" type="Area2D" parent="."]
 visible = false
