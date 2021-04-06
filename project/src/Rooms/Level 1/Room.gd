@@ -24,10 +24,6 @@ func setEnemyTargets():
 		if enemy.has_method("set_navPoly"):
 			enemy.set_navPoly(nav_instance.navpoly)
 
-	for enemy in Enemies.get_children():
-		if enemy.has_method("set_navigation"):
-			enemy.set_navigation(nav_instance.navpoly, player)
-
 
 func _process(_delta):
 	if !objectiveComplete:

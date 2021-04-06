@@ -98,7 +98,7 @@ func attack():
 		var f = fireball.instance()
 		f.init(self)
 		owner.add_child(f)
-		f.transform = muzzle.global_transform
+		f.global_transform = muzzle.global_transform
 		fireball_shot_fx.play()
 		yield(get_tree().create_timer(1.3), "timeout")
 		attacking = false
