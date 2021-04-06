@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://src/Rooms/Level 1/Room.gd" type="Script" id=1]
 [ext_resource path="res://src/tiles/Floor.gd" type="Script" id=2]
@@ -10,6 +10,7 @@
 [ext_resource path="res://src/projectiles/Environmental/Chair.tscn" type="PackedScene" id=8]
 [ext_resource path="res://src/projectiles/Environmental/Rock.tscn" type="PackedScene" id=9]
 [ext_resource path="res://src/projectiles/Environmental/SharpRock.tscn" type="PackedScene" id=10]
+[ext_resource path="res://src/projectiles/Environmental/ReversedChair.tscn" type="PackedScene" id=11]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 368.885, 112.979 )
@@ -91,6 +92,12 @@ position = Vector2( 1360.47, 400.222 )
 
 [node name="SharpRock2" parent="Decorations" instance=ExtResource( 10 )]
 position = Vector2( 1869.59, 458.205 )
+
+[node name="Chair3" parent="Decorations" instance=ExtResource( 11 )]
+position = Vector2( 2014.18, 337.537 )
+
+[node name="Chair4" parent="Decorations" instance=ExtResource( 11 )]
+position = Vector2( 2013.08, 532.783 )
 
 [node name="PlayerDetection" type="Area2D" parent="."]
 visible = false

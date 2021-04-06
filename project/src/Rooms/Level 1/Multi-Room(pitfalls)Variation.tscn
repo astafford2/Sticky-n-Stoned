@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://src/tiles/Floor.tres" type="TileSet" id=1]
 [ext_resource path="res://src/tiles/Walls.tres" type="TileSet" id=2]
@@ -11,6 +11,7 @@
 [ext_resource path="res://src/projectiles/Environmental/SharpRock.tscn" type="PackedScene" id=9]
 [ext_resource path="res://src/projectiles/Environmental/Rock.tscn" type="PackedScene" id=10]
 [ext_resource path="res://src/projectiles/Environmental/Chair.tscn" type="PackedScene" id=11]
+[ext_resource path="res://src/projectiles/Environmental/ReversedChair.tscn" type="PackedScene" id=12]
 
 [sub_resource type="NavigationPolygon" id=1]
 vertices = PoolVector2Array( 607.997, 480.01, 608, 543.992, 544, 543.992, 543.992, 480 )
@@ -83,9 +84,6 @@ position = Vector2( 227.242, 180.391 )
 position = Vector2( 226.411, 240.282 )
 rotation = -0.00283518
 
-[node name="Chair3" parent="Decorations" instance=ExtResource( 11 )]
-position = Vector2( 456.531, 528.173 )
-
 [node name="Rock" parent="Decorations" instance=ExtResource( 10 )]
 position = Vector2( 332.995, 396.903 )
 
@@ -103,6 +101,9 @@ position = Vector2( 274.973, 302.723 )
 
 [node name="SharpRock2" parent="Decorations" instance=ExtResource( 9 )]
 position = Vector2( 109.317, 533.128 )
+
+[node name="Chair3" parent="Decorations" instance=ExtResource( 12 )]
+position = Vector2( 516.414, 213.105 )
 
 [node name="Trapdoor" type="NavigationPolygonInstance" parent="."]
 visible = false
