@@ -13,8 +13,9 @@ height = 3.94843
 radius = 15.2718
 height = 7.32165
 
-[sub_resource type="CircleShape2D" id=13]
-radius = 129.617
+[sub_resource type="CapsuleShape2D" id=3]
+radius = 56.9999
+height = 61.0002
 
 [sub_resource type="AtlasTexture" id=4]
 atlas = ExtResource( 4 )
@@ -83,8 +84,9 @@ shape = SubResource( 2 )
 [node name="AOE" type="Area2D" parent="."]
 
 [node name="AOEbox" type="CollisionShape2D" parent="AOE"]
+position = Vector2( 0.5, 5 )
 rotation = 1.5708
-shape = SubResource( 13 )
+shape = SubResource( 3 )
 disabled = true
 
 [node name="AOESplash" type="AnimatedSprite" parent="."]
@@ -98,8 +100,10 @@ position = Vector2( 0.0496106, -0.360774 )
 scale = Vector2( 1.15933, 1.15933 )
 texture = ExtResource( 2 )
 
-[node name="BigRockHitSfx" type="AudioStreamPlayer" parent="."]
+[node name="BigRockHitSfx" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource( 3 )
+max_distance = 1000.0
+attenuation = 0.378929
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/arcThrow = SubResource( 12 )

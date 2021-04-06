@@ -25,6 +25,8 @@ position = Vector2( 0.131706, 0.138206 )
 rotation = 1.5708
 shape = SubResource( 1 )
 
-[node name="BreakSfx" type="AudioStreamPlayer" parent="."]
+[node name="BreakSfx" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource( 2 )
+max_distance = 750.0
+attenuation = 1.32
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]

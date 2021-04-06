@@ -10,6 +10,7 @@ var Foot2 = null
 var feetArea = null
 var managedPits = []
 var navpath := PoolVector2Array()
+var demon_runto := Vector2()
 
 onready var bd_sprite := $BDSprite
 onready var glue_landing_fx := $GlueLanding
@@ -36,7 +37,11 @@ func _process(_delta):
 	UpdateFooting()
 	
 	if nav_target:
-		navpath = nav.get_simple_path(self.position, nav_target.position)
+		navpath = nav.get_simple_path(self.global_position, get_parent().to_local(nav_target.global_position))
+#		print(navpath)
+#		print("Player: " + str(nav_target.global_position))
+#		print("Player2: " + str(get_parent().get_parent().get_parent().get_parent().get_node("Player").global_position))
+		get_parent().get_parent().get_node("Line2D").points = navpath
 
 
 func _physics_process(_delta):
@@ -70,7 +75,7 @@ func pathfind():
 func set_navigation(nav_poly, target):
 	nav.navpoly_add(nav_poly, Transform2D.IDENTITY)
 	nav_target = target
-	navpath = nav.get_simple_path(self.position, nav_target.position)
+	navpath = nav.get_simple_path(self.global_position, get_parent().to_local(nav_target.global_position))
 
 func glue(amount, time):
 	if !glued:

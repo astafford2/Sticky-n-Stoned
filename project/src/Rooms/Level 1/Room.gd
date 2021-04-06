@@ -20,12 +20,11 @@ func _ready():
 
 
 func setEnemyTargets():
-	pass
-#	var player = get_node("/root/Player")
-#
-#	for enemy in Enemies.get_children():
-#		if enemy.has_method("set_navigation"):
-#			enemy.set_navigation(nav_instance.navpoly, player)
+	var player = get_parent().get_parent().get_node("Player")
+
+	for enemy in Enemies.get_children():
+		if enemy.has_method("set_navigation"):
+			enemy.set_navigation(nav_instance.navpoly, player)
 
 
 func _process(_delta):
