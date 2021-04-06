@@ -1,7 +1,7 @@
 [gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://src/tiles/Floor.gd" type="Script" id=1]
-[ext_resource path="res://src/characters/Level1/GreenSlime.tscn" type="PackedScene" id=2]
+[ext_resource path="res://src/characters/Level1/DemonShaman.tscn" type="PackedScene" id=2]
 [ext_resource path="res://src/Rooms/Level 1/Room.gd" type="Script" id=3]
 [ext_resource path="res://src/tiles/Walls.tres" type="TileSet" id=4]
 [ext_resource path="res://src/tiles/Floor.tres" type="TileSet" id=5]
@@ -62,14 +62,8 @@ position = Vector2( 256, -96 )
 
 [node name="Enemies" type="Node2D" parent="."]
 
-[node name="GreenSlime" parent="Enemies" instance=ExtResource( 2 )]
-position = Vector2( -240, -208 )
-
-[node name="GreenSlime2" parent="Enemies" instance=ExtResource( 2 )]
-position = Vector2( -240, -16 )
-
-[node name="GreenSlime3" parent="Enemies" instance=ExtResource( 2 )]
-position = Vector2( 16, -208 )
+[node name="DemonShaman" parent="Enemies" instance=ExtResource( 2 )]
+position = Vector2( -188.212, -144.163 )
 
 [node name="Decorations" type="Node2D" parent="."]
 

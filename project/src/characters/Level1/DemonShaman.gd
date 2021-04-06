@@ -35,6 +35,8 @@ func _process(_delta):
 		shaman_to_nav_target = Vector2(nav_target.position.x - self.position.x, nav_target.position.y - self.position.y)
 		shaman_runto = self.position - shaman_to_nav_target
 		navpath = nav.get_simple_path(self.position, shaman_runto)
+		print("Player: " + str(nav_target.global_position))
+		print(shaman_runto)
 
 
 func _physics_process(_delta):
