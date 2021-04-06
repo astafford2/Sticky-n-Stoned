@@ -1,0 +1,109 @@
+[gd_scene load_steps=17 format=2]
+
+[ext_resource path="res://src/projectiles/Environmental/BigRock.gd" type="Script" id=1]
+[ext_resource path="res://assets/projectiles/rockBoulder.png" type="Texture" id=2]
+[ext_resource path="res://assets/Audio/LargeRockLand.wav" type="AudioStream" id=3]
+[ext_resource path="res://assets/projectiles/AOE-Circle.png" type="Texture" id=4]
+
+[sub_resource type="CapsuleShape2D" id=1]
+radius = 4.656
+height = 3.94843
+
+[sub_resource type="CapsuleShape2D" id=2]
+radius = 15.2718
+height = 7.32165
+
+[sub_resource type="CapsuleShape2D" id=3]
+radius = 58.5
+height = 52.0
+
+[sub_resource type="AtlasTexture" id=4]
+atlas = ExtResource( 4 )
+region = Rect2( 0, 0, 58, 42 )
+
+[sub_resource type="AtlasTexture" id=5]
+atlas = ExtResource( 4 )
+region = Rect2( 58, 0, 58, 42 )
+
+[sub_resource type="AtlasTexture" id=6]
+atlas = ExtResource( 4 )
+region = Rect2( 116, 0, 58, 42 )
+
+[sub_resource type="AtlasTexture" id=7]
+atlas = ExtResource( 4 )
+region = Rect2( 174, 0, 58, 42 )
+
+[sub_resource type="AtlasTexture" id=8]
+atlas = ExtResource( 4 )
+region = Rect2( 232, 0, 58, 42 )
+
+[sub_resource type="AtlasTexture" id=9]
+atlas = ExtResource( 4 )
+region = Rect2( 290, 0, 58, 42 )
+
+[sub_resource type="AtlasTexture" id=10]
+atlas = ExtResource( 4 )
+region = Rect2( 348, 0, 58, 42 )
+
+[sub_resource type="SpriteFrames" id=11]
+animations = [ {
+"frames": [ SubResource( 4 ), SubResource( 5 ), SubResource( 6 ), SubResource( 7 ), SubResource( 8 ), SubResource( 9 ), SubResource( 10 ) ],
+"loop": false,
+"name": "splash",
+"speed": 5.0
+} ]
+
+[sub_resource type="Animation" id=12]
+length = 1.85
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5, 1, 1.4, 1.7, 1.85 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 1.11274, 1.11274 ), Vector2( 1.948, 1.948 ), Vector2( 2.226, 2.226 ), Vector2( 1.948, 1.948 ), Vector2( 1.252, 1.252 ), Vector2( 1.113, 1.113 ) ]
+}
+
+[node name="BigRock" type="Area2D"]
+script = ExtResource( 1 )
+
+[node name="Hurtbox" type="CollisionShape2D" parent="."]
+visible = false
+rotation = 1.5708
+shape = SubResource( 1 )
+
+[node name="InteractionBox" type="CollisionShape2D" parent="."]
+visible = false
+rotation = 1.5708
+shape = SubResource( 2 )
+
+[node name="AOE" type="Area2D" parent="."]
+
+[node name="AOEbox" type="CollisionShape2D" parent="AOE"]
+rotation = 1.5708
+shape = SubResource( 3 )
+disabled = true
+
+[node name="AOESplash" type="AnimatedSprite" parent="."]
+visible = false
+scale = Vector2( 3, 3 )
+frames = SubResource( 11 )
+animation = "splash"
+
+[node name="Sprite" type="Sprite" parent="."]
+position = Vector2( 0.0496106, -0.360774 )
+scale = Vector2( 1.15933, 1.15933 )
+texture = ExtResource( 2 )
+
+[node name="BigRockHitSfx" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 3 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/arcThrow = SubResource( 12 )
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_entered" from="AOE" to="." method="_on_AOE_body_entered"]
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]

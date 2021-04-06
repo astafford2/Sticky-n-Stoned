@@ -1,11 +1,12 @@
-[gd_scene load_steps=19 format=2]
+[gd_scene load_steps=20 format=2]
 
 [ext_resource path="res://src/characters/Level1/GreenSlime.gd" type="Script" id=1]
-[ext_resource path="res://src/projectiles/Enemy/GlueSpatter.tscn" type="PackedScene" id=2]
+[ext_resource path="res://src/GUI/HealthBar.tscn" type="PackedScene" id=2]
 [ext_resource path="res://assets/Audio/Glue Landing.wav" type="AudioStream" id=3]
 [ext_resource path="res://assets/characters/GreenSlime/slime.png" type="Texture" id=4]
 [ext_resource path="res://assets/Miscellaneous/ShadowCircle.png" type="Texture" id=5]
 [ext_resource path="res://assets/Audio/SlimeMunch.wav" type="AudioStream" id=6]
+[ext_resource path="res://src/projectiles/Enemy/GlueSpatter.tscn" type="PackedScene" id=7]
 
 [sub_resource type="AtlasTexture" id=1]
 atlas = ExtResource( 4 )
@@ -67,7 +68,7 @@ extents = Vector2( 0.596558, 6.62274 )
 "glueable",
 ]]
 script = ExtResource( 1 )
-GlueSpatter = ExtResource( 2 )
+GlueSpatter = ExtResource( 7 )
 
 [node name="Shadow" type="Sprite" parent="."]
 position = Vector2( 0.284456, 5.34083 )
@@ -87,7 +88,6 @@ shape = SubResource( 10 )
 [node name="DetectRadius" type="Area2D" parent="."]
 
 [node name="DetectShape" type="CollisionShape2D" parent="DetectRadius"]
-visible = false
 shape = SubResource( 11 )
 
 [node name="GlueLanding" type="AudioStreamPlayer" parent="."]
@@ -103,5 +103,12 @@ position = Vector2( 1.00226, -2.78406 )
 position = Vector2( -0.625, 8.75 )
 rotation = 1.5708
 shape = SubResource( 12 )
+
+[node name="HealthBar" parent="." instance=ExtResource( 2 )]
+margin_left = -14.0
+margin_top = -15.0
+margin_right = 26.0
+margin_bottom = 25.0
+rect_scale = Vector2( 0.75, 0.75 )
 [connection signal="body_entered" from="DetectRadius" to="." method="_on_DetectRadius_body_entered"]
 [connection signal="body_exited" from="DetectRadius" to="." method="_on_DetectRadius_body_exited"]

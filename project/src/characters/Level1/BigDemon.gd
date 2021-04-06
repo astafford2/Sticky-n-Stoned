@@ -21,6 +21,7 @@ onready var nav_target : KinematicBody2D
 func _ready():
 	RUN_SPEED = 110
 	Health = 6
+	health_bar.set_max_health(Health)
 # warning-ignore:return_value_discarded
 	SignalMaster.connect("overlapped", self, "_on_feet_overlapped")
 

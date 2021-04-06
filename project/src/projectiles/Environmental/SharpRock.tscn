@@ -1,7 +1,9 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://src/projectiles/Environmental/SharpRock.gd" type="Script" id=1]
 [ext_resource path="res://assets/projectiles/rockSharp.png" type="Texture" id=2]
+[ext_resource path="res://assets/Audio/SharpRockLand.wav" type="AudioStream" id=3]
+[ext_resource path="res://assets/Audio/SharpRockThrow.wav" type="AudioStream" id=4]
 
 [sub_resource type="CapsuleShape2D" id=1]
 radius = 4.40217
@@ -28,4 +30,10 @@ texture = ExtResource( 2 )
 visible = false
 rotation = 1.5708
 shape = SubResource( 2 )
+
+[node name="SharpRockThrowSfx" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 4 )
+
+[node name="SharpRockHitSfx" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 3 )
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]

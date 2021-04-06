@@ -1,5 +1,6 @@
 extends Projectile
 
+
 onready var interactionBox := $InteractionBox
 onready var rock_hit_fx := $RockHitSfx
 

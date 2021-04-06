@@ -24,6 +24,7 @@ onready var nav_target : KinematicBody2D
 func _ready():
 	RUN_SPEED = 120
 	Health = 4
+	health_bar.set_max_health(Health)
 
 
 func _process(_delta):

@@ -21,9 +21,7 @@ angle_random = 0.86
 color = Color( 0.647059, 0.639216, 0.623529, 1 )
 
 [node name="Splinters" type="Particles2D"]
-emitting = false
 lifetime = 0.75
-one_shot = true
 explosiveness = 1.0
 process_material = SubResource( 1 )
 texture = ExtResource( 1 )

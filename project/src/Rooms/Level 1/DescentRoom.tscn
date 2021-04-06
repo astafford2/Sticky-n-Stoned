@@ -5,7 +5,6 @@
 [ext_resource path="res://src/Rooms/Level 1/Room.gd" type="Script" id=3]
 [ext_resource path="res://src/tiles/Floor.gd" type="Script" id=4]
 
-
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 99.7418, 141.887 )
 
@@ -13,6 +12,7 @@ extents = Vector2( 99.7418, 141.887 )
 script = ExtResource( 3 )
 
 [node name="Floors" type="TileMap" parent="."]
+z_index = -1
 tile_set = ExtResource( 1 )
 cell_size = Vector2( 32, 32 )
 format = 1
@@ -22,13 +22,18 @@ script = ExtResource( 4 )
 [node name="Walls" type="TileMap" parent="."]
 tile_set = ExtResource( 2 )
 cell_size = Vector2( 32, 32 )
+collision_mask = 5
 format = 1
-tile_data = PoolIntArray( -131072, 2, 0, -131071, 2, 0, -131070, 2, 0, -131069, 2, 0, -131068, 2, 0, -131067, 2, 0, -65536, 3, 65537, -65535, 2, 196608, -65534, 2, 196608, -65533, 2, 196608, -65532, 2, 196608, -65531, 3, 65536, 65535, 2, 0, 0, 1, 65537, 5, 1, 65536, 131071, 2, 196608, 65536, 1, 131073, 65541, 1, 65536, 131077, 1, 65536, 262143, 0, 0, 196608, 1, 1, 196613, 1, 65536, 327679, 2, 196608, 262144, 1, 65537, 262149, 1, 65536, 327680, 3, 1, 327681, 0, 0, 327682, 0, 0, 327683, 0, 0, 327684, 0, 0, 327685, 3, 0, 393216, 0, 65536, 393217, 0, 65536, 393218, 0, 65536, 393219, 0, 65536, 393220, 0, 65536, 393221, 0, 65536 )
+tile_data = PoolIntArray( -131072, 2, 0, -131071, 2, 0, -131070, 2, 0, -131069, 2, 0, -131068, 2, 0, -131067, 2, 0, -65536, 3, 65537, -65535, 2, 196608, -65534, 2, 196608, -65533, 2, 196608, -65532, 2, 196608, -65531, 3, 65536, 65535, 0, 0, 0, 1, 65537, 5, 1, 65536, 131071, 0, 65536, 65536, 1, 131073, 65541, 1, 65536, 131077, 1, 65536, 262143, 0, 0, 196608, 1, 1, 196613, 1, 65536, 327679, 0, 65536, 262144, 1, 65537, 262149, 1, 65536, 327680, 3, 1, 327681, 0, 0, 327682, 0, 0, 327683, 0, 0, 327684, 0, 0, 327685, 3, 0, 393216, 0, 65536, 393217, 0, 65536, 393218, 0, 65536, 393219, 0, 65536, 393220, 0, 65536, 393221, 0, 65536 )
 
 [node name="Doors" type="Node2D" parent="."]
 
 [node name="Position2D" type="Position2D" parent="Doors"]
-position = Vector2( -32, 96 )
+position = Vector2( 0, 96 )
+
+[node name="DoorEntities" type="Node2D" parent="."]
+
+[node name="Enemies" type="Node2D" parent="."]
 
 [node name="Dimensions" type="Area2D" parent="."]
 

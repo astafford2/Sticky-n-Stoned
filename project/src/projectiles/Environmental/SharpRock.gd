@@ -2,6 +2,8 @@ extends Projectile
 
 
 onready var interactionBox := $InteractionBox
+onready var sharp_rock_throw_fx := $SharpRockThrowSfx
+onready var sharp_rock_hit_fx := $SharpRockHitSfx
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -33,10 +35,12 @@ func Use():
 	player.get_parent().add_child(self)
 	position = player.get_position()
 	hurtBox.set_deferred("disabled", false)
+	sharp_rock_throw_fx.play()
 	return true #tells the player that the object is no longer in their inventory
 
 
 func _on_hit_single_call():
+	sharp_rock_hit_fx.play()
 	hurtBox.set_deferred("disabled", true)
 	yield(get_tree().create_timer(0.5), "timeout")
 	interactionBox.set_deferred("disabled", false)
