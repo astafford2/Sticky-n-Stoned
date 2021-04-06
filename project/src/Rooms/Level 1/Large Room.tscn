@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://src/Rooms/Level 1/Room.gd" type="Script" id=1]
 [ext_resource path="res://src/tiles/Floor.gd" type="Script" id=2]
@@ -9,6 +9,10 @@
 [ext_resource path="res://src/characters/Level1/DemonShaman.tscn" type="PackedScene" id=7]
 [ext_resource path="res://src/characters/Level1/GreenSlime.tscn" type="PackedScene" id=8]
 [ext_resource path="res://src/characters/Level1/TackShooter.tscn" type="PackedScene" id=9]
+[ext_resource path="res://src/projectiles/Environmental/Chair.tscn" type="PackedScene" id=10]
+[ext_resource path="res://src/projectiles/Environmental/BigRock.tscn" type="PackedScene" id=11]
+[ext_resource path="res://src/projectiles/Environmental/Rock.tscn" type="PackedScene" id=12]
+[ext_resource path="res://src/projectiles/Environmental/SharpRock.tscn" type="PackedScene" id=13]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 544, 240 )
@@ -93,7 +97,54 @@ position = Vector2( -175.728, 1493.68 )
 position = Vector2( 600.909, 1176.77 )
 
 [node name="Decorations" type="Node2D" parent="."]
-visible = false
+
+[node name="Chair" parent="Decorations" instance=ExtResource( 10 )]
+position = Vector2( -352.417, 1200.5 )
+
+[node name="Chair2" parent="Decorations" instance=ExtResource( 10 )]
+position = Vector2( -315.624, 1551.06 )
+
+[node name="Chair3" parent="Decorations" instance=ExtResource( 10 )]
+position = Vector2( 126.44, 1363.14 )
+
+[node name="Chair4" parent="Decorations" instance=ExtResource( 10 )]
+position = Vector2( 446.45, 1265.17 )
+
+[node name="BigRock" parent="Decorations" instance=ExtResource( 11 )]
+position = Vector2( 176.8, 1131.22 )
+
+[node name="BigRock2" parent="Decorations" instance=ExtResource( 11 )]
+position = Vector2( 235.234, 1585.21 )
+
+[node name="Rock" parent="Decorations" instance=ExtResource( 12 )]
+position = Vector2( -139.343, 1299.03 )
+
+[node name="Rock2" parent="Decorations" instance=ExtResource( 12 )]
+position = Vector2( 611.309, 1487.82 )
+
+[node name="Rock3" parent="Decorations" instance=ExtResource( 12 )]
+position = Vector2( 148.332, 1453.36 )
+
+[node name="Rock4" parent="Decorations" instance=ExtResource( 12 )]
+position = Vector2( -272.692, 1388.93 )
+
+[node name="Rock5" parent="Decorations" instance=ExtResource( 12 )]
+position = Vector2( 404.543, 1168.68 )
+
+[node name="Rock6" parent="Decorations" instance=ExtResource( 12 )]
+position = Vector2( 275.689, 1288.54 )
+
+[node name="SharpRock" parent="Decorations" instance=ExtResource( 13 )]
+position = Vector2( -44.9492, 1168.68 )
+
+[node name="SharpRock2" parent="Decorations" instance=ExtResource( 13 )]
+position = Vector2( 468.97, 1553.74 )
+
+[node name="SharpRock3" parent="Decorations" instance=ExtResource( 13 )]
+position = Vector2( 684.726, 1263.07 )
+
+[node name="SharpRock4" parent="Decorations" instance=ExtResource( 13 )]
+position = Vector2( -80.9086, 1427.89 )
 
 [node name="PlayerDetection" type="Area2D" parent="."]
 visible = false

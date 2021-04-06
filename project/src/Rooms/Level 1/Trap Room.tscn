@@ -1,4 +1,4 @@
-[gd_scene load_steps=38 format=2]
+[gd_scene load_steps=41 format=2]
 
 [ext_resource path="res://src/tiles/Structures/Door.tscn" type="PackedScene" id=1]
 [ext_resource path="res://src/characters/Level1/BigDemon.tscn" type="PackedScene" id=2]
@@ -6,6 +6,9 @@
 [ext_resource path="res://assets/0x72_DungeonTilesetII_v1.3.png" type="Texture" id=4]
 [ext_resource path="res://src/tiles/Floor.tres" type="TileSet" id=5]
 [ext_resource path="res://src/characters/Level1/TackShooter.tscn" type="PackedScene" id=6]
+[ext_resource path="res://src/projectiles/Environmental/BigRock.tscn" type="PackedScene" id=7]
+[ext_resource path="res://src/projectiles/Environmental/Rock.tscn" type="PackedScene" id=8]
+[ext_resource path="res://src/projectiles/Environmental/SharpRock.tscn" type="PackedScene" id=9]
 
 [sub_resource type="ConvexPolygonShape2D" id=1]
 points = PoolVector2Array( 0, 0, 32, 0, 32, 32, 0, 32 )
@@ -411,6 +414,30 @@ position = Vector2( 704.023, -96.0023 )
 
 [node name="Decorations" type="Node2D" parent="."]
 
+[node name="BigRock" parent="Decorations" instance=ExtResource( 7 )]
+position = Vector2( 1195.01, -182.434 )
+
+[node name="Rock" parent="Decorations" instance=ExtResource( 8 )]
+position = Vector2( 660.438, -332.34 )
+
+[node name="Rock2" parent="Decorations" instance=ExtResource( 8 )]
+position = Vector2( 811.759, -178.191 )
+
+[node name="Rock3" parent="Decorations" instance=ExtResource( 8 )]
+position = Vector2( 1039.45, -339.411 )
+
+[node name="Rock4" parent="Decorations" instance=ExtResource( 8 )]
+position = Vector2( 1193.6, -268.701 )
+
+[node name="SharpRock" parent="Decorations" instance=ExtResource( 9 )]
+position = Vector2( 654.781, -239.002 )
+
+[node name="SharpRock2" parent="Decorations" instance=ExtResource( 9 )]
+position = Vector2( 944.695, -367.696 )
+
+[node name="SharpRock3" parent="Decorations" instance=ExtResource( 9 )]
+position = Vector2( 844.286, -362.039 )
+
 [node name="Enemies" type="Node2D" parent="."]
 
 [node name="BigDemon" parent="Enemies" instance=ExtResource( 2 )]
@@ -429,6 +456,7 @@ position = Vector2( 880.327, -305.345 )
 position = Vector2( 947.505, -273.2 )
 
 [node name="NavigationPolygonInstance" type="NavigationPolygonInstance" parent="."]
+visible = false
 position = Vector2( 273.521, -511.375 )
 navpoly = SubResource( 31 )
 
