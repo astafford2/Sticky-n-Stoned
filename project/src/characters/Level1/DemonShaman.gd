@@ -12,6 +12,7 @@ var attacking := false
 var shaman_to_nav_target := Vector2()
 var shaman_runto := Vector2()
 var navpath := PoolVector2Array()
+var room
 
 onready var ds_sprite := $DSSprite
 onready var muzzle := $Muzzle
@@ -25,6 +26,7 @@ func _ready():
 	RUN_SPEED = 120
 	Health = 4
 	health_bar.set_max_health(Health)
+	room = self.get_parent().get_parent()
 
 
 func _process(_delta):
@@ -32,7 +34,8 @@ func _process(_delta):
 		kill_enemy()
 	
 	if nav_target:
-		shaman_to_nav_target = Vector2(nav_target.position.x - self.position.x, nav_target.position.y - self.position.y)
+		var correctTargetPos = nav_target.global_position - room.global_position
+		shaman_to_nav_target = correctTargetPos - position
 		shaman_runto = self.position - shaman_to_nav_target
 		navpath = nav.get_simple_path(self.position, shaman_runto)
 
@@ -71,6 +74,16 @@ func pathfind():
 			navpath.remove(0)
 		# Update distance to walk
 		distance_to_walk -= distance_to_next_point
+
+
+func set_navPoly(nav_poly):
+	nav.navpoly_add(nav_poly, Transform2D.IDENTITY)
+
+
+func set_target(target):
+	nav_target = target
+	var correctTargetPos = nav_target.global_position - room.global_position
+	navpath = nav.get_simple_path(self.position, correctTargetPos)
 
 
 func set_navigation(nav_poly, target):

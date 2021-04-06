@@ -20,12 +20,9 @@ func _ready():
 
 
 func setEnemyTargets():
-	pass
-#	var player = get_node("/root/Player")
-#
-#	for enemy in Enemies.get_children():
-#		if enemy.has_method("set_navigation"):
-#			enemy.set_navigation(nav_instance.navpoly, player)
+	for enemy in Enemies.get_children():
+		if enemy.has_method("set_navPoly"):
+			enemy.set_navPoly(nav_instance.navpoly)
 
 
 func _process(_delta):
@@ -86,3 +83,6 @@ func _on_PlayerDetection_body_entered(body):
 	if body.has_method("shoot") and !objectiveComplete and !started:
 		toggleDoors(DoorEntities)
 		started = true
+		for enemy in Enemies.get_children():
+			if enemy.has_method("set_target"):
+				enemy.set_target(body)

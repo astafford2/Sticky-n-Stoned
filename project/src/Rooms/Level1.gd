@@ -49,14 +49,14 @@ func _ready():
 			room.setEnemyTargets()
 
 
-func _draw():
-	if ManualPaths:
-		for p in ManualPaths.get_points():
-			var pp = ManualPaths.get_point_position(p)
-			draw_line(Vector2(pp.x-1,pp.y-1), Vector2(pp.x+1,pp.y+1), Color(0,1,0), 30, true)
-			for c in ManualPaths.get_point_connections(p):
-				var cp = ManualPaths.get_point_position(c)
-				draw_line(Vector2(pp.x,pp.y), Vector2(cp.x, cp.y), Color(1,0,0), 5, true)
+#func _draw():
+#	if ManualPaths:
+#		for p in ManualPaths.get_points():
+#			var pp = ManualPaths.get_point_position(p)
+#			draw_line(Vector2(pp.x-1,pp.y-1), Vector2(pp.x+1,pp.y+1), Color(0,1,0), 30, true)
+#			for c in ManualPaths.get_point_connections(p):
+#				var cp = ManualPaths.get_point_position(c)
+#				draw_line(Vector2(pp.x,pp.y), Vector2(cp.x, cp.y), Color(1,0,0), 5, true)
 
 
 func connectHubs(segments):
@@ -81,8 +81,6 @@ func connectHubs(segments):
 		for leftPortals in portals[hub]:
 			leftPortals.queue_free()
 	return connections
-
-
 
 
 func find_hubMST(HubPositions):
