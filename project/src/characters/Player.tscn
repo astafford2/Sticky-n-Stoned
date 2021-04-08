@@ -112,19 +112,19 @@ region = Rect2( 0, 0, 24, 35 )
 
 [sub_resource type="AtlasTexture" id=25]
 atlas = ExtResource( 5 )
-region = Rect2( 0, 0, 24, 35 )
+region = Rect2( 24, 0, 24, 35 )
 
 [sub_resource type="AtlasTexture" id=26]
 atlas = ExtResource( 5 )
-region = Rect2( 24, 0, 24, 35 )
+region = Rect2( 48, 0, 24, 35 )
 
 [sub_resource type="AtlasTexture" id=27]
 atlas = ExtResource( 5 )
-region = Rect2( 48, 0, 24, 35 )
+region = Rect2( 72, 0, 24, 35 )
 
 [sub_resource type="AtlasTexture" id=28]
 atlas = ExtResource( 5 )
-region = Rect2( 72, 0, 24, 35 )
+region = Rect2( 0, 0, 24, 35 )
 
 [sub_resource type="SpriteFrames" id=29]
 animations = [ {
@@ -143,15 +143,15 @@ animations = [ {
 "name": "dodge_roll",
 "speed": 15.0
 }, {
-"frames": [ SubResource( 24 ) ],
-"loop": false,
-"name": "hit",
-"speed": 5.0
-}, {
-"frames": [ SubResource( 25 ), SubResource( 26 ), SubResource( 27 ), SubResource( 28 ) ],
+"frames": [ SubResource( 24 ), SubResource( 25 ), SubResource( 26 ), SubResource( 27 ) ],
 "loop": true,
 "name": "run",
 "speed": 8.0
+}, {
+"frames": [ SubResource( 28 ) ],
+"loop": false,
+"name": "hit",
+"speed": 5.0
 } ]
 
 [sub_resource type="CapsuleShape2D" id=30]

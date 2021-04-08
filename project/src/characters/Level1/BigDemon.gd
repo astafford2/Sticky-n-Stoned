@@ -37,7 +37,7 @@ func _process(_delta):
 		kill_enemy()
 	UpdateFooting()
 	
-	if nav_target:
+	if nav_target and room.started:
 		var correctTargetPos = nav_target.global_position - room.global_position
 		navpath = nav.get_simple_path(self.position, correctTargetPos)
 

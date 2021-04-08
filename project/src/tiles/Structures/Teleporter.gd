@@ -30,5 +30,5 @@ func doubleLinkPortals(portal):
 func _on_Teleporter_body_entered(body):
 	if teleportTo and cooldown <=0:
 		body.global_position = teleportTo
-		cooldown = 3
-		linkedPortal.cooldown = 10
+		cooldown = 1
+		linkedPortal.cooldown = 1

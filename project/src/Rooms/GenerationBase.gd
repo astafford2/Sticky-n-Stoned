@@ -292,7 +292,7 @@ func createValids(doorPositions):
 	connectPoints(validP)
 
 #Creates Hallways between the placed Rooms
-func makeHalls(path = null, updateValids = true):
+func makeHalls(path = null):
 	var rooms := Rooms.get_children() #Each individual room
 	var doorPositions := gatherDoorPositions(rooms) #We use a dicitonary so that we can have to position [key] and the owner room [value]
 	if valids:

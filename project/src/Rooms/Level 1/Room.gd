@@ -26,7 +26,7 @@ func setEnemyTargets():
 
 
 func _process(_delta):
-	if !objectiveComplete:
+	if !objectiveComplete and started:
 		objectiveHandler()
 
 
