@@ -7,13 +7,21 @@ onready var detect_radius_shape := $DetectRadius/DetectShape
 
 
 func _ready():
-	RUN_SPEED = 105
+	RUN_SPEED = 75
 	Health = 1
 	
+	set_collision_layer_bit(2, true)
+	set_collision_mask_bit(0, false)
 	slime_flesh_target = get_parent().get_node("Enemies").get_node("KingSlime")
-	detect_radius_shape.get_shape().radius = 6
+	detect_radius_shape.get_shape().radius = 10
+	remove_from_group("enemies")
 	add_to_group("slimeFleshes")
+	add_to_group("interactable")
 
+
+func Interact(body):
+	queue_free()
+	
 
 func _physics_process(_delta):
 	velocity = Vector2.ZERO
@@ -23,10 +31,8 @@ func _physics_process(_delta):
 
 
 func _on_DetectRadius_body_entered(body):
-#	if body == slime_flesh_target:
-#		slime_flesh_target = null
-#		call_deferred("queue_free")
-	pass
+	if body.has_method("shoot"):
+		call_deferred("queue_free")
 
 
 func _on_DetectRadius_body_exited(_body):

@@ -3,7 +3,7 @@ extends Mob
 class_name GreenSlime
 
 
-export (PackedScene) var GlueSpatter
+var GlueSpatter = preload("res://src/projectiles/Enemy/GlueSpatter.tscn")
 
 var glued := false
 var velocity := Vector2()

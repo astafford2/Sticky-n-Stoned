@@ -141,6 +141,9 @@ func getClosestInteractable():
 			var closest = null
 			var distance = 90000
 			for obj in interactablesInRange:
+				if !obj:
+					interactablesInRange.erase(obj)
+					continue
 				#determine who the closest is if any
 				var objp = obj.get_position()
 				var selfp = self.get_position()
@@ -251,7 +254,7 @@ func _on_PlayerArea_area_entered(area):
 
 
 func _on_PlayerArea_area_exited(area):
-	if area.is_in_group("interactable"):
+	if interactablesInRange.has(area):
 		interactablesInRange.erase(area)
 		if area.has_method("unhighlight"):
 			area.unhighlight()

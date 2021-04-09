@@ -14,6 +14,7 @@ var managedPits = []
 var room
 var activity : FuncRef = funcref(self, "chase")
 var animTime :float= 10
+var totalTime :float = 0
 var rockCount := 0
 var rocks = []
 var rng = RandomNumberGenerator.new()
@@ -37,15 +38,21 @@ func _ready():
 
 func hit(delta):
 	animTime -= delta
+	var tilemap: TileMap = self.get_parent().get_parent().Floors
 	if animTime > 0:
 		sprite.animation = "hit"
-		for n in range(5):
+		for n in range(10):
 			rng.randomize()
 			var sf = slime_flesh.instance()
 			sf.set_script(slime_flesh_script)
-			sf.position = self.position + Vector2(rng.randi_range(-350, 350), rng.randi_range(-350, 350))
+			var valid = false
+			while !valid:
+				sf.position = self.position + Vector2(rng.randi_range(-350, 350), rng.randi_range(-350, 350))
+				var floorPosition = tilemap.world_to_map(sf.position)
+				if tilemap.get_used_cells().has(floorPosition):
+					valid =true
 			room.add_child(sf)
-			Health -= 10
+			Health -= 2
 		animTime = 0
 	else:
 		activity.set_function("chase")
@@ -54,32 +61,38 @@ func hit(delta):
 
 func jumpStart():
 	animTime = 3
+	totalTime = 3
 	activity.set_function("jump")
 	sprite.animation = "jump"
+	shape.set_deferred("disabled", true)
 	sprite.play()
 
 
 func jump(delta):
 	animTime -= delta
 	if animTime >0:
-		if sprite.frame < 4:
-			sprite.position += Vector2(0, -10)
-			shape.position += Vector2(0, -10)
+		if sprite.frame <= 8:
+			sprite.position += Vector2(0, -5)
+			shape.position += Vector2(0, -5)
 			for rock in rocks:
-				rock.position += Vector2(0, -10)
-		elif sprite.frame > 3 and sprite.frame < 7:
-			pass
+				if rock:
+					rock.position += Vector2(0, -5)
 		else:
-			shape.position += Vector2(0, 5.5)
-			sprite.position += Vector2(0, 5.5)
+			sprite.position += Vector2(0, 5)
+			shape.position += Vector2(0, 5)
 			for rock in rocks:
-				rock.position += Vector2(0, 5.5)
-		if sprite.frame == 16:
-			#throw rocks
+				if rock:
+					rock.position += Vector2(0, 5)
+		if sprite.frame == 17:
+			sprite.position = Vector2(0,0)
+			shape.position = Vector2(0,6)
+		#throw rocks
 			for rock in rocks:
 				rock.Use()
+			rocks.clear()
 			animTime = 0
 	else:
+		shape.set_deferred("disabled", false)
 		activity.set_function("hit")
 		animTime = 3
 
@@ -102,6 +115,8 @@ func chase(delta):
 func _process(_delta):
 	sprite.flip_h = true if sign(velocity.x) == -1 else false
 	if Health <= 0:
+		for thing in get_parent().get_children():
+			thing.call_deferred("queue_free")
 		kill_enemy()
 
 
@@ -144,6 +159,10 @@ func kill_enemy():
 		spatter.call_deferred("queue_free")
 
 
+func _on_feet_overlapped(_area, _rect):
+	pass
+
+
 func _on_DetectRadius_body_entered(body):
 	if body.has_method("shoot") and room.started:
 		Target = body
@@ -160,4 +179,4 @@ func _on_SlurpArea_area_shape_entered(_area_id, area, _area_shape, _self_shape):
 func _on_SlimeRegenArea_body_entered(body):
 	if body.is_in_group("slimeFleshes"):
 		body.call_deferred("queue_free")
-		Health += 10
+		Health += 2
