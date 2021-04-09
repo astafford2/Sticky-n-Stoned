@@ -32,14 +32,17 @@ func _ready():
 	add_to_group("enemies")
 	add_to_group("glueable")
 
+
 func hit(delta):
 	pass
+
 
 func jumpStart():
 	animTime = 3
 	activity.set_function("jump")
 	sprite.animation = "jump"
 	sprite.play()
+
 
 func jump(delta):
 	animTime -= delta
@@ -84,6 +87,7 @@ func _physics_process(delta):
 	if !activity:
 		activity.set_function("chase")
 	activity.call_func(delta)
+
 
 func glue(amount, time):
 	glued -= 1
