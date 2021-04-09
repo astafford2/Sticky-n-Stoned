@@ -2,6 +2,8 @@ extends Mob
 
 
 export (PackedScene) var GlueSpatter
+export (PackedScene) var slime_flesh
+export (Script) var slime_flesh_script
 
 var glued = 5
 var velocity := Vector2()
@@ -16,8 +18,8 @@ var rockCount := 0
 var rocks = []
 var rng = RandomNumberGenerator.new()
 
-onready var sprite := $GSSprite
-onready var shape := $GSShape
+onready var sprite := $KSSprite
+onready var shape := $KSShape
 #onready var glue_landing_fx := $GlueLanding
 onready var Foot1S := $FallingBox/Foot
 onready var muzzle := $Muzzle
@@ -34,7 +36,20 @@ func _ready():
 
 
 func hit(delta):
-	pass
+	animTime -= delta
+	if animTime > 0:
+		sprite.animation = "hit"
+		for n in range(5):
+			rng.randomize()
+			var sf = slime_flesh.instance()
+			sf.set_script(slime_flesh_script)
+			sf.position = self.position + Vector2(rng.randi_range(-350, 350), rng.randi_range(-350, 350))
+			room.add_child(sf)
+			Health -= 10
+		animTime = 0
+	else:
+		activity.set_function("chase")
+		animTime = 10
 
 
 func jumpStart():
@@ -50,16 +65,23 @@ func jump(delta):
 		if sprite.frame < 4:
 			sprite.position += Vector2(0, -10)
 			shape.position += Vector2(0, -10)
+			for rock in rocks:
+				rock.position += Vector2(0, -10)
+		elif sprite.frame > 3 and sprite.frame < 7:
+			pass
 		else:
-			shape.position += Vector2(0, 5)
-			sprite.position += Vector2(0, 5)
-		if sprite.frame == 14:
+			shape.position += Vector2(0, 5.5)
+			sprite.position += Vector2(0, 5.5)
+			for rock in rocks:
+				rock.position += Vector2(0, 5.5)
+		if sprite.frame == 16:
 			#throw rocks
 			for rock in rocks:
 				rock.Use()
 			animTime = 0
 	else:
 		activity.set_function("hit")
+		animTime = 3
 
 
 func chase(delta):
@@ -133,3 +155,9 @@ func _on_SlurpArea_area_shape_entered(_area_id, area, _area_shape, _self_shape):
 		area.Interact(self)
 		area.rotation = rng.randi_range(-180,180)
 		area.position = Vector2(rng.randi_range(-5,5), rng.randi_range(-5,5))
+
+
+func _on_SlimeRegenArea_body_entered(body):
+	if body.is_in_group("slimeFleshes"):
+		body.call_deferred("queue_free")
+		Health += 10

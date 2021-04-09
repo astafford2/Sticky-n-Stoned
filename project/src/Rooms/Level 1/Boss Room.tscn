@@ -1,10 +1,11 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://src/tiles/Floor.tres" type="TileSet" id=1]
 [ext_resource path="res://src/tiles/Walls.tres" type="TileSet" id=2]
 [ext_resource path="res://src/Rooms/Level 1/Room.gd" type="Script" id=3]
 [ext_resource path="res://src/tiles/Floor.gd" type="Script" id=4]
 [ext_resource path="res://src/tiles/Structures/SideDoor.tscn" type="PackedScene" id=5]
+[ext_resource path="res://src/characters/Level1/KingSlime.tscn" type="PackedScene" id=6]
 [ext_resource path="res://src/projectiles/Environmental/SharpRock.tscn" type="PackedScene" id=8]
 [ext_resource path="res://src/projectiles/Environmental/Rock.tscn" type="PackedScene" id=9]
 [ext_resource path="res://src/projectiles/Environmental/BigRock.tscn" type="PackedScene" id=10]
@@ -57,6 +58,9 @@ top = false
 rightFacing = true
 
 [node name="Enemies" type="Node2D" parent="."]
+
+[node name="KingSlime" parent="Enemies" instance=ExtResource( 6 )]
+position = Vector2( 510.72, 355.82 )
 
 [node name="Decorations" type="Node2D" parent="."]
 
