@@ -4,6 +4,9 @@ extends Node2D
 export (PackedScene) var slime
 export (Script) var script2
 
+onready var player_cam := $Player/PlayerCam
+onready var pause_menu := $PauseMenu
+
 
 func _process(_delta):
 	if Input.is_action_pressed("cheat_kill"):
@@ -19,3 +22,15 @@ func _process(_delta):
 	
 	if Input.is_action_just_pressed("cheat_infinite_health"):
 		get_node("Player").health = 999999999999999999
+	
+	if Input.is_action_just_pressed("pause_game"):
+		get_tree().paused = true
+		var screen_center = player_cam.get_camera_screen_center()
+		pause_menu.set_position(Vector2(screen_center.x - pause_menu.rect_size.x/2, screen_center.y - pause_menu.rect_size.y/2))
+		pause_menu.show()
+		
+
+
+func _on_Unpause_pressed():
+	pause_menu.hide()
+	get_tree().paused = false
