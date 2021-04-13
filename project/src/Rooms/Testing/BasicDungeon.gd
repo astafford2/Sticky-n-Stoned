@@ -5,7 +5,9 @@ export (PackedScene) var slime
 export (Script) var script2
 
 const win_hud = preload("res://src/GUI/WinHUD.tscn")
+const death_hud = preload("res://src/GUI/DeathHUD.tscn")
 
+onready var scene_cam := $Camera2D
 onready var player_cam := $Player/PlayerCam
 onready var pause_menu := $PauseMenu
 
@@ -39,6 +41,7 @@ func unpause():
 func position_hud(hud):
 	var screen_center = player_cam.get_camera_screen_center()
 	hud.set_position(Vector2(screen_center.x - hud.rect_size.x/2, screen_center.y - hud.rect_size.y/2))
+	return screen_center
 
 
 func player_win():
@@ -47,3 +50,13 @@ func player_win():
 	wh.pause_mode = Node.PAUSE_MODE_PROCESS
 	get_tree().paused = true
 	get_parent().add_child(wh)
+
+
+func player_lose():
+	var dh = death_hud.instance()
+	var camera_center = position_hud(dh)
+	dh.pause_mode = Node.PAUSE_MODE_PROCESS
+	get_tree().paused = true
+	get_parent().add_child(dh)
+	scene_cam.position = camera_center
+	scene_cam.current = true

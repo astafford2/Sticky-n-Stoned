@@ -179,6 +179,7 @@ func dodge_roll():
 
 
 func kill_player():
+	get_parent().player_lose()
 	call_deferred("queue_free")
 
 
