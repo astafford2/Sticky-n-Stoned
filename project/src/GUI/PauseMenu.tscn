@@ -18,6 +18,7 @@ corner_radius_bottom_left = 25
 pause_mode = 2
 margin_right = 559.999
 margin_bottom = 397.0
+size_flags_horizontal = 0
 custom_styles/panel = SubResource( 1 )
 popup_exclusive = true
 script = ExtResource( 1 )
@@ -26,23 +27,27 @@ __meta__ = {
 }
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
-margin_left = 50.0
+margin_left = 3.0
 margin_top = 5.0
-margin_right = 510.0
+margin_right = 556.999
 margin_bottom = 392.0
+size_flags_horizontal = 0
+custom_constants/margin_right = 50
+custom_constants/margin_left = 50
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
-margin_right = 460.0
+margin_left = 50.0
+margin_right = 503.0
 margin_bottom = 387.0
 custom_constants/separation = 46
 alignment = 1
 
 [node name="Label" type="Label" parent="MarginContainer/VBoxContainer"]
 margin_top = 60.0
-margin_right = 460.0
+margin_right = 453.0
 margin_bottom = 74.0
 text = "Paused"
 align = 1
@@ -53,7 +58,7 @@ __meta__ = {
 
 [node name="MasterVolume" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
 margin_top = 120.0
-margin_right = 460.0
+margin_right = 453.0
 margin_bottom = 136.0
 
 [node name="MasterLabel" type="Label" parent="MarginContainer/VBoxContainer/MasterVolume"]
@@ -64,17 +69,18 @@ text = "Master:"
 
 [node name="MasterSlider" type="HSlider" parent="MarginContainer/VBoxContainer/MasterVolume"]
 margin_left = 52.0
-margin_right = 460.0
+margin_right = 453.0
 margin_bottom = 16.0
 size_flags_horizontal = 3
-value = 50.0
-rounded = true
-tick_count = 11
+min_value = -24.0
+max_value = 0.0
+step = 0.5
+tick_count = 9
 ticks_on_borders = true
 
 [node name="MusicVolume" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
 margin_top = 182.0
-margin_right = 460.0
+margin_right = 453.0
 margin_bottom = 198.0
 
 [node name="MusicLabel" type="Label" parent="MarginContainer/VBoxContainer/MusicVolume"]
@@ -85,39 +91,41 @@ text = "Music:"
 
 [node name="MusicSlider" type="HSlider" parent="MarginContainer/VBoxContainer/MusicVolume"]
 margin_left = 46.0
-margin_right = 460.0
+margin_right = 453.0
 margin_bottom = 16.0
 size_flags_horizontal = 3
-value = 50.0
-rounded = true
-tick_count = 11
+min_value = -24.0
+max_value = 0.0
+step = 0.5
+tick_count = 9
 ticks_on_borders = true
 
 [node name="SoundVolume" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
 margin_top = 244.0
-margin_right = 460.0
+margin_right = 453.0
 margin_bottom = 260.0
 
 [node name="SoundLabel" type="Label" parent="MarginContainer/VBoxContainer/SoundVolume"]
 margin_top = 1.0
-margin_right = 89.0
+margin_right = 26.0
 margin_bottom = 15.0
-text = "Sound Effects:"
+text = "SFX:"
 
 [node name="SoundSlider" type="HSlider" parent="MarginContainer/VBoxContainer/SoundVolume"]
-margin_left = 93.0
-margin_right = 460.0
+margin_left = 30.0
+margin_right = 453.0
 margin_bottom = 16.0
 size_flags_horizontal = 3
-value = 50.0
-rounded = true
-tick_count = 11
+min_value = -24.0
+max_value = 0.0
+step = 0.5
+tick_count = 9
 ticks_on_borders = true
 
 [node name="Unpause" type="Button" parent="MarginContainer/VBoxContainer"]
-margin_left = 196.0
+margin_left = 192.0
 margin_top = 306.0
-margin_right = 264.0
+margin_right = 260.0
 margin_bottom = 326.0
 size_flags_horizontal = 4
 size_flags_vertical = 4
@@ -125,4 +133,7 @@ text = "Unpause"
 __meta__ = {
 "_edit_use_anchors_": false
 }
+[connection signal="value_changed" from="MarginContainer/VBoxContainer/MasterVolume/MasterSlider" to="." method="_on_MasterSlider_value_changed"]
+[connection signal="value_changed" from="MarginContainer/VBoxContainer/MusicVolume/MusicSlider" to="." method="_on_MusicSlider_value_changed"]
+[connection signal="value_changed" from="MarginContainer/VBoxContainer/SoundVolume/SoundSlider" to="." method="_on_SoundSlider_value_changed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/Unpause" to="." method="_on_Unpause_pressed"]
