@@ -3,7 +3,7 @@ extends KinematicBody2D
 
 export (PackedScene) var tack
 
-var attackCount :float= 1
+var attack_count :float= 1
 
 onready var muzzle_t := $Muzzle_t
 onready var muzzle_r := $Muzzle_r
@@ -13,9 +13,9 @@ onready var tack_shot_fx := $TackShot
 
 
 func _physics_process(delta):
-	attackCount += delta
-	if attackCount >= 1:
-		attackCount -=1
+	attack_count += delta
+	if attack_count >= 1:
+		attack_count -=1
 		var tt = tack.instance()
 		var tr = tack.instance()
 		var tl = tack.instance()

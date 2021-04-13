@@ -10,9 +10,10 @@
 [ext_resource path="res://assets/Audio/Dodge_Roll.wav" type="AudioStream" id=8]
 [ext_resource path="res://src/projectiles/GlueBullet.tscn" type="PackedScene" id=11]
 [ext_resource path="res://assets/Audio/Glue Launch.wav" type="AudioStream" id=12]
-[ext_resource path="res://src/GUI/HealthGUI.tscn" type="PackedScene" id=13]
+[ext_resource path="res://src/GUI/HealthHUD.tscn" type="PackedScene" id=13]
 [ext_resource path="res://assets/Audio/Losing Health Sound.wav" type="AudioStream" id=14]
 [ext_resource path="res://assets/Audio/PlayerPitfall.wav" type="AudioStream" id=16]
+
 
 [sub_resource type="AtlasTexture" id=1]
 atlas = ExtResource( 1 )
