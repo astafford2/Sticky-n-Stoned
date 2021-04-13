@@ -27,6 +27,7 @@
 [ext_resource path="res://assets/Audio/CombatMusic.ogg" type="AudioStream" id=25]
 [ext_resource path="res://src/characters/Level1/TackShooter.tscn" type="PackedScene" id=26]
 [ext_resource path="res://src/tiles/Individual/WinLadder.tscn" type="PackedScene" id=27]
+[ext_resource path="res://src/GUI/PauseMenu.tscn" type="PackedScene" id=28]
 
 [sub_resource type="ConvexPolygonShape2D" id=1]
 points = PoolVector2Array( 0, 0, 32, 0, 32, 32, 0, 32 )
@@ -503,18 +504,6 @@ animations = [ {
 "speed": 6.5
 } ]
 
-[sub_resource type="StyleBoxFlat" id=55]
-bg_color = Color( 0.203922, 0.168627, 0.168627, 1 )
-border_width_left = 3
-border_width_top = 5
-border_width_right = 3
-border_width_bottom = 5
-border_blend = true
-corner_radius_top_left = 25
-corner_radius_top_right = 25
-corner_radius_bottom_right = 25
-corner_radius_bottom_left = 25
-
 [node name="Dungeon" type="Node2D"]
 script = ExtResource( 3 )
 slime = ExtResource( 6 )
@@ -613,7 +602,7 @@ tile_data = PoolIntArray( -1376239, 2, 0, -1376238, 0, 1, -1376237, 0, 1, -13762
 position = Vector2( 1310.18, 284.485 )
 scale = Vector2( 1.40614, 1.40374 )
 frames = SubResource( 34 )
-frame = 1
+frame = 2
 playing = true
 
 [node name="Rock4" parent="." instance=ExtResource( 11 )]
@@ -646,11 +635,13 @@ texture = ExtResource( 22 )
 [node name="nonMovingSlime" type="AnimatedSprite" parent="."]
 position = Vector2( 831.934, 692.113 )
 frames = SubResource( 39 )
+frame = 2
 playing = true
 
 [node name="nonMovingSlime2" type="AnimatedSprite" parent="."]
 position = Vector2( 1024.76, 790.643 )
 frames = SubResource( 39 )
+frame = 2
 playing = true
 
 [node name="GreenSlime" parent="." instance=ExtResource( 6 )]
@@ -695,21 +686,21 @@ texture = ExtResource( 16 )
 position = Vector2( 926.836, 742.462 )
 scale = Vector2( 1.34483, 1.34483 )
 frames = SubResource( 47 )
-frame = 3
+frame = 2
 playing = true
 
 [node name="Torch2" type="AnimatedSprite" parent="."]
 position = Vector2( 857.936, 587.79 )
 scale = Vector2( 1.35636, 1.22272 )
 frames = SubResource( 54 )
-frame = 4
+frame = 3
 playing = true
 
 [node name="Torch" type="AnimatedSprite" parent="."]
 position = Vector2( 955.517, 589.204 )
 scale = Vector2( 1.35636, 1.22272 )
 frames = SubResource( 54 )
-frame = 5
+frame = 4
 playing = true
 
 [node name="SharpRock" parent="." instance=ExtResource( 4 )]
@@ -724,51 +715,4 @@ position = Vector2( 311.132, 326.268 )
 [node name="TackShooter" parent="." instance=ExtResource( 26 )]
 position = Vector2( 1246.77, -547.682 )
 
-[node name="PauseMenu" type="PopupPanel" parent="."]
-pause_mode = 2
-margin_left = 721.671
-margin_top = -664.174
-margin_right = 1281.67
-margin_bottom = -267.174
-custom_styles/panel = SubResource( 55 )
-popup_exclusive = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="MarginContainer" type="MarginContainer" parent="PauseMenu"]
-margin_left = 242.079
-margin_top = 158.74
-margin_right = 310.079
-margin_bottom = 238.74
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="VBoxContainer" type="VBoxContainer" parent="PauseMenu/MarginContainer"]
-margin_right = 68.0
-margin_bottom = 80.0
-custom_constants/separation = 46
-alignment = 1
-
-[node name="Label" type="Label" parent="PauseMenu/MarginContainer/VBoxContainer"]
-margin_right = 68.0
-margin_bottom = 14.0
-text = "Paused"
-align = 1
-valign = 1
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Unpause" type="Button" parent="PauseMenu/MarginContainer/VBoxContainer"]
-margin_top = 60.0
-margin_right = 68.0
-margin_bottom = 80.0
-size_flags_horizontal = 4
-size_flags_vertical = 4
-text = "Unpause"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-[connection signal="pressed" from="PauseMenu/MarginContainer/VBoxContainer/Unpause" to="." method="_on_Unpause_pressed"]
+[node name="PauseMenu" parent="." instance=ExtResource( 28 )]

@@ -31,7 +31,7 @@ func _process(_delta):
 		pause_menu.show()
 
 
-func _on_Unpause_pressed():
+func unpause():
 	pause_menu.hide()
 	get_tree().paused = false
 
