@@ -4,6 +4,8 @@ extends Node2D
 export (PackedScene) var slime
 export (Script) var script2
 
+const win_hud = preload("res://src/GUI/WinHUD.tscn")
+
 onready var player_cam := $Player/PlayerCam
 onready var pause_menu := $PauseMenu
 
@@ -25,12 +27,23 @@ func _process(_delta):
 	
 	if Input.is_action_just_pressed("pause_game"):
 		get_tree().paused = true
-		var screen_center = player_cam.get_camera_screen_center()
-		pause_menu.set_position(Vector2(screen_center.x - pause_menu.rect_size.x/2, screen_center.y - pause_menu.rect_size.y/2))
+		position_hud(pause_menu)
 		pause_menu.show()
-		
 
 
 func _on_Unpause_pressed():
 	pause_menu.hide()
 	get_tree().paused = false
+
+
+func position_hud(hud):
+	var screen_center = player_cam.get_camera_screen_center()
+	hud.set_position(Vector2(screen_center.x - hud.rect_size.x/2, screen_center.y - hud.rect_size.y/2))
+
+
+func player_win():
+	var wh = win_hud.instance()
+	position_hud(wh)
+	wh.pause_mode = Node.PAUSE_MODE_PROCESS
+	get_tree().paused = true
+	get_parent().add_child(wh)

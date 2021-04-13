@@ -14,8 +14,8 @@ font_data = ExtResource( 1 )
 font_data = ExtResource( 2 )
 
 [node name="WinHUD" type="MarginContainer"]
-margin_right = 40.0
-margin_bottom = 40.0
+margin_right = 310.0
+margin_bottom = 103.0
 script = ExtResource( 3 )
 __meta__ = {
 "_edit_use_anchors_": false
