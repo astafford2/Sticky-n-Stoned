@@ -9,4 +9,5 @@ func _ready():
 
 
 func _on_Play_pressed():
-	var _ignored = get_tree().change_scene(dungeon_scene)
+# warning-ignore:return_value_discarded
+	get_tree().change_scene(dungeon_scene)

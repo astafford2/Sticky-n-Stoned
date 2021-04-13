@@ -1,6 +1,8 @@
 extends PopupPanel
 
 
+var main_menu := "res://src/TitleScreen.tscn"
+
 onready var master_slider := $MarginContainer/VBoxContainer/MasterVolume/MasterSlider
 onready var music_slider := $MarginContainer/VBoxContainer/MusicVolume/MusicSlider
 onready var sound_slider := $MarginContainer/VBoxContainer/SoundVolume/SoundSlider
@@ -36,3 +38,9 @@ func _on_SoundSlider_value_changed(value):
 	else:
 		AudioServer.set_bus_mute(2, false)
 		AudioServer.set_bus_volume_db(2, sound_slider.value)
+
+
+func _on_MainMenu_pressed():
+# warning-ignore:return_value_discarded
+	get_tree().change_scene(main_menu)
+	get_tree().paused = false
