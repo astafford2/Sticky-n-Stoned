@@ -291,13 +291,14 @@ tile_data = PoolIntArray( 65536, 2, 0, 65537, 2, 0, 65538, 2, 0, 65539, 2, 0, 65
 position = Vector2( 459.936, 489.506 )
 scale = Vector2( 1.4, 1.4 )
 frames = SubResource( 7 )
+frame = 2
 playing = true
 
 [node name="AnimatedSprite2" type="AnimatedSprite" parent="."]
 position = Vector2( 587.436, 489.506 )
 scale = Vector2( 1.4, 1.4 )
 frames = SubResource( 7 )
-frame = 5
+frame = 1
 playing = true
 
 [node name="darkenBG" type="Sprite" parent="."]
