@@ -1,18 +1,13 @@
 extends Mob
 
 
-export (PackedScene) var GlueSpatter
+export (PackedScene) var glue_spatter
 
 var glued = 10
 var velocity := Vector2()
 var spatter : Area2D = null
-var Foot1 = null
-var feetArea = null
-var managedPits = []
 
 onready var sprite := $Sprite
-#onready var glue_landing_fx := $GlueLanding
-onready var Foot1S := $FallingBox/Foot
 
 func _ready():
 	RUN_SPEED = 100
@@ -43,7 +38,7 @@ func glue(amount, time):
 	if glued <= 0:
 		glued = 1
 	#glue_landing_fx.play()
-	spatter = GlueSpatter.instance()
+	spatter = glue_spatter.instance()
 	self.call_deferred("add_child", spatter)
 	spatter.position += Vector2(0, 7)
 	RUN_SPEED = 100-(amount/glued)

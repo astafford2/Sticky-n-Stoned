@@ -4,8 +4,8 @@ extends Node2D
 export (PackedScene) var slime
 export (Script) var script2
 
-const win_hud = preload("res://src/GUI/WinHUD.tscn")
-const death_hud = preload("res://src/GUI/DeathHUD.tscn")
+const win_gui = preload("res://src/GUI/WinGUI.tscn")
+const death_gui = preload("res://src/GUI/DeathGUI.tscn")
 
 onready var scene_cam := $Camera2D
 onready var player_cam := $Player/PlayerCam
@@ -45,18 +45,18 @@ func position_hud(hud):
 
 
 func player_win():
-	var wh = win_hud.instance()
-	position_hud(wh)
-	wh.pause_mode = Node.PAUSE_MODE_PROCESS
+	var wg = win_gui.instance()
+	position_hud(wg)
+	wg.pause_mode = Node.PAUSE_MODE_PROCESS
 	get_tree().paused = true
-	get_parent().add_child(wh)
+	get_parent().add_child(wg)
 
 
 func player_lose():
-	var dh = death_hud.instance()
-	var camera_center = position_hud(dh)
-	dh.pause_mode = Node.PAUSE_MODE_PROCESS
+	var dg = death_gui.instance()
+	var camera_center = position_hud(dg)
+	dg.pause_mode = Node.PAUSE_MODE_PROCESS
 	get_tree().paused = true
-	get_parent().add_child(dh)
+	get_parent().add_child(dg)
 	scene_cam.position = camera_center
 	scene_cam.current = true

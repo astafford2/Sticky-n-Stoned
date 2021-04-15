@@ -3,18 +3,18 @@ extends Mob
 class_name GreenSlime
 
 
-export (PackedScene) var GlueSpatter
+export (PackedScene) var glue_spatter
 
 var glued := false
 var velocity := Vector2()
 var spatter : Area2D = null
-var Foot1 = null
-var feetArea = null
-var managedPits = []
+var foot1 = null
+var feet_area = null
+var managed_pits = []
 
 onready var gs_sprite := $GSSprite
 onready var glue_landing_fx := $GlueLanding
-onready var Foot1S := $FallingBox/Foot
+onready var foot1S := $FallingBox/Foot
 
 func _ready():
 	RUN_SPEED = 105
@@ -44,7 +44,7 @@ func glue(amount, time):
 	if !glued:
 		glued = true
 		glue_landing_fx.play()
-		spatter = GlueSpatter.instance()
+		spatter = glue_spatter.instance()
 		self.call_deferred("add_child", spatter)
 		spatter.position += Vector2(0, 7)
 		RUN_SPEED = RUN_SPEED-amount
@@ -60,18 +60,18 @@ func damagedActivity(thrower, damage):
 
 
 func UpdateFooting():
-	Foot1 = Rect2(Foot1S.global_position - Foot1S.shape.extents, Foot1S.shape.extents * 2)
-	feetArea = floor(Foot1.get_area())
-	var totalArea := 0
-	if managedPits.size() > 0:
-		for pit in managedPits:
-			var overlapArea := 0
-			for foot in [Foot1]:
-				overlapArea += foot.clip(pit).get_area()
-			if overlapArea == 0:
-					managedPits.erase(pit)
-			totalArea += overlapArea
-	if ceil(totalArea) >= feetArea:
+	foot1 = Rect2(foot1S.global_position - foot1S.shape.extents, foot1S.shape.extents * 2)
+	feet_area = floor(foot1.get_area())
+	var total_area := 0
+	if managed_pits.size() > 0:
+		for pit in managed_pits:
+			var overlap_area := 0
+			for foot in [foot1]:
+				overlap_area += foot.clip(pit).get_area()
+			if overlap_area == 0:
+					managed_pits.erase(pit)
+			total_area += overlap_area
+	if ceil(total_area) >= feet_area:
 		pitfalled()
 
 
@@ -87,8 +87,8 @@ func kill_enemy():
 
 func _on_feet_overlapped(area, rect):
 	if area == self:
-		if !managedPits.has(rect):
-			managedPits.append(rect)
+		if !managed_pits.has(rect):
+			managed_pits.append(rect)
 
 
 func _on_DetectRadius_body_entered(body):

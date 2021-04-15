@@ -1,21 +1,21 @@
 extends Mob
 
-export (PackedScene) var GlueSpatter
+export (PackedScene) var glue_spatter
 
 var glued := false
 var velocity := Vector2()
 var spatter : Area2D = null
-var Foot1 = null
-var Foot2 = null
-var feetArea = null
-var managedPits = []
-var navpath := PoolVector2Array()
+var foot1 = null
+var foot2 = null
+var feet_area = null
+var managed_pits = []
+var nav_path := PoolVector2Array()
 var room
 
 onready var bd_sprite := $BDSprite
 onready var glue_landing_fx := $GlueLanding
-onready var Foot1S := $FallingBox/Foot1
-onready var Foot2S := $FallingBox/Foot2
+onready var foot1S := $FallingBox/Foot1
+onready var foot2S := $FallingBox/Foot2
 onready var nav := $Navigation2D
 onready var nav_target : KinematicBody2D
 
@@ -39,7 +39,7 @@ func _process(_delta):
 	
 	if nav_target:
 		var correctTargetPos = nav_target.global_position - room.global_position
-		navpath = nav.get_simple_path(self.position, correctTargetPos)
+		nav_path = nav.get_simple_path(self.position, correctTargetPos)
 
 
 func _physics_process(_delta):
@@ -56,16 +56,16 @@ func pathfind():
 	var distance_to_walk = RUN_SPEED
 	
 	# Move enemy along path until run out of movement or path ends
-	while distance_to_walk > 0 and navpath.size() > 0:
-		var distance_to_next_point = position.distance_to(navpath[0])
+	while distance_to_walk > 0 and nav_path.size() > 0:
+		var distance_to_next_point = position.distance_to(nav_path[0])
 		if distance_to_walk <= distance_to_next_point:
 			# Enemy does not have enough movement left to get to next point
 #			position += position.direction_to(path[0]) * distance_to_walk
-			velocity = move_and_slide(position.direction_to(navpath[0])*distance_to_walk, Vector2.ZERO)
+			velocity = move_and_slide(position.direction_to(nav_path[0])*distance_to_walk, Vector2.ZERO)
 		else:
 			# enemy gets to next point
-			velocity = move_and_slide(position.direction_to(navpath[0])*distance_to_walk, Vector2.ZERO)
-			navpath.remove(0)
+			velocity = move_and_slide(position.direction_to(nav_path[0])*distance_to_walk, Vector2.ZERO)
+			nav_path.remove(0)
 		# Update distance to walk
 		distance_to_walk -= distance_to_next_point
 
@@ -77,20 +77,20 @@ func set_navPoly(nav_poly):
 func set_target(target):
 	nav_target = target
 	var correctTargetPos = nav_target.global_position - room.global_position
-	navpath = nav.get_simple_path(self.position, correctTargetPos)
+	nav_path = nav.get_simple_path(self.position, correctTargetPos)
 
 
 func set_navigation(nav_poly, target):
 	nav.navpoly_add(nav_poly, Transform2D.IDENTITY)
 	nav_target = target
-	navpath = nav.get_simple_path(self.global_position, get_parent().to_local(nav_target.global_position))
+	nav_path = nav.get_simple_path(self.global_position, get_parent().to_local(nav_target.global_position))
 
 
 func glue(amount, time):
 	if !glued:
 		glued = true
 		glue_landing_fx.play()
-		spatter = GlueSpatter.instance()
+		spatter = glue_spatter.instance()
 		self.call_deferred("add_child", spatter)
 		spatter.position += Vector2(0, 5)
 		RUN_SPEED = RUN_SPEED-amount
@@ -106,19 +106,19 @@ func damagedActivity(thrower, damage):
 
 
 func UpdateFooting():
-	Foot1 = Rect2(Foot1S.global_position - Foot1S.shape.extents, Foot1S.shape.extents * 2)
-	Foot2 = Rect2(Foot2S.global_position - Foot2S.shape.extents, Foot2S.shape.extents * 2)
-	feetArea = floor(Foot1.get_area() + Foot2.get_area())
-	var totalArea := 0
-	if managedPits.size() > 0:
-		for pit in managedPits:
-			var overlapArea := 0
-			for foot in [Foot1, Foot2]:
-				overlapArea += foot.clip(pit).get_area()
-			if overlapArea == 0:
-					managedPits.erase(pit)
-			totalArea += overlapArea
-	if ceil(totalArea) >= feetArea:
+	foot1 = Rect2(foot1S.global_position - foot1S.shape.extents, foot1S.shape.extents * 2)
+	foot2 = Rect2(foot2S.global_position - foot2S.shape.extents, foot2S.shape.extents * 2)
+	feet_area = floor(foot1.get_area() + foot2.get_area())
+	var total_area := 0
+	if managed_pits.size() > 0:
+		for pit in managed_pits:
+			var overlap_area := 0
+			for foot in [foot1, foot2]:
+				overlap_area += foot.clip(pit).get_area()
+			if overlap_area == 0:
+					managed_pits.erase(pit)
+			total_area += overlap_area
+	if ceil(total_area) >= feet_area:
 		pitfalled()
 
 
@@ -134,8 +134,8 @@ func kill_enemy():
 
 func _on_feet_overlapped(area, rect):
 	if area == self:
-		if !managedPits.has(rect):
-			managedPits.append(rect)
+		if !managed_pits.has(rect):
+			managed_pits.append(rect)
 
 
 func _on_DetectRadius_body_entered(body):
