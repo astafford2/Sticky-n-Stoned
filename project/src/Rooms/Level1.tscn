@@ -464,6 +464,7 @@ collision_mask = 5
 format = 1
 
 [node name="Camera2D" type="Camera2D" parent="."]
+current = true
 zoom = Vector2( 5, 5 )
 
 [node name="BackgroundMusic" type="AudioStreamPlayer" parent="."]
