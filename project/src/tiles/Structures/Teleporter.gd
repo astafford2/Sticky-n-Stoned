@@ -1,8 +1,8 @@
 extends Area2D
 
-var teleportTo
+var teleport_to
 var cooldown = 0
-var linkedPortal
+var linked_portal
 
 func _ready():
 	pass 
@@ -14,11 +14,11 @@ func _process(delta):
 
 
 func linkToLocation(location:Vector2):
-	teleportTo = location
+	teleport_to = location
 
 
 func linkToPortal(portal):
-	linkedPortal = portal
+	linked_portal = portal
 	linkToLocation(portal.global_position + Vector2(0,50))
 
 
@@ -28,7 +28,7 @@ func doubleLinkPortals(portal):
 
 
 func _on_Teleporter_body_entered(body):
-	if teleportTo and cooldown <=0:
-		body.global_position = teleportTo
+	if teleport_to and cooldown <=0:
+		body.global_position = teleport_to
 		cooldown = 3
-		linkedPortal.cooldown = 10
+		linked_portal.cooldown = 10

@@ -1,14 +1,14 @@
 extends Door
 
 var openable := false
-var currentlyOpen := false
+var currently_open := false
 
 func _ready():
 	self.add_to_group("trap")
 	close()
 
 func open():
-	if openable and !currentlyOpen:
+	if openable and !currently_open:
 		walls.set_cellv(Vector2(1,0), 12)
 		walls.set_cellv(Vector2(2,0), 13)
 		if top:
@@ -18,7 +18,7 @@ func open():
 			walls.set_cellv(Vector2(1,1), 22)
 			walls.set_cellv(Vector2(2,1), 23)
 		open_sfx.play()
-		currentlyOpen = true
+		currently_open = true
 
 
 func close():
