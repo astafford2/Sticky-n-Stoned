@@ -6,8 +6,8 @@ onready var press_fx := $ButtonPress
 const mat := preload("res://src/defaultMaterial.tres")
 
 func _ready():
-	projectileActivateable = true
-	playerActivateable = true
+	projectile_activateable = true
+	player_activateable = true
 	toggleable = true
 	sfx = press_fx
 	self.add_to_group("interactable")
