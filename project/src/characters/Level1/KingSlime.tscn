@@ -159,6 +159,7 @@ Health = 25
 [node name="Sprite" type="AnimatedSprite" parent="."]
 frames = SubResource( 31 )
 animation = "jump"
+frame = 4
 playing = true
 
 [node name="Shape" type="CollisionShape2D" parent="."]

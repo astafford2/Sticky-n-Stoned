@@ -21,7 +21,7 @@ func _ready():
 	speed = 100
 	self.add_to_group("inventoryItem")
 	self.add_to_group("interactable")
-	hurtBox.set_deferred("disabled", true)
+	hurt_box.set_deferred("disabled", true)
 
 
 func _process(_delta):
@@ -108,7 +108,7 @@ func Use():
 
 func _on_hit_single_call():
 	big_rock_fx.play()
-	hurtBox.set_deferred("disabled", true)
+	hurt_box.set_deferred("disabled", true)
 	yield(get_tree().create_timer(0.5), "timeout")
 	interaction_box.set_deferred("disabled", false)
 	hit = false

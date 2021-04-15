@@ -10,7 +10,7 @@ export var speed := 200
 
 const mat := preload("res://src/defaultMaterial.tres")
 
-onready var hurtBox := $Hurtbox
+onready var hurt_box := $Hurtbox
 onready var sprite := $Sprite
 
 

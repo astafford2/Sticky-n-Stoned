@@ -1,7 +1,7 @@
 extends Mob
 
-export (PackedScene) var glue_spatter
-export (PackedScene) var fireball
+export (PackedScene) var GlueSpatter
+export (PackedScene) var Fireball
 
 var glued := false
 var velocity := Vector2()
@@ -95,7 +95,7 @@ func set_navigation(nav_poly, target):
 func attack():
 	if !attacking:
 		attacking = true
-		var f = fireball.instance()
+		var f = Fireball.instance()
 		f.init(self)
 		owner.add_child(f)
 		f.global_transform = muzzle.global_transform
@@ -108,7 +108,7 @@ func glue(amount, time):
 	if !glued:
 		glued = true
 		glue_landing_fx.play()
-		spatter = glue_spatter.instance()
+		spatter = GlueSpatter.instance()
 		self.call_deferred("add_child", spatter)
 		spatter.position += Vector2(0, 4)
 		RUN_SPEED = RUN_SPEED-amount
