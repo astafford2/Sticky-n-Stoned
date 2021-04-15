@@ -16,7 +16,6 @@ corner_radius_bottom_left = 25
 
 [node name="PauseMenu" type="PopupPanel"]
 pause_mode = 2
-visible = true
 margin_right = 559.999
 margin_bottom = 397.0
 size_flags_horizontal = 0
