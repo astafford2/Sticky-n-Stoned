@@ -723,7 +723,7 @@ texture = ExtResource( 16 )
 position = Vector2( 926.836, 742.462 )
 scale = Vector2( 1.34483, 1.34483 )
 frames = SubResource( 47 )
-frame = 6
+frame = 1
 playing = true
 
 [node name="Torch2" type="AnimatedSprite" parent="."]

@@ -33,7 +33,7 @@ func _process(_delta):
 	if Health <= 0:
 		kill_enemy()
 	
-	if nav_target:
+	if nav_target and room.started:
 		var correctTargetPos = nav_target.global_position - room.global_position
 		shaman_to_nav_target = correctTargetPos - position
 		shaman_runto = self.position - shaman_to_nav_target

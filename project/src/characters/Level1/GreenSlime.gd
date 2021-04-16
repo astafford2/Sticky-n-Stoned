@@ -3,25 +3,32 @@ extends Mob
 class_name GreenSlime
 
 
-export (PackedScene) var GlueSpatter
+var GlueSpatter = preload("res://src/projectiles/Enemy/GlueSpatter.tscn")
 
 var glued := false
 var velocity := Vector2()
 var spatter : Area2D = null
-var foot1 = null
-var feet_area = null
-var managed_pits = []
+var Foot1 = null
+var feetArea = null
+var managedPits = []
+var room
 
 onready var gs_sprite := $GSSprite
 onready var glue_landing_fx := $GlueLanding
-onready var foot1S := $FallingBox/Foot
+onready var Foot1S := $FallingBox/Foot
+onready var DetectRadius := $DetectRadius
 
 func _ready():
+	room = self.get_parent().get_parent()
 	RUN_SPEED = 105
 	Health = 2
 	health_bar.set_max_health(Health)
 # warning-ignore:return_value_discarded
 	SignalMaster.connect("overlapped", self, "_on_feet_overlapped")
+
+
+func set_target(body):
+	Target = body
 
 
 func _process(_delta):
@@ -39,6 +46,7 @@ func _physics_process(_delta):
 	if Target:
 		velocity = global_position.direction_to(Target.global_position) * RUN_SPEED
 	velocity = move_and_slide(velocity, Vector2.ZERO)
+
 
 func glue(amount, time):
 	if !glued:
@@ -92,7 +100,7 @@ func _on_feet_overlapped(area, rect):
 
 
 func _on_DetectRadius_body_entered(body):
-	if body.has_method("shoot"):
+	if body.has_method("shoot") and room.started:
 		Target = body
 
 

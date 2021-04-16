@@ -4,6 +4,8 @@ var teleport_to
 var cooldown = 0
 var linked_portal
 
+onready var sound = $sound
+
 func _ready():
 	pass 
 
@@ -28,7 +30,8 @@ func doubleLinkPortals(portal):
 
 
 func _on_Teleporter_body_entered(body):
-	if teleport_to and cooldown <=0:
-		body.global_position = teleport_to
-		cooldown = 3
-		linked_portal.cooldown = 10
+	if teleportTo and cooldown <=0:
+		sound.play()
+		body.global_position = teleportTo
+		cooldown = 1
+		linkedPortal.cooldown = 1

@@ -1,8 +1,9 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://assets/tiles/portal.png" type="Texture" id=1]
 [ext_resource path="res://src/tiles/Structures/Teleporter.gd" type="Script" id=2]
 [ext_resource path="res://assets/0x72_DungeonTilesetII_v1.3.png" type="Texture" id=3]
+[ext_resource path="res://assets/Audio/Teleport.wav" type="AudioStream" id=4]
 
 [sub_resource type="ConvexPolygonShape2D" id=1]
 points = PoolVector2Array( 0, 0, 32, 0, 32, 0, 0, 0 )
@@ -260,4 +261,7 @@ tile_data = PoolIntArray( -65537, 2, 0, -131072, 3, 0 )
 [node name="InteractionBox" type="CollisionShape2D" parent="."]
 position = Vector2( 0, 24 )
 shape = SubResource( 9 )
+
+[node name="sound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 4 )
 [connection signal="body_entered" from="." to="." method="_on_Teleporter_body_entered"]

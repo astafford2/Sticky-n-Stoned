@@ -26,8 +26,11 @@ func setEnemyTargets():
 
 
 func _process(_delta):
-	if !objective_complete:
+	if !objectiveComplete and started:
 		objectiveHandler()
+	
+	if Input.is_action_just_pressed("cheat_infinite_health"):
+		get_parent().get_parent().get_node("Player").health = 999999999999999999
 
 
 func objectiveHandler():

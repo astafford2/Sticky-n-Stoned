@@ -98,7 +98,7 @@ func Use():
 	projectile = true
 	player.remove_child(self)
 	player.get_parent().add_child(self)
-	position = player.get_position()
+	global_position = player.global_position
 	rotation = 0
 	anim_player.play("arcThrow")
 	AOE_splash.frame = 0

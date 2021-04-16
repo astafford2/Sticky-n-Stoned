@@ -11,8 +11,9 @@ onready var multi3Room := load("res://src/Rooms/Level 1/Multi-RoomVariation.tscn
 onready var multi4Room := load("res://src/Rooms/Level 1/Multi-Room.tscn")
 onready var SideRoom := load("res://src/Rooms/Level 1/SideSmallRoom.tscn")
 onready var SpawnRoom := load("res://src/Rooms/Level 1/SpawnRoom.tscn")
+onready var BossGauntStart := load("res://src/Rooms/Level 1/BossGauntStart.tscn")
 #Room Groupings
-onready var TwoDoors = [MonsterRoom, multi1Room, multi3Room, multi2Room]
+onready var TwoDoors = [multi1Room, multi3Room, multi2Room, multi4Room]
 
 
 var ManualPaths = AStar.new()
@@ -33,7 +34,8 @@ func _ready():
 	randomize()
 	var fan1 = generateFanRooms(SpawnRoom)
 	var fan2 = generateFanRooms(SpawnRoom)
-	var BossSegment = generateBossRooms(SpawnRoom, 3, 0)
+
+	var BossSegment = generateBossRooms(BossGauntStart, 3, 0)
 	moveAllSegments([fan1, fan2, BossSegment])
 	FanPathUpdates(fan1)
 	FanPathUpdates(fan2)
@@ -287,8 +289,11 @@ func generateFanRooms(Hub, size = 5, totalAngle = -180, startAngle = 0):
 func getNewBossInfo(size):
 	var specs = []
 	for i in range (size):
-		if i == size-1:
+		if i == size-2:
 			specs.append(BossRoom)
+			continue
+		if i == size-1:
+			specs.append(DescentRoom)
 			continue
 		TwoDoors.shuffle()
 		specs.append(TwoDoors[0])

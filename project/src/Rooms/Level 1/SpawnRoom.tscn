@@ -77,7 +77,7 @@ navpoly = SubResource( 3 )
 [node name="Teleporters" type="Node2D" parent="."]
 
 [node name="Teleporter" parent="Teleporters" instance=ExtResource( 5 )]
-position = Vector2( -256, -224 )
+position = Vector2( -64, -224 )
 
 [node name="Teleporter2" parent="Teleporters" instance=ExtResource( 5 )]
 position = Vector2( 64, -224 )
@@ -86,4 +86,4 @@ position = Vector2( 64, -224 )
 position = Vector2( 256, -224 )
 
 [node name="Teleporter4" parent="Teleporters" instance=ExtResource( 5 )]
-position = Vector2( -64, -224 )
+position = Vector2( -256, -224 )

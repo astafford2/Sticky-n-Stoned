@@ -6,10 +6,6 @@
 [ext_resource path="res://assets/characters/TackShooter/enemy4DirectionalTurret.png" type="Texture" id=4]
 [ext_resource path="res://assets/Audio/TackShot.wav" type="AudioStream" id=5]
 
-[sub_resource type="AtlasTexture" id=1]
-atlas = ExtResource( 4 )
-region = Rect2( 300, 0, 60, 55 )
-
 [sub_resource type="AtlasTexture" id=2]
 atlas = ExtResource( 4 )
 region = Rect2( 360, 0, 60, 55 )
@@ -66,9 +62,13 @@ region = Rect2( 180, 0, 60, 55 )
 atlas = ExtResource( 4 )
 region = Rect2( 240, 0, 60, 55 )
 
+[sub_resource type="AtlasTexture" id=1]
+atlas = ExtResource( 4 )
+region = Rect2( 300, 0, 60, 55 )
+
 [sub_resource type="SpriteFrames" id=16]
 animations = [ {
-"frames": [ SubResource( 1 ), SubResource( 2 ), SubResource( 3 ), SubResource( 4 ), SubResource( 5 ), SubResource( 6 ), SubResource( 7 ), SubResource( 8 ), SubResource( 9 ), SubResource( 10 ), SubResource( 11 ), SubResource( 12 ), SubResource( 13 ), SubResource( 14 ), SubResource( 15 ) ],
+"frames": [ SubResource( 2 ), SubResource( 3 ), SubResource( 4 ), SubResource( 5 ), SubResource( 6 ), SubResource( 7 ), SubResource( 8 ), SubResource( 9 ), SubResource( 10 ), SubResource( 11 ), SubResource( 12 ), SubResource( 13 ), SubResource( 14 ), SubResource( 15 ), SubResource( 1 ) ],
 "loop": true,
 "name": "default",
 "speed": 15.0
@@ -91,8 +91,6 @@ texture = ExtResource( 3 )
 [node name="TSSprite" type="AnimatedSprite" parent="."]
 scale = Vector2( 2, 2 )
 frames = SubResource( 16 )
-frame = 6
-playing = true
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
 polygon = PoolVector2Array( -5.72759, -21.9752, 0.160652, -34.6917, 6.74499, -21.9752, 11.8677, -7.94355, 27.2357, -2.93225, 42.7639, 2.43143, 27.347, 6.86763, 10.754, 13.3266, 7.07907, 23.3493, 0.514206, 37.7868, -5.61623, 23.2379, -9.51391, 12.9926, -25.7728, 6.75627, -40.8516, 1.54755, -25.9955, -2.59816, -10.5162, -7.8322 )
