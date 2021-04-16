@@ -124,4 +124,5 @@ position = Vector2( 334.946, 378.674 )
 shape = SubResource( 3 )
 
 [node name="NavigationPolygonInstance" type="NavigationPolygonInstance" parent="."]
+visible = false
 navpoly = SubResource( 4 )

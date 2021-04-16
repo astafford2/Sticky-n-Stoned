@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=31 format=2]
 
 [ext_resource path="res://src/tiles/Floor.tres" type="TileSet" id=1]
 [ext_resource path="res://src/tiles/Walls.tres" type="TileSet" id=2]
@@ -11,6 +11,22 @@
 [ext_resource path="res://src/projectiles/Environmental/SharpRock.tscn" type="PackedScene" id=9]
 [ext_resource path="res://src/projectiles/Environmental/Rock.tscn" type="PackedScene" id=10]
 [ext_resource path="res://src/projectiles/Environmental/ReversedChair.tscn" type="PackedScene" id=11]
+[ext_resource path="res://assets/Props + Decor/painting1.png" type="Texture" id=12]
+[ext_resource path="res://assets/Props + Decor/map.png" type="Texture" id=13]
+[ext_resource path="res://assets/Props + Decor/painting2.png" type="Texture" id=14]
+[ext_resource path="res://assets/Props + Decor/tableWithFood.png" type="Texture" id=15]
+[ext_resource path="res://assets/Props + Decor/skullSmall.png" type="Texture" id=16]
+[ext_resource path="res://assets/Props + Decor/table.png" type="Texture" id=17]
+[ext_resource path="res://assets/Props + Decor/barrel.png" type="Texture" id=18]
+[ext_resource path="res://assets/Props + Decor/crate.png" type="Texture" id=19]
+[ext_resource path="res://assets/Props + Decor/rug.png" type="Texture" id=20]
+[ext_resource path="res://assets/Props + Decor/shamanTable.png" type="Texture" id=21]
+[ext_resource path="res://assets/Props + Decor/skullMedium.png" type="Texture" id=22]
+[ext_resource path="res://assets/Props + Decor/vase.png" type="Texture" id=23]
+[ext_resource path="res://assets/Props + Decor/painting3.png" type="Texture" id=24]
+[ext_resource path="res://assets/Props + Decor/slimeGoop.png" type="Texture" id=25]
+[ext_resource path="res://assets/Props + Decor/brokenSword.png" type="Texture" id=26]
+[ext_resource path="res://assets/Props + Decor/skullLarge.png" type="Texture" id=27]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 303.935, 131.197 )
@@ -66,7 +82,7 @@ position = Vector2( -384.033, 192.036 )
 [node name="Enemies" type="Node2D" parent="."]
 
 [node name="DemonShaman" parent="Enemies" instance=ExtResource( 8 )]
-position = Vector2( 562.157, 532.757 )
+position = Vector2( 560.389, 465.294 )
 
 [node name="GreenSlime" parent="Enemies" instance=ExtResource( 7 )]
 position = Vector2( 368.832, 173.725 )
@@ -83,10 +99,14 @@ position = Vector2( 750.137, 432.086 )
 [node name="Decorations" type="Node2D" parent="."]
 
 [node name="Chair" parent="Decorations" instance=ExtResource( 6 )]
-position = Vector2( 484.161, 592.829 )
+position = Vector2( 659.067, 589.465 )
+
+[node name="table" type="Sprite" parent="Decorations/Chair"]
+position = Vector2( -202.116, -4.04028 )
+texture = ExtResource( 17 )
 
 [node name="Chair2" parent="Decorations" instance=ExtResource( 11 )]
-position = Vector2( 612.857, 592.544 )
+position = Vector2( 730.582, 589.18 )
 
 [node name="Rock" parent="Decorations" instance=ExtResource( 10 )]
 position = Vector2( 560.035, 175.129 )
@@ -101,10 +121,130 @@ position = Vector2( 686.255, 302.518 )
 position = Vector2( 750.283, 523.497 )
 
 [node name="SharpRock" parent="Decorations" instance=ExtResource( 9 )]
-position = Vector2( 529.765, 434.743 )
+position = Vector2( 392.412, 501.339 )
 
 [node name="SharpRock2" parent="Decorations" instance=ExtResource( 9 )]
 position = Vector2( 463.334, 563.401 )
+
+[node name="skullLarge" type="Sprite" parent="Decorations"]
+position = Vector2( 467.99, 579.245 )
+texture = ExtResource( 27 )
+
+[node name="skullLarge2" type="Sprite" parent="Decorations"]
+position = Vector2( 526.095, 493.353 )
+texture = ExtResource( 27 )
+
+[node name="skullLarge3" type="Sprite" parent="Decorations"]
+position = Vector2( 593.285, 530.219 )
+texture = ExtResource( 27 )
+
+[node name="skullLarge4" type="Sprite" parent="Decorations"]
+position = Vector2( 524.906, 530.219 )
+texture = ExtResource( 27 )
+
+[node name="skullLarge5" type="Sprite" parent="Decorations"]
+position = Vector2( 590.907, 494.543 )
+texture = ExtResource( 27 )
+
+[node name="skullMedium" type="Sprite" parent="Decorations"]
+position = Vector2( 560.582, 479.677 )
+texture = ExtResource( 22 )
+
+[node name="skullMedium2" type="Sprite" parent="Decorations"]
+position = Vector2( 559.393, 545.084 )
+texture = ExtResource( 22 )
+
+[node name="skullMedium3" type="Sprite" parent="Decorations"]
+position = Vector2( 455.082, 579.245 )
+texture = ExtResource( 22 )
+
+[node name="skullSmall" type="Sprite" parent="Decorations"]
+position = Vector2( 442.735, 579.526 )
+texture = ExtResource( 16 )
+
+[node name="shamanTable" type="Sprite" parent="Decorations"]
+position = Vector2( 374.544, 584.584 )
+texture = ExtResource( 21 )
+
+[node name="shamanTable2" type="Sprite" parent="Decorations"]
+position = Vector2( 414.906, 582.902 )
+texture = ExtResource( 21 )
+
+[node name="tableWithFood" type="Sprite" parent="Decorations"]
+position = Vector2( 707.538, 583.743 )
+texture = ExtResource( 15 )
+
+[node name="rug" type="Sprite" parent="Decorations"]
+position = Vector2( 399.799, 560.707 )
+texture = ExtResource( 20 )
+
+[node name="rug2" type="Sprite" parent="Decorations"]
+position = Vector2( 344.14, 286.989 )
+texture = ExtResource( 20 )
+
+[node name="rug3" type="Sprite" parent="Decorations"]
+position = Vector2( 788.634, 287.55 )
+texture = ExtResource( 20 )
+
+[node name="crate" type="Sprite" parent="Decorations"]
+position = Vector2( 484.844, 586.221 )
+texture = ExtResource( 19 )
+
+[node name="crate2" type="Sprite" parent="Decorations"]
+position = Vector2( 496.813, 586.221 )
+texture = ExtResource( 19 )
+
+[node name="map" type="Sprite" parent="Decorations"]
+position = Vector2( 491.458, 579.291 )
+texture = ExtResource( 13 )
+
+[node name="barrel" type="Sprite" parent="Decorations"]
+position = Vector2( 342.158, 584.961 )
+texture = ExtResource( 18 )
+
+[node name="brokenSword" type="Sprite" parent="Decorations"]
+position = Vector2( 560.832, 306.095 )
+texture = ExtResource( 26 )
+
+[node name="painting1" type="Sprite" parent="Decorations"]
+position = Vector2( 306.686, 178.214 )
+texture = ExtResource( 12 )
+
+[node name="painting2" type="Sprite" parent="Decorations"]
+position = Vector2( 243.659, 241.836 )
+texture = ExtResource( 12 )
+
+[node name="painting3" type="Sprite" parent="Decorations"]
+position = Vector2( 491.608, 114.591 )
+texture = ExtResource( 24 )
+
+[node name="painting4" type="Sprite" parent="Decorations"]
+position = Vector2( 654.53, 112.807 )
+texture = ExtResource( 24 )
+
+[node name="painting5" type="Sprite" parent="Decorations"]
+position = Vector2( 816.262, 177.024 )
+texture = ExtResource( 14 )
+
+[node name="painting6" type="Sprite" parent="Decorations"]
+position = Vector2( 875.722, 244.809 )
+texture = ExtResource( 14 )
+
+[node name="slimeGoop" type="Sprite" parent="Decorations"]
+position = Vector2( 559.675, 511.11 )
+texture = ExtResource( 25 )
+
+[node name="vase" type="Sprite" parent="Decorations"]
+position = Vector2( 779.306, 583.541 )
+texture = ExtResource( 23 )
+
+[node name="vase2" type="Sprite" parent="Decorations"]
+position = Vector2( 340.772, 139.946 )
+texture = ExtResource( 23 )
+
+[node name="vase3" type="Sprite" parent="Decorations"]
+position = Vector2( 781.339, 140.508 )
+texture = ExtResource( 23 )
 
 [node name="PlayerDetection" type="Area2D" parent="."]
 
@@ -121,5 +261,6 @@ position = Vector2( 559, 350 )
 shape = SubResource( 2 )
 
 [node name="NavigationPolygonInstance" type="NavigationPolygonInstance" parent="."]
+visible = false
 position = Vector2( -174, -129 )
 navpoly = SubResource( 3 )

@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=23 format=2]
 
 [ext_resource path="res://src/tiles/Floor.tres" type="TileSet" id=1]
 [ext_resource path="res://src/tiles/Walls.tres" type="TileSet" id=2]
@@ -10,6 +10,15 @@
 [ext_resource path="res://src/characters/Level1/DemonShaman.tscn" type="PackedScene" id=8]
 [ext_resource path="res://src/projectiles/Environmental/Rock.tscn" type="PackedScene" id=9]
 [ext_resource path="res://src/projectiles/Environmental/SharpRock.tscn" type="PackedScene" id=10]
+[ext_resource path="res://assets/Props + Decor/brokenSword.png" type="Texture" id=11]
+[ext_resource path="res://assets/Props + Decor/barrel.png" type="Texture" id=12]
+[ext_resource path="res://assets/Props + Decor/painting1.png" type="Texture" id=13]
+[ext_resource path="res://assets/Props + Decor/painting3.png" type="Texture" id=14]
+[ext_resource path="res://assets/Props + Decor/skullSmall.png" type="Texture" id=15]
+[ext_resource path="res://assets/Props + Decor/painting2.png" type="Texture" id=16]
+[ext_resource path="res://assets/Props + Decor/skullMedium.png" type="Texture" id=17]
+[ext_resource path="res://assets/Props + Decor/rug.png" type="Texture" id=18]
+[ext_resource path="res://assets/Props + Decor/skullLarge.png" type="Texture" id=19]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 352, 305 )
@@ -129,6 +138,114 @@ position = Vector2( 307.655, 174.215 )
 [node name="ChairLeg2" parent="Decorations" instance=ExtResource( 5 )]
 position = Vector2( 685.655, 238.215 )
 
+[node name="barrel" type="Sprite" parent="Decorations"]
+position = Vector2( 143.14, 145.722 )
+texture = ExtResource( 12 )
+
+[node name="barrel2" type="Sprite" parent="Decorations"]
+position = Vector2( 720.443, 461.1 )
+texture = ExtResource( 12 )
+
+[node name="barrel3" type="Sprite" parent="Decorations"]
+position = Vector2( 176.103, 461.991 )
+texture = ExtResource( 12 )
+
+[node name="barrel4" type="Sprite" parent="Decorations"]
+position = Vector2( 748.952, 141.267 )
+texture = ExtResource( 12 )
+
+[node name="brokenSword" type="Sprite" parent="Decorations"]
+position = Vector2( 652.735, 404.083 )
+texture = ExtResource( 11 )
+
+[node name="brokenSword2" type="Sprite" parent="Decorations"]
+position = Vector2( 106.613, 275.793 )
+texture = ExtResource( 11 )
+
+[node name="painting1" type="Sprite" parent="Decorations"]
+position = Vector2( 560.972, -14.6404 )
+texture = ExtResource( 13 )
+
+[node name="painting2" type="Sprite" parent="Decorations"]
+position = Vector2( 752.515, -15.5313 )
+texture = ExtResource( 16 )
+
+[node name="painting3" type="Sprite" parent="Decorations"]
+position = Vector2( 302.611, -12.8586 )
+texture = ExtResource( 14 )
+
+[node name="rug" type="Sprite" parent="Decorations"]
+position = Vector2( 239.357, 285.593 )
+texture = ExtResource( 18 )
+
+[node name="rug2" type="Sprite" parent="Decorations"]
+position = Vector2( 656.298, 286.484 )
+texture = ExtResource( 18 )
+
+[node name="skullLarge" type="Sprite" parent="Decorations"]
+position = Vector2( 112.849, 44.159 )
+texture = ExtResource( 19 )
+
+[node name="skullLarge2" type="Sprite" parent="Decorations"]
+position = Vector2( 780.133, 16.5411 )
+texture = ExtResource( 19 )
+
+[node name="skullLarge3" type="Sprite" parent="Decorations"]
+position = Vector2( 781.915, 468.228 )
+texture = ExtResource( 19 )
+
+[node name="skullLarge4" type="Sprite" parent="Decorations"]
+position = Vector2( 112.849, 587.608 )
+texture = ExtResource( 19 )
+
+[node name="skullMedium" type="Sprite" parent="Decorations"]
+position = Vector2( 334.683, 429.028 )
+texture = ExtResource( 17 )
+
+[node name="skullMedium2" type="Sprite" parent="Decorations"]
+position = Vector2( 588.59, 529.7 )
+texture = ExtResource( 17 )
+
+[node name="skullMedium3" type="Sprite" parent="Decorations"]
+position = Vector2( 270.538, 143.94 )
+texture = ExtResource( 17 )
+
+[node name="skullMedium4" type="Sprite" parent="Decorations"]
+position = Vector2( 624.226, 177.794 )
+texture = ExtResource( 17 )
+
+[node name="skullMedium5" type="Sprite" parent="Decorations"]
+position = Vector2( 209.066, 45.9408 )
+texture = ExtResource( 17 )
+
+[node name="skullMedium6" type="Sprite" parent="Decorations"]
+position = Vector2( 684.807, 429.028 )
+texture = ExtResource( 17 )
+
+[node name="skullSmall" type="Sprite" parent="Decorations"]
+position = Vector2( 332.901, 268.666 )
+texture = ExtResource( 15 )
+
+[node name="skullSmall2" type="Sprite" parent="Decorations"]
+position = Vector2( 524.445, 305.193 )
+texture = ExtResource( 15 )
+
+[node name="skullSmall3" type="Sprite" parent="Decorations"]
+position = Vector2( 436.246, 146.613 )
+texture = ExtResource( 15 )
+
+[node name="skullSmall4" type="Sprite" parent="Decorations"]
+position = Vector2( 433.573, 467.337 )
+texture = ExtResource( 15 )
+
+[node name="skullSmall5" type="Sprite" parent="Decorations"]
+position = Vector2( 274.993, 528.809 )
+texture = ExtResource( 15 )
+
+[node name="skullSmall6" type="Sprite" parent="Decorations"]
+position = Vector2( 691.043, 47.7227 )
+texture = ExtResource( 15 )
+
 [node name="PlayerDetection" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerDetection"]
@@ -144,4 +261,5 @@ position = Vector2( 447, 298 )
 shape = SubResource( 2 )
 
 [node name="NavigationPolygonInstance" type="NavigationPolygonInstance" parent="."]
+visible = false
 navpoly = SubResource( 3 )

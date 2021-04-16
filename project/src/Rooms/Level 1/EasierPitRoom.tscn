@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=21 format=2]
 
 [ext_resource path="res://src/projectiles/Environmental/BigRock.tscn" type="PackedScene" id=1]
 [ext_resource path="res://src/projectiles/Environmental/SharpRock.tscn" type="PackedScene" id=2]
@@ -10,6 +10,13 @@
 [ext_resource path="res://src/tiles/Floor.gd" type="Script" id=8]
 [ext_resource path="res://src/tiles/Floor.tres" type="TileSet" id=9]
 [ext_resource path="res://src/tiles/Walls.tres" type="TileSet" id=10]
+[ext_resource path="res://assets/Props + Decor/map.png" type="Texture" id=11]
+[ext_resource path="res://assets/Props + Decor/barrel.png" type="Texture" id=12]
+[ext_resource path="res://assets/Props + Decor/painting3.png" type="Texture" id=13]
+[ext_resource path="res://assets/Props + Decor/skullSmall.png" type="Texture" id=14]
+[ext_resource path="res://assets/Props + Decor/crate.png" type="Texture" id=15]
+[ext_resource path="res://assets/Props + Decor/vase.png" type="Texture" id=16]
+[ext_resource path="res://assets/Props + Decor/skullLarge.png" type="Texture" id=17]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 400.797, 191.718 )
@@ -113,6 +120,82 @@ position = Vector2( 593.299, 172.692 )
 [node name="BigRock" parent="Decorations" instance=ExtResource( 1 )]
 position = Vector2( 456.629, 244.736 )
 
+[node name="vase" type="Sprite" parent="Decorations"]
+position = Vector2( 76, 79 )
+texture = ExtResource( 16 )
+
+[node name="vase2" type="Sprite" parent="Decorations"]
+position = Vector2( 500, 337 )
+texture = ExtResource( 16 )
+
+[node name="vase3" type="Sprite" parent="Decorations"]
+position = Vector2( 308, 174 )
+texture = ExtResource( 16 )
+
+[node name="vase4" type="Sprite" parent="Decorations"]
+position = Vector2( 848, 431 )
+texture = ExtResource( 16 )
+
+[node name="painting3" type="Sprite" parent="Decorations"]
+position = Vector2( 429, 47 )
+texture = ExtResource( 13 )
+
+[node name="painting4" type="Sprite" parent="Decorations"]
+position = Vector2( 593, 48 )
+texture = ExtResource( 13 )
+
+[node name="painting5" type="Sprite" parent="Decorations"]
+position = Vector2( 208, 45 )
+texture = ExtResource( 13 )
+
+[node name="map" type="Sprite" parent="Decorations"]
+position = Vector2( 497, 47 )
+texture = ExtResource( 11 )
+
+[node name="crate" type="Sprite" parent="Decorations"]
+position = Vector2( 272, 429 )
+texture = ExtResource( 15 )
+
+[node name="crate2" type="Sprite" parent="Decorations"]
+position = Vector2( 657, 113 )
+texture = ExtResource( 15 )
+
+[node name="crate3" type="Sprite" parent="Decorations"]
+position = Vector2( 178, 110 )
+texture = ExtResource( 15 )
+
+[node name="barrel" type="Sprite" parent="Decorations"]
+position = Vector2( 847, 74 )
+texture = ExtResource( 12 )
+
+[node name="barrel2" type="Sprite" parent="Decorations"]
+position = Vector2( 78, 429 )
+texture = ExtResource( 12 )
+
+[node name="skullLarge" type="Sprite" parent="Decorations"]
+position = Vector2( 140, 397 )
+texture = ExtResource( 17 )
+
+[node name="skullLarge2" type="Sprite" parent="Decorations"]
+position = Vector2( 719, 142 )
+texture = ExtResource( 17 )
+
+[node name="skullLarge3" type="Sprite" parent="Decorations"]
+position = Vector2( 169, 176 )
+texture = ExtResource( 17 )
+
+[node name="skullLarge4" type="Sprite" parent="Decorations"]
+position = Vector2( 721, 399 )
+texture = ExtResource( 17 )
+
+[node name="skullSmall" type="Sprite" parent="Decorations"]
+position = Vector2( 460, 114 )
+texture = ExtResource( 14 )
+
+[node name="skullSmall2" type="Sprite" parent="Decorations"]
+position = Vector2( 466, 398 )
+texture = ExtResource( 14 )
+
 [node name="PlayerDetection" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerDetection"]
@@ -128,4 +211,5 @@ position = Vector2( 463.577, 251.432 )
 shape = SubResource( 2 )
 
 [node name="NavigationPolygonInstance" type="NavigationPolygonInstance" parent="."]
+visible = false
 navpoly = SubResource( 3 )
