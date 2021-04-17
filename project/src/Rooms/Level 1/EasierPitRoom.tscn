@@ -123,7 +123,7 @@ shape = SubResource( 1 )
 [node name="Dimensions" type="Area2D" parent="."]
 visible = false
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Dimensions"]
+[node name="Shape" type="CollisionShape2D" parent="Dimensions"]
 position = Vector2( 463.577, 251.432 )
 shape = SubResource( 2 )
 

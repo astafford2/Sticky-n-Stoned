@@ -12,8 +12,13 @@ onready var multi4Room := load("res://src/Rooms/Level 1/Multi-Room.tscn")
 onready var SideRoom := load("res://src/Rooms/Level 1/SideSmallRoom.tscn")
 onready var SpawnRoom := load("res://src/Rooms/Level 1/SpawnRoom.tscn")
 onready var BossGauntStart := load("res://src/Rooms/Level 1/BossGauntStart.tscn")
+
+onready var DemonChambers1 := load("res://src/Rooms/Level 1/DemonChambers.tscn")
+onready var DemonChambers2 := load("res://src/Rooms/Level 1/DemonChambers(AlternateEntrance).tscn")
+onready var EasyPitRoom := load("res://src/Rooms/Level 1/EasierPitRoom.tscn")
+onready var PitRoom := load("res://src/Rooms/Level 1/PitRoom.tscn")
 #Room Groupings
-onready var TwoDoors = [multi1Room, multi3Room, multi2Room, multi4Room]
+onready var TwoDoors = [multi1Room, multi3Room, multi2Room, multi4Room, DemonChambers1, DemonChambers2, EasyPitRoom, PitRoom]
 
 
 var ManualPaths = AStar.new()

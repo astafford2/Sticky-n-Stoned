@@ -3,7 +3,7 @@ extends Door
 export var rightFacing := false
 
 
-func ready():
+func _ready():
 	walls.set_cellv(Vector2(0,1), 10)
 	walls.set_cellv(Vector2(3,1), -1)
 
