@@ -44,10 +44,10 @@ tile_data = PoolIntArray( -131070, 2, 0, -131069, 7, 0, -131068, 7, 0, -131067, 
 [node name="Doors" type="Node2D" parent="."]
 
 [node name="Position2D" type="Position2D" parent="Doors"]
-position = Vector2( 31.9712, 287.977 )
+position = Vector2( 64, 288 )
 
 [node name="Position2D2" type="Position2D" parent="Doors"]
-position = Vector2( 831.999, 288.023 )
+position = Vector2( 800, 288 )
 
 [node name="DoorEntities" type="Node2D" parent="."]
 
@@ -136,7 +136,6 @@ position = Vector2( 685.655, 238.215 )
 [node name="PlayerDetection" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerDetection"]
-visible = false
 position = Vector2( 448, 304 )
 shape = SubResource( 1 )
 
@@ -148,4 +147,5 @@ position = Vector2( 447, 298 )
 shape = SubResource( 2 )
 
 [node name="NavigationPolygonInstance" type="NavigationPolygonInstance" parent="."]
+visible = false
 navpoly = SubResource( 3 )

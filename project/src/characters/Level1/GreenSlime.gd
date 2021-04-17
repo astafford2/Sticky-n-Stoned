@@ -11,6 +11,7 @@ var spatter : Area2D = null
 var foot1 = null
 var feet_area = null
 var managed_pits = []
+var room
 
 onready var gs_sprite := $GSSprite
 onready var glue_landing_fx := $GlueLanding

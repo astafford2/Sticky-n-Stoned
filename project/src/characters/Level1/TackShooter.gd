@@ -20,9 +20,9 @@ func _ready():
 
 
 func _physics_process(delta):
-	if room.objectiveComplete:
+	if room.objective_complete:
 		sprite.stop()
-	if room.started and !room.objectiveComplete:
+	if room.started and !room.objective_complete:
 		if !animStarted:
 			sprite.play()
 			animStarted = true
