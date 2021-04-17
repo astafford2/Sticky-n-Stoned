@@ -1,7 +1,7 @@
 extends Node2D
 
 
-var dungeon_scene := "res://src/Rooms/Level1.tscn"
+var loading_scene := "res://src/Loading.tscn"
 
 
 func _ready():
@@ -9,4 +9,4 @@ func _ready():
 
 
 func _on_Play_pressed():
-	var _ignored = get_tree().change_scene(dungeon_scene)
+	var _ignored = get_tree().change_scene(loading_scene)

@@ -135,4 +135,5 @@ cheat_infinite_health={
 [rendering]
 
 threads/thread_model=2
+environment/default_clear_color=Color( 0.137255, 0.0823529, 0.0823529, 1 )
 environment/default_environment="res://default_env.tres"
