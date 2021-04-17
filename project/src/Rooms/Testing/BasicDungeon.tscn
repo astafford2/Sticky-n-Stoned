@@ -1,4 +1,4 @@
-[gd_scene load_steps=80 format=2]
+[gd_scene load_steps=81 format=2]
 
 [ext_resource path="res://src/tiles/Floor.gd" type="Script" id=1]
 [ext_resource path="res://assets/Props + Decor/torch.png" type="Texture" id=2]
@@ -25,6 +25,7 @@
 [ext_resource path="res://src/tiles/Floor.tres" type="TileSet" id=23]
 [ext_resource path="res://src/characters/Level1/SlimeFlesh.gd" type="Script" id=24]
 [ext_resource path="res://assets/Audio/CombatMusic.ogg" type="AudioStream" id=25]
+[ext_resource path="res://src/characters/Level1/TackShooter.tscn" type="PackedScene" id=26]
 
 [sub_resource type="ConvexPolygonShape2D" id=1]
 points = PoolVector2Array( 0, 0, 32, 0, 32, 32, 0, 32 )
@@ -571,20 +572,16 @@ position = Vector2( 916.344, -385.652 )
 position = Vector2( -195.286, 760.398 )
 
 [node name="BigDemon2" parent="." instance=ExtResource( 7 )]
-position = Vector2( 455.978, 73.2344 )
-scale = Vector2( 0.75, 0.75 )
+position = Vector2( 455.184, 79.584 )
 
 [node name="BigDemon3" parent="." instance=ExtResource( 7 )]
 position = Vector2( -205.179, 132.861 )
-scale = Vector2( 0.75, 0.75 )
 
 [node name="BigDemon4" parent="." instance=ExtResource( 7 )]
 position = Vector2( 60.5443, 770.261 )
-scale = Vector2( 0.75, 0.75 )
 
 [node name="BigDemon6" parent="." instance=ExtResource( 7 )]
 position = Vector2( 1533.79, 23.5451 )
-scale = Vector2( 0.75, 0.75 )
 
 [node name="DemonShaman" parent="." instance=ExtResource( 10 )]
 position = Vector2( 360.537, 323.968 )
@@ -633,13 +630,13 @@ texture = ExtResource( 22 )
 [node name="nonMovingSlime" type="AnimatedSprite" parent="."]
 position = Vector2( 831.934, 692.113 )
 frames = SubResource( 39 )
-frame = 3
+frame = 1
 playing = true
 
 [node name="nonMovingSlime2" type="AnimatedSprite" parent="."]
 position = Vector2( 1024.76, 790.643 )
 frames = SubResource( 39 )
-frame = 3
+frame = 1
 playing = true
 
 [node name="GreenSlime" parent="." instance=ExtResource( 6 )]
@@ -652,7 +649,7 @@ texture = ExtResource( 20 )
 offset = Vector2( 5.21246, -7.22914 )
 
 [node name="Player" parent="." instance=ExtResource( 5 )]
-position = Vector2( 1207.23, 404.466 )
+position = Vector2( 998.201, -460.947 )
 
 [node name="barrel2" type="Sprite" parent="."]
 position = Vector2( 1169.34, 496.676 )
@@ -691,14 +688,13 @@ playing = true
 position = Vector2( 857.936, 587.79 )
 scale = Vector2( 1.35636, 1.22272 )
 frames = SubResource( 54 )
-frame = 4
+frame = 5
 playing = true
 
 [node name="Torch" type="AnimatedSprite" parent="."]
 position = Vector2( 955.517, 589.204 )
 scale = Vector2( 1.35636, 1.22272 )
 frames = SubResource( 54 )
-frame = 5
 playing = true
 
 [node name="SharpRock" parent="." instance=ExtResource( 4 )]
@@ -709,4 +705,6 @@ position = Vector2( 1268.07, 410.358 )
 
 [node name="BigDemon" parent="." instance=ExtResource( 7 )]
 position = Vector2( 311.132, 326.268 )
-scale = Vector2( 0.75, 0.75 )
+
+[node name="TackShooter" parent="." instance=ExtResource( 26 )]
+position = Vector2( 1246.77, -547.682 )

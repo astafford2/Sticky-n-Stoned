@@ -7,8 +7,8 @@ var shaman_runto := Vector2()
 onready var player := $Player
 onready var nav_instance := $NavigationPolygonInstance
 onready var trapdoor := $Trapdoor
-onready var shaman := $DemonShaman
-onready var demon := $BigDemon
+onready var shaman := $Enemies/DemonShaman
+onready var demon := $Enemies/BigDemon
 onready var path := $Line2D
 
 

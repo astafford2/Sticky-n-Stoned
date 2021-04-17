@@ -12,6 +12,7 @@ var attacking := false
 var shaman_to_nav_target := Vector2()
 var shaman_runto := Vector2()
 var navpath := PoolVector2Array()
+var room
 
 onready var ds_sprite := $DSSprite
 onready var muzzle := $Muzzle
@@ -25,14 +26,16 @@ func _ready():
 	RUN_SPEED = 120
 	Health = 4
 	health_bar.set_max_health(Health)
+	room = self.get_parent().get_parent()
 
 
 func _process(_delta):
 	if Health <= 0:
 		kill_enemy()
 	
-	if nav_target:
-		shaman_to_nav_target = Vector2(nav_target.position.x - self.position.x, nav_target.position.y - self.position.y)
+	if nav_target and room.started:
+		var correctTargetPos = nav_target.global_position - room.global_position
+		shaman_to_nav_target = correctTargetPos - position
 		shaman_runto = self.position - shaman_to_nav_target
 		navpath = nav.get_simple_path(self.position, shaman_runto)
 
@@ -73,10 +76,20 @@ func pathfind():
 		distance_to_walk -= distance_to_next_point
 
 
+func set_navPoly(nav_poly):
+	nav.navpoly_add(nav_poly, Transform2D.IDENTITY)
+
+
+func set_target(target):
+	nav_target = target
+	var correctTargetPos = nav_target.global_position - room.global_position
+	navpath = nav.get_simple_path(self.position, correctTargetPos)
+
+
 func set_navigation(nav_poly, target):
 	nav.navpoly_add(nav_poly, Transform2D.IDENTITY)
 	nav_target = target
-	navpath = nav.get_simple_path(self.position, shaman_runto)
+	navpath = nav.get_simple_path(self.global_position, shaman_runto)
 
 
 func attack():
@@ -85,7 +98,7 @@ func attack():
 		var f = fireball.instance()
 		f.init(self)
 		owner.add_child(f)
-		f.transform = muzzle.global_transform
+		f.global_transform = muzzle.global_transform
 		fireball_shot_fx.play()
 		yield(get_tree().create_timer(1.3), "timeout")
 		attacking = false

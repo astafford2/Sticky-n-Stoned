@@ -11,39 +11,12 @@ onready var multi3Room := load("res://src/Rooms/Level 1/Multi-RoomVariation.tscn
 onready var multi4Room := load("res://src/Rooms/Level 1/Multi-Room.tscn")
 onready var SideRoom := load("res://src/Rooms/Level 1/SideSmallRoom.tscn")
 onready var SpawnRoom := load("res://src/Rooms/Level 1/SpawnRoom.tscn")
-
+onready var BossGauntStart := load("res://src/Rooms/Level 1/BossGauntStart.tscn")
+#Room Groupings
+onready var TwoDoors = [multi1Room, multi3Room, multi2Room, multi4Room]
 
 
 var ManualPaths = AStar.new()
-
-onready var roomInfo = {
-	#Room preload : [MinSpawn, MaxSpawn, Probability]
-	#Rooms should be organized in order of centrality 
-	#single door rooms are last while multi door rooms are first
-#	SpawnRoom : [1,1,1],
-#	multiRoom : [1, 4, 1], 
-#	SideSmallRoom : [2, 3, 0.5],
-#	#BossRoom : [1, 1, 1],
-#	DescentRoom : [1, 1, 1],
-#	MonsterRoom : [1, 3, 0.25], #Currently very loud
-#	#LargeRoom : [1, 2, 0.75]
-}
-
-onready var testFan = {
-	BossRoom :[1,4,1],
-	DescentRoom :[1,4,1],
-	LargeRoom :[1,4,1],
-	MonsterRoom :[1,4,1],
-	multi1Room :[1,4,1],
-	multi2Room :[1,4,1],
-	multi3Room :[1,4,1],
-	multi4Room :[1,4,1],
-	SideRoom :[1,4,1],
-	SpawnRoom :[1,4,1]
-}
-
-onready var TwoDoors = [MonsterRoom, multi1Room, multi3Room, multi2Room]
-
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -54,14 +27,15 @@ func _ready():
 		[12,25] : [16, 6],
 		[13, 6] : 19,
 		[25, 6] : 18,
-		[9, 25] : [9,6],
-		[9, 13] : [9,6]
+		[27, 25] : [27,6],
+		[27, 13] : [27,6]
 	}
 	rng.randomize()
 	randomize()
 	var fan1 = generateFanRooms(SpawnRoom)
 	var fan2 = generateFanRooms(SpawnRoom)
-	var BossSegment = generateBossRooms(multi3Room, 3, 0)
+
+	var BossSegment = generateBossRooms(BossGauntStart, 3, 0)
 	moveAllSegments([fan1, fan2, BossSegment])
 	FanPathUpdates(fan1)
 	FanPathUpdates(fan2)
@@ -71,24 +45,70 @@ func _ready():
 	#moveRooms()
 	updateMaxsize()
 	makeHalls(ManualPaths)
-	ManualPaths = get_HubConnections([fan1, fan2, BossSegment])
-	makeHalls(ManualPaths)
+	ManualPaths = connectHubs([fan1, fan2, BossSegment])
 	for room in Rooms.get_children():
 		if room.has_method("setEnemyTargets"):
 			room.setEnemyTargets()
 
 
 #func _draw():
-#	if valids:
-#		for p in valids.get_points():
-#			var pp = valids.get_point_position(p)
-##			draw_line(Vector2(pp.x-1,pp.y-1), Vector2(pp.x+1,pp.y+1), Color(0,1,0), 30, true)
-#			for c in valids.get_point_connections(p):
-#				var cp = valids.get_point_position(c)
+#	if ManualPaths:
+#		for p in ManualPaths.get_points():
+#			var pp = ManualPaths.get_point_position(p)
+#			draw_line(Vector2(pp.x-1,pp.y-1), Vector2(pp.x+1,pp.y+1), Color(0,1,0), 30, true)
+#			for c in ManualPaths.get_point_connections(p):
+#				var cp = ManualPaths.get_point_position(c)
 #				draw_line(Vector2(pp.x,pp.y), Vector2(cp.x, cp.y), Color(1,0,0), 5, true)
 
+
+func connectHubs(segments):
+	var portals := {} #Structured | hubPos : Teleporters
+	var hubPositions = []
+	for segment in segments:
+		var hubPos = segment[0].global_position
+		var hubPos3 = Vector3(hubPos.x, hubPos.y, 0)
+		hubPositions.append(hubPos3)
+		portals[hubPos3] = segment[0].getTeleporters()
+	#Retrieved All Portals
+	var connections = find_hubMST(hubPositions)
+	var established = []
+	for p in connections.get_points():
+		var startPortals = portals[connections.get_point_position(p)]
+		for c in connections.get_point_connections(p):
+			var endPortals = portals[connections.get_point_position(c)]
+			if !established.has([startPortals, endPortals]) and !established.has([endPortals, startPortals]):
+				established.append([startPortals, endPortals])
+				startPortals.pop_front().doubleLinkPortals(endPortals.pop_front())
+	for hub in portals.keys():
+		for leftPortals in portals[hub]:
+			leftPortals.queue_free()
+	return connections
+
+
+func find_hubMST(HubPositions):
+	var Mpath = AStar.new()
+	var positions = HubPositions
+	Mpath.add_point(Mpath.get_available_point_id(), positions.pop_front())
+	
+	while positions:
+		var min_dist = INF
+		var min_p = null
+		var p = null
+		for p1 in Mpath.get_points():
+			p1 = Mpath.get_point_position(p1)
+			for p2 in positions:
+				if p1.distance_to(p2) < min_dist:
+					min_dist = p1.distance_to(p2)
+					min_p = p2
+					p = p1
+		var n = Mpath.get_available_point_id()
+		Mpath.add_point(n, min_p)
+		Mpath.connect_points(Mpath.get_closest_point(p), n)
+		positions.erase(min_p)
+	return Mpath
+
 #Currently very inefficient. Fix later
-func get_HubConnections(segments):
+func oldConnectHubs(segments):
 	var Hubs = []
 	for segment in segments:
 		Hubs.append(segment[0])
@@ -99,9 +119,9 @@ func get_HubConnections(segments):
 			var fixLoc = Floor.map_to_world(Floor.world_to_map(door.global_position))
 			var pointI = calculate_point_index(Floor.world_to_map(door.global_position)) 
 			if ManualPaths.has_point(pointI):
-				print(door.global_position)
 				continue
 			points.append(fixLoc)
+	#At this point, points holds all of the door locations that are known to be available
 	for i in range(0, points.size()):
 		for j in range(i, points.size()):
 			if i==j:
@@ -269,8 +289,11 @@ func generateFanRooms(Hub, size = 5, totalAngle = -180, startAngle = 0):
 func getNewBossInfo(size):
 	var specs = []
 	for i in range (size):
-		if i == size-1:
+		if i == size-2:
 			specs.append(BossRoom)
+			continue
+		if i == size-1:
+			specs.append(DescentRoom)
 			continue
 		TwoDoors.shuffle()
 		specs.append(TwoDoors[0])
