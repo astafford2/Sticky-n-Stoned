@@ -4,8 +4,8 @@ class_name Activateable
 
 var activated = false
 var toggleable = false
-var projectileActivateable = false
-var playerActivateable = false
+var projectile_activateable = false
+var player_activateable = false
 var traps := []
 var sfx : AudioStreamPlayer = null
 
@@ -25,7 +25,7 @@ func _physics_process(_delta):
 
 
 func on_body_entered(body):
-	if body.is_in_group("projectile") and projectileActivateable:
+	if body.is_in_group("projectile") and projectile_activateable:
 		if toggleable and activated:
 			activated = false
 		else:

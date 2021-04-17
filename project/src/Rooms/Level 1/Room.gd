@@ -1,26 +1,26 @@
 extends Node2D
 
 var open = true
-var objectiveComplete = false
+var objective_complete = false
 var started = false
 
-onready var rectShape := $Dimensions/Shape
-onready var Floors := $Floors
-onready var Walls := $Walls
-onready var Doors := $Doors
-onready var DoorEntities := $DoorEntities
-onready var Enemies := $Enemies
-onready var PlayerDetection := $PlayerDetection
+onready var rect_shape := $Dimensions/Shape
+onready var floors := $Floors
+onready var walls := $Walls
+onready var doors := $Doors
+onready var door_entities := $DoorEntities
+onready var enemies := $Enemies
+onready var player_detection := $PlayerDetection
 onready var nav_instance := $NavigationPolygonInstance
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	SignalMaster.connect("doorsOpenOrClose", self, "toggleDoors")
-	PlayerDetection.connect("body_entered", self, "_on_PlayerDetection_body_entered")
+	player_detection.connect("body_entered", self, "_on_PlayerDetection_body_entered")
 
 
 func setEnemyTargets():
-	for enemy in Enemies.get_children():
+	for enemy in enemies.get_children():
 		if enemy.has_method("set_navPoly"):
 			enemy.set_navPoly(nav_instance.navpoly)
 
@@ -34,30 +34,30 @@ func _process(_delta):
 
 
 func objectiveHandler():
-	if Enemies.get_child_count() == 0:
-		objectiveComplete = true
-		SignalMaster.doorsOpenOrClose(DoorEntities)
+	if enemies.get_child_count() == 0:
+		objective_complete = true
+		SignalMaster.doorsOpenOrClose(door_entities)
 
 
 func getRect2():
-	return Rect2(rectShape.global_position - rectShape.shape.extents, rectShape.shape.extents * 2)
+	return Rect2(rect_shape.global_position - rect_shape.shape.extents, rect_shape.shape.extents * 2)
 
 
 func updateFloors():
-	Floors.instanceTiles()
+	floors.instanceTiles()
 
 
 func get_DoorPositions():
-	return Doors.get_children()
+	return doors.get_children()
 
 
 func get_Tiles():
-	return [Floors, Walls]
+	return [floors, walls]
 
 
 func toggleDoors(room):
-	if room == DoorEntities:
-		if open and !objectiveComplete:
+	if room == door_entities:
+		if open and !objective_complete:
 			closeDoors()
 			open = false
 		else:
@@ -65,13 +65,13 @@ func toggleDoors(room):
 
 
 func closeDoors():
-	for door in DoorEntities.get_children():
+	for door in door_entities.get_children():
 		if door.has_method("close"):
 			door.close()
 
 
 func openDoors():
-	for door in DoorEntities.get_children():
+	for door in door_entities.get_children():
 		if door.has_method("open"):
 			door.open()
 
@@ -83,9 +83,9 @@ func getTeleporters():
 
 
 func _on_PlayerDetection_body_entered(body):
-	if body.has_method("shoot") and !objectiveComplete and !started:
-		toggleDoors(DoorEntities)
+	if body.has_method("shoot") and !objective_complete and !started:
+		toggleDoors(door_entities)
 		started = true
-		for enemy in Enemies.get_children():
+		for enemy in enemies.get_children():
 			if enemy.has_method("set_target"):
 				enemy.set_target(body)

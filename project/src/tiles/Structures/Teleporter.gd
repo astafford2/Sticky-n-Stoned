@@ -1,8 +1,8 @@
 extends Area2D
 
-var teleportTo
+var teleport_to
 var cooldown = 0
-var linkedPortal
+var linked_portal
 
 onready var sound = $sound
 
@@ -16,11 +16,11 @@ func _process(delta):
 
 
 func linkToLocation(location:Vector2):
-	teleportTo = location
+	teleport_to = location
 
 
 func linkToPortal(portal):
-	linkedPortal = portal
+	linked_portal = portal
 	linkToLocation(portal.global_position + Vector2(0,50))
 
 

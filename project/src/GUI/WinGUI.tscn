@@ -1,22 +1,22 @@
 [gd_scene load_steps=6 format=2]
 
-[ext_resource path="res://assets/fonts/Sticky Bits.ttf" type="DynamicFontData" id=1]
+[ext_resource path="res://src/GUI/EndingGUI.gd" type="Script" id=1]
 [ext_resource path="res://assets/fonts/pixel-bit-advanced.ttf" type="DynamicFontData" id=2]
-[ext_resource path="res://src/GUI/WinHUD.gd" type="Script" id=3]
+[ext_resource path="res://assets/fonts/Sticky Bits.ttf" type="DynamicFontData" id=3]
 
 [sub_resource type="DynamicFont" id=1]
 size = 70
 outline_size = 1
 outline_color = Color( 0.819608, 0.72549, 0.105882, 1 )
-font_data = ExtResource( 1 )
+font_data = ExtResource( 3 )
 
 [sub_resource type="DynamicFont" id=2]
 font_data = ExtResource( 2 )
 
 [node name="WinHUD" type="MarginContainer"]
-margin_right = 40.0
-margin_bottom = 40.0
-script = ExtResource( 3 )
+margin_right = 310.0
+margin_bottom = 103.0
+script = ExtResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }

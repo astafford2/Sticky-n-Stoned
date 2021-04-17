@@ -1,17 +1,17 @@
 extends Mob
 
 export (PackedScene) var GlueSpatter
-export (PackedScene) var fireball
+export (PackedScene) var Fireball
 
 var glued := false
 var velocity := Vector2()
 var spatter : Area2D = null
-var canShoot := true
+var can_shoot := true
 var flee := false
 var attacking := false
 var shaman_to_nav_target := Vector2()
 var shaman_runto := Vector2()
-var navpath := PoolVector2Array()
+var nav_path := PoolVector2Array()
 var room
 
 onready var ds_sprite := $DSSprite
@@ -37,7 +37,7 @@ func _process(_delta):
 		var correctTargetPos = nav_target.global_position - room.global_position
 		shaman_to_nav_target = correctTargetPos - position
 		shaman_runto = self.position - shaman_to_nav_target
-		navpath = nav.get_simple_path(self.position, shaman_runto)
+		nav_path = nav.get_simple_path(self.position, shaman_runto)
 
 
 func _physics_process(_delta):
@@ -48,7 +48,7 @@ func _physics_process(_delta):
 #			velocity = -(position.direction_to(Target.position) * RUN_SPEED)
 			pathfind()
 		muzzle.look_at(Target.global_position)
-		if canShoot:
+		if can_shoot:
 			ds_sprite.animation = "shoot"
 			attack()
 	else:
@@ -62,16 +62,16 @@ func pathfind():
 	var distance_to_walk = RUN_SPEED
 	
 	# Move enemy along path until run out of movement or path ends
-	while distance_to_walk > 0 and navpath.size() > 0:
-		var distance_to_next_point = position.distance_to(navpath[0])
+	while distance_to_walk > 0 and nav_path.size() > 0:
+		var distance_to_next_point = position.distance_to(nav_path[0])
 		if distance_to_walk <= distance_to_next_point:
 			# Enemy does not have enough movement left to get to next point
 #			position += position.direction_to(path[0]) * distance_to_walk
-			velocity = move_and_slide(position.direction_to(navpath[0])*distance_to_walk, Vector2.ZERO)
+			velocity = move_and_slide(position.direction_to(nav_path[0])*distance_to_walk, Vector2.ZERO)
 		else:
 			# enemy gets to next point
-			velocity = move_and_slide(position.direction_to(navpath[0])*distance_to_walk, Vector2.ZERO)
-			navpath.remove(0)
+			velocity = move_and_slide(position.direction_to(nav_path[0])*distance_to_walk, Vector2.ZERO)
+			nav_path.remove(0)
 		# Update distance to walk
 		distance_to_walk -= distance_to_next_point
 
@@ -83,19 +83,19 @@ func set_navPoly(nav_poly):
 func set_target(target):
 	nav_target = target
 	var correctTargetPos = nav_target.global_position - room.global_position
-	navpath = nav.get_simple_path(self.position, correctTargetPos)
+	nav_path = nav.get_simple_path(self.position, correctTargetPos)
 
 
 func set_navigation(nav_poly, target):
 	nav.navpoly_add(nav_poly, Transform2D.IDENTITY)
 	nav_target = target
-	navpath = nav.get_simple_path(self.global_position, shaman_runto)
+	nav_path = nav.get_simple_path(self.global_position, shaman_runto)
 
 
 func attack():
 	if !attacking:
 		attacking = true
-		var f = fireball.instance()
+		var f = Fireball.instance()
 		f.init(self)
 		owner.add_child(f)
 		f.global_transform = muzzle.global_transform
@@ -142,10 +142,10 @@ func _on_DetectRadius_body_exited(body):
 func _on_FleeRange_body_entered(body):
 	if body.has_method("shoot"):
 		flee = true
-		canShoot = false
+		can_shoot = false
 
 
 func _on_FleeEdge_body_exited(body):
 	if body.has_method("shoot"):
 		flee = false
-		canShoot = true
+		can_shoot = true

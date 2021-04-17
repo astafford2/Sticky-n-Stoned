@@ -1,19 +1,19 @@
 extends Projectile
 
 
-var t := 0.0
-var p0 := Vector2()
-var p1 := Vector2()
-var p2 := Vector2()
+var time_along_arc := 0.0
+var point0 := Vector2()
+var point1 := Vector2()
+var point2 := Vector2()
 var land := false
 
 
-onready var interactionBox := $InteractionBox
-onready var animPlayer := $AnimationPlayer
+onready var interaction_box := $InteractionBox
+onready var anim_player := $AnimationPlayer
 onready var big_rock_fx := $BigRockHitSfx
 onready var AOE := $AOE
-onready var AOEbox := $AOE/AOEbox
-onready var AOESplash := $AOESplash
+onready var AOE_box := $AOE/AOEbox
+onready var AOE_splash := $AOESplash
 
 
 func _ready():
@@ -21,24 +21,24 @@ func _ready():
 	speed = 100
 	self.add_to_group("inventoryItem")
 	self.add_to_group("interactable")
-	hurtBox.set_deferred("disabled", true)
+	hurt_box.set_deferred("disabled", true)
 
 
 func _process(_delta):
-	if t == 1:
+	if time_along_arc == 1:
 		land = true
-		AOESplash.visible = true
-		AOESplash.play("splash")
-		AOEbox.set_deferred("disabled", false)
+		AOE_splash.visible = true
+		AOE_splash.play("splash")
+		AOE_box.set_deferred("disabled", false)
 		if !hit: # if AOE area detects no bodies, hit = false, _on_hit.. is not called
 			hit = true
 			_on_hit_single_call()
 		yield(get_tree().create_timer(0.5),"timeout")
-		AOEbox.set_deferred("disabled", true)
-		AOESplash.visible = false
-		AOESplash.stop()
+		AOE_box.set_deferred("disabled", true)
+		AOE_splash.visible = false
+		AOE_splash.stop()
 		projectile = false
-		t = 0.0
+		time_along_arc = 0.0
 		thrower = null
 		
 
@@ -50,9 +50,9 @@ func _process(_delta):
 func projectileActivity(delta):
 	# updates t to move rock along interpolated curve
 	# clamp t to 1 so rock does not move past level
-	t += delta/2
-	t = clamp(t, 0, 1)
-	position = _quadratic_bezier(p0, p1, p2, t)
+	time_along_arc += delta/2
+	time_along_arc = clamp(time_along_arc, 0, 1)
+	position = _quadratic_bezier(point0, point1, point2, time_along_arc)
 
 
 func _quadratic_bezier(p0: Vector2, p1: Vector2, p2: Vector2, t: float):
@@ -80,37 +80,37 @@ func Interact(body):
 	thrower = body
 	self.get_parent().remove_child(self)
 	body.add_child(self)
-	interactionBox.set_deferred("disabled", true)
+	interaction_box.set_deferred("disabled", true)
 	position =  Vector2(0, 20)
 
 
 func Use():
-	t = 0.0
+	time_along_arc = 0.0
 	var player = self.get_parent()
 	var muzzle_angle = player.muzzle.global_rotation
-	p0 = self.global_position
-	p2 = Vector2(p0.x + (290 * cos(muzzle_angle)), p0.y + (290 * sin(muzzle_angle)))
-	p1 = Vector2(p0.x + (145 * cos(muzzle_angle)), p0.y + (145 * sin(muzzle_angle))) # gets middle of curve at ground level
+	point0 = self.global_position
+	point2 = Vector2(point0.x + (290 * cos(muzzle_angle)), point0.y + (290 * sin(muzzle_angle)))
+	point1 = Vector2(point0.x + (145 * cos(muzzle_angle)), point0.y + (145 * sin(muzzle_angle))) # gets middle of curve at ground level
 	var dist = get_curve_distance(muzzle_angle)
 	# updates middle point with calculated distance for interpolation
-	p1 = Vector2(p1.x + (dist * -abs(cos(muzzle_angle - (PI/2)))), p1.y + (dist * -abs(sin(muzzle_angle - (PI/2)))))
+	point1 = Vector2(point1.x + (dist * -abs(cos(muzzle_angle - (PI/2)))), point1.y + (dist * -abs(sin(muzzle_angle - (PI/2)))))
 	
 	projectile = true
 	player.remove_child(self)
 	player.get_parent().add_child(self)
 	global_position = player.global_position
 	rotation = 0
-	animPlayer.play("arcThrow")
-	AOESplash.frame = 0
+	anim_player.play("arcThrow")
+	AOE_splash.frame = 0
 #	hurtBox.set_deferred("disabled", false)
 	return true #tells the player that the object is no longer in their inventory
 
 
 func _on_hit_single_call():
 	big_rock_fx.play()
-	hurtBox.set_deferred("disabled", true)
+	hurt_box.set_deferred("disabled", true)
 	yield(get_tree().create_timer(0.5), "timeout")
-	interactionBox.set_deferred("disabled", false)
+	interaction_box.set_deferred("disabled", false)
 	hit = false
 	self.add_to_group("interactable")
 

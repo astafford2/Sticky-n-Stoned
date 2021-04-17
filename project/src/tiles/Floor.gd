@@ -11,12 +11,12 @@ func _ready():
 
 
 func instanceTiles():
-	var pitEdges = get_used_cells_by_id(2)
+	var pit_edges = get_used_cells_by_id(2)
 	var pits = get_used_cells_by_id(3)
-	var validFooting = get_used_cells_by_id(0)
-	instanceSceneAt(pitEdges, Pit)
+	var valid_footing = get_used_cells_by_id(0)
+	instanceSceneAt(pit_edges, Pit)
 	instanceSceneAt(pits, Pit)
-	instanceSceneAt(validFooting, PitReturn)
+	instanceSceneAt(valid_footing, PitReturn)
 
 
 func _physics_process(_delta):
@@ -24,9 +24,9 @@ func _physics_process(_delta):
 
 
 func instanceSceneAt(cells: Array, scene):
-	var tilePosition
+	var tile_position
 	for tile in cells:
-		var newScene = scene.instance()
-		tilePosition = map_to_world(tile)
-		newScene.set_position(tilePosition)
-		self.add_child(newScene)
+		var new_scene = scene.instance()
+		tile_position = map_to_world(tile)
+		new_scene.set_position(tile_position)
+		self.add_child(new_scene)
