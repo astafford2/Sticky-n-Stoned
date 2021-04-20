@@ -4,7 +4,6 @@ export (PackedScene) var GlueSpatter
 
 var glued := false
 var velocity := Vector2()
-var spatter : Area2D = null
 var foot1 = null
 var foot2 = null
 var feet_area = null
@@ -124,12 +123,6 @@ func UpdateFooting():
 
 func pitfalled():
 	queue_free()
-
-
-func kill_enemy():
-	call_deferred("queue_free")
-	if spatter:
-		spatter.call_deferred("queue_free")
 
 
 func _on_feet_overlapped(area, rect):

@@ -5,7 +5,6 @@ export (PackedScene) var Fireball
 
 var glued := false
 var velocity := Vector2()
-var spatter : Area2D = null
 var can_shoot := true
 var flee := false
 var attacking := false
@@ -121,12 +120,6 @@ func glue(amount, time):
 func damagedActivity(thrower, damage):
 	Health -= damage
 	Target = thrower
-
-
-func kill_enemy():
-	call_deferred("queue_free")
-	if spatter:
-		spatter.call_deferred("queue_free")
 
 
 func _on_DetectRadius_body_entered(body):

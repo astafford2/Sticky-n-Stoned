@@ -7,7 +7,6 @@ export (Script) var slime_flesh_script
 
 var glued = 5
 var velocity := Vector2()
-var spatter : Area2D = null
 var Foot1 = null
 var feetArea = null
 var managedPits = []
@@ -151,12 +150,6 @@ func glue(amount, time):
 func damagedActivity(thrower, damage):
 	Health -= damage
 	Target = thrower
-
-
-func kill_enemy():
-	call_deferred("queue_free")
-	if spatter:
-		spatter.call_deferred("queue_free")
 
 
 func _on_feet_overlapped(_area, _rect):

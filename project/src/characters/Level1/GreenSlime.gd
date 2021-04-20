@@ -7,7 +7,6 @@ var GlueSpatter = preload("res://src/projectiles/Enemy/GlueSpatter.tscn")
 
 var glued := false
 var velocity := Vector2()
-var spatter : Area2D = null
 var foot1 = null
 var feet_area = null
 var managed_pits = []
@@ -84,12 +83,6 @@ func UpdateFooting():
 
 func pitfalled():
 	queue_free()
-
-
-func kill_enemy():
-	call_deferred("queue_free")
-	if spatter:
-		spatter.call_deferred("queue_free")
 
 
 func _on_feet_overlapped(area, rect):
