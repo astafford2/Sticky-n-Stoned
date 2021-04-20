@@ -6,6 +6,7 @@ signal attacked(thrower, target, damage)
 signal overlapped(body, rect)
 signal enteredValidTile(body, tile)
 signal doorsOpenOrClose(room)
+signal healed(target, amount, healer)
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -25,3 +26,6 @@ func enteredValidTile(body, tile):
 
 func doorsOpenOrClose(room):
 	emit_signal("doorsOpenOrClose", room)
+
+func heal(target, amound, healer):
+	emit_signal("healed", target, amound, healer)
