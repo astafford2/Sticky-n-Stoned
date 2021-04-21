@@ -2,27 +2,23 @@ extends Mob
 
 
 export (PackedScene) var GlueSpatter
-export (PackedScene) var slime_flesh
-export (Script) var slime_flesh_script
+export (PackedScene) var SlimeFlesh
+export (Script) var SlimeFleshScript
 
 var glued = 5
 var velocity := Vector2()
 var spatter : Area2D = null
-var Foot1 = null
-var feetArea = null
-var managedPits = []
 var room
 var activity : FuncRef = funcref(self, "chase")
-var animTime :float= 10
-var totalTime :float = 0
-var rockCount := 0
+var anim_time :float= 10
+var total_time :float = 0
+var rock_count := 0
 var rocks = []
 var rng = RandomNumberGenerator.new()
 
 onready var sprite := $KSSprite
 onready var shape := $KSShape
 #onready var glue_landing_fx := $GlueLanding
-onready var Foot1S := $FallingBox/Foot
 onready var muzzle := $Muzzle
 
 func _ready():
@@ -37,14 +33,14 @@ func _ready():
 
 
 func hit(delta):
-	animTime -= delta
+	anim_time -= delta
 	var tilemap: TileMap = self.get_parent().get_parent().Floors
-	if animTime > 0:
+	if anim_time > 0:
 		sprite.animation = "hit"
 		for n in range(10):
 			rng.randomize()
-			var sf = slime_flesh.instance()
-			sf.set_script(slime_flesh_script)
+			var sf = SlimeFlesh.instance()
+			sf.set_script(SlimeFleshScript)
 			var valid = false
 			while !valid:
 				sf.position = self.position + Vector2(rng.randi_range(-350, 350), rng.randi_range(-350, 350))
@@ -53,15 +49,15 @@ func hit(delta):
 					valid =true
 			room.add_child(sf)
 			Health -= 2
-		animTime = 0
+		anim_time = 0
 	else:
 		activity.set_function("chase")
-		animTime = 10
+		anim_time = 10
 
 
 func jumpStart():
-	animTime = 3
-	totalTime = 3
+	anim_time = 3
+	total_time = 3
 	activity.set_function("jump")
 	sprite.animation = "jump"
 	shape.set_deferred("disabled", true)
@@ -69,8 +65,8 @@ func jumpStart():
 
 
 func jump(delta):
-	animTime -= delta
-	if animTime >0:
+	anim_time -= delta
+	if anim_time >0:
 		if sprite.frame <= 8:
 			sprite.position += Vector2(0, -5)
 			shape.position += Vector2(0, -5)
@@ -90,23 +86,23 @@ func jump(delta):
 			for rock in rocks:
 				rock.Use()
 			rocks.clear()
-			animTime = 0
+			anim_time = 0
 	else:
 		shape.set_deferred("disabled", false)
 		activity.set_function("hit")
-		animTime = 3
+		anim_time = 3
 
 
 func chase(delta):
-	if animTime > 0 and Target:
-		animTime -= delta
+	if anim_time > 0 and Target:
+		anim_time -= delta
 		sprite.animation = "run" if velocity != Vector2.ZERO else "idle"
 		sprite.play()
 		velocity = Vector2.ZERO
 		if Target:
 			velocity = global_position.direction_to(Target.global_position) * RUN_SPEED
 		velocity = move_and_slide(velocity, Vector2.ZERO)
-	elif animTime >0:
+	elif anim_time >0:
 		pass
 	else:
 		jumpStart();
