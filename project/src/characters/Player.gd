@@ -3,6 +3,7 @@ extends KinematicBody2D
 export (PackedScene) var GlueBullet
 export var health := 6
 
+var maxHealth := 6
 var run_speed := 100
 var velocity := Vector2()
 var interactables_in_range = []
@@ -39,6 +40,8 @@ func _ready():
 	SignalMaster.connect("enteredValidTile", self, "UpdateLastTile")
 # warning-ignore:return_value_discarded
 	SignalMaster.connect("attacked", self, "player_hit")
+# warning-ignore:return_value_discarded
+	SignalMaster.connect("healed", self, "player_heal")
 
 
 func _process(_delta):
@@ -163,6 +166,17 @@ func player_hit(_thrower, target, damage):
 		player_sprite.play("hit")
 		hurt_fx.play()
 		health -= damage
+
+
+func player_heal(target, amount, healer):
+	if target==self:
+		if !(health == maxHealth):
+			if health+amount >maxHealth:
+				health = maxHealth
+				healer.pickedUp()
+				return
+			health +=amount
+			healer.pickedUp()
 
 
 func shoot():

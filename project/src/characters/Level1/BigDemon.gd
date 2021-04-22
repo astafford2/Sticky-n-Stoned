@@ -1,12 +1,5 @@
 extends Mob
 
-export (PackedScene) var GlueSpatter
-
-var glued := false
-var velocity := Vector2()
-var spatter : Area2D = null
-var foot1 = null
-var foot2 = null
 var feet_area = null
 var managed_pits = []
 var nav_path := PoolVector2Array()
@@ -17,7 +10,6 @@ onready var glue_landing_fx := $GlueLanding
 onready var foot1S := $FallingBox/Foot1
 onready var foot2S := $FallingBox/Foot2
 onready var nav := $Navigation2D
-onready var nav_target : KinematicBody2D
 
 func _ready():
 	RUN_SPEED = 110
@@ -37,17 +29,15 @@ func _process(_delta):
 		kill_enemy()
 	UpdateFooting()
 	
-	if nav_target and room.started:
-		var correctTargetPos = nav_target.global_position - room.global_position
+	if target and room.started:
+		var correctTargetPos = target.global_position - room.global_position
 		nav_path = nav.get_simple_path(self.position, correctTargetPos)
 
 
 func _physics_process(_delta):
 	velocity = Vector2.ZERO
-	if Target:
-#		velocity = global_position.direction_to(Target.global_position) * RUN_SPEED
+	if target:
 		pathfind()
-#	velocity = move_and_slide(velocity, Vector2.ZERO)
 
 
 func pathfind():
@@ -75,15 +65,15 @@ func set_navPoly(nav_poly):
 
 
 func set_target(target):
-	nav_target = target
-	var correctTargetPos = nav_target.global_position - room.global_position
+	target = target
+	var correctTargetPos = target.global_position - room.global_position
 	nav_path = nav.get_simple_path(self.position, correctTargetPos)
 
 
 func set_navigation(nav_poly, target):
 	nav.navpoly_add(nav_poly, Transform2D.IDENTITY)
-	nav_target = target
-	nav_path = nav.get_simple_path(self.global_position, get_parent().to_local(nav_target.global_position))
+	target = target
+	nav_path = nav.get_simple_path(self.global_position, get_parent().to_local(target.global_position))
 
 
 func glue(amount, time):
@@ -102,34 +92,29 @@ func glue(amount, time):
 
 func damagedActivity(thrower, damage):
 	Health -= damage
-	Target = thrower
+	target = thrower
 
 
 func UpdateFooting():
-	foot1 = Rect2(foot1S.global_position - foot1S.shape.extents, foot1S.shape.extents * 2)
-	foot2 = Rect2(foot2S.global_position - foot2S.shape.extents, foot2S.shape.extents * 2)
-	feet_area = floor(foot1.get_area() + foot2.get_area())
-	var total_area := 0
-	if managed_pits.size() > 0:
-		for pit in managed_pits:
-			var overlap_area := 0
-			for foot in [foot1, foot2]:
-				overlap_area += foot.clip(pit).get_area()
-			if overlap_area == 0:
-					managed_pits.erase(pit)
-			total_area += overlap_area
-	if ceil(total_area) >= feet_area:
-		pitfalled()
+	if managed_pits:
+		var foot1 = Rect2(foot1S.global_position - foot1S.shape.extents, foot1S.shape.extents * 2)
+		var foot2 = Rect2(foot2S.global_position - foot2S.shape.extents, foot2S.shape.extents * 2)
+		feet_area = floor(foot1.get_area() + foot2.get_area())
+		var total_area := 0
+		if managed_pits.size() > 0:
+			for pit in managed_pits:
+				var overlap_area := 0
+				for foot in [foot1, foot2]:
+					overlap_area += foot.clip(pit).get_area()
+				if overlap_area == 0:
+						managed_pits.erase(pit)
+				total_area += overlap_area
+		if ceil(total_area) >= feet_area:
+			pitfalled()
 
 
 func pitfalled():
 	queue_free()
-
-
-func kill_enemy():
-	call_deferred("queue_free")
-	if spatter:
-		spatter.call_deferred("queue_free")
 
 
 func _on_feet_overlapped(area, rect):
@@ -140,9 +125,9 @@ func _on_feet_overlapped(area, rect):
 
 func _on_DetectRadius_body_entered(body):
 	if body.has_method("shoot"):
-		Target = body
+		target = body
 
 
 func _on_DetectRadius_body_exited(body):
 	if body.has_method("shoot"):
-		Target = null
+		target = null

@@ -1,4 +1,4 @@
-[gd_scene load_steps=46 format=2]
+[gd_scene load_steps=44 format=2]
 
 [ext_resource path="res://src/characters/Level1/KingSlime.gd" type="Script" id=1]
 [ext_resource path="res://src/GUI/BossHealthBar.tscn" type="PackedScene" id=2]
@@ -8,7 +8,6 @@
 [ext_resource path="res://assets/Audio/SlimeMunch.wav" type="AudioStream" id=6]
 [ext_resource path="res://assets/characters/KingSlime/Idle+Move-KingSlime.png" type="Texture" id=7]
 [ext_resource path="res://assets/characters/KingSlime/Jump-KingSlime.png" type="Texture" id=8]
-[ext_resource path="res://src/projectiles/Enemy/GlueSpatter.tscn" type="PackedScene" id=9]
 
 [sub_resource type="AtlasTexture" id=1]
 atlas = ExtResource( 7 )
@@ -83,52 +82,52 @@ atlas = ExtResource( 8 )
 region = Rect2( 1300, 0, 100, 87 )
 
 [sub_resource type="AtlasTexture" id=19]
-atlas = ExtResource( 4 )
+atlas = ExtResource( 7 )
 region = Rect2( 0, 0, 100, 87 )
 
 [sub_resource type="AtlasTexture" id=20]
-atlas = ExtResource( 4 )
+atlas = ExtResource( 7 )
 region = Rect2( 100, 0, 100, 87 )
 
 [sub_resource type="AtlasTexture" id=21]
-atlas = ExtResource( 4 )
+atlas = ExtResource( 7 )
 region = Rect2( 200, 0, 100, 87 )
 
 [sub_resource type="AtlasTexture" id=22]
-atlas = ExtResource( 4 )
+atlas = ExtResource( 7 )
 region = Rect2( 300, 0, 100, 87 )
 
 [sub_resource type="AtlasTexture" id=23]
 atlas = ExtResource( 4 )
-region = Rect2( 400, 0, 100, 87 )
+region = Rect2( 0, 0, 100, 87 )
 
 [sub_resource type="AtlasTexture" id=24]
 atlas = ExtResource( 4 )
-region = Rect2( 500, 0, 100, 87 )
+region = Rect2( 100, 0, 100, 87 )
 
 [sub_resource type="AtlasTexture" id=25]
 atlas = ExtResource( 4 )
-region = Rect2( 600, 0, 100, 87 )
+region = Rect2( 200, 0, 100, 87 )
 
 [sub_resource type="AtlasTexture" id=26]
 atlas = ExtResource( 4 )
-region = Rect2( 700, 0, 100, 87 )
+region = Rect2( 300, 0, 100, 87 )
 
 [sub_resource type="AtlasTexture" id=27]
-atlas = ExtResource( 7 )
-region = Rect2( 0, 0, 100, 87 )
+atlas = ExtResource( 4 )
+region = Rect2( 400, 0, 100, 87 )
 
 [sub_resource type="AtlasTexture" id=28]
-atlas = ExtResource( 7 )
-region = Rect2( 100, 0, 100, 87 )
+atlas = ExtResource( 4 )
+region = Rect2( 500, 0, 100, 87 )
 
 [sub_resource type="AtlasTexture" id=29]
-atlas = ExtResource( 7 )
-region = Rect2( 200, 0, 100, 87 )
+atlas = ExtResource( 4 )
+region = Rect2( 600, 0, 100, 87 )
 
 [sub_resource type="AtlasTexture" id=30]
-atlas = ExtResource( 7 )
-region = Rect2( 300, 0, 100, 87 )
+atlas = ExtResource( 4 )
+region = Rect2( 700, 0, 100, 87 )
 
 [sub_resource type="SpriteFrames" id=31]
 animations = [ {
@@ -142,15 +141,15 @@ animations = [ {
 "name": "jump",
 "speed": 13.0
 }, {
-"frames": [ SubResource( 19 ), SubResource( 20 ), SubResource( 21 ), SubResource( 22 ), SubResource( 23 ), SubResource( 24 ), SubResource( 25 ), SubResource( 26 ) ],
-"loop": true,
-"name": "hit",
-"speed": 10.0
-}, {
-"frames": [ SubResource( 27 ), SubResource( 28 ), SubResource( 29 ), SubResource( 30 ) ],
+"frames": [ SubResource( 19 ), SubResource( 20 ), SubResource( 21 ), SubResource( 22 ) ],
 "loop": true,
 "name": "run",
 "speed": 15.0
+}, {
+"frames": [ SubResource( 23 ), SubResource( 24 ), SubResource( 25 ), SubResource( 26 ), SubResource( 27 ), SubResource( 28 ), SubResource( 29 ), SubResource( 30 ) ],
+"loop": true,
+"name": "hit",
+"speed": 10.0
 } ]
 
 [sub_resource type="CapsuleShape2D" id=32]
@@ -159,9 +158,6 @@ height = 17.5575
 
 [sub_resource type="CircleShape2D" id=33]
 radius = 305.385
-
-[sub_resource type="RectangleShape2D" id=34]
-extents = Vector2( 0.596558, 28.4153 )
 
 [sub_resource type="CircleShape2D" id=35]
 radius = 25.4073
@@ -174,7 +170,6 @@ radius = 38.8201
 "glueable",
 ]]
 script = ExtResource( 1 )
-GlueSpatter = ExtResource( 9 )
 
 [node name="Shadow" type="Sprite" parent="."]
 position = Vector2( -0.68656, 18.4441 )
@@ -185,7 +180,7 @@ texture = ExtResource( 5 )
 z_index = 1
 frames = SubResource( 31 )
 animation = "jump"
-frame = 16
+frame = 7
 playing = true
 
 [node name="KSShape" type="CollisionShape2D" parent="."]
@@ -204,15 +199,6 @@ stream = ExtResource( 3 )
 
 [node name="SlimeMunch" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 6 )
-
-[node name="FallingBox" type="Area2D" parent="."]
-visible = false
-position = Vector2( 1.00226, -2.78406 )
-
-[node name="Foot" type="CollisionShape2D" parent="FallingBox"]
-position = Vector2( -0.0303955, 16.1825 )
-rotation = 1.5708
-shape = SubResource( 34 )
 
 [node name="HealthBar" parent="." instance=ExtResource( 2 )]
 

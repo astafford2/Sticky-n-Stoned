@@ -1,13 +1,9 @@
 extends Mob
 
 
-export (PackedScene) var GlueSpatter
-export (PackedScene) var SlimeFlesh
-export (Script) var SlimeFleshScript
+var slime_flesh= preload("res://src/characters/Level1/GreenSlime.tscn")
+var slime_flesh_script= preload("res://src/characters/Level1/SlimeFlesh.gd")
 
-var glued = 5
-var velocity := Vector2()
-var spatter : Area2D = null
 var room
 var activity : FuncRef = funcref(self, "chase")
 var anim_time :float= 10
@@ -22,6 +18,7 @@ onready var shape := $KSShape
 onready var muzzle := $Muzzle
 
 func _ready():
+	glued = 5
 	rng.randomize()
 	room = self.get_parent().get_parent()
 	RUN_SPEED = 130
@@ -94,13 +91,13 @@ func jump(delta):
 
 
 func chase(delta):
-	if anim_time > 0 and Target:
+	if anim_time > 0 and target:
 		anim_time -= delta
 		sprite.animation = "run" if velocity != Vector2.ZERO else "idle"
 		sprite.play()
 		velocity = Vector2.ZERO
-		if Target:
-			velocity = global_position.direction_to(Target.global_position) * RUN_SPEED
+		if target:
+			velocity = global_position.direction_to(target.global_position) * RUN_SPEED
 		velocity = move_and_slide(velocity, Vector2.ZERO)
 	elif anim_time >0:
 		pass
@@ -146,13 +143,7 @@ func glue(amount, time):
 
 func damagedActivity(thrower, damage):
 	Health -= damage
-	Target = thrower
-
-
-func kill_enemy():
-	call_deferred("queue_free")
-	if spatter:
-		spatter.call_deferred("queue_free")
+	target = thrower
 
 
 func _on_feet_overlapped(_area, _rect):
@@ -161,7 +152,7 @@ func _on_feet_overlapped(_area, _rect):
 
 func _on_DetectRadius_body_entered(body):
 	if body.has_method("shoot") and room.started:
-		Target = body
+		target = body
 
 
 func _on_SlurpArea_area_shape_entered(_area_id, area, _area_shape, _self_shape):

@@ -3,11 +3,6 @@ extends Mob
 class_name GreenSlime
 
 
-var GlueSpatter = preload("res://src/projectiles/Enemy/GlueSpatter.tscn")
-
-var glued := false
-var velocity := Vector2()
-var spatter : Area2D = null
 var foot1 = null
 var feet_area = null
 var managed_pits = []
@@ -27,7 +22,7 @@ func _ready():
 
 
 func set_target(body):
-	Target = body
+	target = body
 
 
 func _process(_delta):
@@ -42,8 +37,8 @@ func _process(_delta):
 
 func _physics_process(_delta):
 	velocity = Vector2.ZERO
-	if Target:
-		velocity = global_position.direction_to(Target.global_position) * RUN_SPEED
+	if target:
+		velocity = global_position.direction_to(target.global_position) * RUN_SPEED
 	velocity = move_and_slide(velocity, Vector2.ZERO)
 
 
@@ -63,7 +58,7 @@ func glue(amount, time):
 
 func damagedActivity(thrower, damage):
 	Health -= damage
-	Target = thrower
+	target = thrower
 
 
 func UpdateFooting():
@@ -86,12 +81,6 @@ func pitfalled():
 	queue_free()
 
 
-func kill_enemy():
-	call_deferred("queue_free")
-	if spatter:
-		spatter.call_deferred("queue_free")
-
-
 func _on_feet_overlapped(area, rect):
 	if area == self:
 		if !managed_pits.has(rect):
@@ -100,9 +89,9 @@ func _on_feet_overlapped(area, rect):
 
 func _on_DetectRadius_body_entered(body):
 	if body.has_method("shoot") and room.started:
-		Target = body
+		target = body
 
 
 func _on_DetectRadius_body_exited(body):
 	if body.has_method("shoot"):
-		Target = null
+		target = null

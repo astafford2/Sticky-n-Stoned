@@ -60,7 +60,6 @@ top = false
 [node name="SideDoor2" parent="DoorEntities" instance=ExtResource( 12 )]
 position = Vector2( 2048, 416 )
 top = false
-rightFacing = true
 
 [node name="Enemies" type="Node2D" parent="."]
 position = Vector2( -1184, -224 )
