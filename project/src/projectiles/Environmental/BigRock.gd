@@ -5,7 +5,7 @@ var time_along_arc := 0.0
 var point0 := Vector2()
 var point1 := Vector2()
 var point2 := Vector2()
-var land := false
+var bounds_hit := false
 
 
 onready var interaction_box := $InteractionBox
@@ -27,7 +27,6 @@ func _ready():
 
 func _process(_delta):
 	if time_along_arc == 1:
-		land = true
 		AOE_splash.visible = true
 		AOE_splash.play("splash")
 		AOE_box.set_deferred("disabled", false)
@@ -53,7 +52,10 @@ func projectileActivity(delta):
 	# clamp t to 1 so rock does not move past level
 	time_along_arc += delta/2
 	time_along_arc = clamp(time_along_arc, 0, 1)
-	position = _quadratic_bezier(point0, point1, point2, time_along_arc)
+	if !bounds_hit:
+		position = _quadratic_bezier(point0, point1, point2, time_along_arc)
+	else:
+		pass
 
 
 func _quadratic_bezier(p0: Vector2, p1: Vector2, p2: Vector2, t: float):
@@ -115,6 +117,7 @@ func _on_hit_single_call():
 	interaction_box.set_deferred("disabled", false)
 	set_collision_mask_bit(0, true)
 	hit = false
+	bounds_hit = false
 	self.add_to_group("interactable")
 
 
@@ -123,7 +126,7 @@ func _on_AnimationPlayer_animation_finished(_anim_name):
 	pass
 
 
-func _on_AOE_body_entered(body): # with new shape, will someimes not hit anything with collison (only floor) so won't continue
+func _on_AOE_body_entered(body):
 	if projectile and body != thrower:
 		SignalMaster.attacked(thrower, body, damage)
 #		projectile = false
@@ -133,5 +136,5 @@ func _on_AOE_body_entered(body): # with new shape, will someimes not hit anythin
 
 
 func _on_bounds_hit(area):
-	if area == self:
-		print("Bounds hit")
+	if area == self and projectile:
+		bounds_hit = true
