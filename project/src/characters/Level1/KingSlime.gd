@@ -34,7 +34,7 @@ func _ready():
 
 func hit(delta):
 	anim_time -= delta
-	var tilemap: TileMap = self.get_parent().get_parent().Floors
+	var tilemap: TileMap = self.get_parent().get_parent().floors
 	if anim_time > 0:
 		sprite.animation = "hit"
 		for n in range(10):
