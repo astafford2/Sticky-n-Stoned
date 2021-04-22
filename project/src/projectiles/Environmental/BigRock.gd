@@ -5,6 +5,7 @@ var time_along_arc := 0.0
 var point0 := Vector2()
 var point1 := Vector2()
 var point2 := Vector2()
+var room
 var bounds_hit := false
 
 
@@ -22,7 +23,8 @@ func _ready():
 	self.add_to_group("inventoryItem")
 	self.add_to_group("interactable")
 	hurt_box.set_deferred("disabled", true)
-	get_parent().get_node("BigRockBounds").connect("area_entered", self, "_on_bounds_hit")
+	room = get_parent().get_parent()
+	room.get_node("BigRockBounds").connect("area_entered", self, "_on_bounds_hit")
 
 
 func _process(_delta):
