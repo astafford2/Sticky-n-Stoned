@@ -12,11 +12,11 @@ class MyAStar:
 class_name GenerationBase
 
 var rng = RandomNumberGenerator.new()
-var Tiles := {}
+var tiles := {}
 var obstacles := {}
-var maxsize:float = 0
+var max_size:float = 0
 var valids: AStar
-var doorPoints = []
+var door_points = []
 #var testingAStar
 
 onready var Rooms := $Rooms
@@ -95,7 +95,7 @@ func moveRooms():
 			dist += 10
 	#32 is the maximum size for a single room
 	updateMaxsize()
-	#maxsize = (dist + 32) * 2
+	#max_size = (dist + 32) * 2
 
 #Tries to place a tile of value at location | Checks for mergability and updates location
 func placeOrMerge(location, value):
@@ -226,12 +226,12 @@ func placeWallsAroundFloors(FloorCells):
 #Updates the Obstacles variable (Includes prior made hallways after makeHalls is called)
 func updateObstacles():
 	var new = []
-	for tileset in Tiles.keys():
+	for tileset in tiles.keys():
 			var used = tileset.get_used_cells()
 			for cell in used:
-				var globalPos = Floor.world_to_map(tileset.map_to_world(cell) + Tiles.get(tileset).global_position)
-				obstacles[globalPos] = tileset
-				new.append(globalPos)
+				var global_pos = Floor.world_to_map(tileset.map_to_world(cell) + tiles.get(tileset).global_position)
+				obstacles[global_pos] = tileset
+				new.append(global_pos)
 	for tileset in [Floor, Walls]:
 		var used = tileset.get_used_cells()
 		for cell in used:
@@ -239,7 +239,7 @@ func updateObstacles():
 			new.append(cell)
 	return new
 
-#Updates the maxsize variable to reflect the new room
+#Updates the max_size variable to reflect the new room
 func updateMaxsize():
 	var mostPositive = Vector2(-1000, -1000)
 	var mostNegative = Vector2(INF, INF)
@@ -260,34 +260,34 @@ func updateMaxsize():
 	diff.x = ceil(diff.x) * 4 #fix to make it even
 	diff.y = ceil(diff.y) * 4 #fix to make it even
 	if diff.x > diff.y:
-		maxsize = int(diff.x)
+		max_size = int(diff.x)
 		return
-	maxsize = int(diff.y)
+	max_size = int(diff.y)
 	return
 
 
 func updateValids():
 	updateObstacles()
 	var neighborDoor = []
-	for point in doorPoints:
+	for point in door_points:
 		for cell in getNearby(point, 3):
 			neighborDoor.append(cell)
 	for cell in obstacles:
 		var cellI = calculate_point_index(cell)
 		var nearby = getNearby(cell, 4)
-		if valids.has_point(cellI) and !doorPoints.has(cell) and !neighborDoor.has(cell):
+		if valids.has_point(cellI) and !door_points.has(cell) and !neighborDoor.has(cell):
 			valids.remove_point(cellI)
 		for ncell in nearby:
 			var ncellI = calculate_point_index(ncell)
-			if valids.has_point(ncellI) and !doorPoints.has(ncell) and !neighborDoor.has(ncell):
+			if valids.has_point(ncellI) and !door_points.has(ncell) and !neighborDoor.has(ncell):
 					valids.remove_point(ncellI)
 
-#Does NOT update around MaxSize
+#Does NOT update around max_size
 func createValids(doorPositions):
 	valids = MyAStar.new()
 	var validP := [] #A list of all points in valids
 	updateObstacles()
-	populateValidsWithRange(0,0,maxsize,maxsize, validP)
+	populateValidsWithRange(0,0,max_size,max_size, validP)
 	validP = forceAddDoorwayConnections(doorPositions, validP)
 	connectPoints(validP)
 
@@ -339,19 +339,19 @@ func checkPlacementValid(TilePosition) -> bool:
 
 #Point index formula
 func calculate_point_index(point) -> int:
-	return (maxsize + point.x) + maxsize * (maxsize + point.y) 
+	return (max_size + point.x) + max_size * (max_size + point.y) 
 
 #Returns true if point is outside of valid map
 func is_out_map(point) -> bool:
 	#Assumes in grid location
-	return point.x < -(maxsize / 2) or point.y < -(maxsize / 2) or point.x >= (maxsize/2) or point.y >= (maxsize/2)
+	return point.x < -(max_size / 2) or point.y < -(max_size / 2) or point.x >= (max_size/2) or point.y >= (max_size/2)
 
 #returns an Array of Valid points for pathing
 func populateValidsWithRange(startx, starty, endx, endy, validP):
 	for y2 in range(starty, endy):
-		var y = y2-(maxsize/2)
+		var y = y2-(max_size/2)
 		for x2 in range(startx, endx):
-			var x = x2-(maxsize/2)
+			var x = x2-(max_size/2)
 			var point = Vector2(x, y)
 			if !checkPlacementValid(point):
 				continue
@@ -365,9 +365,9 @@ func gatherDoorPositions(rooms) -> Dictionary:
 	var doorPositions := {}
 	for room in rooms: #Get all door Positions
 		var tiles = room.get_Tiles()
-		#populate the Tiles for later obstacle generation
-		Tiles[tiles[0]] = room
-		Tiles[tiles[1]] = room
+		#populate the tiles[] for later obstacle generation
+		tiles[tiles[0]] = room
+		tiles[tiles[1]] = room
 		var doors = room.get_DoorPositions()
 		for door in doors:
 			doorPositions[Vector3(door.global_position.x, door.global_position.y, 0)] = room
@@ -390,7 +390,7 @@ func forceAddDoorwayConnections(doorPositions, currentValidP) -> Array:
 			var newP_W = Floor.map_to_world(newP)
 			var newP_I = calculate_point_index(newP)
 			validP.append(newP)
-			doorPoints.append(newP)
+			door_points.append(newP)
 			valids.add_point(newP_I, Vector3(newP_W.x, newP_W.y, 0.0))
 			directionVector.x -= direction
 		while directionVector.y != 0:
@@ -401,7 +401,7 @@ func forceAddDoorwayConnections(doorPositions, currentValidP) -> Array:
 			var newP_W = Floor.map_to_world(newP)
 			var newP_I = calculate_point_index(newP)
 			validP.append(newP)
-			doorPoints.append(newP)
+			door_points.append(newP)
 			valids.add_point(newP_I, Vector3(newP_W.x, newP_W.y, 0.0))
 			directionVector.y -= direction
 	return validP
