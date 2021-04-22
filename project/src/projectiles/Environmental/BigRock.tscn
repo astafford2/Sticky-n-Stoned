@@ -69,6 +69,7 @@ tracks/0/keys = {
 }
 
 [node name="BigRock" type="Area2D"]
+collision_layer = 8
 script = ExtResource( 1 )
 
 [node name="Hurtbox" type="CollisionShape2D" parent="."]

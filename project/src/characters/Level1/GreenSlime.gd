@@ -8,15 +8,15 @@ var GlueSpatter = preload("res://src/projectiles/Enemy/GlueSpatter.tscn")
 var glued := false
 var velocity := Vector2()
 var spatter : Area2D = null
-var Foot1 = null
-var feetArea = null
-var managedPits = []
+var foot1 = null
+var feet_area = null
+var managed_pits = []
 var room
 
 onready var gs_sprite := $GSSprite
 onready var glue_landing_fx := $GlueLanding
-onready var Foot1S := $FallingBox/Foot
-onready var DetectRadius := $DetectRadius
+onready var foot1S := $FallingBox/Foot
+onready var detect_radius := $DetectRadius
 
 func _ready():
 	room = self.get_parent().get_parent()

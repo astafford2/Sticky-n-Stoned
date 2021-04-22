@@ -22,6 +22,7 @@ func _ready():
 	self.add_to_group("inventoryItem")
 	self.add_to_group("interactable")
 	hurt_box.set_deferred("disabled", true)
+	get_parent().get_node("BigRockBounds").connect("area_entered", self, "_on_bounds_hit")
 
 
 func _process(_delta):
@@ -102,7 +103,8 @@ func Use():
 	rotation = 0
 	anim_player.play("arcThrow")
 	AOE_splash.frame = 0
-#	hurtBox.set_deferred("disabled", false)
+	set_collision_mask_bit(0, false)
+	hurt_box.set_deferred("disabled", false)
 	return true #tells the player that the object is no longer in their inventory
 
 
@@ -111,6 +113,7 @@ func _on_hit_single_call():
 	hurt_box.set_deferred("disabled", true)
 	yield(get_tree().create_timer(0.5), "timeout")
 	interaction_box.set_deferred("disabled", false)
+	set_collision_mask_bit(0, true)
 	hit = false
 	self.add_to_group("interactable")
 
@@ -127,3 +130,8 @@ func _on_AOE_body_entered(body): # with new shape, will someimes not hit anythin
 		hit = true
 #		thrower = null
 		_on_hit_single_call()
+
+
+func _on_bounds_hit(area):
+	if area == self:
+		print("Bounds hit")

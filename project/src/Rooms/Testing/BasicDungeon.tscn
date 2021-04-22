@@ -1,4 +1,4 @@
-[gd_scene load_steps=83 format=2]
+[gd_scene load_steps=86 format=2]
 
 [ext_resource path="res://src/tiles/Floor.gd" type="Script" id=1]
 [ext_resource path="res://assets/Props + Decor/torch.png" type="Texture" id=2]
@@ -25,7 +25,6 @@
 [ext_resource path="res://src/tiles/Floor.tres" type="TileSet" id=23]
 [ext_resource path="res://src/characters/Level1/SlimeFlesh.gd" type="Script" id=24]
 [ext_resource path="res://assets/Audio/CombatMusic.ogg" type="AudioStream" id=25]
-[ext_resource path="res://src/characters/Level1/TackShooter.tscn" type="PackedScene" id=26]
 [ext_resource path="res://src/tiles/Individual/WinLadder.tscn" type="PackedScene" id=27]
 [ext_resource path="res://src/GUI/PauseMenu.tscn" type="PackedScene" id=28]
 
@@ -504,6 +503,22 @@ animations = [ {
 "speed": 6.5
 } ]
 
+[sub_resource type="SegmentShape2D" id=55]
+a = Vector2( -369.295, 35.0769 )
+b = Vector2( 472.754, 34.3278 )
+
+[sub_resource type="SegmentShape2D" id=56]
+a = Vector2( -369.295, 35.0769 )
+b = Vector2( 333.411, 34.3278 )
+
+[sub_resource type="SegmentShape2D" id=57]
+a = Vector2( 240.516, 34.3278 )
+b = Vector2( 333.411, 34.3278 )
+
+[sub_resource type="SegmentShape2D" id=58]
+a = Vector2( 333.411, -206.151 )
+b = Vector2( 332.662, 104.748 )
+
 [node name="Dungeon" type="Node2D"]
 script = ExtResource( 3 )
 slime = ExtResource( 6 )
@@ -635,7 +650,7 @@ tile_data = PoolIntArray( -1376239, 2, 0, -1376238, 0, 1, -1376237, 0, 1, -13762
 position = Vector2( 1310.18, 284.485 )
 scale = Vector2( 1.40614, 1.40374 )
 frames = SubResource( 34 )
-frame = 4
+frame = 2
 playing = true
 
 [node name="Rock4" parent="." instance=ExtResource( 11 )]
@@ -671,18 +686,15 @@ texture = ExtResource( 22 )
 [node name="nonMovingSlime" type="AnimatedSprite" parent="."]
 position = Vector2( 831.934, 692.113 )
 frames = SubResource( 39 )
-frame = 2
 playing = true
 
 [node name="nonMovingSlime2" type="AnimatedSprite" parent="."]
 position = Vector2( 1024.76, 790.643 )
 frames = SubResource( 39 )
-frame = 2
 playing = true
 
 [node name="GreenSlime" parent="." instance=ExtResource( 6 )]
 position = Vector2( 264.826, 387.24 )
-GlueSpatter = null
 
 [node name="barrel" type="Sprite" parent="."]
 position = Vector2( 1437.61, 309.363 )
@@ -723,21 +735,21 @@ texture = ExtResource( 16 )
 position = Vector2( 926.836, 742.462 )
 scale = Vector2( 1.34483, 1.34483 )
 frames = SubResource( 47 )
-frame = 1
+frame = 4
 playing = true
 
 [node name="Torch2" type="AnimatedSprite" parent="."]
 position = Vector2( 857.936, 587.79 )
 scale = Vector2( 1.35636, 1.22272 )
 frames = SubResource( 54 )
-frame = 2
+frame = 3
 playing = true
 
 [node name="Torch" type="AnimatedSprite" parent="."]
 position = Vector2( 955.517, 589.204 )
 scale = Vector2( 1.35636, 1.22272 )
 frames = SubResource( 54 )
-frame = 3
+frame = 4
 playing = true
 
 [node name="SharpRock" parent="." instance=ExtResource( 4 )]
@@ -750,8 +762,32 @@ position = Vector2( 1268.07, 410.358 )
 position = Vector2( 311.132, 326.268 )
 GlueSpatter = null
 
-[node name="TackShooter" parent="." instance=ExtResource( 26 )]
-pause_mode = 2
-position = Vector2( 1246.77, -547.682 )
-
 [node name="PauseMenu" parent="." instance=ExtResource( 28 )]
+
+[node name="BigRock" parent="." instance=ExtResource( 11 )]
+position = Vector2( 1054.81, -448.743 )
+
+[node name="BigRockBounds" type="Area2D" parent="."]
+position = Vector2( 1054.81, -448.743 )
+collision_layer = 0
+collision_mask = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BigRockBounds"]
+position = Vector2( -129.604, -194.031 )
+shape = SubResource( 55 )
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="BigRockBounds"]
+position = Vector2( -131.851, 120.614 )
+shape = SubResource( 56 )
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="BigRockBounds"]
+position = Vector2( 9.73901, 119.115 )
+shape = SubResource( 57 )
+
+[node name="CollisionShape2D4" type="CollisionShape2D" parent="BigRockBounds"]
+position = Vector2( 8.98987, 47.1967 )
+shape = SubResource( 58 )
+
+[node name="CollisionShape2D5" type="CollisionShape2D" parent="BigRockBounds"]
+position = Vector2( -833.808, 48.695 )
+shape = SubResource( 58 )
