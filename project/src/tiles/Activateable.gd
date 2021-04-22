@@ -5,13 +5,8 @@ class_name Activateable
 var activated = false
 var toggleable = false
 var projectile_activateable = false
-var player_activateable = false
 var traps := []
 var sfx : AudioStreamPlayer = null
-
-
-func _ready():
-	pass 
 
 
 func _physics_process(_delta):
@@ -22,6 +17,13 @@ func _physics_process(_delta):
 		else:
 			for trap in traps:
 				trap.deactivate()
+
+
+func update_traps_from_children():
+	for child in self.get_children():
+		if child.is_in_group("trap"):
+			traps.push_back(child)
+
 
 
 func on_body_entered(body):

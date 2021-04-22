@@ -7,16 +7,12 @@ const mat := preload("res://src/defaultMaterial.tres")
 
 func _ready():
 	projectile_activateable = true
-	player_activateable = true
 	toggleable = true
 	sfx = press_fx
 	self.add_to_group("interactable")
 	self.add_to_group("projectileInteractable")
 	
-	#Temporary code
-	for child in self.get_children():
-		if child.is_in_group("trap"):
-			traps.push_back(child)
+	update_traps_from_children()
 
 func _physics_process(_delta):
 	if activated:

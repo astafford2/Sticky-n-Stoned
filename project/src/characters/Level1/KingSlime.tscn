@@ -1,4 +1,4 @@
-[gd_scene load_steps=48 format=2]
+[gd_scene load_steps=44 format=2]
 
 [ext_resource path="res://src/characters/Level1/KingSlime.gd" type="Script" id=1]
 [ext_resource path="res://src/GUI/HealthBar.tscn" type="PackedScene" id=2]
@@ -8,9 +8,6 @@
 [ext_resource path="res://assets/Audio/SlimeMunch.wav" type="AudioStream" id=6]
 [ext_resource path="res://assets/characters/KingSlime/Idle+Move-KingSlime.png" type="Texture" id=7]
 [ext_resource path="res://assets/characters/KingSlime/Jump-KingSlime.png" type="Texture" id=8]
-[ext_resource path="res://src/projectiles/Enemy/GlueSpatter.tscn" type="PackedScene" id=9]
-[ext_resource path="res://src/characters/Level1/GreenSlime.tscn" type="PackedScene" id=10]
-[ext_resource path="res://src/characters/Level1/SlimeFlesh.gd" type="Script" id=11]
 
 [sub_resource type="AtlasTexture" id=1]
 atlas = ExtResource( 7 )
@@ -162,9 +159,6 @@ height = 17.5575
 [sub_resource type="CircleShape2D" id=33]
 radius = 305.385
 
-[sub_resource type="RectangleShape2D" id=34]
-extents = Vector2( 0.596558, 28.4153 )
-
 [sub_resource type="CircleShape2D" id=35]
 radius = 25.4073
 
@@ -176,9 +170,6 @@ radius = 38.8201
 "glueable",
 ]]
 script = ExtResource( 1 )
-GlueSpatter = ExtResource( 9 )
-slime_flesh = ExtResource( 10 )
-slime_flesh_script = ExtResource( 11 )
 
 [node name="Shadow" type="Sprite" parent="."]
 position = Vector2( -0.68656, 18.4441 )
@@ -208,15 +199,6 @@ stream = ExtResource( 3 )
 
 [node name="SlimeMunch" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 6 )
-
-[node name="FallingBox" type="Area2D" parent="."]
-visible = false
-position = Vector2( 1.00226, -2.78406 )
-
-[node name="Foot" type="CollisionShape2D" parent="FallingBox"]
-position = Vector2( -0.0303955, 16.1825 )
-rotation = 1.5708
-shape = SubResource( 34 )
 
 [node name="HealthBar" parent="." instance=ExtResource( 2 )]
 margin_left = -14.446

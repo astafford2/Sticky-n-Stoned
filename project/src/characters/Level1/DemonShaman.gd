@@ -1,10 +1,7 @@
 extends Mob
 
-export (PackedScene) var GlueSpatter
 export (PackedScene) var Fireball
 
-var glued := false
-var velocity := Vector2()
 var can_shoot := true
 var flee := false
 var attacking := false
@@ -33,20 +30,20 @@ func _process(_delta):
 		kill_enemy()
 	
 	if nav_target and room.started:
-		var correctTargetPos = nav_target.global_position - room.global_position
-		shaman_to_nav_target = correctTargetPos - position
+		var correcttargetPos = nav_target.global_position - room.global_position
+		shaman_to_nav_target = correcttargetPos - position
 		shaman_runto = self.position - shaman_to_nav_target
 		nav_path = nav.get_simple_path(self.position, shaman_runto)
 
 
 func _physics_process(_delta):
 	velocity = Vector2.ZERO
-	if Target:
+	if target:
 		if flee:
 			ds_sprite.animation = "walk"
-#			velocity = -(position.direction_to(Target.position) * RUN_SPEED)
+#			velocity = -(position.direction_to(target.position) * RUN_SPEED)
 			pathfind()
-		muzzle.look_at(Target.global_position)
+		muzzle.look_at(target.global_position)
 		if can_shoot:
 			ds_sprite.animation = "shoot"
 			attack()
@@ -81,8 +78,8 @@ func set_navPoly(nav_poly):
 
 func set_target(target):
 	nav_target = target
-	var correctTargetPos = nav_target.global_position - room.global_position
-	nav_path = nav.get_simple_path(self.position, correctTargetPos)
+	var correcttargetPos = nav_target.global_position - room.global_position
+	nav_path = nav.get_simple_path(self.position, correcttargetPos)
 
 
 func set_navigation(nav_poly, target):
@@ -119,17 +116,17 @@ func glue(amount, time):
 
 func damagedActivity(thrower, damage):
 	Health -= damage
-	Target = thrower
+	target = thrower
 
 
 func _on_DetectRadius_body_entered(body):
 	if body.has_method("shoot"):
-		Target = body
+		target = body
 
 
 func _on_DetectRadius_body_exited(body):
 	if body.has_method("shoot"):
-		Target = null
+		target = null
 
 
 func _on_FleeRange_body_entered(body):

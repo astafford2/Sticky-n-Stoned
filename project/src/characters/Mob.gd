@@ -5,10 +5,12 @@ class_name Mob
 export var Health : int
 
 var RUN_SPEED := 0
-var Glued = false
-var Target : KinematicBody2D = null
+var glued = null
+var velocity := Vector2()
+var target : KinematicBody2D = null
 var spatter : Area2D = null
 var healthPickup = preload("res://src/Pickups/HealthPickup.tscn")
+var GlueSpatter = preload("res://src/projectiles/Enemy/GlueSpatter.tscn")
 
 onready var health_bar := $HealthBar
 
@@ -37,6 +39,7 @@ func kill_enemy():
 	if rng.randi_range(1, 10) == 1:
 		var pickup = healthPickup.instance()
 		self.get_parent().get_parent().add_child(pickup)
+		pickup.global_position = self.global_position
 	call_deferred("queue_free")
 	if spatter:
 		spatter.call_deferred("queue_free")
