@@ -6,7 +6,6 @@ var point0 := Vector2()
 var point1 := Vector2()
 var point2 := Vector2()
 var room
-var bounds_hit := false
 
 
 onready var interaction_box := $InteractionBox
@@ -24,7 +23,6 @@ func _ready():
 	self.add_to_group("interactable")
 	hurt_box.set_deferred("disabled", true)
 	room = get_parent().get_parent()
-	room.get_node("BigRockBounds").connect("area_entered", self, "_on_bounds_hit")
 
 
 func _process(_delta):
@@ -54,10 +52,7 @@ func projectileActivity(delta):
 	# clamp t to 1 so rock does not move past level
 	time_along_arc += delta/2
 	time_along_arc = clamp(time_along_arc, 0, 1)
-	if !bounds_hit:
-		position = _quadratic_bezier(point0, point1, point2, time_along_arc)
-	else:
-		pass
+	position = _quadratic_bezier(point0, point1, point2, time_along_arc)
 
 
 func _quadratic_bezier(p0: Vector2, p1: Vector2, p2: Vector2, t: float):
@@ -119,7 +114,6 @@ func _on_hit_single_call():
 	interaction_box.set_deferred("disabled", false)
 	set_collision_mask_bit(0, true)
 	hit = false
-	bounds_hit = false
 	self.add_to_group("interactable")
 
 
@@ -135,8 +129,3 @@ func _on_AOE_body_entered(body):
 		hit = true
 #		thrower = null
 		_on_hit_single_call()
-
-
-func _on_bounds_hit(area):
-	if area == self and projectile:
-		bounds_hit = true
