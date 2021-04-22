@@ -5,7 +5,6 @@ var time_along_arc := 0.0
 var point0 := Vector2()
 var point1 := Vector2()
 var point2 := Vector2()
-var room
 
 
 onready var interaction_box := $InteractionBox
@@ -22,7 +21,6 @@ func _ready():
 	self.add_to_group("inventoryItem")
 	self.add_to_group("interactable")
 	hurt_box.set_deferred("disabled", true)
-	room = get_parent().get_parent()
 
 
 func _process(_delta):
