@@ -705,7 +705,7 @@ texture = ExtResource( 20 )
 offset = Vector2( 5.21246, -7.22914 )
 
 [node name="Player" parent="." instance=ExtResource( 5 )]
-position = Vector2( 998.201, -460.947 )
+position = Vector2( 1007.15, -452.464 )
 
 [node name="barrel2" type="Sprite" parent="."]
 position = Vector2( 1169.34, 496.676 )
@@ -737,7 +737,6 @@ texture = ExtResource( 16 )
 position = Vector2( 926.836, 742.462 )
 scale = Vector2( 1.34483, 1.34483 )
 frames = SubResource( 47 )
-frame = 1
 playing = true
 
 [node name="Torch2" type="AnimatedSprite" parent="."]
