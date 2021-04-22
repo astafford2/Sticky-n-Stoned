@@ -5,7 +5,7 @@
 [ext_resource path="res://assets/projectiles/ChairPiece.png" type="Texture" id=3]
 
 [sub_resource type="CapsuleShape2D" id=1]
-radius = 135.717
+radius = 56.3175
 height = 17.3068
 
 [node name="ChairPiece" type="Area2D" groups=[
@@ -21,7 +21,6 @@ texture = ExtResource( 3 )
 polygon = PoolVector2Array( 10.8217, 15.4237, -10.5683, 15.4237, -9.33088, 10.6508, -10.5683, 6.05457, -10.7451, 0.0441637, -7.73989, -3.31459, -8.09344, -8.26434, -5.44179, -10.3857, -3.67402, -13.2141, 10.9984, -12.507 )
 
 [node name="InteractionBox" type="CollisionShape2D" parent="."]
-visible = false
 position = Vector2( 0.131706, 0.138206 )
 rotation = 1.5708
 shape = SubResource( 1 )

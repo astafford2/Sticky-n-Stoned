@@ -9,7 +9,7 @@
 [ext_resource path="res://assets/Audio/ChairBreak.wav" type="AudioStream" id=7]
 
 [sub_resource type="CapsuleShape2D" id=1]
-radius = 214.349
+radius = 75.5944
 height = 21.195
 
 [node name="Chair" type="Area2D"]
@@ -30,7 +30,6 @@ rotation = 0.00398286
 polygon = PoolVector2Array( 17.4655, -19.9577, 18.7996, -21.1048, 21.0439, -21.0744, 22.546, -19.5842, 22.6514, -3.00863, 21.1212, -1.66386, 20.9146, 5.77843, 1.96706, 5.98541, 2.0184, -2.1692, 2.04642, -6.27325, 6.78945, -11.5681, 17.1445, -11.57 )
 
 [node name="InteractionBox" type="CollisionShape2D" parent="."]
-visible = false
 position = Vector2( 11.7671, -5.31002 )
 rotation = 1.5708
 shape = SubResource( 1 )

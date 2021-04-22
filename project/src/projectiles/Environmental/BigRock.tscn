@@ -10,8 +10,8 @@ radius = 4.656
 height = 3.94843
 
 [sub_resource type="CapsuleShape2D" id=2]
-radius = 233.524
-height = 7.32165
+radius = 64.0
+height = 0.0
 
 [sub_resource type="CapsuleShape2D" id=3]
 radius = 56.9999
@@ -78,7 +78,6 @@ rotation = 1.5708
 shape = SubResource( 1 )
 
 [node name="InteractionBox" type="CollisionShape2D" parent="."]
-visible = false
 rotation = 1.5708
 shape = SubResource( 2 )
 

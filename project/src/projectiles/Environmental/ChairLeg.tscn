@@ -5,7 +5,7 @@
 [ext_resource path="res://assets/Audio/ChairLegBreak.wav" type="AudioStream" id=3]
 
 [sub_resource type="CapsuleShape2D" id=1]
-radius = 122.958
+radius = 23.464
 height = 22.4979
 
 [node name="ChairLeg" type="Area2D"]
@@ -19,7 +19,6 @@ texture = ExtResource( 2 )
 polygon = PoolVector2Array( -10.1065, -1.55267, 9.75972, -1.55267, 7.34215, 1.81091, -10.0013, 2.12625 )
 
 [node name="InteractionBox" type="CollisionShape2D" parent="."]
-visible = false
 position = Vector2( -0.795273, -0.315693 )
 rotation = 1.5708
 shape = SubResource( 1 )

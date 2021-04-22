@@ -36,8 +36,8 @@ func hit(delta):
 		sprite.animation = "hit"
 		for n in range(10):
 			rng.randomize()
-			var sf = SlimeFlesh.instance()
-			sf.set_script(SlimeFleshScript)
+			var sf = slime_flesh.instance()
+			sf.set_script(slime_flesh_script)
 			var valid = false
 			while !valid:
 				sf.position = self.position + Vector2(rng.randi_range(-350, 350), rng.randi_range(-350, 350))

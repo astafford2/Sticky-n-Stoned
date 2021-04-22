@@ -552,17 +552,9 @@ position = Vector2( 544.139, 253.403 )
 
 [node name="Chair" parent="." instance=ExtResource( 9 )]
 position = Vector2( 163.249, 51.3828 )
-ChairLeg = null
-ChairPiece = null
-Splinters = null
-Nails = null
 
 [node name="Chair2" parent="." instance=ExtResource( 9 )]
 position = Vector2( 1222.34, 309.363 )
-ChairLeg = null
-ChairPiece = null
-Splinters = null
-Nails = null
 
 [node name="Rock" parent="." instance=ExtResource( 12 )]
 position = Vector2( 1167.61, 85.929 )
@@ -572,58 +564,33 @@ position = Vector2( 1164.04, 0.307007 )
 
 [node name="Chair4" parent="." instance=ExtResource( 9 )]
 position = Vector2( 1076.35, -502.832 )
-ChairLeg = null
-ChairPiece = null
-Splinters = null
-Nails = null
 
 [node name="Chair5" parent="." instance=ExtResource( 9 )]
 position = Vector2( 921.384, -505.352 )
-ChairLeg = null
-ChairPiece = null
-Splinters = null
-Nails = null
 
 [node name="Chair6" parent="." instance=ExtResource( 9 )]
 position = Vector2( 1075.09, -393.212 )
-ChairLeg = null
-ChairPiece = null
-Splinters = null
-Nails = null
 
 [node name="Chair7" parent="." instance=ExtResource( 9 )]
 position = Vector2( 916.344, -385.652 )
-ChairLeg = null
-ChairPiece = null
-Splinters = null
-Nails = null
 
 [node name="Chair3" parent="." instance=ExtResource( 9 )]
 position = Vector2( -195.286, 760.398 )
-ChairLeg = null
-ChairPiece = null
-Splinters = null
-Nails = null
 
 [node name="BigDemon2" parent="." instance=ExtResource( 7 )]
 position = Vector2( 455.184, 79.584 )
-GlueSpatter = null
 
 [node name="BigDemon3" parent="." instance=ExtResource( 7 )]
 position = Vector2( -205.179, 132.861 )
-GlueSpatter = null
 
 [node name="BigDemon4" parent="." instance=ExtResource( 7 )]
 position = Vector2( 60.5443, 770.261 )
-GlueSpatter = null
 
 [node name="BigDemon6" parent="." instance=ExtResource( 7 )]
 position = Vector2( 1533.79, 23.5451 )
-GlueSpatter = null
 
 [node name="DemonShaman" parent="." instance=ExtResource( 10 )]
 position = Vector2( 360.537, 323.968 )
-GlueSpatter = null
 
 [node name="Walls" type="TileMap" parent="."]
 tile_set = SubResource( 28 )
@@ -636,7 +603,7 @@ tile_data = PoolIntArray( -1376239, 2, 0, -1376238, 0, 1, -1376237, 0, 1, -13762
 position = Vector2( 1310.18, 284.485 )
 scale = Vector2( 1.40614, 1.40374 )
 frames = SubResource( 34 )
-frame = 4
+frame = 2
 playing = true
 
 [node name="Rock2" parent="." instance=ExtResource( 12 )]
@@ -669,13 +636,13 @@ texture = ExtResource( 22 )
 [node name="nonMovingSlime" type="AnimatedSprite" parent="."]
 position = Vector2( 831.934, 692.113 )
 frames = SubResource( 39 )
-frame = 2
+frame = 3
 playing = true
 
 [node name="nonMovingSlime2" type="AnimatedSprite" parent="."]
 position = Vector2( 1024.76, 790.643 )
 frames = SubResource( 39 )
-frame = 2
+frame = 3
 playing = true
 
 [node name="GreenSlime" parent="." instance=ExtResource( 6 )]
@@ -720,21 +687,21 @@ texture = ExtResource( 16 )
 position = Vector2( 926.836, 742.462 )
 scale = Vector2( 1.34483, 1.34483 )
 frames = SubResource( 47 )
-frame = 2
+frame = 4
 playing = true
 
 [node name="Torch2" type="AnimatedSprite" parent="."]
 position = Vector2( 857.936, 587.79 )
 scale = Vector2( 1.35636, 1.22272 )
 frames = SubResource( 54 )
-frame = 4
+frame = 3
 playing = true
 
 [node name="Torch" type="AnimatedSprite" parent="."]
 position = Vector2( 955.517, 589.204 )
 scale = Vector2( 1.35636, 1.22272 )
 frames = SubResource( 54 )
-frame = 5
+frame = 4
 playing = true
 
 [node name="SharpRock" parent="." instance=ExtResource( 4 )]
@@ -745,7 +712,6 @@ position = Vector2( 1268.07, 410.358 )
 
 [node name="BigDemon" parent="." instance=ExtResource( 7 )]
 position = Vector2( 311.132, 326.268 )
-GlueSpatter = null
 
 [node name="PauseMenu" parent="." instance=ExtResource( 28 )]
 

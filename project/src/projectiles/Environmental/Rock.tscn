@@ -9,7 +9,7 @@ radius = 4.656
 height = 3.94843
 
 [sub_resource type="CapsuleShape2D" id=2]
-radius = 173.792
+radius = 70.6169
 height = 7.32165
 
 [node name="Rock" type="Area2D"]
@@ -25,7 +25,6 @@ position = Vector2( 0.0992126, 1.28976 )
 texture = ExtResource( 2 )
 
 [node name="InteractionBox" type="CollisionShape2D" parent="."]
-visible = false
 rotation = 1.5708
 shape = SubResource( 2 )
 

@@ -1,9 +1,8 @@
-[gd_scene load_steps=39 format=2]
+[gd_scene load_steps=38 format=2]
 
 [ext_resource path="res://assets/Audio/Glue Landing.wav" type="AudioStream" id=1]
 [ext_resource path="res://assets/characters/DemonShaman/DemonShaman-Idle.png" type="Texture" id=2]
 [ext_resource path="res://src/characters/Level1/DemonShaman.gd" type="Script" id=3]
-[ext_resource path="res://src/projectiles/Enemy/GlueSpatter.tscn" type="PackedScene" id=4]
 [ext_resource path="res://src/projectiles/Enemy/Fireball.tscn" type="PackedScene" id=5]
 [ext_resource path="res://assets/characters/DemonShaman/DemonShaman-Walk.png" type="Texture" id=6]
 [ext_resource path="res://assets/characters/DemonShaman/DemonShaman-Shoot.png" type="Texture" id=7]
@@ -139,7 +138,6 @@ radius = 117.262
 "glueable",
 ]]
 script = ExtResource( 3 )
-GlueSpatter = ExtResource( 4 )
 Fireball = ExtResource( 5 )
 
 [node name="Shadow" type="Sprite" parent="."]
@@ -152,6 +150,7 @@ position = Vector2( 4, -27 )
 scale = Vector2( 2, 2 )
 frames = SubResource( 24 )
 animation = "idle"
+frame = 3
 playing = true
 
 [node name="DSShape" type="CollisionShape2D" parent="."]
