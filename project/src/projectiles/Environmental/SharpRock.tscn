@@ -10,7 +10,7 @@ radius = 4.40217
 height = 9.06989
 
 [sub_resource type="CapsuleShape2D" id=2]
-radius = 15.2718
+radius = 220.935
 height = 7.32165
 
 [node name="SharpRock" type="Area2D"]

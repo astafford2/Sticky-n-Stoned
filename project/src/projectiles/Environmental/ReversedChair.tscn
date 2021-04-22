@@ -9,7 +9,7 @@
 [ext_resource path="res://assets/Audio/ChairBreak.wav" type="AudioStream" id=7]
 
 [sub_resource type="CapsuleShape2D" id=1]
-radius = 26.0288
+radius = 214.349
 height = 21.195
 
 [node name="Chair" type="Area2D"]

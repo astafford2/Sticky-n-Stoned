@@ -5,7 +5,6 @@ var time_along_arc := 0.0
 var point0 := Vector2()
 var point1 := Vector2()
 var point2 := Vector2()
-var land := false
 
 
 onready var interaction_box := $InteractionBox
@@ -26,7 +25,6 @@ func _ready():
 
 func _process(_delta):
 	if time_along_arc == 1:
-		land = true
 		AOE_splash.visible = true
 		AOE_splash.play("splash")
 		AOE_box.set_deferred("disabled", false)
@@ -102,7 +100,8 @@ func Use():
 	rotation = 0
 	anim_player.play("arcThrow")
 	AOE_splash.frame = 0
-#	hurtBox.set_deferred("disabled", false)
+	set_collision_mask_bit(0, false)
+	hurt_box.set_deferred("disabled", false)
 	return true #tells the player that the object is no longer in their inventory
 
 
@@ -111,6 +110,7 @@ func _on_hit_single_call():
 	hurt_box.set_deferred("disabled", true)
 	yield(get_tree().create_timer(0.5), "timeout")
 	interaction_box.set_deferred("disabled", false)
+	set_collision_mask_bit(0, true)
 	hit = false
 	self.add_to_group("interactable")
 
@@ -120,7 +120,7 @@ func _on_AnimationPlayer_animation_finished(_anim_name):
 	pass
 
 
-func _on_AOE_body_entered(body): # with new shape, will someimes not hit anything with collison (only floor) so won't continue
+func _on_AOE_body_entered(body):
 	if projectile and body != thrower:
 		SignalMaster.attacked(thrower, body, damage)
 #		projectile = false

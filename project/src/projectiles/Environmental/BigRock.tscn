@@ -10,7 +10,7 @@ radius = 4.656
 height = 3.94843
 
 [sub_resource type="CapsuleShape2D" id=2]
-radius = 15.2718
+radius = 233.524
 height = 7.32165
 
 [sub_resource type="CapsuleShape2D" id=3]
@@ -69,6 +69,7 @@ tracks/0/keys = {
 }
 
 [node name="BigRock" type="Area2D"]
+collision_layer = 8
 script = ExtResource( 1 )
 
 [node name="Hurtbox" type="CollisionShape2D" parent="."]
