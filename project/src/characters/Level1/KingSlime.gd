@@ -16,6 +16,8 @@ onready var sprite := $KSSprite
 onready var shape := $KSShape
 #onready var glue_landing_fx := $GlueLanding
 onready var muzzle := $Muzzle
+onready var grumbles := $Grumbles
+onready var land_sound := $LandingSquish
 
 func _ready():
 	glued = 5
@@ -53,6 +55,7 @@ func hit(delta):
 
 
 func jumpStart():
+	grumbles.play()
 	anim_time = 3
 	total_time = 3
 	activity.set_function("jump")
@@ -84,6 +87,7 @@ func jump(delta):
 				rock.Use()
 			rocks.clear()
 			anim_time = 0
+		land_sound.play()
 	else:
 		shape.set_deferred("disabled", false)
 		activity.set_function("hit")
@@ -152,6 +156,7 @@ func _on_feet_overlapped(_area, _rect):
 
 func _on_DetectRadius_body_entered(body):
 	if body.has_method("shoot") and room.started:
+		grumbles.play()
 		target = body
 
 

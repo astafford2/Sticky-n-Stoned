@@ -11,6 +11,7 @@ var room
 onready var gs_sprite := $GSSprite
 onready var glue_landing_fx := $GlueLanding
 onready var foot1S := $FallingBox/Foot
+onready var slime_sound := $SlimeMunch
 
 func _ready():
 	room = self.get_parent().get_parent()
