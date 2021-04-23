@@ -364,10 +364,10 @@ func populateValidsWithRange(startx, starty, endx, endy, validP):
 func gatherDoorPositions(rooms) -> Dictionary:
 	var doorPositions := {}
 	for room in rooms: #Get all door Positions
-		var tiles = room.get_Tiles()
+		var room_tiles = room.get_Tiles()
 		#populate the tiles[] for later obstacle generation
-		tiles[tiles[0]] = room
-		tiles[tiles[1]] = room
+		tiles[room_tiles[0]] = room
+		tiles[room_tiles[1]] = room
 		var doors = room.get_DoorPositions()
 		for door in doors:
 			doorPositions[Vector3(door.global_position.x, door.global_position.y, 0)] = room

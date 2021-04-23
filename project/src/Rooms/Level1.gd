@@ -17,6 +17,7 @@ onready var TwoDoors = [multi1Room, multi3Room, multi2Room, multi4Room]
 
 
 var ManualPaths = AStar.new()
+var death_scene := "res://src/Dead.tscn"
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -336,3 +337,10 @@ func generateBossRooms(Hub, size = 5, angle= 0):
 		#Generates Path connections between rooms
 		currentTracked.append(roomInstance.getRect2().grow(192))
 	return [HubInstance, roomInstances]
+
+
+
+func player_lose():
+	yield(get_tree().create_timer(1.5), "timeout")
+# warning-ignore:return_value_discarded
+	get_tree().change_scene(death_scene)

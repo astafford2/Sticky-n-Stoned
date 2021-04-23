@@ -189,6 +189,23 @@ tracks/1/keys = {
 "update": 0,
 "values": [ 0.0, 360.0, 720.0 ]
 }
+tracks/2/type = "method"
+tracks/2/path = NodePath(".")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 1.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"values": [ {
+"args": [  ],
+"method": "freeze_player"
+}, {
+"args": [  ],
+"method": "unfreeze_player"
+} ]
+}
 
 [sub_resource type="Animation" id=33]
 length = 1.6
