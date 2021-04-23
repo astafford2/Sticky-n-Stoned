@@ -23,13 +23,6 @@ onready var TwoDoors = [multi1Room, multi3Room, multi2Room, multi4Room, DemonCha
 
 var ManualPaths = AStar.new()
 
-const win_gui = preload("res://src/GUI/WinGUI.tscn")
-const death_gui = preload("res://src/GUI/DeathGUI.tscn")
-
-onready var pause_menu := $PauseMenu
-onready var scene_cam := $Camera2D
-onready var player_cam := $Player/PlayerCam
-
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	wallConversions = {
@@ -82,35 +75,6 @@ func _process(_delta):
 #			for c in ManualPaths.get_point_connections(p):
 #				var cp = ManualPaths.get_point_position(c)
 #				draw_line(Vector2(pp.x,pp.y), Vector2(cp.x, cp.y), Color(1,0,0), 5, true)
-
-
-func unpause():
-	pause_menu.hide()
-	get_tree().paused = false
-
-
-func position_hud(hud):
-	var screen_center = player_cam.get_camera_screen_center()
-	hud.set_position(Vector2(screen_center.x - hud.rect_size.x/2, screen_center.y - hud.rect_size.y/2))
-	return screen_center
-
-
-func player_win():
-	var wg = win_gui.instance()
-	position_hud(wg)
-	wg.pause_mode = Node.PAUSE_MODE_PROCESS
-	get_tree().paused = true
-	get_parent().add_child(wg)
-
-
-func player_lose():
-	var dg = death_gui.instance()
-	var camera_center = position_hud(dg)
-	dg.pause_mode = Node.PAUSE_MODE_PROCESS
-	get_tree().paused = true
-	get_parent().add_child(dg)
-	scene_cam.position = camera_center
-	scene_cam.current = true
 
 
 func connectHubs(segments):
