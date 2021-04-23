@@ -1,4 +1,4 @@
-extends Node2D
+extends LevelBase
 
 class MyAStar:
 	extends AStar

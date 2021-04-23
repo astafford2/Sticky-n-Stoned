@@ -1,5 +1,7 @@
 extends Node2D
 
+class_name LevelBase
+
 
 export (PackedScene) var slime
 export (Script) var script2
