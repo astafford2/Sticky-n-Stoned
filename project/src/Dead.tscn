@@ -1,8 +1,9 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://assets/GUI/redOverlay.png" type="Texture" id=1]
 [ext_resource path="res://assets/GUI/youDeadText.png" type="Texture" id=2]
-[ext_resource path="res://src/TitleScreen.gd" type="Script" id=4]
+[ext_resource path="res://src/Dead.gd" type="Script" id=3]
+[ext_resource path="res://assets/fonts/RETRO GAMING.TTF" type="DynamicFontData" id=4]
 [ext_resource path="res://assets/Audio/S&S Level 1 Mastered.ogg" type="AudioStream" id=14]
 
 [sub_resource type="AtlasTexture" id=1]
@@ -43,8 +44,16 @@ animations = [ {
 "speed": 6.0
 } ]
 
-[node name="TitleScreen" type="Node2D"]
-script = ExtResource( 4 )
+[sub_resource type="DynamicFont" id=8]
+size = 25
+font_data = ExtResource( 4 )
+
+[sub_resource type="DynamicFont" id=9]
+size = 25
+font_data = ExtResource( 4 )
+
+[node name="DeathScene" type="Node2D"]
+script = ExtResource( 3 )
 
 [node name="MenuMusic" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 14 )
@@ -61,3 +70,35 @@ position = Vector2( 527.675, 297.763 )
 frames = SubResource( 7 )
 frame = 3
 playing = true
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = 376.418
+margin_top = 468.574
+margin_right = 659.418
+margin_bottom = 508.574
+custom_constants/separation = 20
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ReplayButton" type="Button" parent="HBoxContainer"]
+margin_right = 117.0
+margin_bottom = 40.0
+custom_fonts/font = SubResource( 8 )
+text = "Replay"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MainMenuButton" type="Button" parent="HBoxContainer"]
+margin_left = 137.0
+margin_right = 299.0
+margin_bottom = 40.0
+custom_fonts/font = SubResource( 9 )
+text = "Main Menu"
+[connection signal="pressed" from="HBoxContainer/ReplayButton" to="." method="_on_ReplayButton_pressed"]
+[connection signal="pressed" from="HBoxContainer/MainMenuButton" to="." method="_on_MainMenuButton_pressed"]
