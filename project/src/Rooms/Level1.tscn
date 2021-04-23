@@ -1,10 +1,11 @@
-[gd_scene load_steps=26 format=2]
+[gd_scene load_steps=27 format=2]
 
 [ext_resource path="res://src/Rooms/Level1.gd" type="Script" id=1]
-[ext_resource path="res://assets/Audio/Level1Music.ogg" type="AudioStream" id=2]
+[ext_resource path="res://assets/Audio/Sticky & Stoned Boss Real Real.ogg" type="AudioStream" id=2]
 [ext_resource path="res://src/GUI/PauseMenu.tscn" type="PackedScene" id=3]
 [ext_resource path="res://src/tiles/Floor.tres" type="TileSet" id=4]
 [ext_resource path="res://assets/0x72_DungeonTilesetII_v1.3.png" type="Texture" id=5]
+[ext_resource path="res://assets/Audio/Sticky & Stoned Level Real Real.ogg" type="AudioStream" id=6]
 [ext_resource path="res://src/characters/Player.tscn" type="PackedScene" id=11]
 
 [sub_resource type="ConvexPolygonShape2D" id=1]
@@ -469,7 +470,10 @@ format = 1
 [node name="PauseMenu" parent="." instance=ExtResource( 3 )]
 
 [node name="BackgroundMusic" type="AudioStreamPlayer" parent="."]
-stream = ExtResource( 2 )
+stream = ExtResource( 6 )
 autoplay = true
+bus = "Music"
 
 [node name="CombatMusic" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 2 )
+bus = "Music"

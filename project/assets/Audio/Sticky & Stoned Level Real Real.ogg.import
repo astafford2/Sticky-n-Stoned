@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/Sticky & Stoned Level Real Real.ogg-b3f4c03c0b9bf4570c33fde0f9b62573.oggstr"
+
+[deps]
+
+source_file="res://assets/Audio/Sticky & Stoned Level Real Real.ogg"
+dest_files=[ "res://.import/Sticky & Stoned Level Real Real.ogg-b3f4c03c0b9bf4570c33fde0f9b62573.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0
