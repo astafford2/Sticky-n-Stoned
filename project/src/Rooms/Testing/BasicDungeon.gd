@@ -5,7 +5,8 @@ export (PackedScene) var slime
 export (Script) var script2
 
 const win_gui = preload("res://src/GUI/WinGUI.tscn")
-const death_gui = preload("res://src/GUI/DeathGUI.tscn")
+
+var death_scene := "res://src/Dead.tscn"
 
 onready var scene_cam := $Camera2D
 onready var player_cam := $Player/PlayerCam
@@ -17,6 +18,8 @@ func _process(_delta):
 		if Input.is_action_just_pressed("kill_enemies"):
 			for enemy in get_tree().get_nodes_in_group("enemies"):
 				enemy.kill_enemy()
+		elif Input.is_action_just_pressed("kill_player"):
+			$Player.kill_player()
 	
 	if Input.is_action_just_pressed("spawn_slime_flesh"):
 		var slime_flesh = slime.instance()
@@ -53,10 +56,6 @@ func player_win():
 
 
 func player_lose():
-	var dg = death_gui.instance()
-	var camera_center = position_hud(dg)
-	dg.pause_mode = Node.PAUSE_MODE_PROCESS
-	get_tree().paused = true
-	get_parent().add_child(dg)
-	scene_cam.position = camera_center
-	scene_cam.current = true
+	yield(get_tree().create_timer(1.5), "timeout")
+# warning-ignore:return_value_discarded
+	get_tree().change_scene(death_scene)

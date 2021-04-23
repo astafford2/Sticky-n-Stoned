@@ -183,7 +183,9 @@ func dodge_roll():
 
 func kill_player():
 	get_parent().player_lose()
-	call_deferred("queue_free")
+	animation_player.play("dead")
+#	yield(get_tree().create_timer(1.5), "timeout")
+#	call_deferred("queue_free")
 
 
 func pitfalled():
