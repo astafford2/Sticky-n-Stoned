@@ -12,6 +12,11 @@ func _ready():
 	pass
 
 
+#func _process(_delta):
+#	if Input.is_action_just_pressed("pause_game"):
+#		get_parent().unpause()
+
+
 func _on_Unpause_pressed():
 	get_parent().unpause()
 

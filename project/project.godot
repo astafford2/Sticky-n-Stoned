@@ -19,7 +19,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://src/tiles/Structures/Door.gd"
 }, {
-"base": "Node2D",
+"base": "LevelBase",
 "class": "GenerationBase",
 "language": "GDScript",
 "path": "res://src/Rooms/GenerationBase.gd"
@@ -28,6 +28,11 @@ _global_script_classes=[ {
 "class": "GreenSlime",
 "language": "GDScript",
 "path": "res://src/characters/Level1/GreenSlime.gd"
+}, {
+"base": "Node2D",
+"class": "LevelBase",
+"language": "GDScript",
+"path": "res://src/Rooms/LevelBase.gd"
 }, {
 "base": "KinematicBody2D",
 "class": "Mob",
@@ -49,6 +54,7 @@ _global_script_class_icons={
 "Door": "",
 "GenerationBase": "",
 "GreenSlime": "",
+"LevelBase": "",
 "Mob": "",
 "Projectile": "",
 "Traps": ""
