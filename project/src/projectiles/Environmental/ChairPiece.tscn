@@ -30,4 +30,5 @@ shape = SubResource( 1 )
 stream = ExtResource( 2 )
 max_distance = 750.0
 attenuation = 1.32
+bus = "Sound"
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]

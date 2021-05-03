@@ -270,7 +270,7 @@ position = Vector2( -0.35667, 1.11238 )
 scale = Vector2( 2.3, 2.3 )
 frames = SubResource( 29 )
 animation = "falling"
-frame = 4
+frame = 2
 playing = true
 
 [node name="PlayerShape" type="CollisionShape2D" parent="."]
@@ -295,18 +295,23 @@ editor_draw_drag_margin = true
 [node name="GlueLaunch" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 12 )
 volume_db = 0.07
+bus = "Sound"
 
 [node name="ThrowSfx" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 7 )
+bus = "Sound"
 
 [node name="HurtSound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 14 )
+bus = "Sound"
 
 [node name="DodgeRollSfx" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 8 )
+bus = "Sound"
 
 [node name="PitfallSfx" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 16 )
+bus = "Sound"
 
 [node name="HealthLayer" type="CanvasLayer" parent="."]
 

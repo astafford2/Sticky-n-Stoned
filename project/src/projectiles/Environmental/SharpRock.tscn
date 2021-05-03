@@ -33,9 +33,11 @@ shape = SubResource( 2 )
 
 [node name="SharpRockThrowSfx" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 4 )
+bus = "Sound"
 
 [node name="SharpRockHitSfx" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource( 3 )
 max_distance = 1000.0
 attenuation = 0.5
+bus = "Sound"
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]

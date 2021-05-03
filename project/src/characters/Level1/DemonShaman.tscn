@@ -152,6 +152,7 @@ position = Vector2( 4, -27 )
 scale = Vector2( 2, 2 )
 frames = SubResource( 24 )
 animation = "idle"
+frame = 2
 playing = true
 
 [node name="DSShape" type="CollisionShape2D" parent="."]
@@ -182,10 +183,12 @@ shape = SubResource( 28 )
 [node name="GlueLanding" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource( 1 )
 max_distance = 1000.0
+bus = "Sound"
 
 [node name="FireballShot" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource( 8 )
 max_distance = 750.0
+bus = "Sound"
 
 [node name="Muzzle" type="Position2D" parent="."]
 position = Vector2( 19.1509, -37.6819 )

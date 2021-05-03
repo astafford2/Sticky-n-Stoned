@@ -77,7 +77,6 @@ texture = ExtResource( 5 )
 position = Vector2( 0.264866, -9.40273 )
 frames = SubResource( 9 )
 animation = "idle"
-frame = 1
 playing = true
 
 [node name="GSShape" type="CollisionShape2D" parent="."]
@@ -93,9 +92,11 @@ shape = SubResource( 11 )
 
 [node name="GlueLanding" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource( 3 )
+bus = "Sound"
 
 [node name="SlimeMunch" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 6 )
+bus = "Sound"
 
 [node name="FallingBox" type="Area2D" parent="."]
 position = Vector2( 1.00226, -2.78406 )

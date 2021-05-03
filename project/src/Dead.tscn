@@ -48,6 +48,7 @@ animations = [ {
 stream = ExtResource( 14 )
 volume_db = -14.049
 autoplay = true
+bus = "Music"
 
 [node name="redOverlay" type="Sprite" parent="."]
 position = Vector2( 512.509, 302.05 )

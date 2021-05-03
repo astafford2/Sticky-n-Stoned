@@ -37,4 +37,5 @@ shape = SubResource( 1 )
 
 [node name="ChairBreak" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 7 )
+bus = "Sound"
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
